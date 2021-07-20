@@ -6,6 +6,12 @@ describe("<MainNavigation /> tests", () => {
   it("renders the <MainNavigation/> component", () => {
     render(<MainNavigation />);
 
-    expect(screen.getByTextLabel("menu")).toBeInTheDocument();
+    expect(screen.getByTestId("navigation")).not.toBeNull();
+  });
+
+  it("renders link to 'all movies'", () => {
+    render(<MainNavigation />);
+
+    expect(screen.getByText("All Movies")).not.toBeNull();
   });
 });

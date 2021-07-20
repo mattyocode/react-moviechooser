@@ -1,5 +1,12 @@
 import React from "react";
 
+import MainNavigation from "./components/layout/MainNavigation";
+
 export default function App() {
-  return <p>Hello!</p>;
+  return (
+    <>
+      <MainNavigation />
+      <p>Page Content</p>
+    </>
+  );
 }
