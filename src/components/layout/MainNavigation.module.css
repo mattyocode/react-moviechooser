@@ -1,16 +1,20 @@
+ul {
+  list-style-type: none;
+}
+
 nav {
   background: #000;
   height: 80px;
 }
 
-.nav-header {
+.nav_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
 }
 
-.nav-toggle {
+.nav_toggle {
   font-size: 1.5rem;
   color: white;
   background: transparent;
@@ -19,7 +23,7 @@ nav {
   cursor: pointer;
 }
 
-.nav-toggle:hover {
+.nav_toggle:hover {
   color: grey;
 }
 
@@ -42,7 +46,7 @@ nav {
   color: grey;
   padding-left: 1.5rem;
 }
-.login-register {
+.login_register {
   display: none;
 }
 
@@ -54,12 +58,12 @@ nav {
 }
 /* Toggle class */
 
-.show-links {
+.show_links {
   height: 10rem;
 }
 
 @media screen and (min-width: 768px) {
-  .nav-center {
+  .nav_center {
     max-width: 1170px;
     margin: 0 auto;
     display: flex;
@@ -67,10 +71,10 @@ nav {
     justify-content: space-between;
     padding: 1rem;
   }
-  .nav-header {
+  .nav_header {
     padding: 0;
   }
-  .nav-toggle {
+  .nav_toggle {
     display: none;
   }
   .links {
@@ -85,15 +89,15 @@ nav {
     padding: 0;
     background: transparent;
   }
-  .login-register {
+  .login_register {
     display: flex;
   }
-  .login-register a {
+  .login_register a {
     margin: 0 0.5rem;
     color: var(--clr-primary-5);
     transition: var(--transition);
   }
-  .login-register a:hover {
+  .login_register a:hover {
     color: var(--clr-primary-7);
   }
 }

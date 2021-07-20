@@ -2,17 +2,19 @@ import React from "react";
 
 import classes from "./MainNavigation.module.css";
 
+import mainLogo from "../../logo.png";
+
 const MainNavigation = () => {
   return (
     <nav className={classes.nav} data-testid="navigation">
       <div className={classes.nav_center}>
         <div className={classes.nav_header}>
           <img
-            src="public/images/logo/moviechooser_transparent.png"
+            src={mainLogo}
             alt="moviechooser logo"
             className={classes.logo}
           />
-          <button className="nav-toggle" name="menu">
+          <button className={classes.nav_toggle} name="menu">
             <i className="fas fa-bars"></i>
           </button>
         </div>
