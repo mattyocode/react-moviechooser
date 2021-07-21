@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
+import { links, signIn } from "./navData";
 
 import classes from "./MainNavigation.module.css";
-
 import mainLogo from "../../logo.png";
 
 const MainNavigation = () => {
@@ -40,20 +40,24 @@ const MainNavigation = () => {
 
         <div className={classes.links_container} ref={linksContainerRef}>
           <ul>
-            <li>
-              <a href="/">Browse All</a>
-            </li>
-            <li>
-              <a href="/">Surprise Me</a>
-            </li>
-            <li>
-              <a href="/">My List</a>
-            </li>
+            {links.map((link) => {
+              const { id, url, text } = link;
+              return (
+                <li key={id}>
+                  <a href={url}>{text}</a>
+                </li>
+              );
+            })}
           </ul>
           <ul className={classes.sign_in}>
-            <li>
-              <a href="/">Sign in</a>
-            </li>
+            {signIn.map((signIn) => {
+              const { id, url, text } = signIn;
+              return (
+                <li key={id}>
+                  <a href={url}>{text}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
