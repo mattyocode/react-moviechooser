@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 
 import classes from "./MainNavigation.module.css";
@@ -7,14 +7,18 @@ import mainLogo from "../../logo.png";
 
 const MainNavigation = () => {
   const [showLinks, setShowLinks] = useState(false);
+  const linksContainerRef = useRef();
+  const toggleLinks = () => {
+    setShowLinks(!showLinks);
+  };
 
-  let containerClasses;
-
-  if (showLinks) {
-    containerClasses = `${classes.links_container} ${classes.show_links}`;
-  } else {
-    containerClasses = classes.links_container;
-  }
+  useEffect(() => {
+    if (showLinks) {
+      linksContainerRef.current.style.height = "auto";
+    } else {
+      linksContainerRef.current.style.height = "0";
+    }
+  }, [showLinks]);
 
   return (
     <nav className={classes.nav} data-testid="navigation">
@@ -28,13 +32,13 @@ const MainNavigation = () => {
           <button
             className={classes.nav_toggle}
             data-testid="toggle-btn"
-            onClick={() => setShowLinks(!showLinks)}
+            onClick={toggleLinks}
           >
             <FaBars />
           </button>
         </div>
 
-        <div className={containerClasses}>
+        <div className={classes.links_container} ref={linksContainerRef}>
           <ul>
             <li>
               <a href="/">Browse All</a>

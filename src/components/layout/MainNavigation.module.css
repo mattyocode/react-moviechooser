@@ -6,10 +6,6 @@ a {
   text-decoration: none;
 }
 
-/* nav {
-  background: #000;
-} */
-
 .nav_header {
   display: flex;
   align-items: center;
@@ -56,7 +52,7 @@ ul a:hover {
   height: 0rem;
   overflow: hidden;
   transition: all 0.3s linear;
-  width: 25%;
+  min-width: 25%;
   float: right;
   background-color: black;
 }
@@ -74,7 +70,6 @@ ul a:hover {
 
 @media screen and (min-width: 768px) {
   .nav_center {
-    max-width: 1170px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -88,10 +83,12 @@ ul a:hover {
   .nav_toggle {
     display: none;
   }
-  .links_container,
-  .login_register_container {
+  .links_container {
+    width: inherit;
+    float: none;
     display: flex;
     height: auto !important;
+    padding: 0;
   }
   ul {
     display: flex;
@@ -109,17 +106,7 @@ ul a:hover {
     flex-direction: row;
     align-items: center;
   }
-  .login_register_container {
-    display: flex;
-  }
-  .login_register_container a {
-    margin: 0 0.5rem;
-    color: white;
-    transition: all 0.3s linear;
-  }
-  .login_register_container a:hover {
-    color: grey;
-  }
+
   .sign_in {
     border: 1px solid #e3e3e3;
     padding: 5px;
