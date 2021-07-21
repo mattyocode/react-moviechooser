@@ -2,9 +2,12 @@ ul {
   list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 nav {
   background: #000;
-  height: 80px;
 }
 
 .nav_header {
@@ -46,21 +49,22 @@ nav {
   color: grey;
   padding-left: 1.5rem;
 }
-.login_register {
-  display: none;
+
+.login_register_container {
+  display: inline;
 }
 
 /* by default hide links */
-.links {
-  height: 0;
+.links_container {
+  height: 8rem;
   overflow: hidden;
   transition: all 0.3s linear;
 }
 /* Toggle class */
 
-.show_links {
-  height: 10rem;
-}
+/* .show_links {
+  height: max-content;
+} */
 
 @media screen and (min-width: 768px) {
   .nav_center {
@@ -77,8 +81,10 @@ nav {
   .nav_toggle {
     display: none;
   }
+  .links_container {
+    height: auto !important;
+  }
   .links {
-    height: auto;
     display: flex;
   }
   .links a {
@@ -94,10 +100,10 @@ nav {
   }
   .login_register a {
     margin: 0 0.5rem;
-    color: var(--clr-primary-5);
-    transition: var(--transition);
+    color: white;
+    transition: all 0.3s linear;
   }
   .login_register a:hover {
-    color: var(--clr-primary-7);
+    color: grey;
   }
 }

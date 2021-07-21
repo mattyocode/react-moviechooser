@@ -14,4 +14,6 @@ describe("<MainNavigation /> tests", () => {
 
     expect(screen.getByText("All Movies")).not.toBeNull();
   });
+
+  it("displays toggle button on smaller screns", () => {});
 });
