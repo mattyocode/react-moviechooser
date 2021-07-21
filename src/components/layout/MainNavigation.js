@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 import classes from "./MainNavigation.module.css";
@@ -6,6 +6,16 @@ import classes from "./MainNavigation.module.css";
 import mainLogo from "../../logo.png";
 
 const MainNavigation = () => {
+  const [showLinks, setShowLinks] = useState(false);
+
+  let containerClasses;
+
+  if (showLinks) {
+    containerClasses = `${classes.links_container} ${classes.show_links}`;
+  } else {
+    containerClasses = classes.links_container;
+  }
+
   return (
     <nav className={classes.nav} data-testid="navigation">
       <div className={classes.nav_center}>
@@ -15,15 +25,19 @@ const MainNavigation = () => {
             alt="moviechooser logo"
             className={classes.logo}
           />
-          <button className={classes.nav_toggle} name="menu">
+          <button
+            className={classes.nav_toggle}
+            data-testid="toggle-btn"
+            onClick={() => setShowLinks(!showLinks)}
+          >
             <FaBars />
           </button>
         </div>
 
-        <div className={classes.links_container}>
-          <ul className={classes.links}>
+        <div className={containerClasses}>
+          <ul>
             <li>
-              <a href="/">All Movies</a>
+              <a href="/">Browse All</a>
             </li>
             <li>
               <a href="/">Surprise Me</a>
@@ -32,14 +46,9 @@ const MainNavigation = () => {
               <a href="/">My List</a>
             </li>
           </ul>
-        </div>
-        <div className={classes.login_register_container}>
-          <ul className={classes.links}>
+          <ul className={classes.sign_in}>
             <li>
-              <a href="/">Login</a>
-            </li>
-            <li>
-              <a href="/">Register</a>
+              <a href="/">Sign in</a>
             </li>
           </ul>
         </div>

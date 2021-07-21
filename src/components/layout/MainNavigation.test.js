@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MainNavigation from "./MainNavigation";
 
 describe("<MainNavigation /> tests", () => {
@@ -15,5 +15,13 @@ describe("<MainNavigation /> tests", () => {
     expect(screen.getByText("All Movies")).not.toBeNull();
   });
 
-  it("displays toggle button on smaller screns", () => {});
+  it("toggle button changes visibility in state", () => {
+    render(<MainNavigation />);
+
+    expect(screen.getByTestId("toggle-btn")).toBeTruthy();
+
+    // const toggleBtn = screen.getByTestId("toggle-btn");
+    // fireEvent.click(toggleBtn)
+    // expect()
+  });
 });
