@@ -32,10 +32,10 @@ const MainNavigation = () => {
   }, [showLinks]);
 
   return (
-    <Nav>
+    <Nav data-testid="navigation">
       <NavHeader>
         <Logo src={mainLogo} />
-        <ToggleBtn onClick={toggleLinks}>
+        <ToggleBtn onClick={toggleLinks} data-testid="toggle-btn">
           <FaBars />
         </ToggleBtn>
       </NavHeader>
