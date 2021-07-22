@@ -49,7 +49,7 @@ export const LinksContainer = styled.div`
   height: 0rem;
   overflow: hidden;
   transition: all 0.3s linear;
-  min-width: 50%;
+  min-width: 40%;
   float: right;
   background-color: black;
   border-radius: 0 0 0 5px;
@@ -64,9 +64,11 @@ export const LinksContainer = styled.div`
 
 export const LinksList = styled.ul`
   list-style-type: none;
+  padding: 2rem;
 
   @media screen and (min-width: 800px) {
     display: flex;
+    padding: 0;
   }
 `;
 
@@ -74,9 +76,15 @@ export const Link = styled.li`
   & a {
     letter-spacing: 0.1rem;
     display: block;
-    padding: 0.5rem 1rem;
     transition: all 0.3s linear;
     text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+
+    padding: ${(props) => (props.border ? "0.25rem 0.5rem" : "0.5rem 1rem")};
+    margin: ${(props) => (props.border ? "0.25rem 0.5rem" : "0")};
+    max-width: ${(props) => (props.border ? "fit-content" : "none")};
+    border: ${(props) => (props.border ? "1px solid white" : "none")};
   }
 
   & a:hover {
@@ -87,8 +95,11 @@ export const Link = styled.li`
   @media screen and (min-width: 800px) {
     & a {
       padding: 0;
-      margin: 0 0.5rem;
       font-size: 1rem;
+      max-width: none;
+
+      padding: 0.25rem 0.5rem;
+      margin: 0 0.2rem;
     }
     & a:hover {
       padding: 0;

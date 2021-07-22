@@ -40,9 +40,9 @@ const MainNavigation = () => {
       <LinksContainer ref={linksContainerRef}>
         <LinksList>
           {links.map((link) => {
-            const { id, url, text } = link;
+            const { id, url, text, highlight } = link;
             return (
-              <Link key={id}>
+              <Link key={id} border={highlight}>
                 <a href={url}>{text}</a>
               </Link>
             );
