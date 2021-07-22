@@ -76,6 +76,7 @@ export const Link = styled.li`
     display: block;
     padding: 0.5rem 1rem;
     transition: all 0.3s linear;
+    text-decoration: none;
   }
 
   & a:hover {
