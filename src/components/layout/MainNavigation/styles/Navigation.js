@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+// import { FaBars } from "react-icons/fa";
 
 export const Nav = styled.nav`
   @media screen and (min-width: 800px) {
@@ -46,9 +47,9 @@ export const ToggleBtn = styled.button`
 
 export const LinksContainer = styled.div`
   display: block;
-  height: 0rem;
+  height: 0;
   overflow: hidden;
-  transition: all 0.3s linear;
+  transition: all 0.5s linear;
   min-width: 40%;
   float: right;
   background-color: black;
