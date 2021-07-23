@@ -79,7 +79,6 @@ export const Link = styled.li`
     display: block;
     transition: all 0.3s linear;
     text-decoration: none;
-    padding: 0.5rem 1rem;
     border-radius: 5px;
 
     padding: ${(props) => (props.border ? "0.25rem 0.5rem" : "0.5rem 1rem")};
@@ -95,7 +94,6 @@ export const Link = styled.li`
 
   @media screen and (min-width: 800px) {
     & a {
-      padding: 0;
       font-size: 1rem;
       max-width: none;
 
