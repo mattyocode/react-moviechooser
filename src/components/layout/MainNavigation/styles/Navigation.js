@@ -28,7 +28,20 @@ export const Logo = styled.img`
   height: 40px;
 `;
 
-export const ToggleBtn = styled.button`
+export const Icon = styled.div`
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Button = styled.button`
+  position: relative;
+  height: 48px;
+  width: 48px;
   font-size: 1.5rem;
   color: white;
   background: transparent;
@@ -49,7 +62,7 @@ export const LinksContainer = styled.div`
   display: block;
   height: 0;
   overflow: hidden;
-  transition: all 0.5s linear;
+  transition: all 0.3s linear;
   min-width: 40%;
   float: right;
   background-color: black;

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FaBars } from "react-icons/fa";
-import { links, signIn } from "../../../fixtures/navData";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { links } from "../../../fixtures/navData";
 
 import mainLogo from "../../../logo.png";
 
@@ -8,11 +8,28 @@ import {
   Nav,
   NavHeader,
   Logo,
-  ToggleBtn,
+  Icon,
+  Button,
   LinksContainer,
   LinksList,
   Link,
 } from "./styles/Navigation";
+
+const ToggleBtn = ({ ...restProps }) => {
+  console.log(restProps.isOpen);
+  let icon;
+  if (restProps.isOpen === false) {
+    icon = <FaBars />;
+  } else {
+    icon = <FaTimes />;
+  }
+
+  return (
+    <Button onClick={restProps.toggle}>
+      <Icon>{icon}</Icon>
+    </Button>
+  );
+};
 
 const MainNavigation = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -35,9 +52,11 @@ const MainNavigation = () => {
     <Nav data-testid="navigation">
       <NavHeader>
         <Logo src={mainLogo} />
-        <ToggleBtn onClick={toggleLinks} data-testid="toggle-btn">
-          <FaBars />
-        </ToggleBtn>
+        <ToggleBtn
+          toggle={toggleLinks}
+          isOpen={showLinks}
+          data-testid="toggle-btn"
+        />
       </NavHeader>
       <LinksContainer ref={linksContainerRef}>
         <LinksList ref={linksListRef}>
