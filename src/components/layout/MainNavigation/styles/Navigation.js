@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
 // import { FaBars } from "react-icons/fa";
 
 export const Nav = styled.nav`
@@ -28,6 +28,26 @@ export const Logo = styled.img`
   height: 40px;
 `;
 
+const animateIn = keyframes`
+  from {
+      transform: rotate(0deg);
+  }
+
+  to {
+      transform: rotate(180deg);
+  }
+`;
+
+const animateOut = keyframes`
+  from {
+      transform: rotate(180deg);
+  }
+
+  to {
+      transform: rotate(0deg);
+  }
+`;
+
 export const Icon = styled.div`
   position: absolute;
   top: 0px;
@@ -36,6 +56,9 @@ export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: ${(props) => (props.current ? "1" : "0")};
+  animation: ${(props) => (props.current ? animateIn : animateOut)} 0.5s
+    ease-in-out;
 `;
 
 export const Button = styled.button`

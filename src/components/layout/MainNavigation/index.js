@@ -15,18 +15,17 @@ import {
   Link,
 } from "./styles/Navigation";
 
-const ToggleBtn = ({ ...restProps }) => {
-  console.log(restProps.isOpen);
-  let icon;
-  if (restProps.isOpen === false) {
-    icon = <FaBars />;
-  } else {
-    icon = <FaTimes />;
-  }
+const ToggleBtn = (props) => {
+  const isOpen = props.isOpen;
 
   return (
-    <Button onClick={restProps.toggle}>
-      <Icon>{icon}</Icon>
+    <Button onClick={props.toggle}>
+      <Icon current={!isOpen}>
+        <FaBars />
+      </Icon>
+      <Icon current={isOpen}>
+        <FaTimes />
+      </Icon>
     </Button>
   );
 };
