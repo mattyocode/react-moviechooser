@@ -56,9 +56,9 @@ export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: ${(props) => (props.current ? "1" : "0")};
-  animation: ${(props) => (props.current ? animateIn : animateOut)} 0.5s
-    ease-in-out;
+  opacity: ${(props) => (props.current ? 1 : 0)};
+  animation-duration: ${(props) => (props.isInitial ? "0" : "500ms")};
+  animation-name: ${(props) => (props.current ? animateIn : animateOut)};
 `;
 
 export const Button = styled.button`

@@ -17,13 +17,18 @@ import {
 
 const ToggleBtn = (props) => {
   const isOpen = props.isOpen;
+  const isInitial = useRef(true);
+
+  useEffect(() => {
+    isInitial.current = false;
+  }, []);
 
   return (
     <Button onClick={props.toggle}>
-      <Icon current={!isOpen}>
+      <Icon current={!isOpen} isInitial={isInitial.current}>
         <FaBars />
       </Icon>
-      <Icon current={isOpen}>
+      <Icon current={isOpen} isInitial={isInitial.current}>
         <FaTimes />
       </Icon>
     </Button>
