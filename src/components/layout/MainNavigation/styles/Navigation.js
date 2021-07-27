@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components/macro";
-// import { FaBars } from "react-icons/fa";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 export const Nav = styled.nav`
   @media screen and (min-width: 800px) {
@@ -59,6 +59,7 @@ export const Icon = styled.div`
   opacity: ${(props) => (props.current ? 1 : 0)};
   animation-duration: ${(props) => (props.isInitial ? "0" : "500ms")};
   animation-name: ${(props) => (props.current ? animateIn : animateOut)};
+  animation-timing-function: ease-out;
 `;
 
 export const Button = styled.button`
@@ -109,38 +110,35 @@ export const LinksList = styled.ul`
   }
 `;
 
-export const Link = styled.li`
-  & a {
-    letter-spacing: 0.1rem;
-    display: block;
-    transition: all 0.3s linear;
-    text-decoration: none;
-    border-radius: 5px;
+export const NavLink = styled(ReactRouterLink)`
+  letter-spacing: 0.1rem;
+  display: block;
+  transition: all 0.3s linear;
+  text-decoration: none;
+  border-radius: 5px;
 
-    padding: ${(props) => (props.border ? "0.25rem 0.5rem" : "0.5rem 1rem")};
-    margin: ${(props) => (props.border ? "0.25rem 0.5rem" : "0")};
-    max-width: ${(props) => (props.border ? "fit-content" : "none")};
-    border: ${(props) => (props.border ? "1px solid white" : "none")};
-  }
+  padding: ${(props) => (props.border ? "0.25rem 0.5rem" : "0.5rem 1rem")};
+  margin: ${(props) => (props.border ? "0.25rem 0.5rem" : "0")};
+  max-width: ${(props) => (props.border ? "fit-content" : "none")};
+  border: ${(props) => (props.border ? "1px solid white" : "none")};
 
-  & a:hover {
+  &:hover {
     background: black;
-    color: grey;
+    color: blue;
   }
 
   @media screen and (min-width: 800px) {
-    & a {
-      font-size: 1rem;
-      max-width: none;
+    font-size: 1rem;
+    max-width: none;
 
-      padding: 0.25rem 0.5rem;
-      margin: 0 0.2rem;
-    }
-    & a:hover {
-      padding: 0;
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.2rem;
+
+    &:hover {
+      color: grey;
       background: transparent;
     }
-    & li {
+    li {
       display: flex;
       flex-direction: row;
       align-items: center;

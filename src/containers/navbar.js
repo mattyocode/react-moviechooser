@@ -1,41 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
-
-import { links } from "../../../fixtures/navData";
-
-import mainLogo from "../../../logo.png";
-
-import {
-  Nav,
-  NavHeader,
-  Logo,
-  Icon,
-  Button,
-  LinksContainer,
-  LinksList,
-  NavLink,
-} from "./styles/Navigation";
-
-const ToggleBtn = (props) => {
-  const isOpen = props.isOpen;
-  const isInitial = useRef(true);
-
-  useEffect(() => {
-    isInitial.current = false;
-  }, []);
-
-  return (
-    <Button onClick={props.toggle}>
-      <Icon current={!isOpen} isInitial={isInitial.current}>
-        <FaBars />
-      </Icon>
-      <Icon current={isOpen} isInitial={isInitial.current}>
-        <FaTimes />
-      </Icon>
-    </Button>
-  );
-};
 
 const MainNavigation = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -69,11 +32,9 @@ const MainNavigation = () => {
           {links.map((link) => {
             const { id, url, text, highlight } = link;
             return (
-              <li>
-                <NavLink key={id} href={url} border={highlight}>
-                  {text}
-                </NavLink>
-              </li>
+              <Link key={id} border={highlight}>
+                <a href={url}>{text}</a>
+              </Link>
             );
           })}
         </LinksList>
