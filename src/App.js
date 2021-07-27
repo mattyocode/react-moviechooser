@@ -1,11 +1,13 @@
 import React from "react";
-
-import { NavbarContainer } from "./containers/navigation";
+import { Route, Switch } from "react-router-dom";
+import { Home } from "./pages";
 
 export default function App() {
   return (
-    <>
-      <NavbarContainer />
-    </>
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+    </Switch>
   );
 }
