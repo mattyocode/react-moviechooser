@@ -1,11 +1,11 @@
 import React from "react";
 
-import MainNavigation from "./components/layout/MainNavigation/index";
+import { NavbarContainer } from "./containers/navigation";
 
 export default function App() {
   return (
     <>
-      <MainNavigation />
+      <NavbarContainer />
     </>
   );
 }
