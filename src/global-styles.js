@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+    :root {
+        --clr-neon: hsl(187, 62%, 58%);
+        --clr-bg: hsl(232 21% 16%);
+    }
     *,
         ::after,
         ::before {

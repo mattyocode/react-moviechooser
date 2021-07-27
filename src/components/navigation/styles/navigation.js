@@ -125,7 +125,9 @@ export const NavLink = styled(ReactRouterLink)`
   color: ${(props) => (props.border ? "black" : "inherit")};
 
   &:hover {
-    color: grey;
+    text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
+    color: var(--clr-neon);
+    border: ${(props) => (props.border ? "1px solid var(--clr-neon)" : "none")};
     background: transparent;
   }
 
