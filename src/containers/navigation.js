@@ -1,4 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { links } from "../../../fixtures/navData";
+
+import mainLogo from "../../../logo.png";
 
 const MainNavigation = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -32,9 +35,11 @@ const MainNavigation = () => {
           {links.map((link) => {
             const { id, url, text, highlight } = link;
             return (
-              <Link key={id} border={highlight}>
-                <a href={url}>{text}</a>
-              </Link>
+              <li>
+                <NavLink key={id} to={url} border={highlight}>
+                  {text}
+                </NavLink>
+              </li>
             );
           })}
         </LinksList>
