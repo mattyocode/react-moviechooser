@@ -115,16 +115,18 @@ export const NavLink = styled(ReactRouterLink)`
   display: block;
   transition: all 0.3s linear;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 10px;
 
   padding: ${(props) => (props.border ? "0.25rem 0.5rem" : "0.5rem 1rem")};
   margin: ${(props) => (props.border ? "0.25rem 0.5rem" : "0")};
   max-width: ${(props) => (props.border ? "fit-content" : "none")};
   border: ${(props) => (props.border ? "1px solid white" : "none")};
+  background-color: ${(props) => (props.border ? "white" : "inherit")};
+  color: ${(props) => (props.border ? "black" : "inherit")};
 
   &:hover {
-    background: black;
-    color: blue;
+    color: grey;
+    background: transparent;
   }
 
   @media screen and (min-width: 800px) {
@@ -134,10 +136,6 @@ export const NavLink = styled(ReactRouterLink)`
     padding: 0.25rem 0.5rem;
     margin: 0 0.2rem;
 
-    &:hover {
-      color: grey;
-      background: transparent;
-    }
     li {
       display: flex;
       flex-direction: row;

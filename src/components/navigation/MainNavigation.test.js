@@ -19,9 +19,5 @@ describe("<MainNavigation /> tests", () => {
     render(<MainNavigation />);
 
     expect(screen.getByTestId("toggle-btn")).toBeTruthy();
-
-    // const toggleBtn = screen.getByTestId("toggle-btn");
-    // fireEvent.click(toggleBtn)
-    // expect()
   });
 });
