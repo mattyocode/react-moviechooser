@@ -13,5 +13,6 @@ describe("<Headline />", () => {
     );
 
     expect(getByText("Stop deciding, start watching")).toBeTruthy();
+    expect(getByText("Some more text")).toBeTruthy();
   });
 });
