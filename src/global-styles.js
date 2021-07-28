@@ -27,6 +27,7 @@ export const GlobalStyles = createGlobalStyle`
         background-image: linear-gradient(
             135deg,
             #000,
+            #000 30%,
             #00192d 65%,
             #164642 85%,
             #44bb9f 110%

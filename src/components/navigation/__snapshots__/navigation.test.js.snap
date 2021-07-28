@@ -58,7 +58,7 @@ exports[`<Navbar /> tests renders the <Navbar/> component 1`] = `
     </button>
   </div>
   <div
-    class="navigation__LinksContainer-sc-ek9154-5 kJdBOD"
+    class="navigation__LinksContainer-sc-ek9154-5 dESrcg"
     style="height: 0px;"
   >
     <ul

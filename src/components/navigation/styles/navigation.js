@@ -83,6 +83,8 @@ export const Button = styled.button`
 `;
 
 export const LinksContainer = styled.div`
+  position: fixed;
+  right: 0;
   display: block;
   height: 0;
   overflow: hidden;
@@ -93,6 +95,7 @@ export const LinksContainer = styled.div`
   border-radius: 0 0 0 5px;
 
   @media screen and (min-width: 800px) {
+    position: relative;
     min-width: max-content;
     display: flex;
     height: auto !important;

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, queryByAttribute } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./index";
 // import { linksData } from "../../fixtures/navData";
