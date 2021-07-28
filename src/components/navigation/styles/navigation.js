@@ -110,7 +110,7 @@ export const LinksList = styled.ul`
   }
 `;
 
-export const NavLink = styled(ReactRouterLink)`
+export const NavBarLink = styled(ReactRouterLink)`
   letter-spacing: 0.1rem;
   display: block;
   transition: all 0.3s linear;

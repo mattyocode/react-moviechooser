@@ -10,7 +10,7 @@ import {
   Button,
   LinksContainer,
   LinksList,
-  NavLink,
+  NavBarLink,
 } from "./styles/navigation";
 
 export default function Navbar({ children, ...restProps }) {
@@ -41,7 +41,7 @@ Navbar.ToggleBtn = function NavToggle({ isOpen, togglefn }) {
   }, []);
 
   return (
-    <Button onClick={togglefn}>
+    <Button onClick={togglefn} data-testid="toggle-btn">
       <Icon current={!isOpen} isInitial={isInitial.current}>
         <FaBars />
       </Icon>
@@ -52,7 +52,7 @@ Navbar.ToggleBtn = function NavToggle({ isOpen, togglefn }) {
   );
 };
 
-Navbar.Links = function NavLinks({ linksData, showLinks, ...restProps }) {
+Navbar.Links = function NavBarLinks({ linksData, showLinks, ...restProps }) {
   const linksContainerRef = useRef();
   const linksListRef = useRef();
 
@@ -71,10 +71,10 @@ Navbar.Links = function NavLinks({ linksData, showLinks, ...restProps }) {
         {linksData.map((link) => {
           const { id, url, text, highlight } = link;
           return (
-            <li>
-              <NavLink key={id} to={url} border={highlight}>
+            <li key={id}>
+              <NavBarLink to={url} border={highlight}>
                 {text}
-              </NavLink>
+              </NavBarLink>
             </li>
           );
         })}
