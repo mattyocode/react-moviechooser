@@ -72,7 +72,7 @@ Navbar.Links = function NavBarLinks({ linksData, showLinks, ...restProps }) {
           const { id, url, text, highlight } = link;
           return (
             <li key={id}>
-              <NavBarLink to={url} border={highlight}>
+              <NavBarLink to={url} $highlight={highlight}>
                 {text}
               </NavBarLink>
             </li>
