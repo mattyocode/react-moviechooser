@@ -117,17 +117,18 @@ export const NavBarLink = styled(ReactRouterLink)`
   text-decoration: none;
   border-radius: 10px;
 
-  padding: ${(props) => (props.highlight ? "0.25rem 0.5rem" : "0.5rem 1rem")};
-  margin: ${(props) => (props.highlight ? "0.25rem 0.5rem" : "0")};
-  max-width: ${(props) => (props.highlight ? "fit-content" : "none")};
-  border: ${(props) => (props.highlight ? "1px solid white" : "none")};
-  background-color: ${(props) => (props.highlight ? "white" : "inherit")};
-  color: ${(props) => (props.highlight ? "black" : "inherit")};
+  padding: ${(props) => (props.$highlight ? "0.25rem 0.5rem" : "0.5rem 1rem")};
+  margin: ${(props) => (props.$highlight ? "0.25rem 0.5rem" : "0")};
+  max-width: ${(props) => (props.$highlight ? "fit-content" : "none")};
+  border: ${(props) => (props.$highlight ? "1px solid white" : "none")};
+  background-color: ${(props) => (props.$highlight ? "white" : "inherit")};
+  color: ${(props) => (props.$highlight ? "black" : "inherit")};
 
   &:hover {
     text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
     color: var(--clr-neon);
-    border: ${(props) => (props.border ? "1px solid var(--clr-neon)" : "none")};
+    border: ${(props) =>
+      props.$highlight ? "1px solid var(--clr-neon)" : "none"};
     background: transparent;
   }
 
