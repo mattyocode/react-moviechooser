@@ -90,7 +90,6 @@ export const LinksContainer = styled.div`
   overflow: hidden;
   transition: all 0.3s linear;
   min-width: 40%;
-  float: right;
   background-color: black;
   border-radius: 0 0 0 5px;
 

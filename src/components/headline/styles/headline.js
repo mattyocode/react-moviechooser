@@ -8,4 +8,4 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1``;
 
-export const Subhead = styled.h4``;
+export const Subhead = styled.h3``;

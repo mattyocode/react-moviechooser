@@ -36,7 +36,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin: 0 0 0.5rem 0;
     }
 
@@ -49,7 +49,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     h3 {
-        font-size: 0.6em;
+        font-size: 1rem;
         margin: 0 auto;
     }
 
