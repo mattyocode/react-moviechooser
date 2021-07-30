@@ -45,8 +45,47 @@ export const AllButton = styled.button`
   transition: all 0.2s;
 `;
 
-export const Options = styled.ul``;
+export const Options = styled.ul`
+  list-style: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 
-export const Label = styled.label``;
+export const Label = styled.label`
+  display: inline-block;
+  background-color: #222;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 0.4rem 0.25rem;
+  padding: 5px 10px 5px 10px;
+  color: var(--clr-neon);
+  border: 2px solid var(--clr-neon);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
+  cursor: pointer;
 
-export const Input = styled.input``;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+  }
+`;
+
+export const Input = styled.input.attrs({ type: "checkbox" })`
+  background-color: #225269;
+  display: none;
+  /* display: absolute;
+  position: absolute;
+  opacity: 0; */
+
+  &:checked + label {
+    border: 2px solid #1bdbf8;
+    background-color: #12bbd4;
+    color: #222;
+    transition: all 0.2s;
+  }
+`;
