@@ -1,4 +1,3 @@
-import { rest } from "lodash";
 import React from "react";
 
 import { Wrapper, Title, Subhead } from "./styles/headline";
