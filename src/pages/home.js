@@ -1,6 +1,7 @@
 import React from "react";
 import { NavbarContainer } from "../containers/navigation";
-import { Headline } from "../components";
+import { ChoiceForm, Headline } from "../components";
+import { ChoiceFormContainer } from "../containers/choice-form";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           Filter by genre, decade, and runtime.
         </Headline.Subhead>
       </Headline>
+      <ChoiceFormContainer />
     </>
   );
 }
