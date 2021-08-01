@@ -14,10 +14,14 @@ export function ChoiceFormContainer({
           <ChoiceForm.Title>Genre</ChoiceForm.Title>
           <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
           <ChoiceForm.Options>
-            <li>
-              <ChoiceForm.Input id="1" value="Comedy" />
-              <ChoiceForm.Label htmlFor="1">Comedy</ChoiceForm.Label>
-            </li>
+            {genreList.map((genre, index) => {
+              return (
+                <li key={index}>
+                  <ChoiceForm.Input id={index} value={genre} />
+                  <ChoiceForm.Label htmlFor={index}>{genre}</ChoiceForm.Label>
+                </li>
+              );
+            })}
           </ChoiceForm.Options>
         </ChoiceForm.Panel>
       </ChoiceForm.Base>

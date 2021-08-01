@@ -15,9 +15,10 @@ export const Base = styled.form``;
 export const Panel = styled.div`
   position: relative; /* may cause issues */
   border-radius: 5px;
-  background: rgba(34, 34, 34, 0.5);
+  background: rgba(34, 34, 34, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
   margin: 20px 0;
   text-align: center;
 `;
@@ -29,7 +30,7 @@ export const AllButton = styled.button`
   top: 1rem;
   left: 1rem;
   border: none;
-  background-color: inherit;
+  background-color: transparent;
   padding-left: 0.5rem;
   color: var(--clr-neon);
   font-size: 1rem;
@@ -76,7 +77,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input.attrs({ type: "checkbox" })`
-  background-color: #225269;
+  background-color: transparent;
   display: none;
   /* display: absolute;
   position: absolute;

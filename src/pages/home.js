@@ -3,6 +3,8 @@ import { NavbarContainer } from "../containers/navigation";
 import { ChoiceForm, Headline } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 
+import { homepageData } from "../fixtures/homepageData";
+
 export default function Home() {
   return (
     <>
@@ -17,7 +19,7 @@ export default function Home() {
           Filter by genre, decade, and runtime.
         </Headline.Subhead>
       </Headline>
-      <ChoiceFormContainer />
+      <ChoiceFormContainer genreList={homepageData.genre} />
     </>
   );
 }
