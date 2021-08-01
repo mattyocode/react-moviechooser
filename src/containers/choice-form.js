@@ -1,12 +1,7 @@
 import React from "react";
 import { ChoiceForm } from "../components/";
 
-export function ChoiceFormContainer({
-  genreList,
-  decadeList,
-  minRuntime,
-  maxRuntime,
-}) {
+export function ChoiceFormContainer({ genreList }) {
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
@@ -16,10 +11,20 @@ export function ChoiceFormContainer({
           <ChoiceForm.Options>
             {genreList.map((genre, index) => {
               return (
-                <li key={index}>
-                  <ChoiceForm.Input id={index} value={genre} />
-                  <ChoiceForm.Label htmlFor={index}>{genre}</ChoiceForm.Label>
-                </li>
+                // <li key={index}>
+                //   <ChoiceForm.Label htmlFor={index}>
+                //     <ChoiceForm.Input id={index} value={genre} checked={true} />
+                //     {genre}
+                //   </ChoiceForm.Label>
+                // </li>
+                <ChoiceForm.Checkbox
+                  name={genre}
+                  index={index}
+                  //   checkedState={checkedState[index]}
+                  //   changeHandler={checkboxChangeHandler}
+                >
+                  {genre}
+                </ChoiceForm.Checkbox>
               );
             })}
           </ChoiceForm.Options>

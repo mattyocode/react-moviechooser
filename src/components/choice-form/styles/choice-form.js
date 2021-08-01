@@ -79,9 +79,6 @@ export const Label = styled.label`
 export const Input = styled.input.attrs({ type: "checkbox" })`
   background-color: transparent;
   display: none;
-  /* display: absolute;
-  position: absolute;
-  opacity: 0; */
 
   &:checked + label {
     border: 2px solid #1bdbf8;

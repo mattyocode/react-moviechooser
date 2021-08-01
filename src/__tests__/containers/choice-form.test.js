@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
 import { homepageData } from "../../fixtures/homepageData";
@@ -19,5 +20,14 @@ describe("<ChoiceFormContainer/>", () => {
     );
 
     expect(getByText("Comedy", { exact: false })).toBeTruthy();
+  });
+
+  it("renders with genre checkboxes all checked", () => {
+    const { getByText, getAllByTestId } = render(
+      <ChoiceFormContainer genreList={homepageData.genre} />
+    );
+    const checkboxes = getAllByTestId("genre-checkbox");
+
+    expect(checkboxes[0]).toHaveStyle("background-color: #12bbd4");
   });
 });
