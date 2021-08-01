@@ -13,12 +13,24 @@ export function ChoiceFormContainer({ genreList }) {
     setIsChecked(updatedCheckedState);
   };
 
+  const allBtnHandler = (event) => {
+    event.preventDefault();
+    if (isChecked.includes(false)) {
+      setIsChecked(new Array(genreList.length).fill(true));
+    } else {
+      setIsChecked(new Array(genreList.length).fill(false));
+    }
+  };
+
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
         <ChoiceForm.Panel>
           <ChoiceForm.Heading>
-            <ChoiceForm.AllButton data-testid="genre-all-btn">
+            <ChoiceForm.AllButton
+              data-testid="genre-all-btn"
+              onClick={allBtnHandler}
+            >
               Select All
             </ChoiceForm.AllButton>
             <h2>Genre</h2>
