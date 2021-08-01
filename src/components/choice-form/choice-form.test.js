@@ -9,28 +9,31 @@ describe("<ChoiceForm/>", () => {
 
     expect(getByTestId("choice-form")).toBeTruthy();
   });
+
   it("displays genre", () => {
     const { getByText } = render(
-      <ChoiceForm>
-        <ChoiceForm.Base>
-          <ChoiceForm.Panel>
-            <ChoiceForm.Title>Genre</ChoiceForm.Title>
-            <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
-            <ChoiceForm.Options>
-              <ChoiceForm.Checkbox
-                name="Comedy"
-                index="1"
-                checked={true}
-                changeHandler={() => {}}
-              >
-                Comedy
-              </ChoiceForm.Checkbox>
-            </ChoiceForm.Options>
-          </ChoiceForm.Panel>
-        </ChoiceForm.Base>
-      </ChoiceForm>
+      <ChoiceForm.Panel>
+        <ChoiceForm.Heading>
+          <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
+          <h2>Genre</h2>
+        </ChoiceForm.Heading>
+        <ChoiceForm.Options>
+          <ChoiceForm.Checkbox
+            name="Comedy"
+            index="1"
+            checked={true}
+            changeHandler={() => {}}
+          >
+            Comedy
+          </ChoiceForm.Checkbox>
+        </ChoiceForm.Options>
+      </ChoiceForm.Panel>
     );
-
+    expect(getByText("Genre")).toBeTruthy();
     expect(getByText("Comedy")).toBeTruthy();
   });
+
+  // it("shows decade panel", () => {
+  //   const { getByTestId } = render();
+  // });
 });

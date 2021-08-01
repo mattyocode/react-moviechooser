@@ -4,7 +4,7 @@ import {
   Container,
   Base,
   Panel,
-  Title,
+  Heading,
   AllButton,
   Options,
   Label,
@@ -29,8 +29,8 @@ ChoiceForm.Panel = function ChoiceFormPanel({ children, ...restProps }) {
   return <Panel {...restProps}>{children}</Panel>;
 };
 
-ChoiceForm.Title = function ChoiceFormTitle({ children, ...restProps }) {
-  return <Title {...restProps}>{children}</Title>;
+ChoiceForm.Heading = function ChoiceFormHeading({ children, ...restProps }) {
+  return <Heading {...restProps}>{children}</Heading>;
 };
 
 ChoiceForm.AllButton = function ChoiceFormAllButton({

@@ -17,8 +17,11 @@ export function ChoiceFormContainer({ genreList }) {
     <ChoiceForm>
       <ChoiceForm.Base>
         <ChoiceForm.Panel>
-          <ChoiceForm.Title>Genre</ChoiceForm.Title>
-          <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
+          <ChoiceForm.Heading>
+            <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
+            <h2>Genre</h2>
+          </ChoiceForm.Heading>
+
           <ChoiceForm.Options>
             {genreList.map((genre, index) => {
               return (

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const Container = styled.div`
   max-width: 780px;
@@ -23,12 +23,17 @@ export const Panel = styled.div`
   text-align: center;
 `;
 
+export const Heading = styled.div`
+  position: relative;
+  padding: 0.5rem 0;
+`;
+
 export const Title = styled.h2``;
 
 export const AllButton = styled.button`
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0.5rem;
+  left: 0.5rem;
   border: none;
   background-color: transparent;
   padding-left: 0.5rem;
