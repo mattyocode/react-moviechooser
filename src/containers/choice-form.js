@@ -6,23 +6,11 @@ export function ChoiceFormContainer({ genreList }) {
     new Array(genreList.length).fill(false)
   );
 
-  //   const checkboxChangeHandler = (position) => {
-  //     const updatedCheckedState = isChecked.map((item, index) => {
-  //       if (position === index) {
-  //         return !item;
-  //       } else {
-  //         return item;
-  //       }
-  //     });
-  //   };
-  //   setIsChecked(updatedCheckedState);
-
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
       index === position ? !item : item
     );
     setIsChecked(updatedCheckedState);
-    console.log(updatedCheckedState);
   };
 
   return (
