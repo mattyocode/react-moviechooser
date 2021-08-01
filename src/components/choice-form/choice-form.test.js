@@ -17,10 +17,18 @@ describe("<ChoiceForm/>", () => {
             <ChoiceForm.Title>Genre</ChoiceForm.Title>
             <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
             <ChoiceForm.Options>
-              <li>
+              {/* <li>
                 <ChoiceForm.Input id="1" value="Comedy" />
                 <ChoiceForm.Label htmlFor="1">Comedy</ChoiceForm.Label>
-              </li>
+              </li> */}
+              <ChoiceForm.Checkbox
+                name="Comedy"
+                index="1"
+                checked={true}
+                changeHandler={() => {}}
+              >
+                Comedy
+              </ChoiceForm.Checkbox>
             </ChoiceForm.Options>
           </ChoiceForm.Panel>
         </ChoiceForm.Base>

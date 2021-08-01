@@ -67,9 +67,9 @@ export const Label = styled.label`
   cursor: pointer;
 
   color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
-  background-color: ${(props) => (props.checked ? "#12bbd4" : "transparent")};
+  background-color: ${(props) =>
+    props.checked ? "var(--clr-neon)" : "transparent"};
   border: ${(props) => (props.checked ? "2px solid #1bdbf8" : "inherit")};
-  /* color: #222; */
   transition: all 0.2s;
 
   -webkit-touch-callout: none;
@@ -85,6 +85,7 @@ export const Label = styled.label`
 export const Input = styled.input.attrs({ type: "checkbox" })`
   /* background-color: transparent; */
   display: none;
+  cursor: pointer;
   /* background-color: #12bbd4; */
   }
 `;

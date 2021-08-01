@@ -53,33 +53,21 @@ ChoiceForm.Checkbox = function ChoiceFormCheckbox({
   ...restProps
 }) {
   return (
-    <li key={index}>
+    <li>
+      <Input
+        id={`genre-checkbox-${index}`}
+        value={name}
+        checked={checkedState}
+        onChange={() => changeHandler(index)}
+      />
       <Label
         data-testid="genre-checkbox"
-        htmlFor={index}
-        checked={true}
+        htmlFor={`genre-checkbox-${index}`}
+        checked={checkedState}
         {...restProps}
       >
         {children}
       </Label>
-      <Input
-        id={`genre-checkbox-${index}`}
-        value={name}
-        checked={true}
-        onChange={changeHandler}
-      />
     </li>
   );
-};
-
-ChoiceForm.Label = function ChoiceFormLabel({ children, ...restProps }) {
-  return (
-    <Label data-testid="genre-checkbox" {...restProps}>
-      {children}
-    </Label>
-  );
-};
-
-ChoiceForm.Input = function ChoiceFormInput({ children, ...restProps }) {
-  return <Input {...restProps}>{children}</Input>;
 };
