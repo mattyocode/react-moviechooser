@@ -46,4 +46,20 @@ describe("<ChoiceFormContainer/>", () => {
 
     expect(checkbox).toHaveStyle("background-color: var(--clr-neon)");
   });
+
+  it("genre all button selects all", () => {
+    const { getAllByTestId, getByTestId } = render(
+      <ChoiceFormContainer genreList={genreData} />
+    );
+
+    const checkbox = getAllByTestId("genre-checkbox")[0];
+
+    expect(checkbox).toHaveStyle("background-color: transparent");
+
+    const allBtn = getByTestId("genre-all-btn");
+
+    fireEvent.click(allBtn);
+
+    expect(checkbox).toHaveStyle("background-color: var(--clr-neon)");
+  });
 });

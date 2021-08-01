@@ -31,6 +31,7 @@ describe("<ChoiceForm/>", () => {
     );
     expect(getByText("Genre")).toBeTruthy();
     expect(getByText("Comedy")).toBeTruthy();
+    expect(getByText("Select All")).toBeTruthy();
   });
 
   // it("shows decade panel", () => {

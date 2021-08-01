@@ -18,7 +18,9 @@ export function ChoiceFormContainer({ genreList }) {
       <ChoiceForm.Base>
         <ChoiceForm.Panel>
           <ChoiceForm.Heading>
-            <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
+            <ChoiceForm.AllButton data-testid="genre-all-btn">
+              Select All
+            </ChoiceForm.AllButton>
             <h2>Genre</h2>
           </ChoiceForm.Heading>
 
