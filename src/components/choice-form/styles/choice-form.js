@@ -66,6 +66,12 @@ export const Label = styled.label`
   box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
   cursor: pointer;
 
+  color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
+  background-color: ${(props) => (props.checked ? "#12bbd4" : "transparent")};
+  border: ${(props) => (props.checked ? "2px solid #1bdbf8" : "inherit")};
+  /* color: #222; */
+  transition: all 0.2s;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -77,13 +83,8 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input.attrs({ type: "checkbox" })`
-  background-color: transparent;
+  /* background-color: transparent; */
   display: none;
-
-  &:checked + label {
-    border: 2px solid #1bdbf8;
-    background-color: #12bbd4;
-    color: #222;
-    transition: all 0.2s;
+  /* background-color: #12bbd4; */
   }
 `;

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChoiceForm } from "../components/";
 
 export function ChoiceFormContainer({ genreList }) {
+  const [isChecked, setIsChecked] = useState(
+    new Array(genreList.length).fill(true)
+  );
+
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
@@ -11,16 +15,10 @@ export function ChoiceFormContainer({ genreList }) {
           <ChoiceForm.Options>
             {genreList.map((genre, index) => {
               return (
-                // <li key={index}>
-                //   <ChoiceForm.Label htmlFor={index}>
-                //     <ChoiceForm.Input id={index} value={genre} checked={true} />
-                //     {genre}
-                //   </ChoiceForm.Label>
-                // </li>
                 <ChoiceForm.Checkbox
                   name={genre}
                   index={index}
-                  //   checkedState={checkedState[index]}
+                  checkedState={true}
                   //   changeHandler={checkboxChangeHandler}
                 >
                   {genre}
