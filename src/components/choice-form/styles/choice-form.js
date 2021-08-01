@@ -69,7 +69,8 @@ export const Label = styled.label`
   color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
   background-color: ${(props) =>
     props.checked ? "var(--clr-neon)" : "transparent"};
-  border: ${(props) => (props.checked ? "2px solid #1bdbf8" : "inherit")};
+  border: ${(props) =>
+    props.checked ? "2px solid #1bdbf8" : "2px solid var(--clr-neon)"};
   transition: all 0.2s;
 
   -webkit-touch-callout: none;
