@@ -21,7 +21,7 @@ export default function RangeSlider({ min, max, onChange }) {
 
   const getSelectionPercent = useCallback(
     (value) => {
-      Math.round(((value - min) / (max - min)) * 100);
+      return Math.round(((value - min) / (max - min)) * 100);
     },
     [min, max]
   );
@@ -74,6 +74,8 @@ export default function RangeSlider({ min, max, onChange }) {
         }}
       />
       <Slider>
+        <SliderMinVal data-testid="runtime-min-val">{minValue}</SliderMinVal>
+        <SliderMaxVal>{maxValue}</SliderMaxVal>
         <SliderTrack />
         <SliderRange ref={rangeRef} />
       </Slider>

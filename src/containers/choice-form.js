@@ -72,7 +72,7 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
         <ChoiceForm.Panel>
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
-              data-testid="decade-all-btn"
+              data-testid="runtime-all-btn"
               onClick={allBtnHandler}
               highlighted={allBtnHighlighted}
             >

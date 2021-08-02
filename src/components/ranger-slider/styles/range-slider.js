@@ -74,6 +74,17 @@ export const ThumbMax = styled(Thumb)`
   z-index: 4;
 `;
 
-export const SliderMinVal = styled.div``;
+const SliderVal = styled.div`
+  color: #dee2e6;
+  font-size: 12px;
+  margin-top: 20px;
+  position: absolute;
+`;
 
-export const SliderMaxVal = styled.div``;
+export const SliderMinVal = styled(SliderVal)`
+  left: 3px;
+`;
+
+export const SliderMaxVal = styled(SliderVal)`
+  right: -1px;
+`;
