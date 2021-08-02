@@ -111,7 +111,7 @@ const Bubble = styled.output`
     position: absolute;
     width: 2px;
     height: 2px;
-    background: #222;
+    background: #222; */
     /* top: 0px; */
     /* left: 50%; */
   }

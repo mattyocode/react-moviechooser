@@ -20,7 +20,10 @@ export default function RangeSlider({ min, max, onChange }) {
 
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
+  const trackRef = useRef(null);
   const rangeRef = useRef(null);
+  const minThumbRef = useRef(null);
+  const maxThumbRef = useRef(null);
   const minBubbleRef = useRef(null);
   const maxBubbleRef = useRef(null);
 
@@ -37,7 +40,24 @@ export default function RangeSlider({ min, max, onChange }) {
 
     if (rangeRef.current) {
       rangeRef.current.style.left = `${minPercent}%`;
-      minBubbleRef.current.style.left = `calc(${minPercent}% - 9px)`;
+
+      const bubbleWidth = Math.round(
+        minBubbleRef.current.getBoundingClientRect().width
+      );
+      const trackWidth = Math.round(
+        trackRef.current.getBoundingClientRect().width
+      );
+
+      const getBubblePosition = () => {
+        const bubblePosition =
+          minPercent * (trackWidth / 100) - (bubbleWidth - 12);
+        return bubblePosition;
+      };
+
+      minBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
+        8 - getBubblePosition() * 0.05
+      }px))`;
+
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minValue, getSelectionPercent]);
@@ -46,9 +66,24 @@ export default function RangeSlider({ min, max, onChange }) {
     const minPercent = getSelectionPercent(minValRef.current);
     const maxPercent = getSelectionPercent(maxValue);
 
+    const bubbleWidth = Math.round(
+      minBubbleRef.current.getBoundingClientRect().width
+    );
+    const trackWidth = Math.round(
+      trackRef.current.getBoundingClientRect().width
+    );
+
+    const getBubblePosition = () => {
+      const bubblePosition =
+        maxPercent * (trackWidth / 100) - (bubbleWidth - 12);
+      return bubblePosition;
+    };
+
     if (rangeRef.current) {
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
-      maxBubbleRef.current.style.left = `${maxPercent - 9}%`;
+      maxBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
+        8 - getBubblePosition() * 0.03
+      }px))`;
     }
   }, [maxValue, getSelectionPercent]);
 
@@ -68,6 +103,7 @@ export default function RangeSlider({ min, max, onChange }) {
           setminValue(value);
           minValRef.current = value;
         }}
+        ref={minThumbRef}
       />
 
       <ThumbMax
@@ -80,14 +116,17 @@ export default function RangeSlider({ min, max, onChange }) {
           setmaxValue(value);
           maxValRef.current = value;
         }}
+        ref={maxThumbRef}
       />
       <Slider>
-        <MinBubble ref={minBubbleRef}>{minValue}</MinBubble>
+        <MinBubble data-testid="runtime-min-val" ref={minBubbleRef}>
+          {minValue}
+        </MinBubble>
         <MaxBubble ref={maxBubbleRef}>{maxValue}</MaxBubble>
-        <SliderMinVal data-testid="runtime-min-val">{minValue}</SliderMinVal>
-        <SliderMaxVal>{maxValue}</SliderMaxVal>
+        {/* <SliderMinVal>{minValue}</SliderMinVal>
+        <SliderMaxVal>{maxValue}</SliderMaxVal> */}
         <TrackWrapper>
-          <SliderTrack />
+          <SliderTrack ref={trackRef} />
           <SliderRange ref={rangeRef} />
         </TrackWrapper>
       </Slider>
