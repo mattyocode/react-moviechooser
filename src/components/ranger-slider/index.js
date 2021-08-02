@@ -5,10 +5,13 @@ import {
   Slider,
   SliderTrack,
   SliderRange,
+  TrackWrapper,
   ThumbMin,
   ThumbMax,
   SliderMinVal,
   SliderMaxVal,
+  MinBubble,
+  MaxBubble,
 } from "./styles/range-slider";
 
 export default function RangeSlider({ min, max, onChange }) {
@@ -18,6 +21,8 @@ export default function RangeSlider({ min, max, onChange }) {
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const rangeRef = useRef(null);
+  const minBubbleRef = useRef(null);
+  const maxBubbleRef = useRef(null);
 
   const getSelectionPercent = useCallback(
     (value) => {
@@ -32,6 +37,7 @@ export default function RangeSlider({ min, max, onChange }) {
 
     if (rangeRef.current) {
       rangeRef.current.style.left = `${minPercent}%`;
+      minBubbleRef.current.style.left = `calc(${minPercent}% - 9px)`;
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minValue, getSelectionPercent]);
@@ -42,6 +48,7 @@ export default function RangeSlider({ min, max, onChange }) {
 
     if (rangeRef.current) {
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
+      maxBubbleRef.current.style.left = `${maxPercent - 9}%`;
     }
   }, [maxValue, getSelectionPercent]);
 
@@ -62,6 +69,7 @@ export default function RangeSlider({ min, max, onChange }) {
           minValRef.current = value;
         }}
       />
+
       <ThumbMax
         type="range"
         min={min}
@@ -74,10 +82,14 @@ export default function RangeSlider({ min, max, onChange }) {
         }}
       />
       <Slider>
+        <MinBubble ref={minBubbleRef}>{minValue}</MinBubble>
+        <MaxBubble ref={maxBubbleRef}>{maxValue}</MaxBubble>
         <SliderMinVal data-testid="runtime-min-val">{minValue}</SliderMinVal>
         <SliderMaxVal>{maxValue}</SliderMaxVal>
-        <SliderTrack />
-        <SliderRange ref={rangeRef} />
+        <TrackWrapper>
+          <SliderTrack />
+          <SliderRange ref={rangeRef} />
+        </TrackWrapper>
       </Slider>
     </Wrapper>
   );

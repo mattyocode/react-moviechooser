@@ -4,12 +4,21 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 5rem;
 `;
 
 export const Slider = styled.div`
   position: relative;
   width: 20rem;
   padding: 2rem 0;
+  height: 100%;
+`;
+
+export const TrackWrapper = styled.div`
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 `;
 
 export const SliderTrack = styled.div`
@@ -88,3 +97,26 @@ export const SliderMinVal = styled(SliderVal)`
 export const SliderMaxVal = styled(SliderVal)`
   right: -1px;
 `;
+
+const Bubble = styled.output`
+  position: absolute;
+  background: #222;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  top: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #222;
+    /* top: 0px; */
+    /* left: 50%; */
+  }
+`;
+
+export const MinBubble = styled(Bubble)``;
+
+export const MaxBubble = styled(Bubble)``;
