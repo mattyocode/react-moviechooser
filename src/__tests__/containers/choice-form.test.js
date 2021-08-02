@@ -63,14 +63,14 @@ describe("<ChoiceFormContainer/>", () => {
     expect(checkbox).toHaveStyle("background-color: var(--clr-neon)");
   });
 
-  // it("all button styling changes on click", () => {
-  //   const { getAllByTestId, getByTestId } = render(
-  //     <ChoiceFormContainer genreList={genreData} />
-  //   );
+  it("all button styling changes on click", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer genreList={genreData} />
+    );
 
-  //   const allBtn = getByTestId("genre-all-btn");
+    const allBtn = getByTestId("genre-all-btn");
 
-  //   fireEvent.click(allBtn);
-  //   expect(allBtn).toHaveStyle("color: #222");
-  // });
+    fireEvent.click(allBtn);
+    expect(allBtn).toHaveStyle("color: #aaa");
+  });
 });
