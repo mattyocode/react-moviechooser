@@ -18,7 +18,7 @@ export const Panel = styled.div`
   background: rgba(34, 34, 34, 0.3);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1rem 1.5rem 1rem;
   margin: 20px 0;
   text-align: center;
 `;
@@ -32,8 +32,8 @@ export const Title = styled.h2``;
 
 export const AllButton = styled.button`
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
+  top: 1rem;
+  left: 1rem;
   border: none;
   background-color: transparent;
   padding-left: 0.5rem;
@@ -49,6 +49,11 @@ export const AllButton = styled.button`
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.2s;
+
+  @media screen and (max-width: 800px) {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
 `;
 
 export const Options = styled.ul`

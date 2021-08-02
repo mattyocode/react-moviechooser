@@ -3,7 +3,8 @@ import { render, fireEvent } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
-import { homepageData } from "../../fixtures/homepageData";
+import homepageData from "../../fixtures/homepage.json";
+import { ChoiceForm } from "../../components";
 
 describe("<ChoiceFormContainer/>", () => {
   const genreData = homepageData.genre;
@@ -72,5 +73,11 @@ describe("<ChoiceFormContainer/>", () => {
 
     fireEvent.click(allBtn);
     expect(allBtn).toHaveStyle("color: #aaa");
+  });
+
+  it("displays Decade panel", () => {
+    const { getByText } = render(<ChoiceFormContainer />);
+
+    expect(getByText("Decade")).toBeTruthy();
   });
 });

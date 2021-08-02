@@ -1,5 +1,5 @@
 {
-  "Genres": [
+  "genre": [
     "Mystery",
     "Sci-Fi",
     "Thriller",
@@ -25,16 +25,7 @@
     "Film-Noir",
     "News"
   ],
-  "Decades": [
-    "Pre-50s",
-    "50s",
-    "60s",
-    "70s",
-    "80s",
-    "90s",
-    "00s",
-    "10s",
-    "20s"
-  ],
-  "Runtime": [{ "min": 123 }, { "max": 321 }]
+
+  "decade": ["Pre-50s", "50s", "60s", "70s", "80s", "90s", "00s", "10s", "20s"],
+  "runtime": [{ "min": 123 }, { "max": 321 }]
 }

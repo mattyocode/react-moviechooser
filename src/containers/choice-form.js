@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ChoiceForm } from "../components/";
+import RangeSlider from "../components/ranger-slider";
 
-export function ChoiceFormContainer({ genreList }) {
+import homepageData from "../fixtures/homepage.json";
+
+export function ChoiceFormContainer({ genreList = homepageData.genre }) {
   const [isChecked, setIsChecked] = useState(
     new Array(genreList.length).fill(false)
   );
@@ -61,6 +64,19 @@ export function ChoiceFormContainer({ genreList }) {
               );
             })}
           </ChoiceForm.Options>
+        </ChoiceForm.Panel>
+        <ChoiceForm.Panel>
+          <ChoiceForm.Heading>
+            <ChoiceForm.AllButton
+              data-testid="decade-all-btn"
+              onClick={allBtnHandler}
+              highlighted={allBtnHighlighted}
+            >
+              Select All
+            </ChoiceForm.AllButton>
+            <h2>Decade</h2>
+          </ChoiceForm.Heading>
+          <RangeSlider />
         </ChoiceForm.Panel>
       </ChoiceForm.Base>
     </ChoiceForm>
