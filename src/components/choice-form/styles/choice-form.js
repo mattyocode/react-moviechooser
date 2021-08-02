@@ -62,7 +62,7 @@ export const Options = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   max-height: 9.5rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export const Label = styled.label`

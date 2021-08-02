@@ -34,6 +34,10 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
     }
   }, [isChecked]);
 
+  const rangeChangeHandler = ({ min, max }) => {
+    console.log(min, max);
+  };
+
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
@@ -74,9 +78,9 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
             >
               Select All
             </ChoiceForm.AllButton>
-            <h2>Decade</h2>
+            <h2>Runtime</h2>
           </ChoiceForm.Heading>
-          <RangeSlider />
+          <RangeSlider min={58} max={230} onChange={rangeChangeHandler} />
         </ChoiceForm.Panel>
       </ChoiceForm.Base>
     </ChoiceForm>

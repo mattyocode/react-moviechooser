@@ -8,4 +8,8 @@ describe("<RangeSlider/>", () => {
     const { getByTestId } = render(<RangeSlider />);
     expect(getByTestId("range-slider")).toBeTruthy();
   });
+  it("shows min value label", () => {
+    const { getByTestId } = render(<RangeSlider />);
+    expect(getByTestId("decade-min-val")).toBeTruthy();
+  });
 });
