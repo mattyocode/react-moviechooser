@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChoiceForm } from "../components/";
 
 export function ChoiceFormContainer({ genreList }) {
   const [isChecked, setIsChecked] = useState(
     new Array(genreList.length).fill(false)
   );
+  const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
 
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -22,6 +23,14 @@ export function ChoiceFormContainer({ genreList }) {
     }
   };
 
+  useEffect(() => {
+    if (isChecked.includes(false)) {
+      setAllBtnHighlighted(true);
+    } else {
+      setAllBtnHighlighted(false);
+    }
+  }, [isChecked]);
+
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
@@ -30,6 +39,7 @@ export function ChoiceFormContainer({ genreList }) {
             <ChoiceForm.AllButton
               data-testid="genre-all-btn"
               onClick={allBtnHandler}
+              highlighted={allBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>

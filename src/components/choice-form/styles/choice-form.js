@@ -37,7 +37,7 @@ export const AllButton = styled.button`
   border: none;
   background-color: transparent;
   padding-left: 0.5rem;
-  color: var(--clr-neon);
+  color: ${(props) => (props.highlighted ? "var(--clr-neon)" : "#aaa")};
   font-size: 1rem;
   text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
   cursor: pointer;
@@ -62,13 +62,10 @@ export const Options = styled.ul`
 
 export const Label = styled.label`
   display: inline-block;
-  background-color: #222;
   border-radius: 25px;
   white-space: nowrap;
   margin: 0.4rem 0.25rem;
   padding: 5px 10px 5px 10px;
-  color: var(--clr-neon);
-  border: 2px solid var(--clr-neon);
   border-radius: 10px;
   box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
   cursor: pointer;
@@ -91,9 +88,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input.attrs({ type: "checkbox" })`
-  /* background-color: transparent; */
   display: none;
   cursor: pointer;
-  /* background-color: #12bbd4; */
   }
 `;
