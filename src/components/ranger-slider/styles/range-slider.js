@@ -140,6 +140,6 @@ export const RangeLabel = styled.div`
     font-size: 11px;
     color: #ddd;
     content: "${(props) => (props.labelText ? props.labelText : "")}";
-    transform: translateX(-50%);
+    transform: translateX(-35%);
   }
 `;

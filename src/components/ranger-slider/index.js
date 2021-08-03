@@ -14,14 +14,19 @@ import {
   RangeLabel,
 } from "./styles/range-slider";
 
-export default function RangeSlider({ stepValues, onChange }) {
+export default function RangeSlider({
+  stepValues,
+  defaultMinIdx,
+  defaultMaxIdx,
+  onChange,
+}) {
   // const min = stepValues[0];
   // const max = stepValues[stepValues.length];
-  const [minValue, setminValue] = useState(0);
-  const [maxValue, setmaxValue] = useState(stepValues.length - 1);
+  const [minValue, setminValue] = useState(defaultMinIdx);
+  const [maxValue, setmaxValue] = useState(defaultMaxIdx);
 
-  const minValRef = useRef(0);
-  const maxValRef = useRef(stepValues.length - 1);
+  const minValRef = useRef(defaultMinIdx);
+  const maxValRef = useRef(defaultMaxIdx);
   const trackRef = useRef(null);
   const rangeRef = useRef(null);
   const minThumbRef = useRef(null);
@@ -78,6 +83,9 @@ export default function RangeSlider({ stepValues, onChange }) {
         trackRef.current.getBoundingClientRect().width
       );
 
+      console.log("minPercent >>", minPercent);
+      console.log("maxPercent >>", maxPercent);
+
       const getBubblePosition = () => {
         const bubblePosition =
           maxPercent * (trackWidth / 100) - bubbleWidth / 2;
@@ -129,9 +137,6 @@ export default function RangeSlider({ stepValues, onChange }) {
           {stepValues[minValue]}
         </MinBubble>
         <MaxBubble ref={maxBubbleRef}>{stepValues[maxValue]}</MaxBubble>
-        {/* <SliderMinVal>{stepValues[minValue]}</SliderMinVal>
-        <SliderMaxVal>{stepValues[maxValue]}</SliderMaxVal> */}
-
         <TrackWrapper>
           <RangeLabels>
             {stepValues.map((value) => {
