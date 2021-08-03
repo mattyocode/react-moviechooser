@@ -84,20 +84,20 @@ export const ThumbMax = styled(Thumb)`
   z-index: 4;
 `;
 
-const SliderVal = styled.div`
-  color: #dee2e6;
-  font-size: 12px;
-  margin-top: 20px;
-  position: absolute;
-`;
+// const SliderVal = styled.div`
+//   color: #dee2e6;
+//   font-size: 12px;
+//   margin-top: 20px;
+//   position: absolute;
+// `;
 
-export const SliderMinVal = styled(SliderVal)`
-  left: 3px;
-`;
+// export const SliderMinVal = styled(SliderVal)`
+//   left: 3px;
+// `;
 
-export const SliderMaxVal = styled(SliderVal)`
-  right: -1px;
-`;
+// export const SliderMaxVal = styled(SliderVal)`
+//   right: -1px;
+// `;
 
 const Bubble = styled.output`
   position: absolute;
@@ -112,9 +112,7 @@ const Bubble = styled.output`
     position: absolute;
     width: 2px;
     height: 2px;
-    background: #222; */
-    /* top: 0px; */
-    /* left: 50%; */
+    background: #222;
   }
 `;
 
