@@ -35,7 +35,7 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
   }, [isChecked]);
 
   const rangeChangeHandler = ({ min, max }) => {
-    console.log(min, max);
+    console.log("min", min, "max", max);
   };
 
   return (

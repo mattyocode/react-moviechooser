@@ -20,8 +20,6 @@ export default function RangeSlider({
   defaultMaxIdx,
   onChange,
 }) {
-  // const min = stepValues[0];
-  // const max = stepValues[stepValues.length];
   const [minValue, setminValue] = useState(defaultMinIdx);
   const [maxValue, setmaxValue] = useState(defaultMaxIdx);
 
@@ -101,8 +99,8 @@ export default function RangeSlider({
   }, [maxValue, getSelectionPercent]);
 
   useEffect(() => {
-    onChange({ min: minValue, max: maxValue });
-  }, [minValue, maxValue, onChange]);
+    onChange({ min: stepValues[minValue], max: stepValues[maxValue] });
+  }, [stepValues, minValue, maxValue, onChange]);
 
   return (
     <Wrapper data-testid="range-slider">
@@ -139,8 +137,8 @@ export default function RangeSlider({
         <MaxBubble ref={maxBubbleRef}>{stepValues[maxValue]}</MaxBubble>
         <TrackWrapper>
           <RangeLabels>
-            {stepValues.map((value) => {
-              return <RangeLabel labelText={value}></RangeLabel>;
+            {stepValues.map((value, index) => {
+              return <RangeLabel key={index} labelText={value}></RangeLabel>;
             })}
           </RangeLabels>
           <SliderTrack ref={trackRef} />
