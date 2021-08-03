@@ -135,17 +135,13 @@ export const RangeLabel = styled.div`
   width: 5px;
   background-color: gray;
   border-radius: 50%;
-  /* position: relative;
-  width: calc(100% / 7);
-  color: #b2b2b2;
-  font-size: 14px;
-  cursor: pointer; */
 
   &::after {
     position: absolute;
     top: 25px;
     font-size: 11px;
     color: #ddd;
-    content: "1";
+    content: "${(props) => (props.labelText ? props.labelText : "")}";
+    transform: translateX(-50%);
   }
 `;

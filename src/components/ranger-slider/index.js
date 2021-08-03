@@ -8,23 +8,20 @@ import {
   TrackWrapper,
   ThumbMin,
   ThumbMax,
-  SliderMinVal,
-  SliderMaxVal,
   MinBubble,
   MaxBubble,
   RangeLabels,
   RangeLabel,
 } from "./styles/range-slider";
 
-export default function RangeSlider({ onChange }) {
-  const valueSteps = ["Short", 75, 90, 105, 120, 150, 180];
-  const min = valueSteps[0];
-  const max = valueSteps[valueSteps.length];
+export default function RangeSlider({ stepValues, onChange }) {
+  const min = stepValues[0];
+  const max = stepValues[stepValues.length];
   const [minValue, setminValue] = useState(0);
-  const [maxValue, setmaxValue] = useState(valueSteps.length - 1);
+  const [maxValue, setmaxValue] = useState(stepValues.length - 1);
 
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
+  const minValRef = useRef(0);
+  const maxValRef = useRef(stepValues.length - 1);
   const trackRef = useRef(null);
   const rangeRef = useRef(null);
   const minThumbRef = useRef(null);
@@ -34,9 +31,9 @@ export default function RangeSlider({ onChange }) {
 
   const getSelectionPercent = useCallback(
     (value) => {
-      return Math.round(((value - min) / (max - min)) * 100);
+      return Math.round((value / (stepValues.length - 1)) * 100);
     },
-    [min, max]
+    [stepValues]
   );
 
   useEffect(() => {
@@ -45,7 +42,6 @@ export default function RangeSlider({ onChange }) {
 
     if (rangeRef.current) {
       rangeRef.current.style.left = `${minPercent}%`;
-
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minValue, getSelectionPercent]);
@@ -68,12 +64,11 @@ export default function RangeSlider({ onChange }) {
       <ThumbMin
         type="range"
         min="0"
-        max={valueSteps.length - 1}
+        max={stepValues.length - 1}
         value={minValue}
         steps="1"
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxValue - 1);
-          console.log(event.target.value);
           setminValue(value);
           minValRef.current = value;
         }}
@@ -82,7 +77,7 @@ export default function RangeSlider({ onChange }) {
       <ThumbMax
         type="range"
         min="0"
-        max={valueSteps.length - 1}
+        max={stepValues.length - 1}
         steps="1"
         value={maxValue}
         onChange={(event) => {
@@ -97,18 +92,14 @@ export default function RangeSlider({ onChange }) {
           {minValue}
         </MinBubble>
         <MaxBubble ref={maxBubbleRef}>{maxValue}</MaxBubble> */}
-        <SliderMinVal>{valueSteps[minValue]}</SliderMinVal>
-        <SliderMaxVal>{valueSteps[maxValue]}</SliderMaxVal>
+        {/* <SliderMinVal>{stepValues[minValue]}</SliderMinVal>
+        <SliderMaxVal>{stepValues[maxValue]}</SliderMaxVal> */}
 
         <TrackWrapper>
           <RangeLabels>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
+            {stepValues.map((value) => {
+              return <RangeLabel labelText={value}></RangeLabel>;
+            })}
           </RangeLabels>
           <SliderTrack ref={trackRef} />
           <SliderRange ref={rangeRef} />

@@ -80,7 +80,10 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
-          <RangeSlider min={60} max={321} onChange={rangeChangeHandler} />
+          <RangeSlider
+            stepValues={["<75", 75, 90, 105, 120, 150, "150+"]}
+            onChange={rangeChangeHandler}
+          />
         </ChoiceForm.Panel>
       </ChoiceForm.Base>
     </ChoiceForm>
