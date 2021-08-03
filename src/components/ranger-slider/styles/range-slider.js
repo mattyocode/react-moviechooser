@@ -46,6 +46,7 @@ const Thumb = styled.input`
   height: 0;
   width: 20rem;
   outline: none;
+  z-index: 6;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -120,3 +121,31 @@ const Bubble = styled.output`
 export const MinBubble = styled(Bubble)``;
 
 export const MaxBubble = styled(Bubble)``;
+
+export const RangeLabels = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 5;
+`;
+
+export const RangeLabel = styled.div`
+  height: 5px;
+  width: 5px;
+  background-color: gray;
+  border-radius: 50%;
+  /* position: relative;
+  width: calc(100% / 7);
+  color: #b2b2b2;
+  font-size: 14px;
+  cursor: pointer; */
+
+  &::after {
+    position: absolute;
+    top: 25px;
+    font-size: 11px;
+    color: #ddd;
+    content: "1";
+  }
+`;

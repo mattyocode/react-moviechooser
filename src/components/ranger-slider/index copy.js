@@ -8,20 +8,13 @@ import {
   TrackWrapper,
   ThumbMin,
   ThumbMax,
-  SliderMinVal,
-  SliderMaxVal,
   MinBubble,
   MaxBubble,
-  RangeLabels,
-  RangeLabel,
 } from "./styles/range-slider";
 
-export default function RangeSlider({ onChange }) {
-  const valueSteps = ["Short", 75, 90, 105, 120, 150, 180];
-  const min = valueSteps[0];
-  const max = valueSteps[valueSteps.length];
-  const [minValue, setminValue] = useState(0);
-  const [maxValue, setmaxValue] = useState(valueSteps.length - 1);
+export default function RangeSlider({ min, max, onChange }) {
+  const [minValue, setminValue] = useState(min);
+  const [maxValue, setmaxValue] = useState(max);
 
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
@@ -46,6 +39,23 @@ export default function RangeSlider({ onChange }) {
     if (rangeRef.current) {
       rangeRef.current.style.left = `${minPercent}%`;
 
+      const bubbleWidth = Math.round(
+        minBubbleRef.current.getBoundingClientRect().width
+      );
+      const trackWidth = Math.round(
+        trackRef.current.getBoundingClientRect().width
+      );
+
+      const getBubblePosition = () => {
+        const bubblePosition =
+          minPercent * (trackWidth / 100) - bubbleWidth / 2;
+        return bubblePosition;
+      };
+
+      minBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
+        8 - getBubblePosition() * 0.1
+      }px))`;
+
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minValue, getSelectionPercent]);
@@ -54,8 +64,23 @@ export default function RangeSlider({ onChange }) {
     const minPercent = getSelectionPercent(minValRef.current);
     const maxPercent = getSelectionPercent(maxValue);
 
+    const bubbleWidth = Math.round(
+      minBubbleRef.current.getBoundingClientRect().width
+    );
+    const trackWidth = Math.round(
+      trackRef.current.getBoundingClientRect().width
+    );
+
+    const getBubblePosition = () => {
+      const bubblePosition = maxPercent * (trackWidth / 100) - bubbleWidth / 2;
+      return bubblePosition;
+    };
+
     if (rangeRef.current) {
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
+      maxBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
+        8 - getBubblePosition() * 0.05
+      }px))`;
     }
   }, [maxValue, getSelectionPercent]);
 
@@ -67,23 +92,21 @@ export default function RangeSlider({ onChange }) {
     <Wrapper data-testid="range-slider">
       <ThumbMin
         type="range"
-        min="0"
-        max={valueSteps.length - 1}
+        min={min}
+        max={max}
         value={minValue}
-        steps="1"
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxValue - 1);
-          console.log(event.target.value);
           setminValue(value);
           minValRef.current = value;
         }}
         ref={minThumbRef}
       />
+
       <ThumbMax
         type="range"
-        min="0"
-        max={valueSteps.length - 1}
-        steps="1"
+        min={min}
+        max={max}
         value={maxValue}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minValue + 1);
@@ -93,23 +116,13 @@ export default function RangeSlider({ onChange }) {
         ref={maxThumbRef}
       />
       <Slider>
-        {/* <MinBubble data-testid="runtime-min-val" ref={minBubbleRef}>
+        <MinBubble data-testid="runtime-min-val" ref={minBubbleRef}>
           {minValue}
         </MinBubble>
-        <MaxBubble ref={maxBubbleRef}>{maxValue}</MaxBubble> */}
-        <SliderMinVal>{valueSteps[minValue]}</SliderMinVal>
-        <SliderMaxVal>{valueSteps[maxValue]}</SliderMaxVal>
-
+        <MaxBubble ref={maxBubbleRef}>{maxValue}</MaxBubble>
+        {/* <SliderMinVal>{minValue}</SliderMinVal>
+        <SliderMaxVal>{maxValue}</SliderMaxVal> */}
         <TrackWrapper>
-          <RangeLabels>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-            <RangeLabel></RangeLabel>
-          </RangeLabels>
           <SliderTrack ref={trackRef} />
           <SliderRange ref={rangeRef} />
         </TrackWrapper>
