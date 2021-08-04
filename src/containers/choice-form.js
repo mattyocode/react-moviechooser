@@ -4,11 +4,14 @@ import RangeSlider from "../components/ranger-slider";
 
 import homepageData from "../fixtures/homepage.json";
 
-export function ChoiceFormContainer({ genreList = homepageData.genre }) {
+export function ChoiceFormContainer({
+  genreList = homepageData.genre,
+  runtimeData = homepageData.runtime,
+}) {
   const [isChecked, setIsChecked] = useState(
     new Array(genreList.length).fill(false)
   );
-  const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
+  const [allGenreBtnHighlighted, setAllGenreBtnHighlighted] = useState(true);
 
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -17,7 +20,7 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
     setIsChecked(updatedCheckedState);
   };
 
-  const allBtnHandler = (event) => {
+  const allGenreBtnHandler = (event) => {
     event.preventDefault();
     if (isChecked.includes(false)) {
       setIsChecked(new Array(genreList.length).fill(true));
@@ -28,15 +31,13 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
 
   useEffect(() => {
     if (isChecked.includes(false)) {
-      setAllBtnHighlighted(true);
+      setAllGenreBtnHighlighted(true);
     } else {
-      setAllBtnHighlighted(false);
+      setAllGenreBtnHighlighted(false);
     }
   }, [isChecked]);
 
-  const rangeChangeHandler = ({ min, max }) => {
-    console.log("min", min, "max", max);
-  };
+  const rangeChangeHandler = ({ min, max }) => {};
 
   return (
     <ChoiceForm>
@@ -45,8 +46,8 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
               data-testid="genre-all-btn"
-              onClick={allBtnHandler}
-              highlighted={allBtnHighlighted}
+              onClick={allGenreBtnHandler}
+              highlighted={allGenreBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
@@ -73,18 +74,18 @@ export function ChoiceFormContainer({ genreList = homepageData.genre }) {
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
               data-testid="runtime-all-btn"
-              onClick={allBtnHandler}
-              highlighted={allBtnHighlighted}
+              // onClick={allRuntimeBtnHandler}
             >
               Select All
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
           <RangeSlider
-            stepValues={["Short", "75m", "1h30", "1h45", "2h", "2h30", "Long"]}
-            defaultMinIdx={1}
-            defaultMaxIdx={4}
+            stepValues={runtimeData.optionsArray}
+            defaultMin={runtimeData.defaultMin}
+            defaultMax={runtimeData.defaultMax}
             onChange={rangeChangeHandler}
+            dataTestId="runtime"
           />
         </ChoiceForm.Panel>
       </ChoiceForm.Base>

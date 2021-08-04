@@ -102,7 +102,7 @@ export const ThumbMax = styled(Thumb)`
 const Bubble = styled.output`
   position: absolute;
   background: #222;
-  color: white;
+  color: var(--clr-neon);
   padding: 4px 10px;
   border-radius: 5px;
   top: 0;

@@ -27,5 +27,9 @@
   ],
 
   "decade": ["Pre-50s", "50s", "60s", "70s", "80s", "90s", "00s", "10s", "20s"],
-  "runtime": [{ "min": 30 }, { "max": 321 }]
+  "runtime": {
+    "optionsArray": ["Short", "75m", "1h30", "1h45", "2h", "2h30", "Long"],
+    "defaultMin": "75m",
+    "defaultMax": "2h"
+  }
 }

@@ -16,10 +16,14 @@ import {
 
 export default function RangeSlider({
   stepValues,
-  defaultMinIdx,
-  defaultMaxIdx,
+  defaultMin,
+  defaultMax,
   onChange,
+  dataTestId = "",
 }) {
+  const defaultMinIdx = stepValues.indexOf(defaultMin);
+  const defaultMaxIdx = stepValues.indexOf(defaultMax);
+
   const [minValue, setminValue] = useState(defaultMinIdx);
   const [maxValue, setmaxValue] = useState(defaultMaxIdx);
 
@@ -39,6 +43,18 @@ export default function RangeSlider({
     [stepValues]
   );
 
+  const getBubbleLeftPosition = useCallback((pos, offset) => {
+    const bubbleWidth = Math.round(
+      minBubbleRef.current.getBoundingClientRect().width
+    );
+    const trackWidth = Math.round(
+      trackRef.current.getBoundingClientRect().width
+    );
+
+    const bubblePosition = pos * (trackWidth / 100) - bubbleWidth / 2;
+    return bubblePosition + (8 - bubblePosition * offset);
+  }, []);
+
   useEffect(() => {
     const minPercent = getSelectionPercent(minValue);
     const maxPercent = getSelectionPercent(maxValRef.current);
@@ -47,56 +63,26 @@ export default function RangeSlider({
       rangeRef.current.style.left = `${minPercent}%`;
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
 
-      console.log("minPercent >>", minPercent);
-      console.log("maxPercent >>", maxPercent);
-
-      const bubbleWidth = Math.round(
-        minBubbleRef.current.getBoundingClientRect().width
-      );
-      const trackWidth = Math.round(
-        trackRef.current.getBoundingClientRect().width
-      );
-
-      const getBubblePosition = () => {
-        const bubblePosition =
-          minPercent * (trackWidth / 100) - bubbleWidth / 2;
-        return bubblePosition;
-      };
-
-      minBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
-        8 - getBubblePosition() * 0.1
-      }px))`;
+      minBubbleRef.current.style.left = `${getBubbleLeftPosition(
+        minPercent,
+        0.1
+      )}px`;
     }
-  }, [minValue, getSelectionPercent]);
+  }, [minValue, getSelectionPercent, getBubbleLeftPosition]);
 
   useEffect(() => {
     const minPercent = getSelectionPercent(minValRef.current);
     const maxPercent = getSelectionPercent(maxValue);
 
     if (rangeRef.current) {
-      const bubbleWidth = Math.round(
-        minBubbleRef.current.getBoundingClientRect().width
-      );
-      const trackWidth = Math.round(
-        trackRef.current.getBoundingClientRect().width
-      );
-
-      console.log("minPercent >>", minPercent);
-      console.log("maxPercent >>", maxPercent);
-
-      const getBubblePosition = () => {
-        const bubblePosition =
-          maxPercent * (trackWidth / 100) - bubbleWidth / 2;
-        return bubblePosition;
-      };
-
-      maxBubbleRef.current.style.left = `calc(${getBubblePosition()}px + (${
-        8 - getBubblePosition() * 0.05
-      }px))`;
+      maxBubbleRef.current.style.left = `${getBubbleLeftPosition(
+        maxPercent,
+        0.05
+      )}px`;
 
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [maxValue, getSelectionPercent]);
+  }, [maxValue, getSelectionPercent, getBubbleLeftPosition]);
 
   useEffect(() => {
     onChange({ min: stepValues[minValue], max: stepValues[maxValue] });
@@ -131,10 +117,12 @@ export default function RangeSlider({
         ref={maxThumbRef}
       />
       <Slider>
-        <MinBubble data-testid="runtime-min-val" ref={minBubbleRef}>
+        <MinBubble data-testid={`${dataTestId}-min-val`} ref={minBubbleRef}>
           {stepValues[minValue]}
         </MinBubble>
-        <MaxBubble ref={maxBubbleRef}>{stepValues[maxValue]}</MaxBubble>
+        <MaxBubble data-testid={`${dataTestId}-max-val`} ref={maxBubbleRef}>
+          {stepValues[maxValue]}
+        </MaxBubble>
         <TrackWrapper>
           <RangeLabels>
             {stepValues.map((value, index) => {
