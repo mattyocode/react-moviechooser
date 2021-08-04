@@ -11,6 +11,7 @@ export function ChoiceFormContainer({
   const [isChecked, setIsChecked] = useState(
     new Array(genreList.length).fill(false)
   );
+
   const [allGenreBtnHighlighted, setAllGenreBtnHighlighted] = useState(true);
 
   const checkboxChangeHandler = (position) => {
@@ -38,6 +39,11 @@ export function ChoiceFormContainer({
   }, [isChecked]);
 
   const rangeChangeHandler = ({ min, max }) => {};
+
+  const allRuntimeBtnHandler = (event) => {
+    event.preventDefault();
+    runtimeRangeSelectAll();
+  };
 
   return (
     <ChoiceForm>
@@ -86,6 +92,7 @@ export function ChoiceFormContainer({
             defaultMax={runtimeData.defaultMax}
             onChange={rangeChangeHandler}
             dataTestId="runtime"
+            onSelectAll={runtimeRangeSelectAll}
           />
         </ChoiceForm.Panel>
       </ChoiceForm.Base>

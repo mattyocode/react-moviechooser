@@ -56,8 +56,8 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ced4da;
     cursor: pointer;
-    height: 18px;
-    width: 18px;
+    height: 12px;
+    width: 12px;
     margin-top: 4px;
     pointer-events: all;
     position: relative;
@@ -68,8 +68,8 @@ const Thumb = styled.input`
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #ced4da;
     cursor: pointer;
-    height: 18px;
-    width: 18px;
+    height: 12px;
+    width: 12px;
     margin-top: 4px;
     pointer-events: all;
     position: relative;

@@ -24,8 +24,8 @@ export default function RangeSlider({
   const defaultMinIdx = stepValues.indexOf(defaultMin);
   const defaultMaxIdx = stepValues.indexOf(defaultMax);
 
-  const [minValue, setminValue] = useState(defaultMinIdx);
-  const [maxValue, setmaxValue] = useState(defaultMaxIdx);
+  const [minValue, setMinValue] = useState(defaultMinIdx);
+  const [maxValue, setMaxValue] = useState(defaultMaxIdx);
 
   const minValRef = useRef(defaultMinIdx);
   const maxValRef = useRef(defaultMaxIdx);
@@ -35,6 +35,11 @@ export default function RangeSlider({
   const maxThumbRef = useRef(null);
   const minBubbleRef = useRef(null);
   const maxBubbleRef = useRef(null);
+
+  const selectAll = () => {
+    setMinValue(stepValues[0]);
+    setMaxValue(stepValues[stepValues.length - 1]);
+  };
 
   const getSelectionPercent = useCallback(
     (value) => {
@@ -98,7 +103,7 @@ export default function RangeSlider({
         steps="1"
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxValue - 1);
-          setminValue(value);
+          setMinValue(value);
           minValRef.current = value;
         }}
         ref={minThumbRef}
@@ -111,7 +116,7 @@ export default function RangeSlider({
         value={maxValue}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minValue + 1);
-          setmaxValue(value);
+          setMaxValue(value);
           maxValRef.current = value;
         }}
         ref={maxThumbRef}
