@@ -4,7 +4,6 @@ import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
 import homepageData from "../../fixtures/homepage.json";
-import { ChoiceForm } from "../../components";
 
 describe("<ChoiceFormContainer/>", () => {
   const genreData = homepageData.genre;
@@ -115,6 +114,37 @@ describe("<ChoiceFormContainer/>", () => {
     expect(getByTestId("runtime-max-val").value).toBe(
       runtimeData.optionsArray.slice(-1)[0]
     );
+  });
+
+  it("clicking runtime all button second time returns to previous values", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer runtimeData={runtimeData} />
+    );
+
+    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
+    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+
+    const allBtn = getByTestId("runtime-all-btn");
+
+    fireEvent.click(allBtn);
+
+    expect(getByTestId("runtime-min-val").value).not.toBe(
+      runtimeData.defaultMin
+    );
+    expect(getByTestId("runtime-max-val").value).not.toBe(
+      runtimeData.defaultMax
+    );
+    expect(getByTestId("runtime-min-val").value).toBe(
+      runtimeData.optionsArray[0]
+    );
+    expect(getByTestId("runtime-max-val").value).toBe(
+      runtimeData.optionsArray.slice(-1)[0]
+    );
+
+    fireEvent.click(allBtn);
+
+    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
+    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
   });
 
   it("runtime all button styling changes on click", () => {

@@ -1,29 +1,26 @@
 {
   "genre": [
-    "Mystery",
+    "Comedy",
+    "Horror",
     "Sci-Fi",
     "Thriller",
-    "Biography",
     "Drama",
     "History",
     "War",
     "Crime",
     "Action",
-    "Comedy",
-    "Horror",
+    "Biography",
     "Adventure",
+    "Mystery",
     "Romance",
     "Family",
     "Fantasy",
     "Animation",
-    "Music",
     "Musical",
     "Western",
     "Documentary",
     "Sport",
-    "Short",
-    "Film-Noir",
-    "News"
+    "Film-Noir"
   ],
 
   "decade": {

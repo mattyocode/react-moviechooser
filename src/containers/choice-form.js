@@ -40,12 +40,20 @@ export function ChoiceFormContainer({
     }
   };
 
-  const rangeChangeHandler = ({ min, max }) => {};
+  const [prevMin, setPrevMin] = useState();
+  const [prevMax, setPrevMax] = useState();
 
   const allRuntimeBtnHandler = (event) => {
     event.preventDefault();
-    setMinValue(0);
-    setMaxValue(runtimeData.optionsArray.length - 1);
+    if (minValue !== 0 || maxValue !== runtimeData.optionsArray.length - 1) {
+      setPrevMin(minValue);
+      setPrevMax(maxValue);
+      setMinValue(0);
+      setMaxValue(runtimeData.optionsArray.length - 1);
+    } else {
+      setMinValue(prevMin);
+      setMaxValue(prevMax);
+    }
   };
 
   useEffect(() => {
@@ -112,7 +120,6 @@ export function ChoiceFormContainer({
             updateMin={setMinValue}
             updateMax={setMaxValue}
             stepValues={runtimeData.optionsArray}
-            onChange={rangeChangeHandler}
             dataTestId="runtime"
           />
         </ChoiceForm.Panel>
