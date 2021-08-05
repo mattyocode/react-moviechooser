@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChoiceForm } from "../components/";
 import RangeSlider from "../components/ranger-slider";
+import { useSlider, useCheckbox } from "../hooks";
 
 import homepageData from "../fixtures/homepage.json";
 
@@ -9,69 +10,25 @@ export function ChoiceFormContainer({
   runtimeData = homepageData.runtime,
   decadeData = homepageData.decadeData,
 }) {
-  const [isChecked, setIsChecked] = useState(
-    new Array(genreList.length).fill(false)
+  const {
+    isChecked: genreIsChecked,
+    checkboxChangeHandler: genreCheckboxChangeHandler,
+    allBtnHandler: genreAllBtnHandler,
+    allBtnHighlighted: genreAllBtnHighlighted,
+  } = useCheckbox(genreList);
+
+  const {
+    minValue: runtimeMinValue,
+    setMinValue: runtimeSetMinValue,
+    maxValue: runtimeMaxValue,
+    setMaxValue: runtimeSetMaxValue,
+    allBtnHighlighted: runtimeAllBtnHighlighted,
+    allBtnHandler: runtimeAllBtnHandler,
+  } = useSlider(
+    runtimeData.optionsArray,
+    runtimeData.defaultMin,
+    runtimeData.defaultMax
   );
-  const [allGenreBtnHighlighted, setAllGenreBtnHighlighted] = useState(true);
-
-  // const defaultMinIdx = runtimeData.optionsArray.indexOf(
-  //   runtimeData.defaultMin
-  // );
-  // const defaultMaxIdx = runtimeData.optionsArray.indexOf(
-  //   runtimeData.defaultMax
-  // );
-  // const [minValue, setMinValue] = useState(defaultMinIdx);
-  // const [maxValue, setMaxValue] = useState(defaultMaxIdx);
-  // const [allRuntimeBtnHighlighted, setAllRuntimeBtnHighlighted] =
-  //   useState(true);
-
-  const checkboxChangeHandler = (position) => {
-    const updatedCheckedState = isChecked.map((item, index) =>
-      index === position ? !item : item
-    );
-    setIsChecked(updatedCheckedState);
-  };
-
-  const allGenreBtnHandler = (event) => {
-    event.preventDefault();
-    if (isChecked.includes(false)) {
-      setIsChecked(new Array(genreList.length).fill(true));
-    } else {
-      setIsChecked(new Array(genreList.length).fill(false));
-    }
-  };
-
-  // const [prevMin, setPrevMin] = useState();
-  // const [prevMax, setPrevMax] = useState();
-
-  // const allRuntimeBtnHandler = (event) => {
-  //   event.preventDefault();
-  //   if (minValue !== 0 || maxValue !== runtimeData.optionsArray.length - 1) {
-  //     setPrevMin(minValue);
-  //     setPrevMax(maxValue);
-  //     setMinValue(0);
-  //     setMaxValue(runtimeData.optionsArray.length - 1);
-  //   } else {
-  //     setMinValue(prevMin);
-  //     setMaxValue(prevMax);
-  //   }
-  // };
-
-  useEffect(() => {
-    if (isChecked.includes(false)) {
-      setAllGenreBtnHighlighted(true);
-    } else {
-      setAllGenreBtnHighlighted(false);
-    }
-  }, [isChecked]);
-
-  // useEffect(() => {
-  //   if (minValue === 0 && maxValue === runtimeData.optionsArray.length - 1) {
-  //     setAllRuntimeBtnHighlighted(false);
-  //   } else {
-  //     setAllRuntimeBtnHighlighted(true);
-  //   }
-  // }, [minValue, maxValue, runtimeData.optionsArray]);
 
   return (
     <ChoiceForm>
@@ -80,8 +37,8 @@ export function ChoiceFormContainer({
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
               data-testid="genre-all-btn"
-              onClick={allGenreBtnHandler}
-              highlighted={allGenreBtnHighlighted}
+              onClick={genreAllBtnHandler}
+              highlighted={genreAllBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
@@ -95,8 +52,8 @@ export function ChoiceFormContainer({
                   key={index}
                   name={genre}
                   index={index}
-                  checkedState={isChecked[index]}
-                  changeHandler={checkboxChangeHandler}
+                  checkedState={genreIsChecked[index]}
+                  changeHandler={genreCheckboxChangeHandler}
                 >
                   {genre}
                 </ChoiceForm.Checkbox>
@@ -108,18 +65,18 @@ export function ChoiceFormContainer({
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
               data-testid="runtime-all-btn"
-              onClick={allRuntimeBtnHandler}
-              highlighted={allRuntimeBtnHighlighted}
+              onClick={runtimeAllBtnHandler}
+              highlighted={runtimeAllBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
           <RangeSlider
-            minValue={minValue}
-            maxValue={maxValue}
-            updateMin={setMinValue}
-            updateMax={setMaxValue}
+            minValue={runtimeMinValue}
+            maxValue={runtimeMaxValue}
+            updateMin={runtimeSetMinValue}
+            updateMax={runtimeSetMaxValue}
             stepValues={runtimeData.optionsArray}
             dataTestId="runtime"
           />
