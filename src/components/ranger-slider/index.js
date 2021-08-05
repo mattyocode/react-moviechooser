@@ -69,6 +69,25 @@ export default function RangeSlider({
     }
   }, [minValue, maxValue, getSelectionPercent, getBubbleLeftPosition]);
 
+  useEffect(() => {
+    if (minValue > maxValue) {
+      let min = minValue;
+      let max = maxValue;
+      updateMin(max);
+      updateMax(min);
+    }
+  }, [minValue, maxValue]);
+
+  useEffect(() => {
+    if (minValue === stepValues.length - 1) {
+      minThumbRef.current.style.zIndex = "4";
+      maxThumbRef.current.style.zIndex = "3";
+    } else if (maxValue === 0) {
+      minThumbRef.current.style.zIndex = "3";
+      maxThumbRef.current.style.zIndex = "4";
+    }
+  }, [minValue, maxValue, stepValues.length]);
+
   return (
     <Wrapper data-testid="range-slider">
       <ThumbMin
@@ -78,7 +97,7 @@ export default function RangeSlider({
         value={minValue}
         steps="1"
         onChange={(event) => {
-          const value = Math.min(Number(event.target.value), maxValue - 1);
+          const value = Number(event.target.value);
           updateMin(value);
           minValRef.current = value;
         }}
@@ -91,7 +110,7 @@ export default function RangeSlider({
         steps="1"
         value={maxValue}
         onChange={(event) => {
-          const value = Math.max(Number(event.target.value), minValue + 1);
+          const value = Number(event.target.value);
           updateMax(value);
           maxValRef.current = value;
         }}

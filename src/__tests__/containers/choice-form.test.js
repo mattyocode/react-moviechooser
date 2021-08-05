@@ -91,73 +91,61 @@ describe("<ChoiceFormContainer/>", () => {
     expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
   });
 
-  // it("decade all button selects all", () => {
-  //   const { getByTestId } = render(
-  //     <ChoiceFormContainer decadeData={decadeData} />
-  //   );
+  it("decade all button selects all", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer decadeData={decadeData} />
+    );
 
-  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
 
-  //   const allBtn = getByTestId("decade-all-btn");
+    const allBtn = getByTestId("decade-all-btn");
 
-  //   fireEvent.click(allBtn);
+    fireEvent.click(allBtn);
 
-  //   expect(getByTestId("decade-min-val").value).not.toBe(
-  //     decadeData.defaultMin
-  //   );
-  //   expect(getByTestId("decade-max-val").value).not.toBe(
-  //     decadeData.defaultMax
-  //   );
-  //   expect(getByTestId("decade-min-val").value).toBe(
-  //     decadeData.optionsArray[0]
-  //   );
-  //   expect(getByTestId("decade-max-val").value).toBe(
-  //     decadeData.optionsArray.slice(-1)[0]
-  //   );
-  // });
+    expect(getByTestId("decade-min-val").value).toBe(
+      decadeData.optionsArray[0]
+    );
+    expect(getByTestId("decade-max-val").value).toBe(
+      decadeData.optionsArray.slice(-1)[0]
+    );
+  });
 
-  // it("clicking decade all button second time returns to previous values", () => {
-  //   const { getByTestId } = render(
-  //     <ChoiceFormContainer decadeData={decadeData} />
-  //   );
+  it("clicking decade all button second time returns to previous values", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer decadeData={decadeData} />
+    );
 
-  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
 
-  //   const allBtn = getByTestId("decade-all-btn");
+    const allBtn = getByTestId("decade-all-btn");
 
-  //   fireEvent.click(allBtn);
+    fireEvent.click(allBtn);
 
-  //   expect(getByTestId("decade-min-val").value).not.toBe(
-  //     decadeData.defaultMin
-  //   );
-  //   expect(getByTestId("decade-max-val").value).not.toBe(
-  //     decadeData.defaultMax
-  //   );
-  //   expect(getByTestId("decade-min-val").value).toBe(
-  //     decadeData.optionsArray[0]
-  //   );
-  //   expect(getByTestId("decade-max-val").value).toBe(
-  //     decadeData.optionsArray.slice(-1)[0]
-  //   );
+    expect(getByTestId("decade-min-val").value).toBe(
+      decadeData.optionsArray[0]
+    );
+    expect(getByTestId("decade-max-val").value).toBe(
+      decadeData.optionsArray.slice(-1)[0]
+    );
 
-  //   fireEvent.click(allBtn);
+    fireEvent.click(allBtn);
 
-  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
-  // });
+    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+  });
 
-  // it("decade all button styling changes on click", () => {
-  //   const { getByTestId } = render(
-  //     <ChoiceFormContainer decadeData={decadeData} />
-  //   );
+  it("decade all button styling changes on click", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer decadeData={decadeData} />
+    );
 
-  //   const allBtn = getByTestId("decade-all-btn");
+    const allBtn = getByTestId("decade-all-btn");
 
-  //   fireEvent.click(allBtn);
-  //   expect(allBtn).toHaveStyle("color: #aaa");
-  // });
+    fireEvent.click(allBtn);
+    expect(allBtn).toHaveStyle("color: #aaa");
+  });
 
   it("displays Runtime panel", () => {
     const { getByText } = render(<ChoiceFormContainer />);
