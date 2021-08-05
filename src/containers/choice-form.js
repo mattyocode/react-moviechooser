@@ -8,7 +8,7 @@ import homepageData from "../fixtures/homepage.json";
 export function ChoiceFormContainer({
   genreList = homepageData.genre,
   runtimeData = homepageData.runtime,
-  decadeData = homepageData.decadeData,
+  decadeData = homepageData.decade,
 }) {
   const {
     isChecked: genreIsChecked,
@@ -28,6 +28,19 @@ export function ChoiceFormContainer({
     runtimeData.optionsArray,
     runtimeData.defaultMin,
     runtimeData.defaultMax
+  );
+
+  const {
+    minValue: decadeMinValue,
+    setMinValue: decadeSetMinValue,
+    maxValue: decadeMaxValue,
+    setMaxValue: decadeSetMaxValue,
+    allBtnHighlighted: decadeAllBtnHighlighted,
+    allBtnHandler: decadeAllBtnHandler,
+  } = useSlider(
+    decadeData.optionsArray,
+    decadeData.defaultMin,
+    decadeData.defaultMax
   );
 
   return (
@@ -61,6 +74,28 @@ export function ChoiceFormContainer({
             })}
           </ChoiceForm.Options>
         </ChoiceForm.Panel>
+
+        <ChoiceForm.Panel>
+          <ChoiceForm.Heading>
+            <ChoiceForm.AllButton
+              data-testid="decade-all-btn"
+              onClick={decadeAllBtnHandler}
+              highlighted={decadeAllBtnHighlighted}
+            >
+              Select All
+            </ChoiceForm.AllButton>
+            <h2>Decade</h2>
+          </ChoiceForm.Heading>
+          <RangeSlider
+            minValue={decadeMinValue}
+            maxValue={decadeMaxValue}
+            updateMin={decadeSetMinValue}
+            updateMax={decadeSetMaxValue}
+            stepValues={decadeData.optionsArray}
+            dataTestId="decade"
+          />
+        </ChoiceForm.Panel>
+
         <ChoiceForm.Panel>
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton

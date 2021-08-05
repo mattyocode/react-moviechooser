@@ -145,7 +145,7 @@ export const RangeLabel = styled.div`
   &::after {
     position: absolute;
     top: 25px;
-    font-size: 11px;
+    font-size: 14px;
     color: #ddd;
     content: "${(props) => (props.labelText ? props.labelText : "")}";
     transform: translateX(-35%);

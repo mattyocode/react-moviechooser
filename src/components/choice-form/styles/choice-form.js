@@ -21,6 +21,10 @@ export const Panel = styled.div`
   padding: 1rem 1rem 1.5rem 1rem;
   margin: 20px 0;
   text-align: center;
+
+  &:first-child {
+    margin-top: 0 !important;
+  }
 `;
 
 export const Heading = styled.div`
@@ -57,7 +61,7 @@ export const AllButton = styled.button`
   }
 
   @media screen and (max-width: 400px) {
-    left: 0.25rem;
+    left: 0;
   }
 `;
 
@@ -79,6 +83,11 @@ export const Label = styled.label`
   border-radius: 10px;
   box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
   cursor: pointer;
+
+  @media screen and (max-width: 400px) {
+    font-size: 0.75rem;
+    margin: 0.3rem 0.25rem;
+  }
 
   color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
   background-color: ${(props) =>
