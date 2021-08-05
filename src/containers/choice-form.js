@@ -92,6 +92,7 @@ export function ChoiceFormContainer({
             <ChoiceForm.AllButton
               data-testid="runtime-all-btn"
               onClick={allRuntimeBtnHandler}
+              highlighted={allRuntimeBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
