@@ -40,6 +40,14 @@ export function ChoiceFormContainer({
     }
   };
 
+  const rangeChangeHandler = ({ min, max }) => {};
+
+  const allRuntimeBtnHandler = (event) => {
+    event.preventDefault();
+    setMinValue(0);
+    setMaxValue(runtimeData.optionsArray.length - 1);
+  };
+
   useEffect(() => {
     if (isChecked.includes(false)) {
       setAllGenreBtnHighlighted(true);
@@ -48,13 +56,13 @@ export function ChoiceFormContainer({
     }
   }, [isChecked]);
 
-  const rangeChangeHandler = ({ min, max }) => {};
-
-  const allRuntimeBtnHandler = (event) => {
-    event.preventDefault();
-    setMinValue(0);
-    setMaxValue(runtimeData.optionsArray.length - 1);
-  };
+  useEffect(() => {
+    if (minValue === 0 && maxValue === runtimeData.optionsArray.length - 1) {
+      setAllRuntimeBtnHighlighted(false);
+    } else {
+      setAllRuntimeBtnHighlighted(true);
+    }
+  }, [minValue, maxValue, runtimeData.optionsArray]);
 
   return (
     <ChoiceForm>
