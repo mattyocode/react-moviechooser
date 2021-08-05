@@ -8,6 +8,7 @@ import { ChoiceForm } from "../../components";
 
 describe("<ChoiceFormContainer/>", () => {
   const genreData = homepageData.genre;
+  const runtimeData = homepageData.runtime;
   it("renders <ChoiceFormContainer/>", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer genreList={genreData} />
@@ -75,9 +76,55 @@ describe("<ChoiceFormContainer/>", () => {
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
-  it("displays Decade panel", () => {
+  it("displays Runtime panel", () => {
     const { getByText } = render(<ChoiceFormContainer />);
 
     expect(getByText("Runtime")).toBeTruthy();
   });
+
+  it("renders with default values", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer runtimeData={runtimeData} />
+    );
+
+    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
+    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+  });
+
+  it("runtime all button selects all", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer runtimeData={runtimeData} />
+    );
+
+    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
+    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+
+    const allBtn = getByTestId("runtime-all-btn");
+
+    fireEvent.click(allBtn);
+
+    expect(getByTestId("runtime-min-val").value).not.toBe(
+      runtimeData.defaultMin
+    );
+    expect(getByTestId("runtime-max-val").value).not.toBe(
+      runtimeData.defaultMax
+    );
+    expect(getByTestId("runtime-min-val").value).toBe(
+      runtimeData.optionsArray[0]
+    );
+    expect(getByTestId("runtime-max-val").value).toBe(
+      runtimeData.optionsArray.slice(-1)[0]
+    );
+  });
+
+  // it("all button styling changes on click", () => {
+  //   const { getByTestId } = render(
+  //     <ChoiceFormContainer genreList={genreData} />
+  //   );
+
+  //   const allBtn = getByTestId("genre-all-btn");
+
+  //   fireEvent.click(allBtn);
+  //   expect(allBtn).toHaveStyle("color: #aaa");
+  // });
 });

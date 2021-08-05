@@ -22,9 +22,10 @@ describe("<RangeSlider/>", () => {
     const { getByText } = render(
       <RangeSlider
         stepValues={testArray}
-        defaultMin={"1"}
-        defaultMax={"3"}
-        onChange={() => {}}
+        minValue={0}
+        maxValue={2}
+        updateMin={() => {}}
+        updateMax={() => {}}
         dataTestId="runtime"
       />
     );
@@ -36,13 +37,14 @@ describe("<RangeSlider/>", () => {
     const { getByTestId } = render(
       <RangeSlider
         stepValues={testArray}
-        defaultMin={"1"}
-        defaultMax={"3"}
-        onChange={() => {}}
+        minValue={0}
+        maxValue={1}
+        updateMin={() => {}}
+        updateMax={() => {}}
         dataTestId="runtime"
       />
     );
     expect(getByTestId("runtime-min-val").value).toBe("1");
-    expect(getByTestId("runtime-max-val").value).toBe("3");
+    expect(getByTestId("runtime-max-val").value).toBe("2");
   });
 });

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import {
   Wrapper,
@@ -15,21 +15,31 @@ import {
 } from "./styles/range-slider";
 
 export default function RangeSlider({
-  minValue,
-  maxValue,
-  updateMin,
-  updateMax,
   stepValues,
+  defaultMin,
+  defaultMax,
+  onChange,
   dataTestId = "",
 }) {
-  const minValRef = useRef(minValue);
-  const maxValRef = useRef(maxValue);
+  const defaultMinIdx = stepValues.indexOf(defaultMin);
+  const defaultMaxIdx = stepValues.indexOf(defaultMax);
+
+  const [minValue, setMinValue] = useState(defaultMinIdx);
+  const [maxValue, setMaxValue] = useState(defaultMaxIdx);
+
+  const minValRef = useRef(defaultMinIdx);
+  const maxValRef = useRef(defaultMaxIdx);
   const trackRef = useRef(null);
   const rangeRef = useRef(null);
   const minThumbRef = useRef(null);
   const maxThumbRef = useRef(null);
   const minBubbleRef = useRef(null);
   const maxBubbleRef = useRef(null);
+
+  const selectAll = () => {
+    setMinValue(stepValues[0]);
+    setMaxValue(stepValues[stepValues.length - 1]);
+  };
 
   const getSelectionPercent = useCallback(
     (value) => {
@@ -52,7 +62,7 @@ export default function RangeSlider({
 
   useEffect(() => {
     const minPercent = getSelectionPercent(minValue);
-    const maxPercent = getSelectionPercent(maxValue);
+    const maxPercent = getSelectionPercent(maxValRef.current);
 
     if (rangeRef.current) {
       rangeRef.current.style.left = `${minPercent}%`;
@@ -62,12 +72,26 @@ export default function RangeSlider({
         minPercent,
         0.1
       )}px`;
+    }
+  }, [minValue, getSelectionPercent, getBubbleLeftPosition]);
+
+  useEffect(() => {
+    const minPercent = getSelectionPercent(minValRef.current);
+    const maxPercent = getSelectionPercent(maxValue);
+
+    if (rangeRef.current) {
       maxBubbleRef.current.style.left = `${getBubbleLeftPosition(
         maxPercent,
         0.05
       )}px`;
+
+      rangeRef.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [minValue, maxValue, getSelectionPercent, getBubbleLeftPosition]);
+  }, [maxValue, getSelectionPercent, getBubbleLeftPosition]);
+
+  useEffect(() => {
+    onChange({ min: stepValues[minValue], max: stepValues[maxValue] });
+  }, [stepValues, minValue, maxValue, onChange]);
 
   return (
     <Wrapper data-testid="range-slider">
@@ -79,7 +103,7 @@ export default function RangeSlider({
         steps="1"
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxValue - 1);
-          updateMin(value);
+          setMinValue(value);
           minValRef.current = value;
         }}
         ref={minThumbRef}
@@ -92,7 +116,7 @@ export default function RangeSlider({
         value={maxValue}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minValue + 1);
-          updateMax(value);
+          setMaxValue(value);
           maxValRef.current = value;
         }}
         ref={maxThumbRef}

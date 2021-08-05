@@ -12,17 +12,6 @@ export function ChoiceFormContainer({
     new Array(genreList.length).fill(false)
   );
   const [allGenreBtnHighlighted, setAllGenreBtnHighlighted] = useState(true);
-  const defaultMinIdx = runtimeData.optionsArray.indexOf(
-    runtimeData.defaultMin
-  );
-  const defaultMaxIdx = runtimeData.optionsArray.indexOf(
-    runtimeData.defaultMax
-  );
-
-  const [minValue, setMinValue] = useState(defaultMinIdx);
-  const [maxValue, setMaxValue] = useState(defaultMaxIdx);
-  const [allRuntimeBtnHighlighted, setAllRuntimeBtnHighlighted] =
-    useState(true);
 
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -50,11 +39,9 @@ export function ChoiceFormContainer({
 
   const rangeChangeHandler = ({ min, max }) => {};
 
-  const allRuntimeBtnHandler = (event) => {
-    event.preventDefault();
-    setMinValue(0);
-    setMaxValue(runtimeData.optionsArray.length - 1);
-  };
+  // const allRuntimeBtnHandler = (event) => {
+  //   event.preventDefault();
+  // };
 
   return (
     <ChoiceForm>
@@ -91,18 +78,16 @@ export function ChoiceFormContainer({
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
               data-testid="runtime-all-btn"
-              onClick={allRuntimeBtnHandler}
+              // onClick={allRuntimeBtnHandler}
             >
               Select All
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
           <RangeSlider
-            minValue={minValue}
-            maxValue={maxValue}
-            updateMin={setMinValue}
-            updateMax={setMaxValue}
             stepValues={runtimeData.optionsArray}
+            defaultMin={runtimeData.defaultMin}
+            defaultMax={runtimeData.defaultMax}
             onChange={rangeChangeHandler}
             dataTestId="runtime"
           />
