@@ -91,21 +91,24 @@ export const ThumbMin = styled(Thumb)`
 export const ThumbMax = styled(Thumb)`
   z-index: 4;
 `;
+export const SliderValWrapper = styled.div`
+  position: relative;
+`;
 
-// const SliderVal = styled.div`
-//   color: #dee2e6;
-//   font-size: 12px;
-//   margin-top: 20px;
-//   position: absolute;
-// `;
+const SliderVal = styled.div`
+  color: #dee2e6;
+  font-size: 12px;
+  margin-top: 20px;
+  position: relative;
+`;
 
-// export const SliderMinVal = styled(SliderVal)`
-//   left: 3px;
-// `;
+export const SliderMinVal = styled(SliderVal)`
+  left: 3px;
+`;
 
-// export const SliderMaxVal = styled(SliderVal)`
-//   right: -1px;
-// `;
+export const SliderMaxVal = styled(SliderVal)`
+  right: -1px;
+`;
 
 const Bubble = styled.output`
   position: absolute;
@@ -141,13 +144,17 @@ export const RangeLabel = styled.div`
   width: 5px;
   background-color: gray;
   border-radius: 50%;
+  color: ${(props) => (props.highlight ? "var(--clr-neon)" : "#ddd")};
+  cursor: pointer;
 
   &::after {
     position: absolute;
     top: 25px;
-    font-size: 14px;
-    color: #ddd;
+    font-size: ${(props) => (props.highlight ? "16px" : "14px")};
     content: "${(props) => (props.labelText ? props.labelText : "")}";
+    color: ${(props) => (props.highlight ? "var(--clr-neon)" : "#ddd")};
     transform: translateX(-35%);
+    transition: font-size 0.3s;
+    transition: color 0.3s;
   }
 `;

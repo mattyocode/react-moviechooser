@@ -5,6 +5,8 @@ import {
   Slider,
   SliderTrack,
   SliderRange,
+  SliderMinVal,
+  SliderMaxVal,
   TrackWrapper,
   ThumbMin,
   ThumbMax,
@@ -50,6 +52,14 @@ export default function RangeSlider({
     return bubblePosition + (8 - bubblePosition * offset);
   }, []);
 
+  const setToSingleDecade = useCallback(
+    (index) => {
+      updateMin(index);
+      updateMax(index);
+    },
+    [updateMin, updateMax]
+  );
+
   useEffect(() => {
     const minPercent = getSelectionPercent(minValue);
     const maxPercent = getSelectionPercent(maxValue);
@@ -76,7 +86,7 @@ export default function RangeSlider({
       updateMin(max);
       updateMax(min);
     }
-  }, [minValue, maxValue]);
+  }, [minValue, maxValue, updateMin, updateMax]);
 
   useEffect(() => {
     if (minValue === stepValues.length - 1) {
@@ -90,6 +100,8 @@ export default function RangeSlider({
 
   return (
     <Wrapper data-testid="range-slider">
+      <SliderMinVal>{stepValues[minValue]}</SliderMinVal>
+      <SliderMaxVal>{stepValues[maxValue]}</SliderMaxVal>
       <ThumbMin
         type="range"
         min="0"
@@ -123,10 +135,21 @@ export default function RangeSlider({
         <MaxBubble data-testid={`${dataTestId}-max-val`} ref={maxBubbleRef}>
           {stepValues[maxValue]}
         </MaxBubble>
+
         <TrackWrapper>
           <RangeLabels>
             {stepValues.map((value, index) => {
-              return <RangeLabel key={index} labelText={value}></RangeLabel>;
+              console.log(value, index === minValue || index === maxValue);
+              return (
+                <RangeLabel
+                  key={index}
+                  labelText={value}
+                  highlight={index === minValue || index === maxValue}
+                  onClick={() => {
+                    setToSingleDecade(index);
+                  }}
+                ></RangeLabel>
+              );
             })}
           </RangeLabels>
           <SliderTrack ref={trackRef} />

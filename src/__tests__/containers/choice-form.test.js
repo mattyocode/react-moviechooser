@@ -229,4 +229,16 @@ describe("<ChoiceFormContainer/>", () => {
     fireEvent.click(allBtn);
     expect(allBtn).toHaveStyle("color: #aaa");
   });
+
+  it("renders submit buttons", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
+    );
+
+    expect(getByTestId("submit-btns")).toBeTruthy();
+  });
 });
