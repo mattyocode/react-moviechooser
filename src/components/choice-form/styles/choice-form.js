@@ -53,6 +53,11 @@ export const AllButton = styled.button`
   @media screen and (max-width: 800px) {
     top: 0.5rem;
     left: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  @media screen and (max-width: 400px) {
+    left: 0.25rem;
   }
 `;
 

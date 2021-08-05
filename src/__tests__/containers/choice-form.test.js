@@ -8,6 +8,7 @@ import homepageData from "../../fixtures/homepage.json";
 describe("<ChoiceFormContainer/>", () => {
   const genreData = homepageData.genre;
   const runtimeData = homepageData.runtime;
+  const decadeData = homepageData.decade;
   it("renders <ChoiceFormContainer/>", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer genreList={genreData} />
@@ -75,13 +76,96 @@ describe("<ChoiceFormContainer/>", () => {
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
+  it("displays Decade panel", () => {
+    const { getByText } = render(<ChoiceFormContainer />);
+
+    expect(getByText("Decade")).toBeTruthy();
+  });
+
+  it("renders Decade slider with default values", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer decadeData={decadeData} />
+    );
+
+    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+  });
+
+  // it("decade all button selects all", () => {
+  //   const { getByTestId } = render(
+  //     <ChoiceFormContainer decadeData={decadeData} />
+  //   );
+
+  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+
+  //   const allBtn = getByTestId("decade-all-btn");
+
+  //   fireEvent.click(allBtn);
+
+  //   expect(getByTestId("decade-min-val").value).not.toBe(
+  //     decadeData.defaultMin
+  //   );
+  //   expect(getByTestId("decade-max-val").value).not.toBe(
+  //     decadeData.defaultMax
+  //   );
+  //   expect(getByTestId("decade-min-val").value).toBe(
+  //     decadeData.optionsArray[0]
+  //   );
+  //   expect(getByTestId("decade-max-val").value).toBe(
+  //     decadeData.optionsArray.slice(-1)[0]
+  //   );
+  // });
+
+  // it("clicking decade all button second time returns to previous values", () => {
+  //   const { getByTestId } = render(
+  //     <ChoiceFormContainer decadeData={decadeData} />
+  //   );
+
+  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+
+  //   const allBtn = getByTestId("decade-all-btn");
+
+  //   fireEvent.click(allBtn);
+
+  //   expect(getByTestId("decade-min-val").value).not.toBe(
+  //     decadeData.defaultMin
+  //   );
+  //   expect(getByTestId("decade-max-val").value).not.toBe(
+  //     decadeData.defaultMax
+  //   );
+  //   expect(getByTestId("decade-min-val").value).toBe(
+  //     decadeData.optionsArray[0]
+  //   );
+  //   expect(getByTestId("decade-max-val").value).toBe(
+  //     decadeData.optionsArray.slice(-1)[0]
+  //   );
+
+  //   fireEvent.click(allBtn);
+
+  //   expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
+  //   expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+  // });
+
+  // it("decade all button styling changes on click", () => {
+  //   const { getByTestId } = render(
+  //     <ChoiceFormContainer decadeData={decadeData} />
+  //   );
+
+  //   const allBtn = getByTestId("decade-all-btn");
+
+  //   fireEvent.click(allBtn);
+  //   expect(allBtn).toHaveStyle("color: #aaa");
+  // });
+
   it("displays Runtime panel", () => {
     const { getByText } = render(<ChoiceFormContainer />);
 
     expect(getByText("Runtime")).toBeTruthy();
   });
 
-  it("renders with default values", () => {
+  it("renders Runtime slider with default values", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer runtimeData={runtimeData} />
     );
@@ -90,33 +174,7 @@ describe("<ChoiceFormContainer/>", () => {
     expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
   });
 
-  it("runtime all button selects all", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer runtimeData={runtimeData} />
-    );
-
-    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
-    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
-
-    const allBtn = getByTestId("runtime-all-btn");
-
-    fireEvent.click(allBtn);
-
-    expect(getByTestId("runtime-min-val").value).not.toBe(
-      runtimeData.defaultMin
-    );
-    expect(getByTestId("runtime-max-val").value).not.toBe(
-      runtimeData.defaultMax
-    );
-    expect(getByTestId("runtime-min-val").value).toBe(
-      runtimeData.optionsArray[0]
-    );
-    expect(getByTestId("runtime-max-val").value).toBe(
-      runtimeData.optionsArray.slice(-1)[0]
-    );
-  });
-
-  it("clicking runtime all button second time returns to previous values", () => {
+  it("Runtime all button selects all", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer runtimeData={runtimeData} />
     );
@@ -140,6 +198,32 @@ describe("<ChoiceFormContainer/>", () => {
     expect(getByTestId("runtime-max-val").value).toBe(
       runtimeData.optionsArray.slice(-1)[0]
     );
+  });
+
+  it("clicking Runtime all button second time returns to previous values", () => {
+    const { getByTestId } = render(
+      <ChoiceFormContainer runtimeData={runtimeData} />
+    );
+
+    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
+    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+
+    const allBtn = getByTestId("runtime-all-btn");
+
+    fireEvent.click(allBtn);
+
+    expect(getByTestId("runtime-min-val").value).not.toBe(
+      runtimeData.defaultMin
+    );
+    expect(getByTestId("runtime-max-val").value).not.toBe(
+      runtimeData.defaultMax
+    );
+    expect(getByTestId("runtime-min-val").value).toBe(
+      runtimeData.optionsArray[0]
+    );
+    expect(getByTestId("runtime-max-val").value).toBe(
+      runtimeData.optionsArray.slice(-1)[0]
+    );
 
     fireEvent.click(allBtn);
 
@@ -147,7 +231,7 @@ describe("<ChoiceFormContainer/>", () => {
     expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
   });
 
-  it("runtime all button styling changes on click", () => {
+  it("Runtime all button styling changes on click", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer runtimeData={runtimeData} />
     );

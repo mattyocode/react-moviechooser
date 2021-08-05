@@ -12,6 +12,10 @@ export const Slider = styled.div`
   width: 20rem;
   padding: 2rem 0;
   height: 100%;
+
+  @media screen and (max-width: 400px) {
+    width: 15rem;
+  }
 `;
 
 export const TrackWrapper = styled.div`
@@ -47,6 +51,10 @@ const Thumb = styled.input`
   width: 20rem;
   outline: none;
   z-index: 6;
+
+  @media screen and (max-width: 400px) {
+    width: 15rem;
+  }
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;

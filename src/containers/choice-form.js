@@ -7,22 +7,23 @@ import homepageData from "../fixtures/homepage.json";
 export function ChoiceFormContainer({
   genreList = homepageData.genre,
   runtimeData = homepageData.runtime,
+  decadeData = homepageData.decadeData,
 }) {
   const [isChecked, setIsChecked] = useState(
     new Array(genreList.length).fill(false)
   );
   const [allGenreBtnHighlighted, setAllGenreBtnHighlighted] = useState(true);
-  const defaultMinIdx = runtimeData.optionsArray.indexOf(
-    runtimeData.defaultMin
-  );
-  const defaultMaxIdx = runtimeData.optionsArray.indexOf(
-    runtimeData.defaultMax
-  );
 
-  const [minValue, setMinValue] = useState(defaultMinIdx);
-  const [maxValue, setMaxValue] = useState(defaultMaxIdx);
-  const [allRuntimeBtnHighlighted, setAllRuntimeBtnHighlighted] =
-    useState(true);
+  // const defaultMinIdx = runtimeData.optionsArray.indexOf(
+  //   runtimeData.defaultMin
+  // );
+  // const defaultMaxIdx = runtimeData.optionsArray.indexOf(
+  //   runtimeData.defaultMax
+  // );
+  // const [minValue, setMinValue] = useState(defaultMinIdx);
+  // const [maxValue, setMaxValue] = useState(defaultMaxIdx);
+  // const [allRuntimeBtnHighlighted, setAllRuntimeBtnHighlighted] =
+  //   useState(true);
 
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -40,21 +41,21 @@ export function ChoiceFormContainer({
     }
   };
 
-  const [prevMin, setPrevMin] = useState();
-  const [prevMax, setPrevMax] = useState();
+  // const [prevMin, setPrevMin] = useState();
+  // const [prevMax, setPrevMax] = useState();
 
-  const allRuntimeBtnHandler = (event) => {
-    event.preventDefault();
-    if (minValue !== 0 || maxValue !== runtimeData.optionsArray.length - 1) {
-      setPrevMin(minValue);
-      setPrevMax(maxValue);
-      setMinValue(0);
-      setMaxValue(runtimeData.optionsArray.length - 1);
-    } else {
-      setMinValue(prevMin);
-      setMaxValue(prevMax);
-    }
-  };
+  // const allRuntimeBtnHandler = (event) => {
+  //   event.preventDefault();
+  //   if (minValue !== 0 || maxValue !== runtimeData.optionsArray.length - 1) {
+  //     setPrevMin(minValue);
+  //     setPrevMax(maxValue);
+  //     setMinValue(0);
+  //     setMaxValue(runtimeData.optionsArray.length - 1);
+  //   } else {
+  //     setMinValue(prevMin);
+  //     setMaxValue(prevMax);
+  //   }
+  // };
 
   useEffect(() => {
     if (isChecked.includes(false)) {
@@ -64,13 +65,13 @@ export function ChoiceFormContainer({
     }
   }, [isChecked]);
 
-  useEffect(() => {
-    if (minValue === 0 && maxValue === runtimeData.optionsArray.length - 1) {
-      setAllRuntimeBtnHighlighted(false);
-    } else {
-      setAllRuntimeBtnHighlighted(true);
-    }
-  }, [minValue, maxValue, runtimeData.optionsArray]);
+  // useEffect(() => {
+  //   if (minValue === 0 && maxValue === runtimeData.optionsArray.length - 1) {
+  //     setAllRuntimeBtnHighlighted(false);
+  //   } else {
+  //     setAllRuntimeBtnHighlighted(true);
+  //   }
+  // }, [minValue, maxValue, runtimeData.optionsArray]);
 
   return (
     <ChoiceForm>
