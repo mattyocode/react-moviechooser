@@ -18,7 +18,7 @@ export const Panel = styled.div`
   background: rgba(34, 34, 34, 0.3);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   width: 100%;
-  padding: 1rem 1rem 1.5rem 1rem;
+  padding: 1rem;
   margin: 20px 0;
   text-align: center;
 
@@ -29,20 +29,20 @@ export const Panel = styled.div`
 
 export const Heading = styled.div`
   position: relative;
-  padding: 0.5rem 0;
+  padding-bottom: 0.5rem;
 `;
 
 export const Title = styled.h2``;
 
 export const AllButton = styled.button`
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0;
+  left: 0;
   border: none;
   background-color: transparent;
   padding-left: 0.5rem;
   color: ${(props) => (props.highlighted ? "var(--clr-neon)" : "#aaa")};
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
   cursor: pointer;
   text-decoration: underline;
@@ -55,13 +55,7 @@ export const AllButton = styled.button`
   transition: all 0.2s;
 
   @media screen and (max-width: 800px) {
-    top: 0.5rem;
-    left: 0.5rem;
     font-size: 0.75rem;
-  }
-
-  @media screen and (max-width: 400px) {
-    left: 0;
   }
 `;
 
@@ -122,6 +116,7 @@ export const SubmitWrapper = styled.div`
 export const SubmitBtn = styled.button`
   max-width: 25rem;
   margin: 0 auto;
+  padding: 0 5px;
   width: 8rem;
   height: 3rem;
   border-radius: 5px;
@@ -130,8 +125,12 @@ export const SubmitBtn = styled.button`
   cursor: pointer;
   text-align: center;
   justify-content: center;
-  /* margin: 0.5rem auto; */
   color: #222;
   font-size: 1rem;
   font-weight: bold;
+
+  @media screen and (max-width: 400px) {
+    font-size: 0.8rem;
+    width: 7rem;
+  }
 `;

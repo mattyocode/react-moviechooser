@@ -53,13 +53,26 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 800px) {
     h1 {
             font-size: 2.5rem;
     }
     h3 {
             font-size: 1rem;
+        }
     }
-}
+
+    @media (max-width: 400px) {
+    h1 {
+            font-size: 1.5rem;
+    }
+    h2 {
+        font-size: 1.25rem;
+        margin: 0.2rem 0;
+    }
+    h3 {
+            font-size: 0.75rem;
+        }
+    }
 
 `;

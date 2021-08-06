@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4rem;
+  margin: 1.5rem 0 3rem 0;
 `;
 
 export const Slider = styled.div`
@@ -115,6 +115,10 @@ export const SliderVal = styled.output`
   color: var(--clr-neon);
   padding: 4px 10px;
   border-radius: 5px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const SliderMinVal = styled(SliderVal)`
