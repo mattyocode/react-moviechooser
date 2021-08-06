@@ -111,3 +111,27 @@ export const Input = styled.input.attrs({ type: "checkbox" })`
   cursor: pointer;
   }
 `;
+
+export const SubmitWrapper = styled.div`
+  max-width: 350px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+`;
+
+export const SubmitBtn = styled.button`
+  max-width: 25rem;
+  margin: 0 auto;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 5px;
+  border-style: hidden;
+  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  /* margin: 0.5rem auto; */
+  color: #222;
+  font-size: 1rem;
+  font-weight: bold;
+`;

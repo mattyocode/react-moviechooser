@@ -34,7 +34,15 @@ describe("<ChoiceForm/>", () => {
     expect(getByText("Select All")).toBeTruthy();
   });
 
-  // it("shows decade panel", () => {
-  //   const { getByTestId } = render();
-  // });
+  it("renders submit buttons", () => {
+    const { getByTestId } = render(
+      <ChoiceForm.Panel>
+        <ChoiceForm.Submit>
+          <ChoiceForm.SubmitBtn>Submit</ChoiceForm.SubmitBtn>
+        </ChoiceForm.Submit>
+      </ChoiceForm.Panel>
+    );
+
+    expect(getByTestId("submit-btns")).toBeTruthy();
+  });
 });

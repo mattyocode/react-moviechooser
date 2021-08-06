@@ -9,6 +9,8 @@ import {
   Options,
   Label,
   Input,
+  SubmitWrapper,
+  SubmitBtn,
 } from "./styles/choice-form";
 
 export default function ChoiceForm({ children, ...restProps }) {
@@ -70,4 +72,19 @@ ChoiceForm.Checkbox = function ChoiceFormCheckbox({
       </Label>
     </li>
   );
+};
+
+ChoiceForm.Submit = function ChoiceFormSubmit({ children, ...restProps }) {
+  return (
+    <SubmitWrapper data-testid="submit-btns" {...restProps}>
+      {children}
+    </SubmitWrapper>
+  );
+};
+
+ChoiceForm.SubmitBtn = function ChoiceFormSubmitBtn({
+  children,
+  ...restProps
+}) {
+  return <SubmitBtn {...restProps}>{children}</SubmitBtn>;
 };

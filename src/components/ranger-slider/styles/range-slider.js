@@ -99,6 +99,11 @@ export const SliderValWrapper = styled.div`
   display: flex;
   text-align: center;
   justify-content: center;
+
+  p {
+    padding: 0 0.4rem;
+    align-self: flex-end;
+  }
 `;
 
 export const SliderVal = styled.output`
