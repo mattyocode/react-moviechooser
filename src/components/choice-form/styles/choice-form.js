@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Base = styled.form``;
 
 export const Panel = styled.div`
-  position: relative; /* may cause issues */
+  position: relative;
   border-radius: 5px;
   background: rgba(34, 34, 34, 0.3);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -116,7 +116,6 @@ export const SubmitWrapper = styled.div`
 export const SubmitBtn = styled.button`
   max-width: 25rem;
   margin: 0 auto;
-  padding: 0 5px;
   width: 8rem;
   height: 3rem;
   border-radius: 5px;
@@ -125,7 +124,7 @@ export const SubmitBtn = styled.button`
   cursor: pointer;
   text-align: center;
   justify-content: center;
-  color: #222;
+  color: #111;
   font-size: 1rem;
   font-weight: bold;
 

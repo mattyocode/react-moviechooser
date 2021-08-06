@@ -93,9 +93,6 @@ export const ThumbMax = styled(Thumb)`
 `;
 export const SliderValWrapper = styled.div`
   position: relative;
-  /* top: -1.5rem;
-  left: 50%;
-  transform: translateX(-50%); */
   display: flex;
   text-align: center;
   justify-content: center;

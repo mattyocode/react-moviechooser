@@ -16,11 +16,11 @@ export const NavHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: #000;
 
   @media screen and (min-width: 800px) {
-    padding: 0;
+    padding: 0 1rem;
   }
 `;
 
@@ -98,7 +98,7 @@ export const LinksContainer = styled.div`
     min-width: max-content;
     display: flex;
     height: auto !important;
-    padding: 0;
+    padding: 0 1rem;
   }
 `;
 
