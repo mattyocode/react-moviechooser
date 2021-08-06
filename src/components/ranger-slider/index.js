@@ -5,6 +5,9 @@ import {
   Slider,
   SliderTrack,
   SliderRange,
+  SliderValWrapper,
+  SliderValSplit,
+  SliderVal,
   SliderMinVal,
   SliderMaxVal,
   TrackWrapper,
@@ -30,8 +33,8 @@ export default function RangeSlider({
   const rangeRef = useRef(null);
   const minThumbRef = useRef(null);
   const maxThumbRef = useRef(null);
-  const minBubbleRef = useRef(null);
-  const maxBubbleRef = useRef(null);
+  // const minBubbleRef = useRef(null);
+  // const maxBubbleRef = useRef(null);
 
   const getSelectionPercent = useCallback(
     (value) => {
@@ -40,17 +43,17 @@ export default function RangeSlider({
     [stepValues]
   );
 
-  const getBubbleLeftPosition = useCallback((pos, offset) => {
-    const bubbleWidth = Math.round(
-      minBubbleRef.current.getBoundingClientRect().width
-    );
-    const trackWidth = Math.round(
-      trackRef.current.getBoundingClientRect().width
-    );
+  // const getBubbleLeftPosition = useCallback((pos, offset) => {
+  //   const bubbleWidth = Math.round(
+  //     minBubbleRef.current.getBoundingClientRect().width
+  //   );
+  //   const trackWidth = Math.round(
+  //     trackRef.current.getBoundingClientRect().width
+  //   );
 
-    const bubblePosition = pos * (trackWidth / 100) - bubbleWidth / 2;
-    return bubblePosition + (8 - bubblePosition * offset);
-  }, []);
+  //   const bubblePosition = pos * (trackWidth / 100) - bubbleWidth / 2;
+  //   return bubblePosition + (8 - bubblePosition * offset);
+  // }, []);
 
   const setToSingleDecade = useCallback(
     (index) => {
@@ -68,16 +71,16 @@ export default function RangeSlider({
       rangeRef.current.style.left = `${minPercent}%`;
       rangeRef.current.style.width = `${maxPercent - minPercent}%`;
 
-      minBubbleRef.current.style.left = `${getBubbleLeftPosition(
-        minPercent,
-        0.1
-      )}px`;
-      maxBubbleRef.current.style.left = `${getBubbleLeftPosition(
-        maxPercent,
-        0.05
-      )}px`;
+      // minBubbleRef.current.style.left = `${getBubbleLeftPosition(
+      //   minPercent,
+      //   0.1
+      // )}px`;
+      // maxBubbleRef.current.style.left = `${getBubbleLeftPosition(
+      //   maxPercent,
+      //   0.05
+      // )}px`;
     }
-  }, [minValue, maxValue, getSelectionPercent, getBubbleLeftPosition]);
+  }, [minValue, maxValue, getSelectionPercent]);
 
   useEffect(() => {
     if (minValue > maxValue) {
@@ -99,63 +102,80 @@ export default function RangeSlider({
   }, [minValue, maxValue, stepValues.length]);
 
   return (
-    <Wrapper data-testid="range-slider">
-      <SliderMinVal>{stepValues[minValue]}</SliderMinVal>
-      <SliderMaxVal>{stepValues[maxValue]}</SliderMaxVal>
-      <ThumbMin
-        type="range"
-        min="0"
-        max={stepValues.length - 1}
-        value={minValue}
-        steps="1"
-        onChange={(event) => {
-          const value = Number(event.target.value);
-          updateMin(value);
-          minValRef.current = value;
-        }}
-        ref={minThumbRef}
-      />
-      <ThumbMax
-        type="range"
-        min="0"
-        max={stepValues.length - 1}
-        steps="1"
-        value={maxValue}
-        onChange={(event) => {
-          const value = Number(event.target.value);
-          updateMax(value);
-          maxValRef.current = value;
-        }}
-        ref={maxThumbRef}
-      />
-      <Slider>
-        <MinBubble data-testid={`${dataTestId}-min-val`} ref={minBubbleRef}>
-          {stepValues[minValue]}
-        </MinBubble>
-        <MaxBubble data-testid={`${dataTestId}-max-val`} ref={maxBubbleRef}>
-          {stepValues[maxValue]}
-        </MaxBubble>
+    <>
+      <SliderValWrapper>
+        {minValue !== maxValue ? (
+          <>
+            <SliderMinVal data-testid={`${dataTestId}-min-val`}>
+              {stepValues[minValue]}
+            </SliderMinVal>
+            <SliderValSplit />
+            <SliderMaxVal data-testid={`${dataTestId}-max-val`}>
+              {stepValues[maxValue]}
+            </SliderMaxVal>
+          </>
+        ) : (
+          <SliderVal data-testid={`${dataTestId}-val`}>
+            {stepValues[minValue]}
+          </SliderVal>
+        )}
+      </SliderValWrapper>
+      <Wrapper data-testid="range-slider">
+        <ThumbMin
+          type="range"
+          min="0"
+          max={stepValues.length - 1}
+          value={minValue}
+          steps="1"
+          onChange={(event) => {
+            const value = Number(event.target.value);
+            updateMin(value);
+            minValRef.current = value;
+          }}
+          ref={minThumbRef}
+        />
+        <ThumbMax
+          type="range"
+          min="0"
+          max={stepValues.length - 1}
+          steps="1"
+          value={maxValue}
+          onChange={(event) => {
+            const value = Number(event.target.value);
+            updateMax(value);
+            maxValRef.current = value;
+          }}
+          ref={maxThumbRef}
+        />
+        <Slider>
+          {/* <MinBubble data-testid={`${dataTestId}-min-val`} ref={minBubbleRef}>
+            {stepValues[minValue]}
+          </MinBubble>
+          <MaxBubble data-testid={`${dataTestId}-max-val`} ref={maxBubbleRef}>
+            {stepValues[maxValue]}
+          </MaxBubble> */}
 
-        <TrackWrapper>
-          <RangeLabels>
-            {stepValues.map((value, index) => {
-              console.log(value, index === minValue || index === maxValue);
-              return (
-                <RangeLabel
-                  key={index}
-                  labelText={value}
-                  highlight={index === minValue || index === maxValue}
-                  onClick={() => {
-                    setToSingleDecade(index);
-                  }}
-                ></RangeLabel>
-              );
-            })}
-          </RangeLabels>
-          <SliderTrack ref={trackRef} />
-          <SliderRange ref={rangeRef} />
-        </TrackWrapper>
-      </Slider>
-    </Wrapper>
+          <TrackWrapper>
+            <RangeLabels>
+              {stepValues.map((value, index) => {
+                console.log(value, index === minValue || index === maxValue);
+                return (
+                  <RangeLabel
+                    key={index}
+                    labelText={value}
+                    highlight={index === minValue || index === maxValue}
+                    onClick={() => {
+                      setToSingleDecade(index);
+                    }}
+                  ></RangeLabel>
+                );
+              })}
+            </RangeLabels>
+            <SliderTrack ref={trackRef} />
+            <SliderRange ref={rangeRef} />
+          </TrackWrapper>
+        </Slider>
+      </Wrapper>
+    </>
   );
 }

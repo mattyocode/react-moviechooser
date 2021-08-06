@@ -84,7 +84,7 @@ export function ChoiceFormContainer({
             >
               Select All
             </ChoiceForm.AllButton>
-            <h2>Decade</h2>
+            <h2>Released</h2>
           </ChoiceForm.Heading>
           <RangeSlider
             minValue={decadeMinValue}

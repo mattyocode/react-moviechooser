@@ -4,13 +4,13 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5rem;
+  height: 4rem;
 `;
 
 export const Slider = styled.div`
   position: relative;
   width: 20rem;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
   height: 100%;
 
   @media screen and (max-width: 400px) {
@@ -93,21 +93,38 @@ export const ThumbMax = styled(Thumb)`
 `;
 export const SliderValWrapper = styled.div`
   position: relative;
+  /* top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%); */
+  display: flex;
+  text-align: center;
+  justify-content: center;
 `;
 
-const SliderVal = styled.div`
+export const SliderVal = styled.output`
   color: #dee2e6;
-  font-size: 12px;
-  margin-top: 20px;
+  font-size: 1rem;
   position: relative;
+  display: inline-block;
+  background: #222;
+  color: var(--clr-neon);
+  padding: 4px 10px;
+  border-radius: 5px;
 `;
 
 export const SliderMinVal = styled(SliderVal)`
-  left: 3px;
+  /* left: 3px; */
 `;
 
 export const SliderMaxVal = styled(SliderVal)`
-  right: -1px;
+  /* right: -1px; */
+`;
+
+export const SliderValSplit = styled.div`
+  background-color: white;
+  height: 3px;
+  width: 12px;
+  margin: auto 5px;
 `;
 
 const Bubble = styled.output`
@@ -150,11 +167,15 @@ export const RangeLabel = styled.div`
   &::after {
     position: absolute;
     top: 25px;
-    font-size: ${(props) => (props.highlight ? "16px" : "14px")};
+    font-size: ${(props) => (props.highlight ? "15px" : "14px")};
     content: "${(props) => (props.labelText ? props.labelText : "")}";
     color: ${(props) => (props.highlight ? "var(--clr-neon)" : "#ddd")};
     transform: translateX(-35%);
     transition: font-size 0.3s;
     transition: color 0.3s;
+
+    @media screen and (max-width: 400px) {
+      font-size: ${(props) => (props.highlight ? "11px" : "10px")};
+    }
   }
 `;

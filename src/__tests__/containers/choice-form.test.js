@@ -79,7 +79,7 @@ describe("<ChoiceFormContainer/>", () => {
   it("displays Decade panel", () => {
     const { getByText } = render(<ChoiceFormContainer />);
 
-    expect(getByText("Decade")).toBeTruthy();
+    expect(getByText("Runtime")).toBeTruthy();
   });
 
   it("renders Decade slider with default values", () => {
