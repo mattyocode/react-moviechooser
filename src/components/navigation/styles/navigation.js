@@ -92,6 +92,7 @@ export const LinksContainer = styled.div`
   min-width: 40%;
   background-color: black;
   border-radius: 0 0 0 5px;
+  z-index: 10;
 
   @media screen and (min-width: 800px) {
     position: relative;
