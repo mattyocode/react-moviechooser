@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-export default function useSlider(stepsArray, defaultMin, defaultMax) {
+export default function useSlider(
+  stepsArray = [],
+  defaultMin = 0,
+  defaultMax = 0
+) {
   const defaultMinIdx = stepsArray.indexOf(defaultMin);
   const defaultMaxIdx = stepsArray.indexOf(defaultMax);
   const [minValue, setMinValue] = useState(defaultMinIdx);

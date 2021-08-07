@@ -11,21 +11,29 @@ describe("<ChoiceFormContainer/>", () => {
   const decadeData = homepageData.decade;
   it("renders <ChoiceFormContainer/>", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer genreList={genreData} />
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
     );
 
     expect(getByTestId("choice-form")).toBeTruthy();
   });
 
   it("displays genres", () => {
-    const { getByText } = render(<ChoiceFormContainer genreList={genreData} />);
+    const { getByText } = render(
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
+    );
 
     genreData.forEach((g) => expect(getByText(g)).toBeTruthy());
   });
 
   it("renders with genre checkboxes all unchecked", () => {
     const { getAllByTestId } = render(
-      <ChoiceFormContainer genreList={genreData} />
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
     );
     const checkboxes = getAllByTestId("genre-checkbox");
 
@@ -37,7 +45,9 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("can check genre checkbox", () => {
     const { getAllByTestId } = render(
-      <ChoiceFormContainer genreList={genreData} />
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
     );
 
     const checkbox = getAllByTestId("genre-checkbox")[0];
@@ -51,7 +61,9 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("genre all button selects all", () => {
     const { getAllByTestId, getByTestId } = render(
-      <ChoiceFormContainer genreList={genreData} />
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
     );
 
     const checkbox = getAllByTestId("genre-checkbox")[0];
@@ -67,7 +79,9 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("genre all button styling changes on click", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer genreList={genreData} />
+      <ChoiceFormContainer
+        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+      />
     );
 
     const allBtn = getByTestId("genre-all-btn");

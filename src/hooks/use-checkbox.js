@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function useCheckbox(options) {
+export default function useCheckbox(options = []) {
   const [isChecked, setIsChecked] = useState(
     new Array(options.length).fill(false)
   );

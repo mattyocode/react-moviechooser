@@ -1,17 +1,17 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import ChoiceForm from "./index";
 
 describe("<ChoiceForm/>", () => {
   it("renders <ChoiceForm/>", () => {
-    const { getByTestId } = render(<ChoiceForm></ChoiceForm>);
+    render(<ChoiceForm></ChoiceForm>);
 
-    expect(getByTestId("choice-form")).toBeTruthy();
+    expect(screen.getByTestId("choice-form")).toBeTruthy();
   });
 
-  it("displays genre", () => {
-    const { getByText } = render(
+  it("displays genre panel", () => {
+    render(
       <ChoiceForm.Panel>
         <ChoiceForm.Heading>
           <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
@@ -29,13 +29,13 @@ describe("<ChoiceForm/>", () => {
         </ChoiceForm.Options>
       </ChoiceForm.Panel>
     );
-    expect(getByText("Genre")).toBeTruthy();
-    expect(getByText("Comedy")).toBeTruthy();
-    expect(getByText("Select All")).toBeTruthy();
+    expect(screen.getByText("Genre")).toBeTruthy();
+    expect(screen.getByText("Comedy")).toBeTruthy();
+    expect(screen.getByText("Select All")).toBeTruthy();
   });
 
   it("renders submit buttons", () => {
-    const { getByTestId } = render(
+    render(
       <ChoiceForm.Panel>
         <ChoiceForm.Submit>
           <ChoiceForm.SubmitBtn>Submit</ChoiceForm.SubmitBtn>
@@ -43,6 +43,7 @@ describe("<ChoiceForm/>", () => {
       </ChoiceForm.Panel>
     );
 
-    expect(getByTestId("submit-btns")).toBeTruthy();
+    expect(screen.getByTestId("submit-btns")).toBeTruthy();
+    expect(screen.getByRole("button", /submit/i)).toBeTruthy();
   });
 });
