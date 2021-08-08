@@ -135,14 +135,19 @@ export default function RangeSlider({
   const handleThumbMinChange = (event) => {
     const value = Number(event.target.value);
     if (value > maxValue) {
+      console.log("VALUE", value);
       updateMin(maxValue);
       updateMax(value);
       minValRef.current = maxValue;
     } else {
+      console.log("VALUE", value);
       updateMin(value);
       minValRef.current = value;
     }
+    console.log("min equals", minValue);
+    console.log("max equals", maxValue);
   };
+
   const handleThumbMaxChange = (event) => {
     const value = Number(event.target.value);
     if (value < minValue) {
@@ -150,9 +155,12 @@ export default function RangeSlider({
       updateMin(value);
       maxValRef.current = minValue;
     } else {
+      console.log("VALUE", value);
       updateMax(value);
       maxValRef.current = value;
     }
+    console.log("min equals", minValue);
+    console.log("max equals", maxValue);
   };
 
   return (

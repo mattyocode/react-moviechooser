@@ -117,6 +117,36 @@ describe("<RangeSlider/>", () => {
     expect(maxValDisplay.value).toBe("3");
   });
 
+  it("reflects slider changes in min and max values", () => {
+    const updateMinFn = jest.fn();
+    const updateMaxFn = jest.fn();
+    render(
+      <RangeSlider
+        stepValues={testArray}
+        minValue={0}
+        maxValue={1}
+        updateMin={updateMinFn}
+        updateMax={updateMaxFn}
+        dataTestId="test"
+        bubbleValues={true}
+      />
+    );
+
+    const minThumb = screen.getByTestId("test-thumb-min");
+    const minVal = screen.getByTestId("test-min-val");
+    const maxThumb = screen.getByTestId("test-thumb-max");
+    const maxVal = screen.getByTestId("test-max-val");
+
+    expect(minVal.value).toBe("1");
+    expect(maxVal.value).toBe("2");
+
+    fireEvent.change(maxThumb, { target: { value: 2 } });
+    fireEvent.change(minThumb, { target: { value: 1 } });
+
+    expect(updateMinFn).toHaveBeenCalledWith(1);
+    expect(updateMaxFn).toHaveBeenCalledWith(2);
+  });
+
   it("swaps min and max if min value is higher than max", () => {
     const updateMinFn = jest.fn();
     const updateMaxFn = jest.fn();
@@ -138,7 +168,33 @@ describe("<RangeSlider/>", () => {
     expect(minVal.value).toBe("1");
 
     fireEvent.change(minThumb, { target: { value: 2 } });
-    expect(updateMinFn).toHaveBeenCalledWith(1);
+    expect(updateMinFn).toHaveBeenCalledWith(2);
     expect(updateMaxFn).toHaveBeenCalledWith(2);
   });
+
+  // it("swaps min and max if max value is higher than min", () => {
+  //   const updateMinFn = jest.fn();
+  //   const updateMaxFn = jest.fn();
+  //   render(
+  //     <RangeSlider
+  //       stepValues={testArray}
+  //       minValue={1}
+  //       maxValue={2}
+  //       updateMin={updateMinFn}
+  //       updateMax={updateMaxFn}
+  //       dataTestId="test"
+  //       bubbleValues={true}
+  //     />
+  //   );
+
+  //   const maxThumb = screen.getByTestId("test-thumb-max");
+  //   const maxVal = screen.getByTestId("test-max-val");
+
+  //   expect(maxVal.value).toBe("3");
+
+  //   fireEvent.change(maxThumb, { target: { value: 1 } });
+  //   fireEvent.change(maxThumb, { target: { value: 0 } });
+  //   expect(updateMinFn).toHaveBeenCalledWith(0);
+  //   expect(updateMaxFn).toHaveBeenCalledWith(0);
+  // });
 });
