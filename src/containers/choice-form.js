@@ -85,19 +85,21 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
           </ChoiceForm.Heading>
 
           <ChoiceForm.Options>
-            {genreList.map((genre, index) => {
-              return (
-                <ChoiceForm.Checkbox
-                  key={index}
-                  name={genre}
-                  index={index}
-                  checkedState={genreIsChecked[index]}
-                  changeHandler={genreCheckboxChangeHandler}
-                >
-                  {genre}
-                </ChoiceForm.Checkbox>
-              );
-            })}
+            {genreList
+              ? genreList.map((genre, index) => {
+                  return (
+                    <ChoiceForm.Checkbox
+                      key={index}
+                      name={genre}
+                      index={index}
+                      checkedState={genreIsChecked[index]}
+                      changeHandler={genreCheckboxChangeHandler}
+                    >
+                      {genre}
+                    </ChoiceForm.Checkbox>
+                  );
+                })
+              : null}
           </ChoiceForm.Options>
         </ChoiceForm.Panel>
 

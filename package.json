@@ -38,9 +38,6 @@
       "!<rootDir>/src/hooks/*.js",
       "!<rootDir>/src/context/*.js",
       "!<rootDir>/src/fixtures/*.js"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/test/setup-env.js"
     ]
   },
   "coverageThreshold": {

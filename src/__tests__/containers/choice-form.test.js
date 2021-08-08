@@ -12,7 +12,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("renders <ChoiceFormContainer/>", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
 
@@ -22,7 +24,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("displays genres", () => {
     const { getByText } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
 
@@ -32,7 +36,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("renders with genre checkboxes all unchecked", () => {
     const { getAllByTestId } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
     const checkboxes = getAllByTestId("genre-checkbox");
@@ -46,7 +52,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("can check genre checkbox", () => {
     const { getAllByTestId } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
 
@@ -62,7 +70,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("genre all button selects all", () => {
     const { getAllByTestId, getByTestId } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
 
@@ -80,7 +90,9 @@ describe("<ChoiceFormContainer/>", () => {
   it("genre all button styling changes on click", () => {
     const { getByTestId } = render(
       <ChoiceFormContainer
-        url={`${process.env.REACT_APP_FIREBASE_TEST_API}/options`}
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
       />
     );
 
@@ -91,14 +103,24 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("displays Decade panel", () => {
-    const { getByText } = render(<ChoiceFormContainer />);
+    const { getByText } = render(
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
+    );
 
     expect(getByText("Runtime")).toBeTruthy();
   });
 
   it("renders Decade slider with default values", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer decadeData={decadeData} />
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
+      />
     );
 
     expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
@@ -107,7 +129,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("decade all button selects all", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer decadeData={decadeData} />
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
+      />
     );
 
     expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
@@ -127,7 +153,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("clicking decade all button second time returns to previous values", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer decadeData={decadeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
@@ -152,7 +182,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("decade all button styling changes on click", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer decadeData={decadeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     const allBtn = getByTestId("decade-all-btn");
@@ -162,14 +196,24 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("displays Runtime panel", () => {
-    const { getByText } = render(<ChoiceFormContainer />);
+    const { getByText } = render(
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
+    );
 
     expect(getByText("Runtime")).toBeTruthy();
   });
 
   it("renders Runtime slider with default values", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer runtimeData={runtimeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
@@ -178,7 +222,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("Runtime all button selects all", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer runtimeData={runtimeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
@@ -204,7 +252,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("clicking Runtime all button second time returns to previous values", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer runtimeData={runtimeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
@@ -235,7 +287,11 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("Runtime all button styling changes on click", () => {
     const { getByTestId } = render(
-      <ChoiceFormContainer runtimeData={runtimeData} />
+      <ChoiceFormContainer
+        genreData={genreData}
+        decadeData={decadeData}
+        runtimeData={runtimeData}
+      />
     );
 
     const allBtn = getByTestId("runtime-all-btn");
