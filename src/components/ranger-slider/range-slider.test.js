@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 import RangeSlider from "./index";
 
@@ -12,7 +12,7 @@ describe("<RangeSlider/>", () => {
         defaultMinIdx={0}
         defaultMaxIdx={2}
         onChange={() => {}}
-        dataTestId="runtime"
+        dataTestId=""
       />
     );
     expect(screen.getByTestId("range-slider")).toBeTruthy();
@@ -26,7 +26,7 @@ describe("<RangeSlider/>", () => {
         maxValue={2}
         updateMin={() => {}}
         updateMax={() => {}}
-        dataTestId="runtime"
+        dataTestId=""
       />
     );
     expect(screen.getByText("1")).toBeTruthy();
@@ -41,11 +41,11 @@ describe("<RangeSlider/>", () => {
         maxValue={1}
         updateMin={() => {}}
         updateMax={() => {}}
-        dataTestId="runtime"
+        dataTestId="test"
       />
     );
-    expect(screen.getByTestId("runtime-min-val").value).toBe("1");
-    expect(screen.getByTestId("runtime-max-val").value).toBe("2");
+    expect(screen.getByTestId("test-min-val").value).toBe("1");
+    expect(screen.getByTestId("test-max-val").value).toBe("2");
   });
 
   it("shows one value when single runtime is selected", () => {
@@ -56,15 +56,42 @@ describe("<RangeSlider/>", () => {
         maxValue={0}
         updateMin={() => {}}
         updateMax={() => {}}
-        dataTestId="runtime"
+        dataTestId="test"
       />
     );
 
-    const minValDisplay = screen.queryByTestId("runtime-min-val");
-    const maxValDisplay = screen.queryByTestId("runtime-max-val");
+    const minValDisplay = screen.queryByTestId("test-min-val");
+    const maxValDisplay = screen.queryByTestId("test-max-val");
 
     expect(minValDisplay).toBeNull();
     expect(maxValDisplay).toBeNull();
-    expect(screen.getByTestId("runtime-val").value).toBe("1");
+    expect(screen.getByTestId("test-val").value).toBe("1");
+  });
+
+  it("clicking label calls updateMin and updateMax with label value", () => {
+    const updateMinFn = jest.fn();
+    const updateMaxFn = jest.fn();
+
+    render(
+      <RangeSlider
+        stepValues={testArray}
+        minValue={0}
+        maxValue={2}
+        updateMin={updateMinFn}
+        updateMax={updateMaxFn}
+        dataTestId="test"
+      />
+    );
+
+    const minValDisplay = screen.queryByTestId("test-min-val");
+    const maxValDisplay = screen.queryByTestId("test-max-val");
+
+    expect(minValDisplay.value).toBe("1");
+    expect(maxValDisplay.value).toBe("3");
+
+    fireEvent.click(screen.getByTestId("slider-label-2"));
+
+    expect(updateMinFn).toHaveBeenCalledWith(1);
+    expect(updateMaxFn).toHaveBeenCalledWith(1);
   });
 });

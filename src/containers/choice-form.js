@@ -1,41 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ChoiceForm } from "../components/";
 import RangeSlider from "../components/ranger-slider";
 import { useSlider, useCheckbox } from "../hooks";
 
-// import homepageData from "../fixtures/homepage.json";
-
 export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
-  // const [genreList, setGenreList] = useState([]);
-  // const [runtimeData, setRuntimeData] = useState({});
-  // const [decadeData, setDecadeData] = useState({});
-
-  // useEffect(() => {
-  //   async function fetchOptions(url) {
-  //     try {
-  //       const response = await fetch(url, {
-  //         method: "GET",
-  //         headers: {},
-  //         body: null,
-  //       });
-  //       if (!response.ok) {
-  //         throw new Error("Request failed");
-  //       }
-  //       const data = await response.json();
-  //       console.log(data);
-  //       return data;
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   const homepageData = fetchOptions(url);
-  //   console.log(homepageData.genre, homepageData.runtime, homepageData.decade);
-
-  //   setGenreList(homepageData.genre);
-  //   setRuntimeData(homepageData.runtime);
-  //   setDecadeData(homepageData.decade);
-  // }, [url]);
-
   const {
     isChecked: genreIsChecked,
     checkboxChangeHandler: genreCheckboxChangeHandler,

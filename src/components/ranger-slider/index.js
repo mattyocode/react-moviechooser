@@ -187,6 +187,7 @@ export default function RangeSlider({
                     onClick={() => {
                       setToSingleDecade(index);
                     }}
+                    data-testid={`slider-label-${value}`}
                   ></RangeLabel>
                 );
               })}
