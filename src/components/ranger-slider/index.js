@@ -91,15 +91,6 @@ export default function RangeSlider({
   ]);
 
   useEffect(() => {
-    if (minValue > maxValue) {
-      let min = minValue;
-      let max = maxValue;
-      updateMin(max);
-      updateMax(min);
-    }
-  }, [minValue, maxValue, updateMin, updateMax]);
-
-  useEffect(() => {
     if (minValue === stepValues.length - 1) {
       minThumbRef.current.style.zIndex = "4";
       maxThumbRef.current.style.zIndex = "3";
@@ -141,24 +132,44 @@ export default function RangeSlider({
     </>
   );
 
+  const handleThumbMinChange = (event) => {
+    const value = Number(event.target.value);
+    if (value > maxValue) {
+      updateMin(maxValue);
+      updateMax(value);
+      minValRef.current = maxValue;
+    } else {
+      updateMin(value);
+      minValRef.current = value;
+    }
+  };
+  const handleThumbMaxChange = (event) => {
+    const value = Number(event.target.value);
+    if (value < minValue) {
+      updateMax(minValue);
+      updateMin(value);
+      maxValRef.current = minValue;
+    } else {
+      updateMax(value);
+      maxValRef.current = value;
+    }
+  };
+
   return (
     <>
       {!bubbleValues ? (
         <SliderValWrapper>{sliderValues}</SliderValWrapper>
       ) : null}
-      <Wrapper data-testid="range-slider">
+      <Wrapper data-testid={`${dataTestId}-range-slider`}>
         <ThumbMin
           type="range"
           min="0"
           max={stepValues.length - 1}
           value={minValue}
           steps="1"
-          onChange={(event) => {
-            const value = Number(event.target.value);
-            updateMin(value);
-            minValRef.current = value;
-          }}
+          onChange={handleThumbMinChange}
           ref={minThumbRef}
+          data-testid={`${dataTestId}-thumb-min`}
         />
         <ThumbMax
           type="range"
@@ -166,12 +177,9 @@ export default function RangeSlider({
           max={stepValues.length - 1}
           steps="1"
           value={maxValue}
-          onChange={(event) => {
-            const value = Number(event.target.value);
-            updateMax(value);
-            maxValRef.current = value;
-          }}
+          onChange={handleThumbMaxChange}
           ref={maxThumbRef}
+          data-testid={`${dataTestId}-thumb-max`}
         />
         <Slider>
           {bubbleValues ? bubbles : null}
