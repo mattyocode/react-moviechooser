@@ -3,7 +3,9 @@ import { NavbarContainer } from "../containers/navigation";
 import { Headline } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 
-export default function Home() {
+export default function Home({
+  url = `${process.env.REACT_APP_FIREBASE_TEST_API}/options.json`,
+}) {
   const [genreList, setGenreList] = useState([]);
   const [runtimeData, setRuntimeData] = useState({});
   const [decadeData, setDecadeData] = useState({});
@@ -34,8 +36,8 @@ export default function Home() {
   useEffect(() => {
     console.log("GET'S HERE");
 
-    fetchOptions(`${process.env.REACT_APP_FIREBASE_TEST_API}/options.json`);
-  }, [fetchOptions]);
+    fetchOptions(url);
+  }, [fetchOptions, url]);
 
   return (
     <>
