@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
@@ -9,39 +9,27 @@ describe("<ChoiceFormContainer/>", () => {
   const genreData = homepageData.genre;
   const runtimeData = homepageData.runtime;
   const decadeData = homepageData.decade;
-  it("renders <ChoiceFormContainer/>", () => {
-    const { getByTestId } = render(
+  beforeEach(() => {
+    render(
       <ChoiceFormContainer
         genreList={genreData}
         runtimeData={runtimeData}
         decadeData={decadeData}
       />
     );
+  });
+  afterEach(cleanup);
 
-    expect(getByTestId("choice-form")).toBeTruthy();
+  it("renders <ChoiceFormContainer/>", () => {
+    expect(screen.getByTestId("choice-form")).toBeTruthy();
   });
 
   it("displays genres", () => {
-    const { getByText } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
-    );
-
-    genreData.forEach((g) => expect(getByText(g)).toBeTruthy());
+    genreData.forEach((g) => expect(screen.getByText(g)).toBeTruthy());
   });
 
   it("renders with genre checkboxes all unchecked", () => {
-    const { getAllByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
-    );
-    const checkboxes = getAllByTestId("genre-checkbox");
+    const checkboxes = screen.getAllByTestId("genre-checkbox");
 
     expect(checkboxes[0]).toHaveStyle("background-color: transparent");
     expect(checkboxes[checkboxes.length - 1]).toHaveStyle(
@@ -50,15 +38,7 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("can check genre checkbox", () => {
-    const { getAllByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
-    );
-
-    const checkbox = getAllByTestId("genre-checkbox")[0];
+    const checkbox = screen.getAllByTestId("genre-checkbox")[0];
 
     expect(checkbox).toHaveStyle("background-color: transparent");
 
@@ -68,19 +48,11 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("genre all button selects all", () => {
-    const { getAllByTestId, getByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
-    );
-
-    const checkbox = getAllByTestId("genre-checkbox")[0];
+    const checkbox = screen.getAllByTestId("genre-checkbox")[0];
 
     expect(checkbox).toHaveStyle("background-color: transparent");
 
-    const allBtn = getByTestId("genre-all-btn");
+    const allBtn = screen.getByTestId("genre-all-btn");
 
     fireEvent.click(allBtn);
 
@@ -88,227 +60,163 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("genre all button styling changes on click", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
-    );
-
-    const allBtn = getByTestId("genre-all-btn");
+    const allBtn = screen.getByTestId("genre-all-btn");
 
     fireEvent.click(allBtn);
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
   it("displays Decade panel", () => {
-    const { getByText } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
-    );
-
-    expect(getByText("Runtime")).toBeTruthy();
+    expect(screen.getByText("Runtime")).toBeTruthy();
   });
 
   it("renders Decade slider with default values", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
+    expect(screen.getByTestId("decade-min-val").value).toBe(
+      decadeData.defaultMin
     );
-
-    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+    expect(screen.getByTestId("decade-max-val").value).toBe(
+      decadeData.defaultMax
+    );
   });
 
   it("decade all button selects all", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreList={genreData}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
-      />
+    expect(screen.getByTestId("decade-min-val").value).toBe(
+      decadeData.defaultMin
+    );
+    expect(screen.getByTestId("decade-max-val").value).toBe(
+      decadeData.defaultMax
     );
 
-    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
-
-    const allBtn = getByTestId("decade-all-btn");
+    const allBtn = screen.getByTestId("decade-all-btn");
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("decade-min-val").value).toBe(
+    expect(screen.getByTestId("decade-min-val").value).toBe(
       decadeData.optionsArray[0]
     );
-    expect(getByTestId("decade-max-val").value).toBe(
+    expect(screen.getByTestId("decade-max-val").value).toBe(
       decadeData.optionsArray.slice(-1)[0]
     );
   });
 
   it("clicking decade all button second time returns to previous values", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
+    expect(screen.getByTestId("decade-min-val").value).toBe(
+      decadeData.defaultMin
+    );
+    expect(screen.getByTestId("decade-max-val").value).toBe(
+      decadeData.defaultMax
     );
 
-    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
-
-    const allBtn = getByTestId("decade-all-btn");
+    const allBtn = screen.getByTestId("decade-all-btn");
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("decade-min-val").value).toBe(
+    expect(screen.getByTestId("decade-min-val").value).toBe(
       decadeData.optionsArray[0]
     );
-    expect(getByTestId("decade-max-val").value).toBe(
+    expect(screen.getByTestId("decade-max-val").value).toBe(
       decadeData.optionsArray.slice(-1)[0]
     );
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("decade-min-val").value).toBe(decadeData.defaultMin);
-    expect(getByTestId("decade-max-val").value).toBe(decadeData.defaultMax);
+    expect(screen.getByTestId("decade-min-val").value).toBe(
+      decadeData.defaultMin
+    );
+    expect(screen.getByTestId("decade-max-val").value).toBe(
+      decadeData.defaultMax
+    );
   });
 
   it("decade all button styling changes on click", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
-    );
-
-    const allBtn = getByTestId("decade-all-btn");
+    const allBtn = screen.getByTestId("decade-all-btn");
 
     fireEvent.click(allBtn);
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
   it("displays Runtime panel", () => {
-    const { getByText } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
-    );
-
-    expect(getByText("Runtime")).toBeTruthy();
+    expect(screen.getByText("Runtime")).toBeTruthy();
   });
 
   it("renders Runtime slider with default values", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
+      runtimeData.defaultMin
     );
-
-    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
-    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
+      runtimeData.defaultMax
+    );
   });
 
   it("Runtime all button selects all", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
+      runtimeData.defaultMin
+    );
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
+      runtimeData.defaultMax
     );
 
-    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
-    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
-
-    const allBtn = getByTestId("runtime-all-btn");
+    const allBtn = screen.getByTestId("runtime-all-btn");
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("runtime-min-val").value).not.toBe(
+    expect(screen.getByTestId("runtime-min-val").value).not.toBe(
       runtimeData.defaultMin
     );
-    expect(getByTestId("runtime-max-val").value).not.toBe(
+    expect(screen.getByTestId("runtime-max-val").value).not.toBe(
       runtimeData.defaultMax
     );
-    expect(getByTestId("runtime-min-val").value).toBe(
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
       runtimeData.optionsArray[0]
     );
-    expect(getByTestId("runtime-max-val").value).toBe(
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
       runtimeData.optionsArray.slice(-1)[0]
     );
   });
 
   it("clicking Runtime all button second time returns to previous values", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
+      runtimeData.defaultMin
+    );
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
+      runtimeData.defaultMax
     );
 
-    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
-    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
-
-    const allBtn = getByTestId("runtime-all-btn");
+    const allBtn = screen.getByTestId("runtime-all-btn");
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("runtime-min-val").value).not.toBe(
+    expect(screen.getByTestId("runtime-min-val").value).not.toBe(
       runtimeData.defaultMin
     );
-    expect(getByTestId("runtime-max-val").value).not.toBe(
+    expect(screen.getByTestId("runtime-max-val").value).not.toBe(
       runtimeData.defaultMax
     );
-    expect(getByTestId("runtime-min-val").value).toBe(
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
       runtimeData.optionsArray[0]
     );
-    expect(getByTestId("runtime-max-val").value).toBe(
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
       runtimeData.optionsArray.slice(-1)[0]
     );
 
     fireEvent.click(allBtn);
 
-    expect(getByTestId("runtime-min-val").value).toBe(runtimeData.defaultMin);
-    expect(getByTestId("runtime-max-val").value).toBe(runtimeData.defaultMax);
+    expect(screen.getByTestId("runtime-min-val").value).toBe(
+      runtimeData.defaultMin
+    );
+    expect(screen.getByTestId("runtime-max-val").value).toBe(
+      runtimeData.defaultMax
+    );
   });
 
   it("Runtime all button styling changes on click", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
-    );
-
-    const allBtn = getByTestId("runtime-all-btn");
+    const allBtn = screen.getByTestId("runtime-all-btn");
 
     fireEvent.click(allBtn);
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
   it("renders submit buttons", () => {
-    const { getByTestId } = render(
-      <ChoiceFormContainer
-        genreData={genreData}
-        decadeData={decadeData}
-        runtimeData={runtimeData}
-      />
-    );
-
-    expect(getByTestId("submit-btns")).toBeTruthy();
+    expect(screen.getByTestId("submit-btns")).toBeTruthy();
   });
 });

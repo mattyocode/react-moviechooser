@@ -37,8 +37,6 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
     decadeData.defaultMax
   );
 
-  console.log("in choice form values", runtimeMinValue, runtimeMaxValue);
-
   return (
     <ChoiceForm>
       <ChoiceForm.Base>

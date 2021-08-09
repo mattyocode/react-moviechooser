@@ -132,43 +132,30 @@ export default function RangeSlider({
     </>
   );
 
+  // refactor to use curried functions
   const handleThumbMinChange = (event) => {
     const value = Number(event.target.value);
     if (value > maxValue) {
-      console.log("MIN THUMB value > maxValue", value, maxValue);
       updateMin(value);
       updateMax(value);
       minValRef.current = maxValue;
     } else {
-      console.log("VALUE", value);
       updateMin(value);
       minValRef.current = value;
     }
-    console.log("min equals", minValue);
-    console.log("max equals", maxValue);
   };
 
   const handleThumbMaxChange = (event) => {
     const value = Number(event.target.value);
     if (value < minValue) {
-      console.log("MAX THUMB value < minValue", value, minValue);
       updateMax(value);
       updateMin(value);
       maxValRef.current = minValue;
     } else {
-      console.log("VALUE", value);
       updateMax(value);
       maxValRef.current = value;
     }
-    console.log("min equals", minValue);
-    console.log("max equals", maxValue);
   };
-
-  useEffect(() => {
-    console.log("slider useEffect - min/max", minValue, maxValue);
-  });
-
-  useEffect(() => {});
 
   return (
     <>

@@ -1,5 +1,12 @@
 import React from "react";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  cleanup,
+  waitFor,
+} from "@testing-library/react";
+import { toHaveStyle } from "@testing-library/jest-dom";
 
 import RangeSlider from "./index";
 
@@ -128,7 +135,6 @@ describe("<RangeSlider/>", () => {
         updateMin={updateMinFn}
         updateMax={updateMaxFn}
         dataTestId="test"
-        bubbleValues={true}
       />
     );
 
@@ -158,7 +164,6 @@ describe("<RangeSlider/>", () => {
         updateMin={updateMinFn}
         updateMax={updateMaxFn}
         dataTestId="test"
-        bubbleValues={true}
       />
     );
 
@@ -183,7 +188,6 @@ describe("<RangeSlider/>", () => {
         updateMin={updateMinFn}
         updateMax={updateMaxFn}
         dataTestId="test"
-        bubbleValues={true}
       />
     );
 
@@ -192,9 +196,57 @@ describe("<RangeSlider/>", () => {
 
     expect(maxVal.value).toBe("3");
 
-    fireEvent.change(maxThumb, { target: { value: 1 } });
     fireEvent.change(maxThumb, { target: { value: 0 } });
     expect(updateMinFn).toHaveBeenCalledWith(0);
     expect(updateMaxFn).toHaveBeenCalledWith(0);
   });
+
+  // it("places max thumb above min thumb at 0th position", () => {
+  //   render(
+  //     <RangeSlider
+  //       stepValues={testArray}
+  //       minValue={1}
+  //       maxValue={2}
+  //       updateMin={() => {}}
+  //       updateMax={() => {}}
+  //       dataTestId="test"
+  //     />
+  //   );
+
+  //   const minThumb = screen.getByTestId("test-thumb-min");
+  //   const maxThumb = screen.getByTestId("test-thumb-max");
+
+  //   fireEvent.change(minThumb, { target: { value: 0 } });
+  //   fireEvent.change(maxThumb, { target: { value: 0 } });
+
+  //   const minThumbStyle = window.getComputedStyle(minThumb);
+  //   const maxThumbStyle = window.getComputedStyle(maxThumb);
+
+  //   expect(Number(minThumbStyle.zIndex)).toBeLessThan(
+  //     Number(maxThumbStyle.zIndex)
+  //   );
+  // });
+
+  // it("places min thumb above max thumb at last position", async () => {
+  //   render(
+  //     <RangeSlider
+  //       stepValues={testArray}
+  //       minValue={1}
+  //       maxValue={2}
+  //       updateMin={() => {}}
+  //       updateMax={() => {}}
+  //       dataTestId="test"
+  //     />
+  //   );
+
+  //   const minThumb = screen.getByTestId("test-thumb-min");
+  //   // const maxThumb = screen.getByTestId("test-thumb-max");
+
+  //   fireEvent.change(minThumb, { target: { value: 2 } });
+
+  //   // const minThumbStyle = window.getComputedStyle(minThumb);
+  //   // const maxThumbStyle = window.getComputedStyle(maxThumb);
+
+  //   await waitFor(() => expect(minThumb).toHaveStyle("z-index: 4"));
+  // });
 });
