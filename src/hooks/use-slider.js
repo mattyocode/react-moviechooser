@@ -35,6 +35,14 @@ export default function useSlider(
     }
   }, [minValue, maxValue, stepsArray]);
 
+  // useEffect(() => {
+  //   if (minValue > maxValue) {
+  //     let min = minValue;
+  //     setMaxValue(min);
+  //     setMinValue(maxValue);
+  //   }
+  // }, [minValue, maxValue]);
+
   return {
     minValue,
     setMinValue,

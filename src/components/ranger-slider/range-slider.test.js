@@ -172,29 +172,29 @@ describe("<RangeSlider/>", () => {
     expect(updateMaxFn).toHaveBeenCalledWith(2);
   });
 
-  // it("swaps min and max if max value is higher than min", () => {
-  //   const updateMinFn = jest.fn();
-  //   const updateMaxFn = jest.fn();
-  //   render(
-  //     <RangeSlider
-  //       stepValues={testArray}
-  //       minValue={1}
-  //       maxValue={2}
-  //       updateMin={updateMinFn}
-  //       updateMax={updateMaxFn}
-  //       dataTestId="test"
-  //       bubbleValues={true}
-  //     />
-  //   );
+  it("swaps min and max if max value is higher than min", () => {
+    const updateMinFn = jest.fn();
+    const updateMaxFn = jest.fn();
+    render(
+      <RangeSlider
+        stepValues={testArray}
+        minValue={1}
+        maxValue={2}
+        updateMin={updateMinFn}
+        updateMax={updateMaxFn}
+        dataTestId="test"
+        bubbleValues={true}
+      />
+    );
 
-  //   const maxThumb = screen.getByTestId("test-thumb-max");
-  //   const maxVal = screen.getByTestId("test-max-val");
+    const maxThumb = screen.getByTestId("test-thumb-max");
+    const maxVal = screen.getByTestId("test-max-val");
 
-  //   expect(maxVal.value).toBe("3");
+    expect(maxVal.value).toBe("3");
 
-  //   fireEvent.change(maxThumb, { target: { value: 1 } });
-  //   fireEvent.change(maxThumb, { target: { value: 0 } });
-  //   expect(updateMinFn).toHaveBeenCalledWith(0);
-  //   expect(updateMaxFn).toHaveBeenCalledWith(0);
-  // });
+    fireEvent.change(maxThumb, { target: { value: 1 } });
+    fireEvent.change(maxThumb, { target: { value: 0 } });
+    expect(updateMinFn).toHaveBeenCalledWith(0);
+    expect(updateMaxFn).toHaveBeenCalledWith(0);
+  });
 });
