@@ -15,6 +15,8 @@ describe("<Home/> page tests", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Sci-Fi")).toBeTruthy();
+      expect(screen.getByText("70s")).toBeTruthy();
+      expect(screen.getByText("75m")).toBeTruthy();
     });
   });
 });
