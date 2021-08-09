@@ -1,10 +1,7 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import Navbar from "./index";
-// import { linksData } from "../../fixtures/navData";
-
-// jest.mock("react-router-dom", () => {});
 
 describe("<Navbar /> tests", () => {
   const linksData = [
@@ -17,7 +14,7 @@ describe("<Navbar /> tests", () => {
   ];
 
   it("renders the <Navbar/> component", () => {
-    const { container, getByTestId, getByText } = render(
+    render(
       <Router>
         <Navbar>
           <Navbar.Header>
@@ -28,14 +25,14 @@ describe("<Navbar /> tests", () => {
         </Navbar>
       </Router>
     );
-    expect(getByTestId("navigation")).toBeTruthy();
-    expect(getByTestId("toggle-btn")).toBeTruthy();
-    expect(getByText("browse all", { exact: false })).toBeTruthy();
+    expect(screen.getByTestId("navigation")).toBeTruthy();
+    expect(screen.getByTestId("toggle-btn")).toBeTruthy();
+    expect(screen.getByText("browse all", { exact: false })).toBeTruthy();
     // expect(container.firstChild).toMatchSnapshot();
   });
 
   it("shows dropdown when clicking toggle button", () => {
-    const { container, getByTestId, getByText } = render(
+    render(
       <Router>
         <Navbar>
           <Navbar.Header>
@@ -46,7 +43,7 @@ describe("<Navbar /> tests", () => {
         </Navbar>
       </Router>
     );
-    expect(getByTestId("toggle-btn")).toBeTruthy();
-    fireEvent.click(getByTestId("toggle-btn"));
+    expect(screen.getByTestId("toggle-btn")).toBeTruthy();
+    fireEvent.click(screen.getByTestId("toggle-btn"));
   });
 });
