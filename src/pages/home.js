@@ -24,13 +24,12 @@ export default function Home({
         throw new Error("Request failed");
       }
       const data = await response.json();
-      console.log(data);
       setGenreList(data.genre);
       setRuntimeData(data.runtime);
       setDecadeData(data.decade);
     } catch (err) {
       console.log(err);
-      setError(true);
+      setError(err);
     }
     setIsLoading(false);
   }, []);
@@ -50,7 +49,7 @@ export default function Home({
     );
   }
   if (error) {
-    choiceForm = <p>Error: {error}</p>;
+    choiceForm = <p>{`${error}`}</p>;
   }
   if (isLoading) {
     choiceForm = <p>Loading...</p>;
