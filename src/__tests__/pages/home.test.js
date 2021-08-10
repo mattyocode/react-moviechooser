@@ -40,4 +40,14 @@ describe("<Home/> page tests", () => {
       expect(screen.getByText(/error/i)).toBeTruthy();
     });
   });
+
+  it("shows loading text before form data loads", () => {
+    render(
+      <Router>
+        <Home url={apiUrl} />;
+      </Router>
+    );
+
+    expect(screen.getByText(/loading/i)).toBeTruthy();
+  });
 });
