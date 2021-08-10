@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 
-export default function useHttp(config, applyData) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function useHttp() {
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const sendRequest = useCallback(async (config) => {
+  const sendRequest = useCallback(async (config, applyData) => {
     setIsLoading(true);
     setError(null);
     try {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { NavbarContainer } from "../containers/navigation";
 import { Headline } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
+import { useHttp } from "../hooks";
 
 export default function Home({
   url = `${process.env.REACT_APP_FIREBASE_TEST_API}/options.json`,
@@ -9,34 +10,18 @@ export default function Home({
   const [genreList, setGenreList] = useState([]);
   const [runtimeData, setRuntimeData] = useState({});
   const [decadeData, setDecadeData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const fetchOptions = useCallback(async (url) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {},
-        body: null,
-      });
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-      const data = await response.json();
+  const { isLoading, error, sendRequest: fetchFormData } = useHttp();
+
+  useEffect(() => {
+    const unpackData = (data) => {
       setGenreList(data.genre);
       setRuntimeData(data.runtime);
       setDecadeData(data.decade);
-    } catch (err) {
-      console.log(err);
-      setError(err);
-    }
-    setIsLoading(false);
-  }, []);
+    };
 
-  useEffect(() => {
-    fetchOptions(url);
-  }, [fetchOptions, url]);
+    fetchFormData({ url: url }, unpackData);
+  }, [fetchFormData, url]);
 
   let choiceForm;
   if (genreList && decadeData && runtimeData) {
