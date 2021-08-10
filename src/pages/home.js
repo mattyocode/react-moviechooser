@@ -9,10 +9,11 @@ export default function Home({
   const [genreList, setGenreList] = useState([]);
   const [runtimeData, setRuntimeData] = useState({});
   const [decadeData, setDecadeData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchOptions = useCallback(async (url) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -29,15 +30,31 @@ export default function Home({
       setDecadeData(data.decade);
     } catch (err) {
       console.log(err);
+      setError(true);
     }
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    console.log("GET'S HERE");
-
     fetchOptions(url);
   }, [fetchOptions, url]);
+
+  let choiceForm;
+  if (genreList && decadeData && runtimeData) {
+    choiceForm = (
+      <ChoiceFormContainer
+        genreList={genreList}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
+      />
+    );
+  }
+  if (error) {
+    choiceForm = <p>Error: {error}</p>;
+  }
+  if (isLoading) {
+    choiceForm = <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -52,15 +69,7 @@ export default function Home({
           Filter by genre, decade, and runtime.
         </Headline.Subhead>
       </Headline>
-      {loading ? (
-        <p>Is loading right now!</p>
-      ) : (
-        <ChoiceFormContainer
-          genreList={genreList}
-          runtimeData={runtimeData}
-          decadeData={decadeData}
-        />
-      )}
+      {choiceForm}
     </>
   );
 }
