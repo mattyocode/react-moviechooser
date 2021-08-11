@@ -35,4 +35,4 @@ jobs:
         run: yarn test
 
       - name: Build
-        run: yarn build
+        run: CI=false yarn build
