@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
@@ -18,7 +18,6 @@ describe("<ChoiceFormContainer/>", () => {
       />
     );
   });
-  afterEach(cleanup);
 
   it("renders <ChoiceFormContainer/>", () => {
     expect(screen.getByTestId("choice-form")).toBeTruthy();
@@ -219,4 +218,6 @@ describe("<ChoiceFormContainer/>", () => {
   it("renders submit buttons", () => {
     expect(screen.getByTestId("submit-btns")).toBeTruthy();
   });
+
+  // it("Submit btn ")
 });

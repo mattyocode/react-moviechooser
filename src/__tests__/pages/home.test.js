@@ -6,7 +6,7 @@ import { server, rest } from "../../test/server";
 import { Home } from "../../pages";
 
 describe("<Home/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_FIREBASE_TEST_API}/options`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/options`;
   it("renders <Home/>", async () => {
     render(
       <Router>

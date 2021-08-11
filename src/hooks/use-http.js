@@ -13,11 +13,10 @@ export default function useHttp() {
         headers: config.headers ? config.headers : {},
         body: config.body ? JSON.stringify(config.body) : null,
       });
-
       if (!response.ok) {
         throw new Error("Request failed");
       }
-
+      console.log(response);
       const data = await response.json();
 
       applyData(data);

@@ -114,7 +114,7 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
         </ChoiceForm.Panel>
         <ChoiceForm.Panel>
           <ChoiceForm.Submit>
-            <ChoiceForm.SubmitBtn>Choose One</ChoiceForm.SubmitBtn>
+            {/* <ChoiceForm.SubmitBtn>Choose One</ChoiceForm.SubmitBtn> */}
             <ChoiceForm.SubmitBtn>All Matches</ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>
         </ChoiceForm.Panel>

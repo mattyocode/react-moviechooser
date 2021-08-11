@@ -5,13 +5,15 @@ import { ChoiceFormContainer } from "../containers/choice-form";
 import { useHttp } from "../hooks";
 
 export default function Home({
-  url = `${process.env.REACT_APP_FIREBASE_TEST_API}/options.json`,
+  url = `${process.env.REACT_APP_TEST_API}/options`,
 }) {
   const [genreList, setGenreList] = useState([]);
   const [runtimeData, setRuntimeData] = useState({});
   const [decadeData, setDecadeData] = useState({});
 
   const { isLoading, error, sendRequest: fetchFormData } = useHttp();
+
+  console.log(url);
 
   useEffect(() => {
     const unpackData = (data) => {
@@ -34,7 +36,7 @@ export default function Home({
     );
   }
   if (error) {
-    choiceForm = <p>{`${error}`}</p>;
+    choiceForm = <p>{`Error: ${error}`}</p>;
   }
   if (isLoading) {
     choiceForm = <p>Loading...</p>;
