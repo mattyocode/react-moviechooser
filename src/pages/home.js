@@ -13,8 +13,6 @@ export default function Home({
 
   const { isLoading, error, sendRequest: fetchFormData } = useHttp();
 
-  console.log(url);
-
   useEffect(() => {
     const unpackData = (data) => {
       setGenreList(data.genre);
