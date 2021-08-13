@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { NavbarContainer } from "../containers/navigation";
 import { Headline } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
@@ -7,29 +7,33 @@ import { useHttp } from "../hooks";
 export default function Home({
   url = `${process.env.REACT_APP_TEST_API}/options`,
 }) {
-  const [genreList, setGenreList] = useState([]);
-  const [runtimeData, setRuntimeData] = useState({});
-  const [decadeData, setDecadeData] = useState({});
+  const [options, setOptions] = useState({
+    genreList: null,
+    decadeData: null,
+    runtimeData: null,
+  });
 
   const { isLoading, error, sendRequest: fetchFormData } = useHttp();
 
   useEffect(() => {
     const unpackData = (data) => {
-      setGenreList(data.genre);
-      setRuntimeData(data.runtime);
-      setDecadeData(data.decade);
+      setOptions({
+        genreList: data.genre,
+        decadeData: data.runtime,
+        runtimeData: data.decade,
+      });
     };
 
     fetchFormData({ url: url }, unpackData);
   }, [fetchFormData, url]);
 
   let choiceForm;
-  if (genreList && decadeData && runtimeData) {
+  if (options.genreList && options.decadeData && options.runtimeData) {
     choiceForm = (
       <ChoiceFormContainer
-        genreList={genreList}
-        runtimeData={runtimeData}
-        decadeData={decadeData}
+        genreList={options.genreList}
+        runtimeData={options.runtimeData}
+        decadeData={options.decadeData}
       />
     );
   }

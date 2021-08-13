@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function useCheckbox(options = []) {
   const [isChecked, setIsChecked] = useState(
     new Array(options.length).fill(false)
   );
   const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
+
+  console.log("use-checkbox");
 
   const checkboxChangeHandler = (position) => {
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -29,6 +31,11 @@ export default function useCheckbox(options = []) {
       setAllBtnHighlighted(false);
     }
   }, [isChecked]);
+
+  useEffect(() => {
+    console.log("use-checkbox useEffect");
+    setIsChecked(new Array(options.length).fill(false));
+  }, [options]);
 
   return {
     isChecked,

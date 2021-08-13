@@ -14,6 +14,9 @@ const sliderStateReducer = (state, action) => {
     case "ALL-SELECTED": {
       return { ...state, allSelected: action.value };
     }
+    case "SET-LABELS": {
+      return { ...state, rangeLabels: action.value };
+    }
     default: {
       throw new Error(`Unhandled type: ${action.type}`);
     }
@@ -41,6 +44,10 @@ export default function useSlider(
     dispatch({ type: "SET-MAX", value: value });
   };
 
+  const setLabels = (value) => {
+    dispatch({ type: "SET-LABELS", value: value });
+  };
+
   const allBtnHandler = (event) => {
     event.preventDefault();
     if (
@@ -66,6 +73,14 @@ export default function useSlider(
       dispatch({ type: "ALL-SELECTED", value: false });
     }
   }, [state.minValue, state.maxValue, state.rangeLabels]);
+
+  useEffect(() => {
+    console.log("use-slider useEffect");
+    // console.log(defaultMin, defaultMax, stepsArray);
+    setMin(stepsArray.indexOf(defaultMin));
+    setMax(stepsArray.indexOf(defaultMax));
+    setLabels(stepsArray);
+  }, [stepsArray, defaultMin, defaultMax]);
 
   return {
     state,

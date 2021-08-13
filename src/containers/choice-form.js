@@ -32,9 +32,21 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
     decadeData.defaultMax
   );
 
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log({
+      genre: genreIsChecked,
+      runtime: {
+        min: runtimeState.rangeLabels[runtimeState.minValue],
+        max: runtimeState.rangeLabels[runtimeState.maxValue],
+      },
+      decade: decadeState,
+    });
+  };
+
   return (
     <ChoiceForm>
-      <ChoiceForm.Base>
+      <ChoiceForm.Base onSubmit={formSubmitHandler}>
         <ChoiceForm.Panel>
           <ChoiceForm.Heading>
             <ChoiceForm.AllButton
