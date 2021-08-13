@@ -1,6 +1,5 @@
 import React from "react";
-import { ChoiceForm } from "../components/";
-import RangeSlider from "../components/ranger-slider";
+import { ChoiceForm, RangeSlider, Checkboxes } from "../components";
 import { useSlider, useCheckbox } from "../hooks";
 
 export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
@@ -47,24 +46,12 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
             </ChoiceForm.AllButton>
             <h2>Genre</h2>
           </ChoiceForm.Heading>
-
-          <ChoiceForm.Options>
-            {genreList
-              ? genreList.map((genre, index) => {
-                  return (
-                    <ChoiceForm.Checkbox
-                      key={index}
-                      name={genre}
-                      index={index}
-                      checkedState={genreIsChecked[index]}
-                      changeHandler={genreCheckboxChangeHandler}
-                    >
-                      {genre}
-                    </ChoiceForm.Checkbox>
-                  );
-                })
-              : null}
-          </ChoiceForm.Options>
+          <Checkboxes
+            name="genre"
+            valuesList={genreList}
+            isChecked={genreIsChecked}
+            changeHandler={genreCheckboxChangeHandler}
+          />
         </ChoiceForm.Panel>
 
         <ChoiceForm.Panel>

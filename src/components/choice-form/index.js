@@ -6,9 +6,6 @@ import {
   Panel,
   Heading,
   AllButton,
-  Options,
-  Label,
-  Input,
   SubmitWrapper,
   SubmitBtn,
 } from "./styles/choice-form";
@@ -40,38 +37,6 @@ ChoiceForm.AllButton = function ChoiceFormAllButton({
   ...restProps
 }) {
   return <AllButton {...restProps}>{children}</AllButton>;
-};
-
-ChoiceForm.Options = function ChoiceFormOptions({ children, ...restProps }) {
-  return <Options {...restProps}>{children}</Options>;
-};
-
-ChoiceForm.Checkbox = function ChoiceFormCheckbox({
-  name,
-  index,
-  checkedState,
-  changeHandler,
-  children,
-  ...restProps
-}) {
-  return (
-    <li>
-      <Input
-        id={`genre-checkbox-${index}`}
-        value={name}
-        checked={checkedState}
-        onChange={() => changeHandler(index)}
-      />
-      <Label
-        data-testid="genre-checkbox"
-        htmlFor={`genre-checkbox-${index}`}
-        checked={checkedState}
-        {...restProps}
-      >
-        {children}
-      </Label>
-    </li>
-  );
 };
 
 ChoiceForm.Submit = function ChoiceFormSubmit({ children, ...restProps }) {

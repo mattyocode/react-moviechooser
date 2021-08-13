@@ -10,27 +10,16 @@ describe("<ChoiceForm/>", () => {
     expect(screen.getByTestId("choice-form")).toBeTruthy();
   });
 
-  it("displays genre panel", () => {
+  it("displays panel with heading and all button", () => {
     render(
       <ChoiceForm.Panel>
         <ChoiceForm.Heading>
           <ChoiceForm.AllButton>Select All</ChoiceForm.AllButton>
-          <h2>Genre</h2>
+          <h2>Test Heading</h2>
         </ChoiceForm.Heading>
-        <ChoiceForm.Options>
-          <ChoiceForm.Checkbox
-            name="Comedy"
-            index="1"
-            checked={true}
-            changeHandler={() => {}}
-          >
-            Comedy
-          </ChoiceForm.Checkbox>
-        </ChoiceForm.Options>
       </ChoiceForm.Panel>
     );
-    expect(screen.getByText("Genre")).toBeTruthy();
-    expect(screen.getByText("Comedy")).toBeTruthy();
+    expect(screen.getByText("Test Heading")).toBeTruthy();
     expect(screen.getByText("Select All")).toBeTruthy();
   });
 
