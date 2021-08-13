@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { toHaveStyle } from "@testing-library/jest-dom";
 
 import Checkboxes from "./index";
 
@@ -32,18 +33,19 @@ describe("<Checkboxes />", () => {
     expect(mockChangeHandler).toHaveBeenCalledWith(2);
   });
 
-  it("clicking checkbox calls changeHandler", () => {
-    const mockChangeHandler = jest.fn();
+  it("checkbox style is highlighed if isChecked = true", () => {
     render(
       <Checkboxes
         name="test"
-        valuesList={["one", "two", "three"]}
-        isChecked={[false, false, false]}
-        changeHandler={mockChangeHandler}
+        valuesList={["one", "two"]}
+        isChecked={[false, true]}
       />
     );
+
     const checkboxOne = screen.getAllByTestId("test-checkbox")[0];
-    fireEvent.click(checkboxOne);
-    expect(mockChangeHandler).toHaveBeenCalledTimes(1);
+    const checkboxTwo = screen.getAllByTestId("test-checkbox")[1];
+
+    expect(checkboxOne).toHaveStyle("background-color: transparent");
+    expect(checkboxTwo).toHaveStyle("background-color: var(--clr-neon)");
   });
 });
