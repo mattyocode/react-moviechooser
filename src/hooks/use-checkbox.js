@@ -10,7 +10,7 @@ export default function useCheckbox(options = []) {
     const updatedCheckedState = isChecked.map((item, index) =>
       index === position ? !item : item
     );
-    setIsChecked(updatedCheckedState);
+    setIsChecked((prevState) => updatedCheckedState);
   };
 
   const allBtnHandler = (event) => {

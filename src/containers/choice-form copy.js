@@ -12,9 +12,11 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
   } = useCheckbox(genreList);
 
   const {
-    state: runtimeState,
-    setMin: runtimeSetMin,
-    setMax: runtimeSetMax,
+    minValue: runtimeMinValue,
+    setMinValue: runtimeSetMinValue,
+    maxValue: runtimeMaxValue,
+    setMaxValue: runtimeSetMaxValue,
+    allBtnHighlighted: runtimeAllBtnHighlighted,
     allBtnHandler: runtimeAllBtnHandler,
   } = useSlider(
     runtimeData.optionsArray,
@@ -23,17 +25,17 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
   );
 
   const {
-    state: decadeState,
-    setMin: decadeSetMin,
-    setMax: decadeSetMax,
+    minValue: decadeMinValue,
+    setMinValue: decadeSetMinValue,
+    maxValue: decadeMaxValue,
+    setMaxValue: decadeSetMaxValue,
+    allBtnHighlighted: decadeAllBtnHighlighted,
     allBtnHandler: decadeAllBtnHandler,
   } = useSlider(
     decadeData.optionsArray,
     decadeData.defaultMin,
     decadeData.defaultMax
   );
-
-  console.log("choice-form >>>", runtimeState.rangeLabels);
 
   return (
     <ChoiceForm>
@@ -74,18 +76,18 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
             <ChoiceForm.AllButton
               data-testid="decade-all-btn"
               onClick={decadeAllBtnHandler}
-              highlighted={!decadeState.allSelected}
+              highlighted={decadeAllBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
             <h2>Released</h2>
           </ChoiceForm.Heading>
           <RangeSlider
-            minValue={decadeState.minValue}
-            maxValue={decadeState.maxValue}
-            updateMin={decadeSetMin}
-            updateMax={decadeSetMax}
-            stepValues={decadeState.rangeLabels}
+            minValue={decadeMinValue}
+            maxValue={decadeMaxValue}
+            updateMin={decadeSetMinValue}
+            updateMax={decadeSetMaxValue}
+            stepValues={decadeData.optionsArray}
             dataTestId="decade"
           />
         </ChoiceForm.Panel>
@@ -95,18 +97,18 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
             <ChoiceForm.AllButton
               data-testid="runtime-all-btn"
               onClick={runtimeAllBtnHandler}
-              highlighted={!runtimeState.allSelected}
+              highlighted={runtimeAllBtnHighlighted}
             >
               Select All
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
           <RangeSlider
-            minValue={runtimeState.minValue}
-            maxValue={runtimeState.maxValue}
-            updateMin={runtimeSetMin}
-            updateMax={runtimeSetMax}
-            stepValues={runtimeState.rangeLabels}
+            minValue={runtimeMinValue}
+            maxValue={runtimeMaxValue}
+            updateMin={runtimeSetMinValue}
+            updateMax={runtimeSetMaxValue}
+            stepValues={runtimeData.optionsArray}
             dataTestId="runtime"
           />
         </ChoiceForm.Panel>

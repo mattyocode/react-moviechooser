@@ -90,15 +90,19 @@ export default function RangeSlider({
     getBubbleLeftPosition,
   ]);
 
+  console.log(`data test id in range slider: ${dataTestId}`);
+
   useEffect(() => {
-    if (minValue === stepValues.length - 1) {
-      minThumbRef.current.style.zIndex = "4";
-      maxThumbRef.current.style.zIndex = "3";
-    } else if (maxValue === 0) {
-      minThumbRef.current.style.zIndex = "3";
-      maxThumbRef.current.style.zIndex = "4";
+    if (stepValues.length) {
+      if (minValue === stepValues.length - 1) {
+        minThumbRef.current.style.zIndex = "4";
+        maxThumbRef.current.style.zIndex = "3";
+      } else if (maxValue === 0) {
+        minThumbRef.current.style.zIndex = "3";
+        maxThumbRef.current.style.zIndex = "4";
+      }
     }
-  }, [minValue, maxValue, stepValues.length]);
+  }, [minValue, maxValue, stepValues]);
 
   let sliderValues;
   if (minValue !== maxValue) {
