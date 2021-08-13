@@ -27,6 +27,12 @@ export const Panel = styled.div`
   }
 `;
 
+export const Error = styled(Panel)`
+  & p {
+    color: red;
+  }
+`;
+
 export const Heading = styled.div`
   position: relative;
   padding-bottom: 0.5rem;

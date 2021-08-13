@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Container,
+  Error,
   Base,
   Panel,
   Heading,
@@ -18,7 +19,9 @@ export default function ChoiceForm({ children, ...restProps }) {
   );
 }
 
-// add .Error
+ChoiceForm.Error = function ChoiceFormError({ children, ...restProps }) {
+  return <Error {...restProps}>{children}</Error>;
+};
 
 ChoiceForm.Base = function ChoiceFormBase({ children, ...restProps }) {
   return <Base {...restProps}>{children}</Base>;
