@@ -36,7 +36,6 @@
       "!<rootDir>/src/global-styles.js",
       "!<rootDir>/src/components/index.js",
       "!<rootDir>/src/firebase.prod.js",
-      "!<rootDir>/src/hooks/*.js",
       "!<rootDir>/src/context/*.js",
       "!<rootDir>/src/fixtures/*.js"
     ]

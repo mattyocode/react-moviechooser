@@ -33,8 +33,6 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
     decadeData.defaultMax
   );
 
-  console.log(decadeState.allSelected);
-
   return (
     <ChoiceForm>
       <ChoiceForm.Base>
