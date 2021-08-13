@@ -8,14 +8,11 @@ const sliderStateReducer = (state, action) => {
     case "SET-MAX": {
       return { ...state, maxValue: action.value };
     }
-    case "SET-PREV-MIN": {
-      return { ...state, prevMinValue: action.value };
-    }
-    case "SET-PREV-MAX": {
-      return { ...state, prevMaxValue: action.value };
+    case "SET-PREV": {
+      return { ...state, prevMin: action.min, prevMax: action.max };
     }
     case "ALL-SELECTED": {
-      return { ...state, prevMaxValue: action.value };
+      return { ...state, allSelected: action.value };
     }
     default: {
       throw new Error(`Unhandled type: ${action.type}`);
@@ -25,8 +22,8 @@ const sliderStateReducer = (state, action) => {
 
 export default function useSlider(
   stepsArray = [],
-  defaultMin = "",
-  defaultMax = ""
+  defaultMin = 0,
+  defaultMax = 0
 ) {
   const [state, dispatch] = useReducer(sliderStateReducer, {
     rangeLabels: stepsArray,
@@ -37,7 +34,12 @@ export default function useSlider(
     allSelected: false,
   });
 
-  console.log(state);
+  const setMin = (value) => {
+    dispatch({ type: "SET-MIN", value: value });
+  };
+  const setMax = (value) => {
+    dispatch({ type: "SET-MAX", value: value });
+  };
 
   const allBtnHandler = (event) => {
     event.preventDefault();
@@ -45,21 +47,13 @@ export default function useSlider(
       state.minValue !== 0 ||
       state.maxValue !== state.rangeLabels.length - 1
     ) {
-      dispatch({ type: "SET-PREV-MIN", value: state.minValue });
-      dispatch({ type: "SET-PREV-MAX", value: state.maxValue });
-      dispatch({ type: "SET-MIN", value: 0 });
-      dispatch({ type: "SET-MAX", value: state.rangeLabels.length - 1 });
+      dispatch({ type: "SET-PREV", min: state.minValue, max: state.maxValue });
+      setMin(0);
+      setMax(state.rangeLabels.length - 1);
     } else {
-      dispatch({ type: "SET-MIN", value: state.prevMinValue });
-      dispatch({ type: "SET-MAX", value: state.prevMaxValue });
+      setMin(state.prevMin);
+      setMax(state.prevMax);
     }
-  };
-
-  const setMin = (value) => {
-    dispatch({ type: "SET-MIN", value: value });
-  };
-  const setMax = (value) => {
-    dispatch({ type: "SET-MAX", value: value });
   };
 
   useEffect(() => {
@@ -72,14 +66,6 @@ export default function useSlider(
       dispatch({ type: "ALL-SELECTED", value: false });
     }
   }, [state.minValue, state.maxValue, state.rangeLabels]);
-
-  // useEffect(() => {
-  //   if (minValue > maxValue) {
-  //     let min = minValue;
-  //     setMaxValue(min);
-  //     setMinValue(maxValue);
-  //   }
-  // }, [minValue, maxValue]);
 
   return {
     state,

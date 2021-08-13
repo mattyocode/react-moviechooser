@@ -90,7 +90,7 @@ export default function RangeSlider({
     getBubbleLeftPosition,
   ]);
 
-  console.log(`data test id in range slider: ${dataTestId}`);
+  // console.log(`data test id in range slider: ${dataTestId}`);
 
   useEffect(() => {
     if (stepValues.length) {

@@ -33,7 +33,7 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
     decadeData.defaultMax
   );
 
-  console.log("choice-form >>>", runtimeState.rangeLabels);
+  console.log(decadeState.allSelected);
 
   return (
     <ChoiceForm>
