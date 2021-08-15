@@ -1,17 +1,21 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 import { server, rest } from "../../test/server";
 
 import { Home } from "../../pages";
+import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/options`;
   it("renders <Home/>", async () => {
     render(
-      <Router>
-        <Home url={apiUrl} />;
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Home url={apiUrl} />;
+        </Router>
+      </Provider>
     );
 
     await waitFor(() => {
@@ -31,9 +35,11 @@ describe("<Home/> page tests", () => {
     );
 
     render(
-      <Router>
-        <Home url={apiUrl} />;
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Home url={apiUrl} />;
+        </Router>
+      </Provider>
     );
 
     await waitFor(() => {
@@ -43,9 +49,11 @@ describe("<Home/> page tests", () => {
 
   it("shows loading text before form data loads", () => {
     render(
-      <Router>
-        <Home url={apiUrl} />;
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Home url={apiUrl} />;
+        </Router>
+      </Provider>
     );
 
     expect(screen.getByText(/loading/i)).toBeTruthy();

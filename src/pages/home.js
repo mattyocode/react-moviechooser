@@ -33,7 +33,7 @@ export default function Home() {
     choiceForm = <p>Loading...</p>;
   }
   if (notification && notification.status === "error") {
-    choiceForm = <p>{`${notification.message}`}</p>;
+    choiceForm = <p>{`${notification.title}: ${notification.message}`}</p>;
   }
 
   return (
