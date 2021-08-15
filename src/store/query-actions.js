@@ -4,6 +4,13 @@ import { uiActions } from "./ui-slice";
 export const fetchOptionsData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
+      dispatch(
+        uiActions.showNotification({
+          status: "loading",
+          title: "Loading",
+          message: "Loading...",
+        })
+      );
       const response = await fetch(`${process.env.REACT_APP_TEST_API}/options`);
       if (!response.ok) {
         throw new Error("Could not fetch movie options");
@@ -19,12 +26,21 @@ export const fetchOptionsData = () => {
           options: optionsData,
         })
       );
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Received options data!",
+        })
+      );
     } catch (error) {
-      uiActions.showNotifications({
-        status: "error",
-        title: "Error!",
-        message: "Fetching options failed!",
-      });
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Fetching options failed!",
+        })
+      );
     }
   };
 };

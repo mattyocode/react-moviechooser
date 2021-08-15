@@ -4,7 +4,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: { notification: null },
   reducers: {
-    showNotifications(state, action) {
+    showNotification(state, action) {
       state.notification = {
         status: action.payload.status,
         title: action.payload.title,
@@ -13,6 +13,8 @@ const uiSlice = createSlice({
     },
   },
 });
+
+// console.log("uiSlice runs");
 
 export const uiActions = uiSlice.actions;
 export default uiSlice.reducer;
