@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, getByText } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
@@ -219,5 +219,9 @@ describe("<ChoiceFormContainer/>", () => {
     expect(screen.getByTestId("submit-btns")).toBeTruthy();
   });
 
-  // it("Submit btn ")
+  it("Submit btn returns default form values if no selections made", () => {
+    const submitBtn = screen.getByText(/matches/i);
+
+    fireEvent.click(submitBtn);
+  });
 });
