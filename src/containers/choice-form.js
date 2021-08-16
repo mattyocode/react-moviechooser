@@ -2,7 +2,12 @@ import React from "react";
 import { ChoiceForm, RangeSlider, Checkboxes } from "../components";
 import { useSlider, useCheckbox } from "../hooks";
 
-export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
+export function ChoiceFormContainer({
+  genreList,
+  runtimeData,
+  decadeData,
+  onSubmitHandler,
+}) {
   const {
     isChecked: genreIsChecked,
     checkboxChangeHandler: genreCheckboxChangeHandler,
@@ -34,7 +39,7 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log({
+    onSubmitHandler({
       genre: genreIsChecked.reduce((acc, cur, idx) => {
         if (cur === true) {
           acc.push(genreList[idx]);

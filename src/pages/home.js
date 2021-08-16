@@ -15,6 +15,10 @@ export default function Home() {
     dispatch(fetchOptionsData());
   }, [dispatch]);
 
+  const getQueryResults = (selectionObj) => {
+    console.log(selectionObj);
+  };
+
   let choiceForm;
   if (options.genre && options.decade && options.runtime) {
     choiceForm = (
@@ -22,6 +26,7 @@ export default function Home() {
         genreList={options.genre}
         runtimeData={options.runtime}
         decadeData={options.decade}
+        onSubmitHandler={getQueryResults}
       />
     );
   }

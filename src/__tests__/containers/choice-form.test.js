@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, getByText } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
@@ -15,6 +15,7 @@ describe("<ChoiceFormContainer/>", () => {
         genreList={genreData}
         runtimeData={runtimeData}
         decadeData={decadeData}
+        onSubmitHandler={() => {}}
       />
     );
   });
@@ -220,8 +221,24 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("Submit btn returns default form values if no selections made", () => {
+    cleanup();
+    const mockOnSubmit = jest.fn();
+    render(
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
+        onSubmitHandler={mockOnSubmit}
+      />
+    );
+
     const submitBtn = screen.getByText(/matches/i);
 
     fireEvent.click(submitBtn);
+    expect(mockOnSubmit).toHaveBeenCalledWith({
+      decade: { max: "20s", min: "70s" },
+      genre: [],
+      runtime: { max: "2h", min: "75m" },
+    });
   });
 });
