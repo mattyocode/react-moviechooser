@@ -7,7 +7,7 @@ import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptionsData } from "../store/query-actions";
 
 export default function Home() {
-  const options = useSelector((state) => state.options);
+  const options = useSelector((state) => state.options.options);
   const notification = useSelector((state) => state.ui.notification);
   const dispatch = useDispatch();
 
@@ -16,16 +16,12 @@ export default function Home() {
   }, [dispatch]);
 
   let choiceForm;
-  if (
-    options.options.genre &&
-    options.options.decade &&
-    options.options.runtime
-  ) {
+  if (options.genre && options.decade && options.runtime) {
     choiceForm = (
       <ChoiceFormContainer
-        genreList={options.options.genre}
-        runtimeData={options.options.runtime}
-        decadeData={options.options.decade}
+        genreList={options.genre}
+        runtimeData={options.runtime}
+        decadeData={options.decade}
       />
     );
   }

@@ -35,12 +35,20 @@ export function ChoiceFormContainer({ genreList, runtimeData, decadeData }) {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     console.log({
-      genre: genreIsChecked,
+      genre: genreIsChecked.reduce((acc, cur, idx) => {
+        if (cur === true) {
+          acc.push(genreList[idx]);
+        }
+        return acc;
+      }, []),
       runtime: {
         min: runtimeState.rangeLabels[runtimeState.minValue],
         max: runtimeState.rangeLabels[runtimeState.maxValue],
       },
-      decade: decadeState,
+      decade: {
+        min: decadeState.rangeLabels[decadeState.minValue],
+        max: decadeState.rangeLabels[decadeState.maxValue],
+      },
     });
   };
 

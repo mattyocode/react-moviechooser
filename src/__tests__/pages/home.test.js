@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { server, rest } from "../../test/server";
@@ -9,15 +9,16 @@ import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/options`;
-  it("renders <Home/>", async () => {
+  beforeEach(() => {
     render(
       <Provider store={store}>
         <Router>
-          <Home url={apiUrl} />;
+          <Home />
         </Router>
       </Provider>
     );
-
+  });
+  it("renders <Home/>", async () => {
     await waitFor(() => {
       expect(screen.getByText("Sci-Fi")).toBeTruthy();
       expect(screen.getByText("Borror")).toBeTruthy();
@@ -28,6 +29,7 @@ describe("<Home/> page tests", () => {
   });
 
   it("shows error on 404 response to GET request", async () => {
+    cleanup();
     server.use(
       rest.get(`${apiUrl}`, (req, res, ctx) => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
@@ -37,7 +39,7 @@ describe("<Home/> page tests", () => {
     render(
       <Provider store={store}>
         <Router>
-          <Home url={apiUrl} />;
+          <Home />;
         </Router>
       </Provider>
     );
@@ -48,14 +50,6 @@ describe("<Home/> page tests", () => {
   });
 
   it("shows loading text before form data loads", () => {
-    render(
-      <Provider store={store}>
-        <Router>
-          <Home url={apiUrl} />;
-        </Router>
-      </Provider>
-    );
-
     expect(screen.getByText(/loading/i)).toBeTruthy();
   });
 });
