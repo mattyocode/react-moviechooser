@@ -241,4 +241,45 @@ describe("<ChoiceFormContainer/>", () => {
       runtime: { max: "2h", min: "75m" },
     });
   });
+
+  it("Submit btn returns selected values", () => {
+    cleanup();
+    const mockOnSubmit = jest.fn();
+    render(
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={runtimeData}
+        decadeData={decadeData}
+        onSubmitHandler={mockOnSubmit}
+      />
+    );
+
+    const borrorGenre = screen.getByText(/borror/i);
+    fireEvent.click(borrorGenre);
+
+    const decadeMinThumb = screen.getByTestId("decade-thumb-min");
+    const decadeMaxThumb = screen.getByTestId("decade-thumb-max");
+
+    fireEvent.change(decadeMinThumb, { target: { value: 0 } });
+    fireEvent.change(decadeMaxThumb, {
+      target: { value: decadeData.optionsArray.length - 1 },
+    });
+
+    const runtimeMinThumb = screen.getByTestId("runtime-thumb-min");
+    const runtimeMaxThumb = screen.getByTestId("runtime-thumb-max");
+
+    fireEvent.change(runtimeMinThumb, { target: { value: 0 } });
+    fireEvent.change(runtimeMaxThumb, {
+      target: { value: runtimeData.optionsArray.length - 1 },
+    });
+
+    const submitBtn = screen.getByText(/matches/i);
+
+    fireEvent.click(submitBtn);
+    expect(mockOnSubmit).toHaveBeenCalledWith({
+      decade: { max: "20s", min: "Pre-60s" },
+      genre: ["Borror"],
+      runtime: { max: "Long", min: "Short" },
+    });
+  });
 });
