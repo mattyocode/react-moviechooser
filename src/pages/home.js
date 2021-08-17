@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { NavbarContainer } from "../containers/navigation";
-import { Headline } from "../components";
+import { Headline, Loading } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptionsData, fetchMovies } from "../store/query-actions";
 
@@ -36,7 +36,7 @@ export default function Home() {
     );
   }
   if (notification && notification.status === "loading") {
-    choiceForm = <p>Loading...</p>;
+    choiceForm = <Loading />;
   }
   if (notification && notification.status === "error") {
     choiceForm = <p>{`${notification.title}: ${notification.message}`}</p>;

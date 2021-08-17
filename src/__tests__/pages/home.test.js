@@ -9,14 +9,12 @@ import {
 import { MemoryRouter, Route } from "react-router-dom";
 import * as reactRedux from "react-redux";
 import { server, rest } from "../../test/server";
-import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom";
 
 import { Home } from "../../pages";
 import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
-  jest.setTimeout(10000);
   const apiUrl = `${process.env.REACT_APP_TEST_API}/options`;
 
   beforeEach(() => {
