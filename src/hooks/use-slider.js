@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useCallback } from "react";
 
 const sliderStateReducer = (state, action) => {
   switch (action.type) {
@@ -37,6 +37,8 @@ export default function useSlider(
     allSelected: false,
   });
 
+  console.log("use-slider");
+
   const setMin = (value) => {
     dispatch({ type: "SET-MIN", value: value });
   };
@@ -48,20 +50,27 @@ export default function useSlider(
     dispatch({ type: "SET-LABELS", value: value });
   };
 
-  const allBtnHandler = (event) => {
-    event.preventDefault();
-    if (
-      state.minValue !== 0 ||
-      state.maxValue !== state.rangeLabels.length - 1
-    ) {
-      dispatch({ type: "SET-PREV", min: state.minValue, max: state.maxValue });
-      setMin(0);
-      setMax(state.rangeLabels.length - 1);
-    } else {
-      setMin(state.prevMin);
-      setMax(state.prevMax);
-    }
-  };
+  const allBtnHandler = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (
+        state.minValue !== 0 ||
+        state.maxValue !== state.rangeLabels.length - 1
+      ) {
+        dispatch({
+          type: "SET-PREV",
+          min: state.minValue,
+          max: state.maxValue,
+        });
+        setMin(0);
+        setMax(state.rangeLabels.length - 1);
+      } else {
+        setMin(state.prevMin);
+        setMax(state.prevMax);
+      }
+    },
+    [state]
+  );
 
   useEffect(() => {
     if (
@@ -76,7 +85,7 @@ export default function useSlider(
 
   useEffect(() => {
     console.log("use-slider useEffect");
-    // console.log(defaultMin, defaultMax, stepsArray);
+
     setMin(stepsArray.indexOf(defaultMin));
     setMax(stepsArray.indexOf(defaultMax));
     setLabels(stepsArray);
