@@ -47,7 +47,7 @@ describe("<Home/> page tests", () => {
     render(
       <reactRedux.Provider store={store}>
         <MemoryRouter>
-          <Home />;
+          <Home />
         </MemoryRouter>
       </reactRedux.Provider>
     );
@@ -57,8 +57,8 @@ describe("<Home/> page tests", () => {
     });
   });
 
-  it("shows loading text before form data loads", () => {
-    expect(screen.getByText(/loading/i)).toBeTruthy();
+  it("shows loading spinner before form data loads", () => {
+    expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
   });
 
   it("submit handler redirects to movies page after calling fetchMovies", async () => {
@@ -76,7 +76,6 @@ describe("<Home/> page tests", () => {
       </reactRedux.Provider>
     );
 
-    screen.debug();
     expect(screen.getByText(/start watching/i)).toBeInTheDocument();
     expect(screen.getByText(/runtime/i)).toBeInTheDocument();
 
@@ -87,8 +86,6 @@ describe("<Home/> page tests", () => {
     );
 
     fireEvent.click(submitBtn);
-
-    screen.debug();
 
     expect(screen.getByText(/Movie results page/i)).toBeInTheDocument();
   });
