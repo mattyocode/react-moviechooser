@@ -1,22 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { NavbarContainer } from "../containers/navigation";
 import { Headline } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
-import { fetchOptionsData } from "../store/query-actions";
+import { fetchOptionsData, fetchMovies } from "../store/query-actions";
 
 export default function Home() {
   const options = useSelector((state) => state.options.options);
   const notification = useSelector((state) => state.ui.notification);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchOptionsData());
   }, [dispatch]);
 
   const getQueryResults = (selectionObj) => {
+    dispatch(fetchMovies(selectionObj));
     console.log(selectionObj);
+    // redirect to results page.
+    history.push("/movies");
   };
 
   let choiceForm;
