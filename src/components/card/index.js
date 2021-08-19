@@ -84,6 +84,42 @@ Card.Header = function CardHeader({
   );
 };
 
-Card.FurtherInfo = function CardFurtherInfo({ children, ...restProps }) {
-  return <FurtherInfo {...restProps}>{children}</FurtherInfo>;
+Card.FurtherInfo = function CardFurtherInfo({
+  starring,
+  director,
+  country,
+  ...restProps
+}) {
+  return (
+    <FurtherInfo {...restProps}>
+      <p>
+        <b>Starring: </b>
+        {starring && starring.join(", ")}
+      </p>
+      <p>
+        <b>Directed by: </b>
+        {director && director.join(", ")}
+      </p>
+      <p>
+        <b></b>
+        {country}
+      </p>
+    </FurtherInfo>
+  );
 };
+
+Card.Genres = function CardGenres({ genres, ...restProps }) {
+  return (
+    <Genres>
+      <ul>
+        {genres
+          ? genres.map((genre, idx) => {
+              return <li key={idx}>{genre}</li>;
+            })
+          : null}
+      </ul>
+    </Genres>
+  );
+};
+
+// Card.Footer = function CardFooter({ })
