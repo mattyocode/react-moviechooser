@@ -15,6 +15,7 @@ import {
   AvgRating,
   Image,
   AllRatings,
+  RatingLogo,
   StarRating,
   MainContent,
   Header,
@@ -24,6 +25,8 @@ import {
   Footer,
   ActionIcons,
 } from "./styles/card";
+
+import { imdbRating, metacritic, rottenTomatoes } from "../../assets";
 
 export default function Card({ children, ...restProps }) {
   return (
@@ -54,7 +57,9 @@ Card.Image = function CardImage({ src, ...restProps }) {
 };
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
-  console.log(ratings);
+  //   const reviewSource = name => {
+
+  //   }
   return (
     <AllRatings {...restProps}>
       <ul>
@@ -62,8 +67,9 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  <p>{Object.keys(rating)}</p>
-                  <p>{Object.values(rating)}</p>
+                  {/* <p>{Object.keys(rating)}</p> */}
+                  <RatingLogo src={`${Object.keys(rating)}`} />
+                  <StarRating rating={`${Object.values(rating)}%`}></StarRating>
                 </li>
               );
             })

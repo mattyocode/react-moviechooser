@@ -62,11 +62,6 @@ export const AllRatings = styled.div`
   justify-content: center;
   align-items: center;
 
-  img {
-    height: 10px;
-    margin: 3px;
-  }
-
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -82,23 +77,25 @@ export const AllRatings = styled.div`
   }
 `;
 
-export const StarRating = styled.div`
-   /* calc(var(--rating) / 5 * 100%); */
-   --percent:: calc(${(props) =>
-     props.rating ? props.rating : "0"} / 5 * 100%);
+export const RatingLogo = styled.svg`
+  height: 10px;
+  margin: 3px;
+`;
 
+export const StarRating = styled.div`
   display: inline-block;
-  font-size: var(--star-size);
+  font-size: 8px;
   font-family: Times;
-  line-height: 1;
+  line-height: 2;
+  margin: 0 5px;
 
   &::before {
     content: "★★★★★";
     letter-spacing: 1px;
     background: linear-gradient(
       90deg,
-      var(--star-background) var(--percent),
-      var(--star-color) var(--percent)
+      #fc0 ${(props) => props.rating},
+      #444 ${(props) => props.rating}
     );
     background-clip: text;
     -webkit-background-clip: text;
