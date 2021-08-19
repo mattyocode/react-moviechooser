@@ -63,6 +63,7 @@ export const fetchMovies = (queryParams) => {
       }
 
       const data = await response.json();
+      // TODO - destructure and rename data to camelcase
       return data;
     };
     try {

@@ -7,19 +7,21 @@ import Card from "./index";
 
 describe("<Card />", () => {
   it("renders <Card /> component", () => {
+    const ratings = [{ imdbRating: "89" }, { rotRating: "67" }];
     render(
       <Card>
         <Card.Content>
           <Card.Sidebar>
-            <Card.AvgRating>89.9</Card.AvgRating>
-            <Card.Image />
-            <Card.AllRatings ratings={[]} />
+            <Card.AvgRating>55</Card.AvgRating>
+            <Card.Image src={"/"} />
+            <Card.AllRatings ratings={ratings} />
           </Card.Sidebar>
           <Card.Main>
             <Card.Header
               title={"Revenge of the Test"}
               year={1992}
               runtime={"1h 50m"}
+              plot={"Once upon a time..."}
             />
             <Card.FurtherInfo
               starring={["Anne Actor", "Telly Starr"]}
@@ -28,6 +30,7 @@ describe("<Card />", () => {
             />
             <Card.Genres genres={["Borror", "Badventure"]} />
           </Card.Main>
+          <Card.Footer />
         </Card.Content>
       </Card>
     );
@@ -41,5 +44,7 @@ describe("<Card />", () => {
     expect(screen.getByText(/uk/i)).toBeInTheDocument();
     expect(screen.getByText(/borror/i)).toBeInTheDocument();
     expect(screen.getByText(/badventure/i)).toBeInTheDocument();
+
+    expect(screen.getByText(/imdbRating/i)).toBeInTheDocument();
   });
 });

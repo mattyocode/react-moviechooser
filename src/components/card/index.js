@@ -1,7 +1,15 @@
 import React from "react";
+import {
+  MdExpandMore,
+  MdExpandLess,
+  MdShare,
+  MdOndemandVideo,
+  MdLibraryAdd,
+} from "react-icons/md";
 
 import {
   Container,
+  Group,
   Content,
   Sidebar,
   AvgRating,
@@ -25,6 +33,10 @@ export default function Card({ children, ...restProps }) {
   );
 }
 
+Card.Group = function CardGroup({ children, ...restProps }) {
+  return <Group {...restProps}>{children}</Group>;
+};
+
 Card.Content = function CardContent({ children, ...restProps }) {
   return <Content {...restProps}>{children}</Content>;
 };
@@ -41,16 +53,16 @@ Card.Image = function CardImage({ src, ...restProps }) {
   return <Image src={src} {...restProps} />;
 };
 
-Card.AllRatings = function CardAllRatings({ ratingsArray, ...restProps }) {
+Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
+  console.log(ratings);
   return (
     <AllRatings {...restProps}>
       <ul>
-        {ratingsArray
-          ? ratingsArray.map((rating, idx) => {
+        {ratings
+          ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  <img src={"/"} alt={rating.name} />
-                  <StarRating rating={rating.score} />
+                  <p>{rating[idx]}</p>
                 </li>
               );
             })
@@ -100,17 +112,14 @@ Card.FurtherInfo = function CardFurtherInfo({
         <b>Directed by: </b>
         {director && director.join(", ")}
       </p>
-      <p>
-        <b></b>
-        {country}
-      </p>
+      <p>{country}</p>
     </FurtherInfo>
   );
 };
 
 Card.Genres = function CardGenres({ genres, ...restProps }) {
   return (
-    <Genres>
+    <Genres {...restProps}>
       <ul>
         {genres
           ? genres.map((genre, idx) => {
@@ -122,4 +131,15 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
   );
 };
 
-// Card.Footer = function CardFooter({ })
+Card.Footer = function CardFooter({ ...restProps }) {
+  return (
+    <Footer {...restProps}>
+      <MdExpandMore />
+      <ActionIcons>
+        <MdShare />
+        <MdOndemandVideo />
+        <MdLibraryAdd />
+      </ActionIcons>
+    </Footer>
+  );
+};

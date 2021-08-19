@@ -5,8 +5,13 @@ export const Container = styled.div`
   border-radius: 5px;
   background: rgba(34, 34, 34, 0.5);
   width: 100%;
-  margin: 0.1rem auto;
+  margin: 1rem auto;
   max-width: 430px;
+`;
+
+export const Group = styled.div`
+  margin: 0 auto;
+  padding: 0 1rem;
 `;
 
 export const Content = styled.article`
@@ -45,8 +50,8 @@ export const Image = styled.img`
   left: 0px;
   object-fit: cover;
   width: 100%;
-  height: 100%;
-  max-height: 75%;
+  max-height: 85%;
+  border-radius: 5px 0 0 0;
 `;
 
 export const AllRatings = styled.div`

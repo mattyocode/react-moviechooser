@@ -84,7 +84,7 @@ export default function useSlider(
   }, [state.minValue, state.maxValue, state.rangeLabels]);
 
   useEffect(() => {
-    console.log("use-slider useEffect");
+    // console.log("use-slider useEffect");
 
     setMin(stepsArray.indexOf(defaultMin));
     setMax(stepsArray.indexOf(defaultMax));

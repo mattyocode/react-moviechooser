@@ -39,7 +39,7 @@ export default function useCheckbox(options = []) {
   }, [isChecked]);
 
   useEffect(() => {
-    console.log("use-checkbox useEffect");
+    // console.log("use-checkbox useEffect");
     setIsChecked(new Array(options.length).fill(false));
   }, [options]);
 
