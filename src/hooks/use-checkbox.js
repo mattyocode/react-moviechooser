@@ -6,7 +6,7 @@ export default function useCheckbox(options = []) {
   );
   const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
 
-  console.log("use-checkbox");
+  // console.log("use-checkbox");
 
   const checkboxChangeHandler = useCallback(
     (position) => {

@@ -4,7 +4,7 @@ export default function useHttp() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log("use http");
+  // console.log("use http");
 
   const sendRequest = useCallback(async (config, applyData) => {
     setIsLoading(true);

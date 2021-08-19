@@ -18,7 +18,11 @@ import {
 } from "./styles/card";
 
 export default function Card({ children, ...restProps }) {
-  return <Container {...restProps}>{children}</Container>;
+  return (
+    <Container data-testid="card" {...restProps}>
+      {children}
+    </Container>
+  );
 }
 
 Card.Content = function CardContent({ children, ...restProps }) {
@@ -41,14 +45,16 @@ Card.AllRatings = function CardAllRatings({ ratingsArray, ...restProps }) {
   return (
     <AllRatings {...restProps}>
       <ul>
-        {ratingsArray.map((rating, idx) => {
-          return (
-            <li key={idx}>
-              <img src={"/"} alt={rating.name} />
-              <StarRating rating={rating.score} />
-            </li>
-          );
-        })}
+        {ratingsArray
+          ? ratingsArray.map((rating, idx) => {
+              return (
+                <li key={idx}>
+                  <img src={"/"} alt={rating.name} />
+                  <StarRating rating={rating.score} />
+                </li>
+              );
+            })
+          : null}
       </ul>
     </AllRatings>
   );

@@ -37,7 +37,7 @@ export default function useSlider(
     allSelected: false,
   });
 
-  console.log("use-slider");
+  // console.log("use-slider");
 
   const setMin = (value) => {
     dispatch({ type: "SET-MIN", value: value });
