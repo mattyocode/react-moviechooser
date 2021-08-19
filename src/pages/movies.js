@@ -2,7 +2,7 @@ import React from "react";
 // import { useSelector } from "react-redux";
 
 import { Card } from "../components/";
-import moviesData from "../fixtures/moviesData.json";
+import moviesData from "../fixtures/moviesDataFromStore.json";
 
 export default function Movies() {
   // const movies = useSelector((state) => state.movies.movies);
@@ -17,13 +17,13 @@ export default function Movies() {
                 <Card key={idx}>
                   <Card.Content>
                     <Card.Sidebar>
-                      <Card.AvgRating>{movie.avg_rating}</Card.AvgRating>
-                      <Card.Image src={movie.poster_url} />
+                      <Card.AvgRating>{movie.avgRating}</Card.AvgRating>
+                      <Card.Image src={movie.posterUrl} />
                       <Card.AllRatings
                         ratings={[
-                          movie.imdb_rating,
+                          movie.imdbRating,
                           movie.metacritic,
-                          movie.rotten_tomatoes,
+                          movie.rottenTomatoes,
                         ]}
                       />
                     </Card.Sidebar>

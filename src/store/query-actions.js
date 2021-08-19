@@ -2,6 +2,8 @@ import { optionsActions } from "./query-slice";
 import { moviesActions } from "./movies-slice";
 import { uiActions } from "./ui-slice";
 
+import keysToCamel from "../utils/camelcase";
+
 export const fetchOptionsData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
@@ -64,7 +66,12 @@ export const fetchMovies = (queryParams) => {
 
       const data = await response.json();
       // TODO - destructure and rename data to camelcase
-      return data;
+      let camelcaseKeys = [];
+      data.forEach((movie) => {
+        camelcaseKeys.push(keysToCamel(movie));
+      });
+      console.log("structured data", camelcaseKeys);
+      return camelcaseKeys;
     };
     try {
       const moviesData = await fetchData();
