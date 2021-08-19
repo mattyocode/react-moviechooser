@@ -7,7 +7,7 @@ import Card from "./index";
 
 describe("<Card />", () => {
   it("renders <Card /> component", () => {
-    const ratings = [{ imdbRating: "89" }, { rotRating: "67" }];
+    const ratings = [{ imdbRating: "89" }, { rottenTomatoes: "67" }];
     render(
       <Card>
         <Card.Content>

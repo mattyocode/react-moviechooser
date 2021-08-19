@@ -62,7 +62,8 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  <p>{rating[idx]}</p>
+                  <p>{Object.keys(rating)}</p>
+                  <p>{Object.values(rating)}</p>
                 </li>
               );
             })

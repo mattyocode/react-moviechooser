@@ -21,9 +21,9 @@ export default function Movies() {
                       <Card.Image src={movie.posterUrl} />
                       <Card.AllRatings
                         ratings={[
-                          movie.imdbRating,
-                          movie.metacritic,
-                          movie.rottenTomatoes,
+                          { imdbRating: movie.imdbRating },
+                          { metacritic: movie.metacritic },
+                          { rottenTomatoes: movie.rottenTomatoes },
                         ]}
                       />
                     </Card.Sidebar>

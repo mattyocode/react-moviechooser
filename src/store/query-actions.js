@@ -65,12 +65,12 @@ export const fetchMovies = (queryParams) => {
       }
 
       const data = await response.json();
-      // TODO - destructure and rename data to camelcase
+
       let camelcaseKeys = [];
       data.forEach((movie) => {
         camelcaseKeys.push(keysToCamel(movie));
       });
-      console.log("structured data", camelcaseKeys);
+
       return camelcaseKeys;
     };
     try {
