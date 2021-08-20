@@ -57,9 +57,18 @@ Card.Image = function CardImage({ src, ...restProps }) {
 };
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
-  //   const reviewSource = name => {
-
-  //   }
+  const reviewSource = (name) => {
+    switch (name) {
+      case "imdbRating":
+        return imdbRating;
+      case "metacritic":
+        return metacritic;
+      case "rottenTomatoes":
+        return rottenTomatoes;
+      default:
+        return name;
+    }
+  };
   return (
     <AllRatings {...restProps}>
       <ul>
@@ -67,8 +76,7 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  {/* <p>{Object.keys(rating)}</p> */}
-                  <RatingLogo src={`${Object.keys(rating)}`} />
+                  <RatingLogo src={reviewSource(`${Object.keys(rating)}`)} />
                   <StarRating rating={`${Object.values(rating)}%`}></StarRating>
                 </li>
               );

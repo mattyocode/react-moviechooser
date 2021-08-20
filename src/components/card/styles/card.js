@@ -77,7 +77,7 @@ export const AllRatings = styled.div`
   }
 `;
 
-export const RatingLogo = styled.svg`
+export const RatingLogo = styled.img`
   height: 10px;
   margin: 3px;
 `;
