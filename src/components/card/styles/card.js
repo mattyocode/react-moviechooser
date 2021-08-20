@@ -7,16 +7,17 @@ export const Container = styled.div`
   width: 100%;
   margin: 1rem auto;
   max-width: 430px;
+  cursor: pointer;
 `;
 
 export const Group = styled.div`
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 0 1rem;
 `;
 
 export const Content = styled.article`
   display: flex;
-  padding-bottom: 2.5rem;
+  /* padding-bottom: 2.5rem; */
 `;
 
 export const Sidebar = styled.section`
@@ -55,17 +56,29 @@ export const Image = styled.img`
   left: 0px;
   object-fit: cover;
   width: 100%;
-  max-height: 85%;
   border-radius: 5px 0 0 0;
+
+  &.closed {
+    height: 100%;
+    min-height: 11rem;
+  }
 `;
 
 export const AllRatings = styled.div`
   display: flex;
   font-size: 0.5rem;
   padding: 2px;
-  margin: 0.3rem 1rem;
+  margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
+  /* max-height: auto; */
+
+  &.closed {
+    display: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
 
   ul {
     display: flex;
@@ -73,7 +86,7 @@ export const AllRatings = styled.div`
     list-style: none;
     justify-content: flex-end;
     margin-top: 0.3rem;
-    width: 6.5rem;
+    width: 7rem;
   }
 
   li {
@@ -81,11 +94,32 @@ export const AllRatings = styled.div`
     align-items: center;
     text-align: end;
   }
+
+  @media screen and (min-width: 375px) {
+    font-size: 0.75rem;
+    margin: 1rem 1rem 1.5rem 1rem;
+  }
+
+  @media screen and (min-width: 450px) {
+    width: 100%;
+    font-size: 1rem;
+    margin: 0.7rem 1rem 2rem 1rem;
+  }
 `;
 
 export const RatingLogo = styled.img`
   height: 10px;
   margin: 3px;
+
+  @media screen and (min-width: 375px) {
+    height: 12px;
+    margin: 4px;
+  }
+
+  @media screen and (min-width: 450px) {
+    height: 15px;
+    margin: 5px;
+  }
 `;
 
 export const StarRating = styled.div`
@@ -111,26 +145,35 @@ export const StarRating = styled.div`
 
 export const MainContent = styled.section`
   flex: 1 1 60%;
-  padding: 0 0.75rem;
+  padding: 0 0.75rem 0.5rem 0.75rem;
   margin: 0 auto;
   max-width: 60%;
+  margin-bottom: 2.25rem;
 
   p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.65rem;
     margin: 0.75rem 0;
   }
+
+  @media screen and (min-width: 375px) {
+    margin-bottom: 2.5rem;
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export const Header = styled.header`
-  margin: 0.7rem 0 0 0;
+  margin: 0.7rem 0;
 
   h2 {
     font-size: 1.2rem;
   }
 
   p {
-    margin: 0.3rem 0;
+    margin: 0.1rem 0 !important;
   }
 
   @media screen and (min-width: 375px) {
@@ -140,7 +183,7 @@ export const Header = styled.header`
     }
 
     p {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       margin: 0.5rem 0 1rem 0;
     }
 
@@ -161,13 +204,24 @@ export const Header = styled.header`
   }
 `;
 
-export const Plot = styled.p``;
+export const Plot = styled.p`
+  margin: 0.3rem 0 !important;
+`;
 
-export const FurtherInfo = styled.div``;
+export const FurtherInfo = styled.div`
+  &.closed {
+    display: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    transition: max-height 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+  }
+`;
 
 export const Genres = styled.div`
   max-width: 100%;
   overflow-x: auto;
+  padding: 0.2rem 0;
 
   &::-webkit-scrollbar {
     display: none;
@@ -198,6 +252,12 @@ export const Genres = styled.div`
     display: inline-block;
   }
 
+  @media screen and (min-width: 375px) {
+    li {
+      font-size: 0.75rem;
+    }
+  }
+
   @media screen and (min-width: 450px) {
     ul {
       display: inline-flex;
@@ -215,7 +275,6 @@ export const Genres = styled.div`
 
 export const Footer = styled.div`
   position: absolute;
-  /* position: relative; */
   bottom: 0;
   display: flex;
   width: 100%;
@@ -227,6 +286,7 @@ export const Footer = styled.div`
 
 export const ActionIcons = styled.div`
   * {
-    margin: 0.25rem 0.6rem;
+    margin: 0.25rem 0.8rem;
+    font-size: 1.4rem;
   }
 `;

@@ -30,7 +30,7 @@ export default function Movies() {
                     <Card.Main>
                       <Card.Header
                         title={movie.title}
-                        year={movie.released}
+                        released={movie.released}
                         runtime={movie.runtime}
                         plot={movie.plot}
                       />

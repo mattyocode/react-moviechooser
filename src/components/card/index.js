@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext, createContext } from "react";
 import {
   MdExpandMore,
   MdExpandLess,
@@ -6,6 +6,7 @@ import {
   MdOndemandVideo,
   MdLibraryAdd,
 } from "react-icons/md";
+import { useMediaQuery } from "react-responsive";
 
 import {
   Container,
@@ -28,11 +29,17 @@ import {
 
 import { ImdbRating, Metacritic, RottenTomatoes, Star } from "../../assets";
 
+const CardExpandContext = createContext();
+
 export default function Card({ children, ...restProps }) {
+  const [expand, setExpand] = useState(false);
+
   return (
-    <Container data-testid="card" {...restProps}>
-      {children}
-    </Container>
+    <CardExpandContext.Provider value={{ expand, setExpand }}>
+      <Container data-testid="card" {...restProps}>
+        {children}
+      </Container>
+    </CardExpandContext.Provider>
   );
 }
 
@@ -41,7 +48,16 @@ Card.Group = function CardGroup({ children, ...restProps }) {
 };
 
 Card.Content = function CardContent({ children, ...restProps }) {
-  return <Content {...restProps}>{children}</Content>;
+  const { setExpand } = useContext(CardExpandContext);
+  return (
+    <Content
+      data-testid="content"
+      onClick={() => setExpand((expand) => !expand)}
+      {...restProps}
+    >
+      {children}
+    </Content>
+  );
 };
 
 Card.Sidebar = function CardSidebar({ children, ...restProps }) {
@@ -58,10 +74,12 @@ Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
 };
 
 Card.Image = function CardImage({ src, ...restProps }) {
-  return <Image src={src} {...restProps} />;
+  const { expand } = useContext(CardExpandContext);
+  return <Image className={!expand && "closed"} src={src} {...restProps} />;
 };
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
+  const { expand } = useContext(CardExpandContext);
   const reviewSource = (name) => {
     switch (name) {
       case "imdbRating":
@@ -74,15 +92,15 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
         return <p>{name}</p>;
     }
   };
+
   return (
-    <AllRatings {...restProps}>
+    <AllRatings className={!expand && "closed"} {...restProps}>
       <ul>
         {ratings
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
                   {reviewSource(`${Object.keys(rating)}`)}
-
                   <StarRating rating={`${Object.values(rating)}%`}></StarRating>
                 </li>
               );
@@ -99,11 +117,14 @@ Card.Main = function CardMain({ children, ...restProps }) {
 
 Card.Header = function CardHeader({
   title,
-  year,
+  released,
   runtime,
   plot,
   ...restProps
 }) {
+  const { expand } = useContext(CardExpandContext);
+  const isFullWidth = useMediaQuery({ query: "(min-width: 450px" });
+  const year = released ? released.slice(0, 4) : "";
   return (
     <>
       <Header {...restProps}>
@@ -112,7 +133,14 @@ Card.Header = function CardHeader({
           {year} | {runtime}
         </p>
       </Header>
-      <Plot>{plot}</Plot>
+      {expand || isFullWidth ? (
+        <Plot>{plot}</Plot>
+      ) : (
+        <Plot>
+          {`${plot.slice(0, 75)}... `}
+          <b>more</b>
+        </Plot>
+      )}
     </>
   );
 };
@@ -123,8 +151,9 @@ Card.FurtherInfo = function CardFurtherInfo({
   country,
   ...restProps
 }) {
+  const { expand } = useContext(CardExpandContext);
   return (
-    <FurtherInfo {...restProps}>
+    <FurtherInfo className={!expand && "closed"} {...restProps}>
       <p>
         <b>Starring: </b>
         {starring && starring.join(", ")}
