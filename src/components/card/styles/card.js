@@ -13,6 +13,16 @@ export const Container = styled.div`
 export const Group = styled.div`
   margin: 2rem auto;
   padding: 0 1rem;
+  max-width: 940px;
+
+  @media screen and (min-width: 1200px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 2000px) {
+    max-width: 1440px;
+  }
 `;
 
 export const Content = styled.article`
@@ -61,6 +71,7 @@ export const Image = styled.img`
   &.closed {
     height: 100%;
     min-height: 11rem;
+    border-radius: 5px 0 0 5px;
   }
 `;
 
@@ -253,6 +264,9 @@ export const Genres = styled.div`
   }
 
   @media screen and (min-width: 375px) {
+    ul {
+      padding-left: 0.1rem;
+    }
     li {
       font-size: 0.75rem;
     }
@@ -265,6 +279,7 @@ export const Genres = styled.div`
       flex-wrap: wrap;
 
       -webkit-overflow-scrolling: touch;
+      padding-left: 0;
     }
     li {
       font-size: 0.75rem;
@@ -282,6 +297,11 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem 0.5rem;
+  font-size: 2rem;
+
+  :first-child {
+    color: grey;
+  }
 `;
 
 export const ActionIcons = styled.div`
@@ -290,3 +310,11 @@ export const ActionIcons = styled.div`
     font-size: 1.4rem;
   }
 `;
+
+// export const MoreIcon = styled(MdExpandMore)`
+//   color: blue;
+// `;
+
+// export const LessIcon = styled(MdExpandLess)`
+//   color: #222;
+// `;

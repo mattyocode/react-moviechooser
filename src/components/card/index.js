@@ -184,7 +184,7 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
 Card.Footer = function CardFooter({ ...restProps }) {
   return (
     <Footer {...restProps}>
-      <MdExpandMore />
+      <MdExpandMore color="000" />
       <ActionIcons>
         <MdShare />
         <MdOndemandVideo />
