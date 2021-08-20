@@ -46,6 +46,6 @@ describe("<Card />", () => {
     expect(screen.getByText(/badventure/i)).toBeInTheDocument();
 
     expect(screen.getByText(/testRating/i)).toBeInTheDocument();
-    expect(screen.getByText(/89/i)).toBeInTheDocument();
+    expect(screen.getByText(/testTomatoes/i)).toBeInTheDocument();
   });
 });
