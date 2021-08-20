@@ -9,7 +9,7 @@ export default function Movies() {
 
   return (
     <>
-      <h1>This is the movies results page.</h1>
+      {/* <h1>This is the movies results page.</h1> */}
       <Card.Group>
         {moviesData
           ? moviesData.map((movie, idx) => {

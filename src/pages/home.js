@@ -44,7 +44,6 @@ export default function Home() {
 
   return (
     <>
-      <NavbarContainer />
       <Headline>
         <Headline.Title>
           <span>Stop deciding,</span> <span>start watching</span>
