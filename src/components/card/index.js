@@ -26,7 +26,7 @@ import {
   ActionIcons,
 } from "./styles/card";
 
-import { imdbRating, metacritic, rottenTomatoes } from "../../assets";
+import { ImdbRating, Metacritic, RottenTomatoes, Star } from "../../assets";
 
 export default function Card({ children, ...restProps }) {
   return (
@@ -49,7 +49,12 @@ Card.Sidebar = function CardSidebar({ children, ...restProps }) {
 };
 
 Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
-  return <AvgRating {...restProps}>{children}</AvgRating>;
+  return (
+    <AvgRating {...restProps}>
+      <p>{children}</p>
+      <img src={Star} alt="average rating star" />
+    </AvgRating>
+  );
 };
 
 Card.Image = function CardImage({ src, ...restProps }) {
@@ -60,11 +65,11 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
   const reviewSource = (name) => {
     switch (name) {
       case "imdbRating":
-        return imdbRating;
+        return ImdbRating;
       case "metacritic":
-        return metacritic;
+        return Metacritic;
       case "rottenTomatoes":
-        return rottenTomatoes;
+        return RottenTomatoes;
       default:
         return name;
     }

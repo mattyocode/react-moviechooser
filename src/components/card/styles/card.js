@@ -26,13 +26,18 @@ export const Sidebar = styled.section`
 
 export const AvgRating = styled.div`
   position: absolute;
-  top: 5px;
+  top: 0px;
   left: 5px;
   z-index: 10;
   width: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  img {
+    height: 3rem;
+    width: 3rem;
+  }
 
   p {
     position: absolute;
@@ -67,7 +72,8 @@ export const AllRatings = styled.div`
     flex-wrap: wrap;
     list-style: none;
     justify-content: flex-end;
-    width: 6rem;
+    margin-top: 0.3rem;
+    width: 6.5rem;
   }
 
   li {
@@ -115,7 +121,6 @@ export const MainContent = styled.section`
     margin: 0.75rem 0;
   }
 `;
-// include child p tags
 
 export const Header = styled.header`
   margin: 0.7rem 0 0 0;

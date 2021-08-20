@@ -7,7 +7,7 @@ import Card from "./index";
 
 describe("<Card />", () => {
   it("renders <Card /> component", () => {
-    const ratings = [{ imdbRating: "89" }, { rottenTomatoes: "67" }];
+    const ratings = [{ testRating: 89 }, { testTomatoes: 67 }];
     render(
       <Card>
         <Card.Content>
@@ -19,7 +19,7 @@ describe("<Card />", () => {
           <Card.Main>
             <Card.Header
               title={"Revenge of the Test"}
-              year={1992}
+              year={"1992-11-08"}
               runtime={"1h 50m"}
               plot={"Once upon a time..."}
             />
@@ -45,6 +45,7 @@ describe("<Card />", () => {
     expect(screen.getByText(/borror/i)).toBeInTheDocument();
     expect(screen.getByText(/badventure/i)).toBeInTheDocument();
 
-    expect(screen.getByText(/imdbRating/i)).toBeInTheDocument();
+    expect(screen.getByText(/testRating/i)).toBeInTheDocument();
+    expect(screen.getByText(/89/i)).toBeInTheDocument();
   });
 });

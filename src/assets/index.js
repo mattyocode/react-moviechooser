@@ -1,5 +1,6 @@
-import imdbRating from "./svg/imdbRating.svg";
-import metacritic from "./svg/metacritic.svg";
-import rottenTomatoes from "./svg/rottenTomatoes.svg";
+import ImdbRating from "./svg/imdbRating.svg";
+import Metacritic from "./svg/metacritic.svg";
+import RottenTomatoes from "./svg/rottenTomatoes.svg";
+import Star from "./svg/star.svg";
 
-export { imdbRating, metacritic, rottenTomatoes };
+export { ImdbRating, Metacritic, RottenTomatoes, Star };
