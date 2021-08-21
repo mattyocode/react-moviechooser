@@ -84,7 +84,7 @@ export const Image = styled.img`
   border-radius: 5px 0 0 0;
   transition: height 1s cubic-bezier(0.5, 0, 0.1, 1);
 
-  height: 10rem;
+  height: 11rem;
 
   &.closed {
     height: 100%;
