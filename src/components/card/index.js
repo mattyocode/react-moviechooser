@@ -36,7 +36,11 @@ export default function Card({ children, ...restProps }) {
 
   return (
     <CardExpandContext.Provider value={{ expand, setExpand }}>
-      <Container data-testid="card" {...restProps}>
+      <Container
+        data-testid="card"
+        className={expand ? "open" : "closed"}
+        {...restProps}
+      >
         {children}
       </Container>
     </CardExpandContext.Provider>
@@ -182,9 +186,10 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
 };
 
 Card.Footer = function CardFooter({ ...restProps }) {
+  const { expand } = useContext(CardExpandContext);
   return (
     <Footer {...restProps}>
-      <MdExpandMore color="000" />
+      {!expand ? <MdExpandMore fill="#666" /> : <MdExpandLess fill="#666" />}
       <ActionIcons>
         <MdShare />
         <MdOndemandVideo />

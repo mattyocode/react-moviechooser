@@ -8,6 +8,19 @@ export const Container = styled.div`
   margin: 1rem auto;
   max-width: 430px;
   cursor: pointer;
+  overflow: hidden;
+
+  &.open {
+    max-height: auto;
+  }
+
+  &.closed {
+    max-height: 17rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    display: flex;
+  }
 `;
 
 export const Group = styled.div`
@@ -33,6 +46,8 @@ export const Content = styled.article`
 export const Sidebar = styled.section`
   flex: 1 1 40%;
   min-width: 40%;
+  max-width: 40%;
+  /* margin-bottom: 0.25rem; */
 `;
 
 export const AvgRating = styled.div`
@@ -67,11 +82,25 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   border-radius: 5px 0 0 0;
+  transition: height 1s cubic-bezier(0.5, 0, 0.1, 1);
+
+  height: 10rem;
 
   &.closed {
     height: 100%;
-    min-height: 11rem;
+
     border-radius: 5px 0 0 5px;
+    transition: height 1s cubic-bezier(0.5, 0, 0.1, 1);
+  }
+
+  @media screen and (min-width: 375px) {
+    height: 13rem;
+  }
+  @media screen and (min-width: 425px) {
+    height: 14rem;
+  }
+  @media screen and (min-width: 768px) {
+    height: 16rem;
   }
 `;
 
@@ -82,13 +111,15 @@ export const AllRatings = styled.div`
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
-  /* max-height: auto; */
+  height: auto;
+  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
 
   &.closed {
     display: none;
-    overflow: hidden;
     padding: 0;
     margin: 0;
+    height: 0;
+    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
   }
 
   ul {
@@ -159,7 +190,8 @@ export const MainContent = styled.section`
   padding: 0 0.75rem 0.5rem 0.75rem;
   margin: 0 auto;
   max-width: 60%;
-  margin-bottom: 2.25rem;
+  min-width: 60%;
+  margin-bottom: 2.5rem;
 
   p {
     font-family: Arial, Helvetica, sans-serif;
@@ -168,7 +200,7 @@ export const MainContent = styled.section`
   }
 
   @media screen and (min-width: 375px) {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 
     p {
       font-size: 0.8rem;
@@ -184,6 +216,7 @@ export const Header = styled.header`
   }
 
   p {
+    text-wrap: 
     margin: 0.1rem 0 !important;
   }
 
@@ -199,9 +232,9 @@ export const Header = styled.header`
     }
 
     @media screen and (min-width: 450px) {
-      .content-wrapper {
+      /* .content-wrapper {
         padding-bottom: 1.5rem;
-      }
+      } */
 
       p {
         font-size: 0.8rem;
@@ -220,12 +253,16 @@ export const Plot = styled.p`
 `;
 
 export const FurtherInfo = styled.div`
+  height: auto;
+  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+
   &.closed {
+    height: 0;
     display: none;
     overflow: hidden;
     padding: 0;
     margin: 0;
-    transition: max-height 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
   }
 `;
 
@@ -266,6 +303,7 @@ export const Genres = styled.div`
   @media screen and (min-width: 375px) {
     ul {
       padding-left: 0.1rem;
+      margin-bottom: 0.5rem;
     }
     li {
       font-size: 0.75rem;
@@ -283,7 +321,7 @@ export const Genres = styled.div`
     }
     li {
       font-size: 0.75rem;
-      margin: 0.1rem;
+      margin: 0.1rem 0.15rem;
     }
   }
 `;
@@ -298,10 +336,6 @@ export const Footer = styled.div`
   justify-content: space-between;
   padding: 0.25rem 0.5rem;
   font-size: 2rem;
-
-  :first-child {
-    color: grey;
-  }
 `;
 
 export const ActionIcons = styled.div`
