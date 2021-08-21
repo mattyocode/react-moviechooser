@@ -82,7 +82,7 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   border-radius: 5px 0 0 0;
-  transition: height 1s cubic-bezier(0.5, 0, 0.1, 1);
+  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
 
   height: 11rem;
 
@@ -90,7 +90,7 @@ export const Image = styled.img`
     height: 100%;
 
     border-radius: 5px 0 0 5px;
-    transition: height 1s cubic-bezier(0.5, 0, 0.1, 1);
+    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
   }
 
   @media screen and (min-width: 375px) {
@@ -111,14 +111,14 @@ export const AllRatings = styled.div`
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
-  height: auto;
+  /* height: auto; */
   transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
 
   &.closed {
     display: none;
     padding: 0;
     margin: 0;
-    height: 0;
+    /* height: 0; */
     transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
   }
 
@@ -146,6 +146,12 @@ export const AllRatings = styled.div`
     width: 100%;
     font-size: 1rem;
     margin: 0.7rem 1rem 2rem 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    ul {
+      width: 6rem;
+    }
   }
 `;
 
@@ -205,6 +211,9 @@ export const MainContent = styled.section`
     p {
       font-size: 0.8rem;
     }
+  }
+  @media screen and (min-width: 768px) {
+    margin-bottom: 3.5rem;
   }
 `;
 

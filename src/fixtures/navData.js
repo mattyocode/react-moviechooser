@@ -1,13 +1,13 @@
 export const linksData = [
   {
     id: 1,
-    url: "/",
+    url: "/movies",
     text: "Browse All",
     highlight: false,
   },
   {
     id: 2,
-    url: "/",
+    url: "/movies",
     text: "Surprise Me",
     highlight: false,
   },
