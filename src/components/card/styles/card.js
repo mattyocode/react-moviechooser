@@ -82,7 +82,8 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   border-radius: 5px 0 0 0;
-  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+  /* transition: height 0.75s cubic-bezier(0.5, 0, 0.1, 1); */
+  transition: height 0.5s ease-in-out;
 
   height: 11rem;
 
@@ -90,7 +91,7 @@ export const Image = styled.img`
     height: 100%;
 
     border-radius: 5px 0 0 5px;
-    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+    transition: height 0.5s ease-in-out;
   }
 
   @media screen and (min-width: 375px) {
