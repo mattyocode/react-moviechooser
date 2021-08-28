@@ -4,16 +4,18 @@ import { useHistory } from "react-router-dom";
 
 import { Headline, Loading } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
-import { fetchOptionsData, fetchMovies } from "../store/query-actions";
+import { fetchOptions } from "../store/query-slice";
+import { fetchMovies } from "../store/query-actions";
 
 export default function Home() {
   const options = useSelector((state) => state.options.options);
-  const notification = useSelector((state) => state.ui.notification);
+  const optionsStatus = useSelector((state) => state.options.status);
+  const optionsError = useSelector((state) => state.options.error);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchOptionsData());
+    dispatch(fetchOptions());
   }, [dispatch]);
 
   const getQueryResults = (selectionObj) => {
@@ -22,9 +24,10 @@ export default function Home() {
     // redirect to results page.
     history.push("/movies");
   };
+  console.log("options", options);
 
   let choiceForm;
-  if (options.genre && options.decade && options.runtime) {
+  if (optionsStatus === "succeeded") {
     choiceForm = (
       <ChoiceFormContainer
         genreList={options.genre}
@@ -34,11 +37,11 @@ export default function Home() {
       />
     );
   }
-  if (notification && notification.status === "loading") {
+  if (optionsStatus === "loading") {
     choiceForm = <Loading />;
   }
-  if (notification && notification.status === "error") {
-    choiceForm = <p>{`${notification.title}: ${notification.message}`}</p>;
+  if (optionsStatus === "failed") {
+    choiceForm = <p>{optionsError}</p>;
   }
 
   return (
