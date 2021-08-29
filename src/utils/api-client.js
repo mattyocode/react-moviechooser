@@ -1,5 +1,5 @@
 const apiURL = process.env.REACT_APP_TEST_API;
-console.log("apiURL", apiURL);
+// console.log("apiURL", apiURL);
 
 export async function client(
   endpoint,
@@ -17,13 +17,12 @@ export async function client(
   };
 
   let data;
-  console.log("api-client, data >>", data);
   try {
     const response = await fetch(`${apiURL}/${endpoint}`, config);
-    console.log(response);
+    // console.log(response);
 
     data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     if (response.ok) {
       return data;

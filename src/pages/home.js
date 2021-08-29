@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Headline, Loading } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptions } from "../store/query-slice";
-import { fetchMovies, moviesActions } from "../store/movies-slice";
+import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 
 export default function Home() {
   const options = useSelector((state) => state.options.options);
@@ -19,12 +19,11 @@ export default function Home() {
   }, [dispatch]);
 
   const getQueryResults = (selectionObj) => {
-    dispatch(moviesActions.setMovieQuery(selectionObj));
+    dispatch(setMovieQuery(selectionObj));
     dispatch(fetchMovies(selectionObj));
     // redirect to results page.
     history.push("/movies");
   };
-  console.log("options", options);
 
   let choiceForm;
   if (optionsStatus === "succeeded") {

@@ -16,7 +16,7 @@ export default function Movies() {
 
   // const dispatch = useDispatch();
   const history = useHistory();
-  console.log(movies);
+  console.log("movies - movies", movies);
 
   let movieSelection;
   if (moviesStatus === "succeeded") {
@@ -26,7 +26,7 @@ export default function Movies() {
     movieSelection = <Loading />;
   }
   if (moviesStatus === "failed") {
-    movieSelection = <p>{moviesError}</p>;
+    movieSelection = <p>Error: {moviesError}</p>;
   }
 
   console.log("moviesStatus", moviesStatus);
@@ -40,7 +40,7 @@ export default function Movies() {
 
   return (
     <>
-      <Headline>
+      <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
         {/* <Headline.Subhead>
           Choose from 1000s of acclaimed movies.
