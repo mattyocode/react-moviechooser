@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading } from "../components";
-// import { fetchMovies } from "../store/movies-slice";
+import { fetchMovies } from "../store/movies-slice";
 
 // import moviesData from "../fixtures/moviesDataFromStore.json";
 
@@ -14,7 +14,7 @@ export default function Movies() {
   const moviesStatus = useSelector((state) => state.movies.status);
   const moviesError = useSelector((state) => state.movies.error);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   console.log("movies - movies", movies);
 
@@ -36,7 +36,13 @@ export default function Movies() {
     if (!movieQuery) {
       history.push("/");
     }
-  }, [movieQuery, history]);
+  }, [movieQuery, movies, history]);
+
+  useEffect(() => {
+    if (movieQuery && movies.length < 1) {
+      dispatch(fetchMovies(movieQuery));
+    }
+  });
 
   return (
     <>

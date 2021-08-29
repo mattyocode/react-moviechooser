@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <Headline>
+      <Headline data-testid="home">
         <Headline.Title>
           <span>Stop deciding,</span> <span>start watching</span>
         </Headline.Title>
