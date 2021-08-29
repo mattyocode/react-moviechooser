@@ -16,8 +16,9 @@ const handlers = [
     console.log(queryParams);
     return res(ctx.status(200), ctx.json(moviesData));
   }),
-  rest.get(`${apiUrl}/random/`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(moviesData[0]));
+  rest.get(`${apiUrl}/random`, async (req, res, ctx) => {
+    const movieData = Array(moviesData[0]);
+    return res(ctx.status(200), ctx.json(movieData));
   }),
 ];
 

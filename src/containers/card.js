@@ -2,13 +2,13 @@ import React from "react";
 
 import { Card } from "../components";
 
-export function CardContainer({ moviesData }) {
+export function CardContainer({ moviesData, expandInitially = false }) {
   return (
     <Card.Group>
       {moviesData
         ? moviesData.map((movie, idx) => {
             return (
-              <Card key={idx}>
+              <Card key={idx} expandState={expandInitially}>
                 <Card.Content>
                   <Card.Sidebar>
                     <Card.AvgRating>{movie.avgRating}</Card.AvgRating>

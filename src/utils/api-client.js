@@ -27,11 +27,16 @@ export async function client(
     // console.log(data);
 
     if (response.ok) {
-      let camelcaseKeys = [];
-      data.forEach((item) => {
-        camelcaseKeys.push(keysToCamel(item));
-      });
-      return camelcaseKeys;
+      // make sure keys from API are in camelcase
+      if (Array.isArray(data)) {
+        let camelcaseKeys = [];
+        data.forEach((item) => {
+          camelcaseKeys.push(keysToCamel(item));
+        });
+        return camelcaseKeys;
+      } else {
+        return keysToCamel(data);
+      }
     }
     throw new Error(response.statusText);
   } catch (err) {

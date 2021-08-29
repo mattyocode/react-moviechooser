@@ -18,7 +18,7 @@ export default function Surprise() {
   }
 
   if (status === "succeeded" && movieData.length === 1) {
-    movie = <CardContainer moviesData={movieData} />;
+    movie = <CardContainer moviesData={movieData} expandInitially={true} />;
   }
 
   if (status === "rejected") {
