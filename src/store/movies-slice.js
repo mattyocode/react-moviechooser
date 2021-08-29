@@ -34,12 +34,12 @@ const moviesSlice = createSlice({
     },
     [fetchMovies.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      let camelcaseKeys = [];
-      let moviesData = action.payload;
-      moviesData.forEach((movie) => {
-        camelcaseKeys.push(keysToCamel(movie));
-      });
-      state.movies = camelcaseKeys;
+      // let camelcaseKeys = [];
+      // let moviesData = action.payload;
+      // moviesData.forEach((movie) => {
+      //   camelcaseKeys.push(keysToCamel(movie));
+      // });
+      state.movies = action.payload;
     },
     [fetchMovies.rejected]: (state, action) => {
       state.status = "failed";

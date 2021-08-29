@@ -13,6 +13,7 @@ function reduxTestRender(
     store = configureStore({
       reducer: {
         movies: moviesReducer,
+        options: optionsReducer,
       },
       preloadedState,
     }),

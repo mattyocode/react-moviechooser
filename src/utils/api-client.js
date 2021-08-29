@@ -1,3 +1,5 @@
+import keysToCamel from "../utils/camelcase";
+
 const apiURL = process.env.REACT_APP_TEST_API;
 // console.log("apiURL", apiURL);
 
@@ -25,7 +27,11 @@ export async function client(
     // console.log(data);
 
     if (response.ok) {
-      return data;
+      let camelcaseKeys = [];
+      data.forEach((item) => {
+        camelcaseKeys.push(keysToCamel(item));
+      });
+      return camelcaseKeys;
     }
     throw new Error(response.statusText);
   } catch (err) {
