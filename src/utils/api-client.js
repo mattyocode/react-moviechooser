@@ -17,6 +17,7 @@ export async function client(
   };
 
   let data;
+  console.log("api-client, data >>", data);
   try {
     const response = await fetch(`${apiURL}/${endpoint}`, config);
     console.log(response);

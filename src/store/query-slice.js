@@ -12,7 +12,6 @@ export const fetchOptions = createAsyncThunk(
   "options/fetchOptions",
   async () => {
     const response = await client.get("options");
-    console.log("query-slice response >>", response);
     return response;
   }
 );

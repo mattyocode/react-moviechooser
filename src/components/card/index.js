@@ -31,8 +31,8 @@ import { ImdbRating, Metacritic, RottenTomatoes, Star } from "../../assets";
 
 const CardExpandContext = createContext();
 
-export default function Card({ children, ...restProps }) {
-  const [expand, setExpand] = useState(false);
+export default function Card({ children, expandState = false, ...restProps }) {
+  const [expand, setExpand] = useState(expandState);
 
   return (
     <CardExpandContext.Provider value={{ expand, setExpand }}>
