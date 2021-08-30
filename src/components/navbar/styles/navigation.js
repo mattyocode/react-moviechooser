@@ -8,7 +8,13 @@ export const Nav = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    background-color: black;
+    background: linear-gradient(
+      to bottom,
+      black,
+      rgba(0, 0, 0, 0.5) 75%,
+      rgba(0, 0, 0, 0)
+    );
+    /* background: black; */
   }
 `;
 
@@ -17,7 +23,12 @@ export const NavHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  background: #000;
+  /* background: linear-gradient(
+    to bottom,
+    black,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0)
+  ); */
 
   @media screen and (min-width: 800px) {
     padding: 0 1rem;
@@ -90,7 +101,7 @@ export const LinksContainer = styled.div`
   overflow: hidden;
   transition: all 0.3s linear;
   min-width: 40%;
-  background-color: black;
+  /* background-color: black; */
   border-radius: 0 0 0 5px;
   z-index: 10;
 

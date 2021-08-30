@@ -98,11 +98,11 @@ export const Image = styled.img`
     height: 13rem;
   }
   @media screen and (min-width: 425px) {
-    height: 14rem;
-  }
-  @media screen and (min-width: 768px) {
     height: 16rem;
   }
+  /* @media screen and (min-width: 768px) {
+    height: 16rem;
+  } */
 `;
 
 export const AllRatings = styled.div`
@@ -213,7 +213,7 @@ export const MainContent = styled.section`
       font-size: 0.8rem;
     }
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 450px) {
     margin-bottom: 3.5rem;
   }
 `;
