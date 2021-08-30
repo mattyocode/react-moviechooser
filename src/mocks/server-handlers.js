@@ -20,6 +20,10 @@ const handlers = [
     const movieData = Array(moviesData[0]);
     return res(ctx.status(200), ctx.json(movieData));
   }),
+  rest.get(`${apiUrl}/movie/*`, async (req, res, ctx) => {
+    const movieData = Array(moviesData[3]);
+    return res(ctx.status(200), ctx.json(movieData));
+  }),
 ];
 
 export { handlers };

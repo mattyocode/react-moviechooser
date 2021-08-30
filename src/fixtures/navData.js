@@ -1,7 +1,7 @@
 export const linksData = [
   {
     id: 1,
-    url: "/surprise",
+    url: "/movie/surprise",
     text: "Surprise Me",
     highlight: false,
   },
