@@ -14,7 +14,6 @@ export const Nav = styled.nav`
       rgba(0, 0, 0, 0.5) 75%,
       rgba(0, 0, 0, 0)
     );
-    /* background: black; */
   }
 `;
 
@@ -23,12 +22,6 @@ export const NavHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  /* background: linear-gradient(
-    to bottom,
-    black,
-    rgba(0, 0, 0, 0.5) 75%,
-    rgba(0, 0, 0, 0)
-  ); */
 
   @media screen and (min-width: 800px) {
     padding: 0 1rem;
