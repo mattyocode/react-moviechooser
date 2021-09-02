@@ -32,7 +32,7 @@ export const Overlay = styled.div`
   z-index: 30;
   /* animation: slide-down 300ms ease-out forwards; */
 
-  &::after {
+  /* &::after {
     content: "\u{D7}";
     font-size: 3rem;
     color: white;
@@ -42,5 +42,15 @@ export const Overlay = styled.div`
     cursor: pointer;
 
     z-index: 40;
-  }
+  } */
+`;
+
+export const Close = styled.div`
+  font-size: 3rem;
+  color: white;
+  position: absolute;
+  top: -4rem;
+  right: -1rem;
+  cursor: pointer;
+  z-index: 40;
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Backdrop, Overlay } from "./styles/modal";
+import { Backdrop, Close, Overlay } from "./styles/modal";
 
 let portalElement = document.getElementById("overlays");
 if (!portalElement) {
@@ -19,6 +19,7 @@ export default function Modal({ closeModal, children, ...restProps }) {
       )}
       {ReactDOM.createPortal(
         <Overlay data-testid="modal" {...restProps}>
+          <Close onClick={closeModal}>{"\u{D7}"}</Close>
           {children}
         </Overlay>,
         portalElement

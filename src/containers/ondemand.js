@@ -3,9 +3,9 @@ import { MdOndemandVideo } from "react-icons/md";
 
 import { CardActions, Modal } from "../components";
 
-export function OndemandContainer({ title, imgUrl, linksData }) {
+export function OndemandContainer({ title, imgUrl, linksData, closeModal }) {
   return (
-    <Modal>
+    <Modal closeModal={closeModal}>
       <CardActions>
         <CardActions.Header src={MdOndemandVideo} keyword="Watch">
           {title}
