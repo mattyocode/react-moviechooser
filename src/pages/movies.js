@@ -46,7 +46,7 @@ export default function Movies() {
 
   return (
     <>
-      <Modal>MODAL!!!</Modal>
+      {/* <Modal>MODAL!!!</Modal> */}
       <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
         {/* <Headline.Subhead>

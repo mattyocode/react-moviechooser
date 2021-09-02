@@ -19,14 +19,28 @@ export const Backdrop = styled.div`
 
 export const Overlay = styled.div`
   position: fixed;
-  top: 20vh;
-  left: 5%;
+  top: 25vh;
   width: 90%;
+  max-width: 480px;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #191919;
   padding: 1rem;
   border-radius: 5px;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); */
+  border: var(--clr-neon) 2px solid;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 30;
   /* animation: slide-down 300ms ease-out forwards; */
+
+  &::after {
+    content: "\u{D7}";
+    font-size: 3rem;
+    color: white;
+    position: absolute;
+    top: -4rem;
+    right: -1rem;
+    cursor: pointer;
+
+    z-index: 40;
+  }
 `;

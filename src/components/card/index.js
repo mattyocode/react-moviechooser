@@ -27,7 +27,7 @@ import {
   ActionIcons,
 } from "./styles/card";
 
-import { ImdbRating, Metacritic, RottenTomatoes, Star } from "../../assets";
+import * as IconAssets from "../../assets";
 
 const CardExpandContext = createContext();
 
@@ -72,7 +72,7 @@ Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
   return (
     <AvgRating {...restProps}>
       <p>{children}</p>
-      <img src={Star} alt="average rating star" />
+      <img src={IconAssets.Star} alt="average rating star" />
     </AvgRating>
   );
 };
@@ -84,16 +84,13 @@ Card.Image = function CardImage({ src, ...restProps }) {
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
   const { expand } = useContext(CardExpandContext);
-  const reviewSource = (name) => {
-    switch (name) {
-      case "imdbRating":
-        return <RatingLogo src={ImdbRating} />;
-      case "metacritic":
-        return <RatingLogo src={Metacritic} />;
-      case "rottenTomatoes":
-        return <RatingLogo src={RottenTomatoes} />;
-      default:
-        return <p>{name}</p>;
+
+  const reviewIcon = (name) => {
+    let reviewIcon = IconAssets[name];
+    if (reviewIcon) {
+      return <RatingLogo src={reviewIcon} />;
+    } else {
+      return <p>{name}</p>;
     }
   };
 
@@ -104,7 +101,7 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  {reviewSource(`${Object.keys(rating)}`)}
+                  {reviewIcon(`${Object.keys(rating)}`)}
                   <StarRating rating={`${Object.values(rating)}%`}></StarRating>
                 </li>
               );
