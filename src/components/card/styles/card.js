@@ -264,7 +264,10 @@ export const Plot = styled.p`
 
 export const FurtherInfo = styled.div`
   height: auto;
-  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+  -webkit-transition: height 0.8s;
+  -moz-transition: height 0.8s;
+  transition: height 0.8s;
+  /* transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1); */
 
   &.closed {
     height: 0;
@@ -272,7 +275,7 @@ export const FurtherInfo = styled.div`
     overflow: hidden;
     padding: 0;
     margin: 0;
-    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+    /* transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1); */
   }
 `;
 

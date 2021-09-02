@@ -9,6 +9,13 @@ import disneyPlus from "./svg/disneyPlus.svg";
 import googlePlay from "./svg/googlePlay.svg";
 import netflix from "./svg/netflix.svg";
 
+import copyLink from "./svg/copyLink.svg";
+import email from "./svg/email.svg";
+import facebook from "./svg/facebook.svg";
+import telegram from "./svg/telegram.svg";
+import twitter from "./svg/twitter.svg";
+import whatsapp from "./svg/whatsapp.svg";
+
 export {
   imdbRating,
   metacritic,
@@ -19,4 +26,10 @@ export {
   disneyPlus,
   googlePlay,
   netflix,
+  copyLink,
+  email,
+  facebook,
+  telegram,
+  twitter,
+  whatsapp,
 };

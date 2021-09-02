@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, createContext, useState } from "react";
 
 import {
   Wrapper,
@@ -14,41 +14,83 @@ import {
   LinkText,
 } from "./styles/card-actions";
 
-export default function CardActions({ children, ...restProps }) {
-  return <Wrapper {...restProps}>{children}</Wrapper>;
+import * as IconAssets from "../../assets";
+
+const ImgOrientationContext = createContext();
+
+export default function CardActions({
+  imgLandscape = true,
+  children,
+  ...restProps
+}) {
+  const [imgIsLandscape, setImgIsLandscape] = useState(imgLandscape);
+
+  return (
+    <ImgOrientationContext.Provider value={{ imgIsLandscape }}>
+      <Wrapper {...restProps}>{children}</Wrapper>;
+    </ImgOrientationContext.Provider>
+  );
 }
 
 CardActions.Header = function CardActionsHeader({
   src,
+  keyword,
   children,
   ...restProps
 }) {
   return (
     <Header {...restProps}>
       <HeaderIcon src={src}></HeaderIcon>
-      <Title>{children}</Title>
+      <Title>
+        <span>{keyword}</span>
+        {children}
+      </Title>
     </Header>
   );
 };
 
 CardActions.Body = function CardActionsBody({ children, ...restProps }) {
-  return <BodyWrapper {...restProps}>{children}</BodyWrapper>;
+  const isLandscape = useContext(ImgOrientationContext);
+  return (
+    <BodyWrapper className={!isLandscape && "portrait"} {...restProps}>
+      {children}
+    </BodyWrapper>
+  );
 };
 
 CardActions.Image = function CardActionsImage({ src, ...restProps }) {
-  return <Image src={src} {...restProps} />;
+  const isLandscape = useContext(ImgOrientationContext);
+  return (
+    <Image src={src} className={!isLandscape && "portrait"} {...restProps} />
+  );
 };
 
 CardActions.Links = function CardActionsLinks({ children, ...restProps }) {
-  return <Links {...restProps}>{children}</Links>;
+  const isLandscape = useContext(ImgOrientationContext);
+  return (
+    <Links className={!isLandscape && "portrait"} {...restProps}>
+      {children}
+    </Links>
+  );
 };
 
-CardActions.Link = function CardActionLink({ name, children, ...restProps }) {
+CardActions.Link = function CardActionLink({
+  iconName,
+  children,
+  ...restProps
+}) {
+  let icon;
+  const iconAsset = IconAssets[iconName];
+  if (iconAsset) {
+    icon = <LinkIcon src={iconName}></LinkIcon>;
+  } else {
+    // use placeholder?
+    icon = null;
+  }
+
   return (
     <Link {...restProps}>
-      <LinkIconContainer>
-        <LinkIcon src={name}></LinkIcon>
-      </LinkIconContainer>
+      <LinkIconContainer>{icon}</LinkIconContainer>
       <LinkText>{children}</LinkText>
     </Link>
   );

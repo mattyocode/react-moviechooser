@@ -17,5 +17,7 @@ describe("<CardActions/> component tests", () => {
         </CardActions.Body>
       </CardActions>
     );
+    expect(screen.getByText(/title/i)).toBeInTheDocument();
+    expect(screen.getByText(/test link/i)).toBeInTheDocument();
   });
 });

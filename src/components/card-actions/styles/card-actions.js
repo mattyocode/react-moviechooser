@@ -29,6 +29,11 @@ export const Title = styled.h2`
 
 export const BodyWrapper = styled.div`
   display: block;
+
+  &.portrait {
+    display: flex;
+    justify-content: space-around;
+  }
 `;
 
 export const Image = styled.img`
@@ -36,6 +41,10 @@ export const Image = styled.img`
   padding: 1rem 0;
   max-height: 20rem;
   object-fit: cover;
+
+  &.portrait {
+    width: 40%;
+  }
 `;
 
 export const Links = styled.ul`
@@ -44,6 +53,12 @@ export const Links = styled.ul`
   justify-content: space-evenly;
   align-items: flex-start;
   flex-wrap: wrap;
+
+  &.portrait {
+    width: 50%;
+    align-items: center;
+    align-content: center;
+  }
 `;
 
 export const Link = styled.li`

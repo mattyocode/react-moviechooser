@@ -85,10 +85,10 @@ Card.Image = function CardImage({ src, ...restProps }) {
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
   const { expand } = useContext(CardExpandContext);
 
-  const reviewIcon = (name) => {
-    let reviewIcon = IconAssets[name];
-    if (reviewIcon) {
-      return <RatingLogo src={reviewIcon} />;
+  const getIcon = (name) => {
+    let Icon = IconAssets[name];
+    if (Icon) {
+      return <RatingLogo src={Icon} />;
     } else {
       return <p>{name}</p>;
     }
@@ -101,7 +101,7 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
           ? ratings.map((rating, idx) => {
               return (
                 <li key={idx}>
-                  {reviewIcon(`${Object.keys(rating)}`)}
+                  {getIcon(`${Object.keys(rating)}`)}
                   <StarRating rating={`${Object.values(rating)}%`}></StarRating>
                 </li>
               );
