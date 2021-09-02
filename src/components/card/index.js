@@ -24,7 +24,10 @@ import {
   FurtherInfo,
   Genres,
   Footer,
-  ActionIcons,
+  Actions,
+  Action,
+  Icon,
+  Text,
 } from "./styles/card";
 
 import * as IconAssets from "../../assets";
@@ -182,16 +185,21 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
   );
 };
 
-Card.Footer = function CardFooter({ ...restProps }) {
+Card.Footer = function CardFooter({ children, ...restProps }) {
   const { expand } = useContext(CardExpandContext);
   return (
     <Footer {...restProps}>
       {!expand ? <MdExpandMore fill="#666" /> : <MdExpandLess fill="#666" />}
-      <ActionIcons>
-        <MdShare />
-        <MdOndemandVideo />
-        <MdLibraryAdd />
-      </ActionIcons>
+      <Actions>{children}</Actions>
     </Footer>
+  );
+};
+
+Card.Action = function CardAction({ label, children, ...restProps }) {
+  return (
+    <Action {...restProps}>
+      <Icon>{children}</Icon>
+      {/* <Text>{label}</Text> */}
+    </Action>
   );
 };

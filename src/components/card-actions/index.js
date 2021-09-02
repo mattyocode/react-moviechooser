@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState } from "react";
+import { camelCase } from "lodash";
 
 import {
   Wrapper,
@@ -74,12 +75,9 @@ CardActions.Links = function CardActionsLinks({ children, ...restProps }) {
   );
 };
 
-CardActions.Link = function CardActionLink({
-  iconName,
-  children,
-  ...restProps
-}) {
+CardActions.Link = function CardActionLink({ name, children, ...restProps }) {
   let icon;
+  const iconName = camelCase(name);
   const iconAsset = IconAssets[iconName];
   if (iconAsset) {
     icon = <LinkIcon src={iconName}></LinkIcon>;

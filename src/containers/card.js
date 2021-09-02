@@ -1,4 +1,5 @@
 import React from "react";
+import { MdShare, MdOndemandVideo, MdLibraryAdd } from "react-icons/md";
 
 import { Card } from "../components";
 
@@ -35,7 +36,17 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                     />
                     <Card.Genres genres={movie.genre} />
                   </Card.Main>
-                  <Card.Footer />
+                  <Card.Footer>
+                    <Card.Action label="Share">
+                      <MdShare />
+                    </Card.Action>
+                    <Card.Action label="Watch">
+                      <MdOndemandVideo />
+                    </Card.Action>
+                    <Card.Action label="Save">
+                      <MdLibraryAdd />
+                    </Card.Action>
+                  </Card.Footer>
                 </Card.Content>
               </Card>
             );

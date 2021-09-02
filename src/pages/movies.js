@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 import { CardContainer } from "../containers/card";
-import { Headline, Loading, Modal } from "../components";
+// import { OndemandContainer } from "../containers/ondemand";
+import { Headline, Loading } from "../components";
 import { fetchMovies } from "../store/movies-slice";
 
 // import moviesData from "../fixtures/moviesDataFromStore.json";
@@ -16,7 +17,6 @@ export default function Movies() {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log("movies - movies", movies);
 
   let movieSelection;
   if (moviesStatus === "succeeded") {
@@ -28,9 +28,6 @@ export default function Movies() {
   if (moviesStatus === "failed") {
     movieSelection = <p>Error: {moviesError}</p>;
   }
-
-  console.log("moviesStatus", moviesStatus);
-  console.log("movieQuery", movieQuery);
 
   useEffect(() => {
     if (!movieQuery) {
@@ -46,7 +43,6 @@ export default function Movies() {
 
   return (
     <>
-      {/* <Modal>MODAL!!!</Modal> */}
       <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
         {/* <Headline.Subhead>

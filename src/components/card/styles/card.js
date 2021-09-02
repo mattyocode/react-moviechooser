@@ -351,17 +351,24 @@ export const Footer = styled.div`
   font-size: 2rem;
 `;
 
-export const ActionIcons = styled.div`
-  * {
-    margin: 0.25rem 0.8rem;
-    font-size: 1.4rem;
-  }
+export const Actions = styled.div`
+  display: flex;
 `;
 
-// export const MoreIcon = styled(MdExpandMore)`
-//   color: blue;
-// `;
+export const Action = styled.div`
+  font-size: 1.4rem;
+  margin: 0.25rem 0.7rem;
+`;
 
-// export const LessIcon = styled(MdExpandLess)`
-//   color: #222;
-// `;
+export const Icon = styled.div``;
+
+export const Text = styled.p`
+  padding-top: 0;
+  color: white;
+  font-size: 0.5rem;
+  text-align: center;
+
+  @media screen and (min-width: 450px) {
+    font-size: 0.6rem;
+  }
+`;

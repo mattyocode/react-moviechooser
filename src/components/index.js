@@ -5,4 +5,5 @@ export { default as RangeSlider } from "./ranger-slider";
 export { default as Checkboxes } from "./checkboxes";
 export { default as Loading } from "./loading";
 export { default as Card } from "./card";
+export { default as CardActions } from "./card-actions";
 export { default as Modal } from "./modal";
