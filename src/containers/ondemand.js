@@ -3,20 +3,21 @@ import { MdOndemandVideo } from "react-icons/md";
 
 import { CardActions, Modal } from "../components";
 
-export function OndemandContainer({ title, imgUrl, linksData, closeModal }) {
+export function OndemandContainer({ data, closeModal }) {
   return (
     <Modal closeModal={closeModal}>
       <CardActions>
-        <CardActions.Header src={MdOndemandVideo} keyword="Watch">
-          {title}
+        <CardActions.Header keyword="Watch" title={data.title}>
+          <MdOndemandVideo />
         </CardActions.Header>
         <CardActions.Body>
-          <CardActions.Image src={imgUrl} />
+          <CardActions.Image src={data.imgUrl} />
           <CardActions.Links>
-            {linksData
-              ? linksData.map((link) => {
+            {data.linksData
+              ? data.linksData.map((link) => {
+                  console.log("ondemand ", link.service);
                   return (
-                    <CardActions.Link iconName={link.service}>
+                    <CardActions.Link name={link.service}>
                       {link.service}
                     </CardActions.Link>
                   );

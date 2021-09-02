@@ -5,14 +5,23 @@ import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
 
 export function CardContainer({ moviesData, expandInitially = false }) {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [ondemandOpen, setOndemandOpen] = useState(false);
+  const [ondemandData, setOndemandData] = useState({});
 
-  const closeModalHandler = () => setModalOpen(false);
-  const openModalHandler = () => setModalOpen(true);
+  const closeOndemandHandler = () => setOndemandOpen(false);
+  const openOndemandHandler = (data) => {
+    setOndemandData(data);
+    setOndemandOpen(true);
+  };
 
   return (
     <>
-      {modalOpen && <OndemandContainer closeModal={closeModalHandler} />}
+      {ondemandOpen && ondemandData && (
+        <OndemandContainer
+          data={ondemandData}
+          closeModal={closeOndemandHandler}
+        />
+      )}
       <Card.Group>
         {moviesData
           ? moviesData.map((movie, idx) => {
@@ -48,7 +57,16 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                       <Card.Action label="Share">
                         <MdShare />
                       </Card.Action>
-                      <Card.Action label="Watch" onClick={openModalHandler}>
+                      <Card.Action
+                        label="Watch"
+                        onClick={() =>
+                          openOndemandHandler({
+                            title: movie.title,
+                            imgUrl: movie.ondemandImg,
+                            linksData: movie.ondemand,
+                          })
+                        }
+                      >
                         <MdOndemandVideo />
                       </Card.Action>
                       <Card.Action label="Save">

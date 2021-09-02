@@ -8,6 +8,7 @@ import amazonPrimeVideo from "./svg/amazonPrimeVideo.svg";
 import disneyPlus from "./svg/disneyPlus.svg";
 import googlePlay from "./svg/googlePlay.svg";
 import netflix from "./svg/netflix.svg";
+import iTunes from "./svg/iTunes.svg";
 
 import copyLink from "./svg/copyLink.svg";
 import email from "./svg/email.svg";
@@ -26,6 +27,7 @@ export {
   disneyPlus,
   googlePlay,
   netflix,
+  iTunes,
   copyLink,
   email,
   facebook,

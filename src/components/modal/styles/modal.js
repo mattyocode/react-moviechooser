@@ -31,18 +31,6 @@ export const Overlay = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 30;
   /* animation: slide-down 300ms ease-out forwards; */
-
-  /* &::after {
-    content: "\u{D7}";
-    font-size: 3rem;
-    color: white;
-    position: absolute;
-    top: -4rem;
-    right: -1rem;
-    cursor: pointer;
-
-    z-index: 40;
-  } */
 `;
 
 export const Close = styled.div`

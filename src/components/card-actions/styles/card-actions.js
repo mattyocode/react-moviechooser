@@ -10,7 +10,16 @@ export const Header = styled.header`
   padding: 0 0.5rem;
 `;
 
-export const HeaderIcon = styled.img``;
+export const HeaderIcon = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: 450px) {
+    font-size: 2rem;
+  }
+`;
 
 export const Title = styled.h2`
   font-size: 1.25rem;
@@ -66,14 +75,17 @@ export const Link = styled.li`
   margin: 0.5rem 0;
   cursor: pointer;
 
-  & > * {
+  /* & > * {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  } */
 `;
 
 export const LinkIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 3rem;
   margin: auto;
 `;
@@ -82,11 +94,12 @@ export const LinkIcon = styled.img``;
 
 export const LinkText = styled.h5`
   padding-top: 0.25rem;
-  max-width: 3rem;
-  font-size: 0.7rem;
+  max-width: 2rem;
+  font-size: 0.6rem;
   text-align: center;
+  margin: 0 auto;
 
-  @media screen and (min-width: 450px) {
+  @media screen and (min-width: 400px) {
     max-width: 5rem;
     font-size: 0.8rem;
   }
