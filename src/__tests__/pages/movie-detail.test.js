@@ -7,7 +7,7 @@ import "@testing-library/jest-dom";
 import { MovieDetail } from "../../pages";
 
 describe("<MovieDetail/> Surprise page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/random`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/movie/random`;
   beforeEach(() => {
     render(
       <MemoryRouter initialEntries={["/movie/surprise"]}>
@@ -54,7 +54,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
 });
 
 describe("<MovieDetail/> Movie ID page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/random`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/movie/123`;
   beforeEach(() => {
     render(
       <MemoryRouter initialEntries={["/movie/123"]}>
@@ -88,7 +88,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
       })
     );
     render(
-      <MemoryRouter initialEntries={["/movie/surprise"]}>
+      <MemoryRouter initialEntries={["/movie/123"]}>
         <Route path="/movie/:movieId">
           <MovieDetail />
         </Route>

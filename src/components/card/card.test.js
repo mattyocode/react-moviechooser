@@ -85,7 +85,7 @@ describe("<Card />", () => {
     expect(screen.getByText(/testRating/i)).not.toBeVisible();
     expect(screen.getByText(/testTomatoes/i)).not.toBeVisible();
 
-    const card = screen.getByTestId("content");
+    const card = screen.getByTestId("card-main");
     fireEvent.click(card);
 
     expect(screen.getByText(/anne actor, telly starr/i)).toBeVisible();

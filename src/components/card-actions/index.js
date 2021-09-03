@@ -75,13 +75,15 @@ CardActions.Links = function CardActionsLinks({ children, ...restProps }) {
   );
 };
 
-CardActions.Link = function CardActionLink({ name, children, ...restProps }) {
-  console.log("name: ", name);
+CardActions.Link = function CardActionLink({
+  name,
+  url,
+  children,
+  ...restProps
+}) {
   let icon;
   const iconName = camelCase(name);
-  console.log("iconName: ", iconName);
   const iconAsset = IconAssets[iconName];
-  console.log("iconAsset: ", iconAsset);
   if (iconAsset) {
     icon = <LinkIcon src={iconAsset}></LinkIcon>;
   } else {
@@ -91,8 +93,10 @@ CardActions.Link = function CardActionLink({ name, children, ...restProps }) {
 
   return (
     <Link {...restProps}>
-      <LinkIconContainer>{icon}</LinkIconContainer>
-      <LinkText>{children}</LinkText>
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        <LinkIconContainer>{icon}</LinkIconContainer>
+        <LinkText>{children}</LinkText>
+      </a>
     </Link>
   );
 };

@@ -75,11 +75,13 @@ export const Link = styled.li`
   margin: 0.5rem 0;
   cursor: pointer;
 
-  /* & > * {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  } */
+  & a {
+    text-decoration: none;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const LinkIconContainer = styled.div`

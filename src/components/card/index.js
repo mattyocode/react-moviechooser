@@ -1,11 +1,5 @@
 import React, { useState, useContext, createContext } from "react";
-import {
-  MdExpandMore,
-  MdExpandLess,
-  MdShare,
-  MdOndemandVideo,
-  MdLibraryAdd,
-} from "react-icons/md";
+import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
 
 import {
@@ -55,20 +49,20 @@ Card.Group = function CardGroup({ children, ...restProps }) {
 };
 
 Card.Content = function CardContent({ children, ...restProps }) {
-  const { setExpand } = useContext(CardExpandContext);
   return (
-    <Content
-      data-testid="content"
-      onClick={() => setExpand((expand) => !expand)}
-      {...restProps}
-    >
+    <Content data-testid="content" {...restProps}>
       {children}
     </Content>
   );
 };
 
 Card.Sidebar = function CardSidebar({ children, ...restProps }) {
-  return <Sidebar {...restProps}>{children}</Sidebar>;
+  const { setExpand } = useContext(CardExpandContext);
+  return (
+    <Sidebar onClick={() => setExpand((expand) => !expand)} {...restProps}>
+      {children}
+    </Sidebar>
+  );
 };
 
 Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
@@ -116,7 +110,16 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
 };
 
 Card.Main = function CardMain({ children, ...restProps }) {
-  return <MainContent {...restProps}>{children}</MainContent>;
+  const { setExpand } = useContext(CardExpandContext);
+  return (
+    <MainContent
+      data-testid="card-main"
+      onClick={() => setExpand((expand) => !expand)}
+      {...restProps}
+    >
+      {children}
+    </MainContent>
+  );
 };
 
 Card.Header = function CardHeader({
@@ -186,10 +189,20 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
 };
 
 Card.Footer = function CardFooter({ children, ...restProps }) {
-  const { expand } = useContext(CardExpandContext);
+  const { expand, setExpand } = useContext(CardExpandContext);
   return (
     <Footer {...restProps}>
-      {!expand ? <MdExpandMore fill="#666" /> : <MdExpandLess fill="#666" />}
+      {!expand ? (
+        <MdExpandMore
+          fill="#666"
+          onClick={() => setExpand((expand) => !expand)}
+        />
+      ) : (
+        <MdExpandLess
+          fill="#666"
+          onClick={() => setExpand((expand) => !expand)}
+        />
+      )}
       <Actions>{children}</Actions>
     </Footer>
   );

@@ -8,7 +8,10 @@ export function CardContainer({ moviesData, expandInitially = false }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
 
-  const closeOndemandHandler = () => setOndemandOpen(false);
+  const closeOndemandHandler = () => {
+    setOndemandOpen(false);
+    setOndemandData({});
+  };
   const openOndemandHandler = (data) => {
     setOndemandData(data);
     setOndemandOpen(true);
@@ -17,10 +20,9 @@ export function CardContainer({ moviesData, expandInitially = false }) {
   return (
     <>
       {ondemandOpen && ondemandData && (
-        <OndemandContainer
-          data={ondemandData}
-          closeModal={closeOndemandHandler}
-        />
+        <Modal closeModal={closeOndemandHandler}>
+          <OndemandContainer data={ondemandData} />
+        </Modal>
       )}
       <Card.Group>
         {moviesData
@@ -54,20 +56,22 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                       <Card.Genres genres={movie.genre} />
                     </Card.Main>
                     <Card.Footer>
+                      {movie.ondemand && movie.ondemand.length > 0 && (
+                        <Card.Action
+                          label="Watch"
+                          onClick={() =>
+                            openOndemandHandler({
+                              title: movie.title,
+                              imgUrl: movie.ondemandImg,
+                              linksData: movie.ondemand,
+                            })
+                          }
+                        >
+                          <MdOndemandVideo />
+                        </Card.Action>
+                      )}
                       <Card.Action label="Share">
                         <MdShare />
-                      </Card.Action>
-                      <Card.Action
-                        label="Watch"
-                        onClick={() =>
-                          openOndemandHandler({
-                            title: movie.title,
-                            imgUrl: movie.ondemandImg,
-                            linksData: movie.ondemand,
-                          })
-                        }
-                      >
-                        <MdOndemandVideo />
                       </Card.Action>
                       <Card.Action label="Save">
                         <MdLibraryAdd />

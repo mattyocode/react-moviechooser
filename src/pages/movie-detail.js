@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Route, useParams } from "react-router";
 
 import { Headline, Loading } from "../components";
@@ -10,15 +10,22 @@ export default function MovieDetail() {
   const { sendRequest, status, error, data: movieData } = useHttp(client.get);
 
   const params = useParams();
+  let route = "";
+  if (params.movieId === "surprise") {
+    route = "movie/random";
+  } else {
+    route = `movie/${params.movieId}`;
+  }
 
-  console.log(params);
   useEffect(() => {
-    if (params.movieId === "surprise") {
-      sendRequest("random");
-    } else {
-      const params = "";
-      sendRequest(`movie/${params}`);
+    const abortController = new AbortController();
+    if (!abortController.signal.aborted) {
+      sendRequest(`${route}`, { signal: abortController.signal });
     }
+
+    return () => {
+      abortController.abort();
+    };
   }, [params, sendRequest]);
 
   let movie;
@@ -59,6 +66,4 @@ export default function MovieDetail() {
       {movie}
     </>
   );
-
-  // sendRequest("surprise")
 }
