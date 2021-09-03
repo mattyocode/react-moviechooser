@@ -33,7 +33,7 @@ describe("<Card />", () => {
         </Card.Content>
       </Card>
     );
-    screen.debug();
+    // screen.debug();
 
     expect(screen.getByTestId("card")).toBeTruthy();
     expect(screen.getByText(/revenge of the test/i)).toBeInTheDocument();

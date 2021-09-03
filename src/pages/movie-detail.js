@@ -7,7 +7,7 @@ import { client } from "../utils/api-client";
 import { useHttp } from "../hooks";
 
 export default function MovieDetail() {
-  const { sendRequest, status, error, data: movieData } = useHttp(client.get);
+  const { sendRequest, status, error, data: movieData } = useHttp(client);
 
   const params = useParams();
   let route = "";
@@ -15,18 +15,18 @@ export default function MovieDetail() {
     route = "movie/random";
   } else {
     route = `movie/${params.movieId}`;
+    // route = `movie/`;
   }
 
   useEffect(() => {
     const abortController = new AbortController();
-    if (!abortController.signal.aborted) {
-      sendRequest(`${route}`, { signal: abortController.signal });
-    }
+
+    sendRequest(route, { signal: abortController.signal });
 
     return () => {
       abortController.abort();
     };
-  }, [params, sendRequest]);
+  }, [route, sendRequest]);
 
   let movie;
   if (status === "pending") {

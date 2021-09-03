@@ -34,12 +34,19 @@ export default function useHttp(requestFunction, startWithPending = false) {
   });
 
   const sendRequest = useCallback(
-    async function (requestData) {
+    async function (requestData, ...config) {
       dispatch({ type: "SEND" });
+      let { signal } = config[0];
       try {
-        const responseData = await requestFunction(requestData);
-        dispatch({ type: "SUCCESS", responseData });
+        const responseData = await requestFunction(requestData, ...config);
+        if (!signal || (signal && !signal.aborted)) {
+          dispatch({ type: "SUCCESS", responseData });
+        }
       } catch (error) {
+        // if (signal && signal.aborted) {
+        if (error === "Aborted") {
+          return;
+        }
         dispatch({
           type: "ERROR",
           errorMessage: error.message || "An error occurred",

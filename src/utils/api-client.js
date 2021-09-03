@@ -5,16 +5,18 @@ const apiURL = process.env.REACT_APP_TEST_API;
 
 export async function client(
   endpoint,
-  { body, token, headers: customHeaders, ...customConfig } = {}
+  { body, token, signal, headers: customHeaders, ...customConfig } = {}
 ) {
   const config = {
     method: body ? "POST" : "GET",
     body: body ? JSON.stringify(body) : undefined,
+    signal: signal ? signal : undefined,
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
       "Content-Type": body ? "application/json" : undefined,
       ...customHeaders,
     },
+
     ...customConfig,
   };
 
