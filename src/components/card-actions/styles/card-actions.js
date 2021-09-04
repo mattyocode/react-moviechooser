@@ -56,7 +56,7 @@ export const Image = styled.img`
   }
 `;
 
-export const Links = styled.ul`
+export const Actions = styled.ul`
   list-style: none;
   display: flex;
   justify-content: space-evenly;
@@ -67,10 +67,14 @@ export const Links = styled.ul`
     width: 50%;
     align-items: center;
     align-content: center;
+
+    @media screen and (min-width: 450px) {
+      width: 40%;
+    }
   }
 `;
 
-export const Link = styled.li`
+export const Action = styled.li`
   min-width: 2.5rem;
   margin: 0.5rem 0;
   cursor: pointer;
@@ -82,9 +86,18 @@ export const Link = styled.li`
   & a:hover {
     text-decoration: underline;
   }
+
+  & button {
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+  }
 `;
 
-export const LinkIconContainer = styled.div`
+export const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,16 +105,16 @@ export const LinkIconContainer = styled.div`
   margin: auto;
 `;
 
-export const LinkIcon = styled.img``;
+export const Icon = styled.img``;
 
-export const LinkText = styled.h5`
+export const IconText = styled.h5`
   padding-top: 0.25rem;
   max-width: 2rem;
   font-size: 0.6rem;
   text-align: center;
   margin: 0 auto;
 
-  @media screen and (min-width: 400px) {
+  @media screen and (min-width: 375px) {
     max-width: 5rem;
     font-size: 0.8rem;
   }

@@ -3,10 +3,17 @@ import { MdShare, MdOndemandVideo, MdLibraryAdd } from "react-icons/md";
 
 import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
+import { ShareContainer } from "./share";
 
 export function CardContainer({ moviesData, expandInitially = false }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
+  const [shareData, setShareData] = useState({
+    title: "Movie Title",
+    posterUrl:
+      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+    shareUrl: "",
+  });
 
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
@@ -24,6 +31,9 @@ export function CardContainer({ moviesData, expandInitially = false }) {
           <OndemandContainer data={ondemandData} />
         </Modal>
       )}
+      <Modal closeModal={closeOndemandHandler}>
+        <ShareContainer data={shareData} />
+      </Modal>
       <Card.Group>
         {moviesData
           ? moviesData.map((movie, idx) => {

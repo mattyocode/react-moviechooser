@@ -11,7 +11,7 @@ export function OndemandContainer({ data }) {
       </CardActions.Header>
       <CardActions.Body>
         <CardActions.Image src={data.imgUrl} />
-        <CardActions.Links>
+        <CardActions.Actions>
           {data.linksData
             ? data.linksData.map((link) => {
                 return (
@@ -25,7 +25,7 @@ export function OndemandContainer({ data }) {
                 );
               })
             : null}
-        </CardActions.Links>
+        </CardActions.Actions>
       </CardActions.Body>
     </CardActions>
   );

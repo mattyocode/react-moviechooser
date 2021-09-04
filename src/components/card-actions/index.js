@@ -8,11 +8,11 @@ import {
   Title,
   BodyWrapper,
   Image,
-  Links,
-  Link,
-  LinkIconContainer,
-  LinkIcon,
-  LinkText,
+  Actions,
+  Action,
+  IconContainer,
+  Icon,
+  IconText,
 } from "./styles/card-actions";
 
 import * as IconAssets from "../../assets";
@@ -66,12 +66,12 @@ CardActions.Image = function CardActionsImage({ src, ...restProps }) {
   );
 };
 
-CardActions.Links = function CardActionsLinks({ children, ...restProps }) {
+CardActions.Actions = function CardActionsActions({ children, ...restProps }) {
   const { imgIsLandscape } = useContext(ImgOrientationContext);
   return (
-    <Links className={!imgIsLandscape && "portrait"} {...restProps}>
+    <Actions className={!imgIsLandscape && "portrait"} {...restProps}>
       {children}
-    </Links>
+    </Actions>
   );
 };
 
@@ -85,18 +85,41 @@ CardActions.Link = function CardActionLink({
   const iconName = camelCase(name);
   const iconAsset = IconAssets[iconName];
   if (iconAsset) {
-    icon = <LinkIcon src={iconAsset}></LinkIcon>;
+    icon = <Icon src={iconAsset}></Icon>;
   } else {
     // use placeholder?
     icon = null;
   }
 
   return (
-    <Link {...restProps}>
+    <Action {...restProps}>
       <a href={url} target="_blank" rel="noreferrer noopener">
-        <LinkIconContainer>{icon}</LinkIconContainer>
-        <LinkText>{children}</LinkText>
+        <IconContainer>{icon}</IconContainer>
+        <IconText>{children}</IconText>
       </a>
-    </Link>
+    </Action>
+  );
+};
+
+CardActions.Action = function CardActionAction({ children, ...restProps }) {
+  return <Action {...restProps}>{children}</Action>;
+};
+
+CardActions.Icon = function CardActionIcon({ name, children, ...restProps }) {
+  let icon;
+  const iconName = camelCase(name);
+  const iconAsset = IconAssets[iconName];
+  if (iconAsset) {
+    icon = <Icon src={iconAsset}></Icon>;
+  } else {
+    // use placeholder?
+    icon = null;
+  }
+
+  return (
+    <React.Fragment {...restProps}>
+      <IconContainer>{icon}</IconContainer>
+      <IconText>{children}</IconText>
+    </React.Fragment>
   );
 };

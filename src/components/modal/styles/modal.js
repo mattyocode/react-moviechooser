@@ -25,12 +25,16 @@ export const Overlay = styled.div`
   left: 50%;
   transform: translateX(-50%);
   background-color: #191919;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   border-radius: 5px;
   border: var(--clr-neon) 2px solid;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 30;
   /* animation: slide-down 300ms ease-out forwards; */
+
+  @media screen and (min-width: 400px) {
+    padding: 1rem;
+  }
 `;
 
 export const Close = styled.div`
