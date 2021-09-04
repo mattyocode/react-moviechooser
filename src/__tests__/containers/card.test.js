@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { CardContainer } from "../../containers/card";
@@ -36,5 +36,28 @@ describe("<CardContainer/> tests", () => {
     singleMovie.ondemand.forEach((o) =>
       expect(screen.getByText(o.service)).toBeInTheDocument()
     );
+  });
+
+  it("closes ondemand modal on click", async () => {
+    const singleMovie = testMoviesData[0];
+    render(<CardContainer moviesData={[singleMovie]} />);
+
+    const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
+    fireEvent.click(ondemandBtn);
+
+    await waitFor(() => {
+      singleMovie.ondemand.forEach((o) =>
+        expect(screen.getByText(o.service)).toBeInTheDocument()
+      );
+    });
+
+    const backdrop = screen.getByTestId("modal-backdrop");
+    fireEvent.click(backdrop);
+
+    await waitFor(() => {
+      singleMovie.ondemand.forEach((o) =>
+        expect(screen.queryByText(o.service)).not.toBeInTheDocument()
+      );
+    });
   });
 });
