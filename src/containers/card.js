@@ -58,6 +58,7 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                     <Card.Footer>
                       {movie.ondemand && movie.ondemand.length > 0 && (
                         <Card.Action
+                          data-testid={`${movie.title}-ondemand`}
                           label="Watch"
                           onClick={() =>
                             openOndemandHandler({

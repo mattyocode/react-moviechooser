@@ -12,4 +12,29 @@ describe("<CardContainer/> tests", () => {
     render(<CardContainer moviesData={[singleMovie]} />);
     expect(screen.getByText(/parasite/i)).toBeInTheDocument();
   });
+
+  it("renders <CardContainer/> with multiple movies", () => {
+    render(<CardContainer moviesData={testMoviesData} />);
+    expect(screen.getByText(/parasite/i)).toBeInTheDocument();
+    expect(screen.getByText(/nemo/i)).toBeInTheDocument();
+    expect(screen.getByText(/jurassic/i)).toBeInTheDocument();
+    expect(screen.getByText(/charme/i)).toBeInTheDocument();
+  });
+
+  it("launches ondemand modal on click", () => {
+    const singleMovie = testMoviesData[0];
+    render(<CardContainer moviesData={[singleMovie]} />);
+
+    const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
+
+    singleMovie.ondemand.forEach((o) =>
+      expect(screen.queryByText(o.service)).not.toBeInTheDocument()
+    );
+
+    fireEvent.click(ondemandBtn);
+
+    singleMovie.ondemand.forEach((o) =>
+      expect(screen.getByText(o.service)).toBeInTheDocument()
+    );
+  });
 });

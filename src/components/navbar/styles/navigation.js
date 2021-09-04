@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components/macro";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { NavLink as ReactRouterLink } from "react-router-dom";
 
 export const Nav = styled.nav`
   @media screen and (min-width: 800px) {

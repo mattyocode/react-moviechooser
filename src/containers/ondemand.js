@@ -14,7 +14,6 @@ export function OndemandContainer({ data }) {
         <CardActions.Links>
           {data.linksData
             ? data.linksData.map((link) => {
-                console.log("ondemand ", link.service);
                 return (
                   <CardActions.Link
                     key={link.id}

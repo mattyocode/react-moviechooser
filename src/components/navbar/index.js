@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { NavLink as ReactRouterLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import {

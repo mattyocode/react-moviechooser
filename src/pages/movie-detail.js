@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Route, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";

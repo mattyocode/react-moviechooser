@@ -363,17 +363,6 @@ export const Action = styled.button`
   cursor: pointer;
   font-size: 1.4rem;
   margin: 0.25rem 0.7rem;
-
-  & .disabled {
-    color: #222;
-    stroke: #222;
-    fill: #222;
-    & > * {
-      color: #222;
-      stroke: #222;
-      fill: #222;
-    }
-  }
 `;
 
 export const Icon = styled.div``;

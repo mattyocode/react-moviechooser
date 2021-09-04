@@ -47,6 +47,7 @@ export default function useHttp(requestFunction, startWithPending = false) {
         if (error === "Aborted") {
           return;
         }
+
         dispatch({
           type: "ERROR",
           errorMessage: error.message || "An error occurred",
