@@ -7,13 +7,13 @@ export const linksData = [
   },
   {
     id: 2,
-    url: "/",
+    url: "/list",
     text: "My List",
     highlight: false,
   },
   {
     id: 3,
-    url: "/",
+    url: "/sign-in",
     text: "Sign In",
     highlight: true,
   },

@@ -72,7 +72,11 @@ Navbar.Links = function NavBarLinks({ linksData, showLinks, ...restProps }) {
           const { id, url, text, highlight } = link;
           return (
             <li key={id}>
-              <NavBarLink to={url} $highlight={highlight}>
+              <NavBarLink
+                to={url}
+                activeClassName="active"
+                $highlight={highlight}
+              >
                 {text}
               </NavBarLink>
             </li>

@@ -132,12 +132,18 @@ export const NavBarLink = styled(ReactRouterLink)`
     props.$highlight ? "var(--clr-neon)" : "inherit"};
   color: ${(props) => (props.$highlight ? "black" : "inherit")};
 
-  &:hover {
-    text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
+  &:hover,
+  &.active {
+    text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.5), 0 0 0.05em currentColor;
     color: var(--clr-neon);
     border: ${(props) =>
       props.$highlight ? "1px solid var(--clr-neon)" : "none"};
     background: transparent;
+    text-decoration: underline;
+  }
+
+  &.active {
+    text-decoration: none;
   }
 
   @media screen and (min-width: 800px) {
