@@ -8,12 +8,8 @@ import { ShareContainer } from "./share";
 export function CardContainer({ moviesData, expandInitially = false }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
-  const [shareData, setShareData] = useState({
-    title: "Movie Title",
-    posterUrl:
-      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-    shareUrl: "",
-  });
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareData, setShareData] = useState({});
 
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
@@ -24,6 +20,15 @@ export function CardContainer({ moviesData, expandInitially = false }) {
     setOndemandOpen(true);
   };
 
+  const closeShareHandler = () => {
+    setShareOpen(false);
+    setShareData({});
+  };
+  const openShareHandler = (data) => {
+    setShareData(data);
+    setShareOpen(true);
+  };
+
   return (
     <>
       {ondemandOpen && ondemandData && (
@@ -31,9 +36,11 @@ export function CardContainer({ moviesData, expandInitially = false }) {
           <OndemandContainer data={ondemandData} />
         </Modal>
       )}
-      <Modal closeModal={closeOndemandHandler}>
-        <ShareContainer data={shareData} />
-      </Modal>
+      {shareOpen && shareData && (
+        <Modal closeModal={closeShareHandler}>
+          <ShareContainer data={shareData} />
+        </Modal>
+      )}
       <Card.Group>
         {moviesData
           ? moviesData.map((movie, idx) => {
@@ -81,7 +88,17 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                           <MdOndemandVideo />
                         </Card.Action>
                       )}
-                      <Card.Action label="Share">
+                      <Card.Action
+                        data-testid={`${movie.title}-share`}
+                        label="Share"
+                        onClick={() =>
+                          openShareHandler({
+                            title: movie.title,
+                            posterUrl: movie.posterUrl,
+                            shareUrl: `www.moviechooser.co.uk/movie/${movie.imdbid}`,
+                          })
+                        }
+                      >
                         <MdShare />
                       </Card.Action>
                       <Card.Action label="Save">

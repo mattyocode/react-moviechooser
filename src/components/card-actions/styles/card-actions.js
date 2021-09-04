@@ -65,11 +65,12 @@ export const Actions = styled.ul`
 
   &.portrait {
     width: 50%;
-    align-items: center;
     align-content: center;
 
     @media screen and (min-width: 450px) {
-      width: 40%;
+      & > * {
+        width: 3.5rem;
+      }
     }
   }
 `;
@@ -78,6 +79,8 @@ export const Action = styled.li`
   min-width: 2.5rem;
   margin: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  justify-content: space-around;
 
   & a {
     text-decoration: none;
@@ -88,7 +91,6 @@ export const Action = styled.li`
   }
 
   & button {
-    display: inline-block;
     border: none;
     text-decoration: none;
     background: transparent;
@@ -109,13 +111,13 @@ export const Icon = styled.img``;
 
 export const IconText = styled.h5`
   padding-top: 0.25rem;
-  max-width: 2rem;
+  width: 3rem;
   font-size: 0.6rem;
   text-align: center;
   margin: 0 auto;
 
   @media screen and (min-width: 375px) {
-    max-width: 5rem;
+    width: 5rem;
     font-size: 0.8rem;
   }
 `;

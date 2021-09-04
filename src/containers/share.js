@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdShare } from "react-icons/md";
 import {
   FacebookShareButton,
@@ -11,6 +11,27 @@ import {
 import { CardActions } from "../components";
 
 export function ShareContainer({ data }) {
+  const [copySuccess, setCopySuccess] = useState("");
+
+  const updateClipboard = (clip) => {
+    navigator.clipboard.writeText(clip).then(
+      () => {
+        setCopySuccess("Copied");
+      },
+      () => {
+        setCopySuccess("Copy failed!");
+      }
+    );
+  };
+
+  const copyLink = (link) => {
+    navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+      if (result.state === "granted" || result.state === "prompt") {
+        updateClipboard(link);
+      }
+    });
+  };
+
   return (
     <CardActions landscape={false}>
       <CardActions.Header keyword="Share" title={data.title}>
@@ -20,19 +41,27 @@ export function ShareContainer({ data }) {
         <CardActions.Image src={data.posterUrl} />
         <CardActions.Actions>
           <CardActions.Action>
-            <EmailShareButton url={data.shareUrl} quote={data.title}>
+            <EmailShareButton
+              url={data.shareUrl}
+              subject={`Check out ${data.title}!`}
+              body="body"
+            >
               <CardActions.Icon name="Email">Email</CardActions.Icon>
             </EmailShareButton>
           </CardActions.Action>
 
           <CardActions.Action>
-            <TelegramShareButton url={data.shareUrl} quote={data.title}>
+            <TelegramShareButton url={data.shareUrl} title={data.title}>
               <CardActions.Icon name="Telegram">Telegram</CardActions.Icon>
             </TelegramShareButton>
           </CardActions.Action>
 
           <CardActions.Action>
-            <WhatsappShareButton url={data.shareUrl} quote={data.title}>
+            <WhatsappShareButton
+              url={data.shareUrl}
+              title={data.title}
+              separator=":: "
+            >
               <CardActions.Icon name="whatsapp">Whatsapp</CardActions.Icon>
             </WhatsappShareButton>
           </CardActions.Action>
@@ -44,13 +73,17 @@ export function ShareContainer({ data }) {
           </CardActions.Action>
 
           <CardActions.Action>
-            <TwitterShareButton url={data.shareUrl} quote={data.title}>
+            <TwitterShareButton url={data.shareUrl} title={data.title}>
               <CardActions.Icon name="Twitter">Twitter</CardActions.Icon>
             </TwitterShareButton>
           </CardActions.Action>
 
           <CardActions.Action>
-            <button>
+            <button
+              onClick={() => {
+                copyLink(data.shareUrl);
+              }}
+            >
               <CardActions.Icon name="copy link">Copy Link</CardActions.Icon>
             </button>
           </CardActions.Action>
