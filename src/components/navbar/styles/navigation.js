@@ -113,6 +113,7 @@ export const LinksList = styled.ul`
 
   @media screen and (min-width: 800px) {
     display: flex;
+    justify-content: space-between;
     padding: 0;
   }
 `;
@@ -123,27 +124,32 @@ export const NavBarLink = styled(ReactRouterLink)`
   transition: all 0.3s linear;
   text-decoration: none;
   border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
 
-  padding: ${(props) => (props.$highlight ? "0.25rem 0.5rem" : "0.5rem 1rem")};
-  margin: ${(props) => (props.$highlight ? "0.25rem 0.5rem" : "0")};
+  border: ${(props) =>
+    props.$highlight
+      ? "1px solid rgba(83, 204, 202, 0.6)"
+      : "1px solid rgba(0, 0, 0, 0)"};
   max-width: ${(props) => (props.$highlight ? "fit-content" : "none")};
-  border: ${(props) => (props.$highlight ? "1px solid black" : "none")};
-  background-color: ${(props) =>
-    props.$highlight ? "var(--clr-neon)" : "inherit"};
-  color: ${(props) => (props.$highlight ? "black" : "inherit")};
+  box-shadow: ${(props) =>
+    props.$highlight
+      ? "inset 0 0 0.15em 0 var(--clr-neon), 0 0 0.15em 0 var(--clr-neon)"
+      : "none"};
 
-  &:hover,
-  &.active {
-    text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.5), 0 0 0.05em currentColor;
-    color: var(--clr-neon);
+  &:hover {
+    text-shadow: 0 0 0.5em hsl(0 0% 50% / 0.5), 0 0 0.01em currentColor;
+    /* color: #587a92; */
     border: ${(props) =>
-      props.$highlight ? "1px solid var(--clr-neon)" : "none"};
-    background: transparent;
-    text-decoration: underline;
+      props.$highlight
+        ? "1px solid var(--clr-neon)"
+        : "1px solid rgba(0, 0, 0, 0.5)"};
+    background-color: #222;
   }
 
   &.active {
-    text-decoration: none;
+    color: var(--clr-neon);
+    border: 1px solid rgba(0, 0, 0, 0);
+    /* border-bottom: 1px solid rgba(100, 100, 50, 0.5); */
   }
 
   @media screen and (min-width: 800px) {
