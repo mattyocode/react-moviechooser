@@ -11,9 +11,9 @@ describe("<CardActions/> component tests", () => {
         <CardActions.Header>Title</CardActions.Header>
         <CardActions.Body>
           <CardActions.Image />
-          <CardActions.Links>
+          <CardActions.Actions>
             <CardActions.Link>Test Link</CardActions.Link>
-          </CardActions.Links>
+          </CardActions.Actions>
         </CardActions.Body>
       </CardActions>
     );

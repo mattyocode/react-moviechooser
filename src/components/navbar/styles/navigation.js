@@ -22,9 +22,11 @@ export const NavHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
+  background-color: black;
 
   @media screen and (min-width: 800px) {
     padding: 0 1rem;
+    background-color: transparent;
   }
 `;
 
@@ -94,8 +96,10 @@ export const LinksContainer = styled.div`
   overflow: hidden;
   transition: all 0.3s linear;
   min-width: 40%;
-  /* background-color: black; */
+  background-color: black;
   border-radius: 0 0 0 5px;
+  /* border: var(--clr-neon) 1px solid; */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 10;
 
   @media screen and (min-width: 800px) {
@@ -104,12 +108,14 @@ export const LinksContainer = styled.div`
     display: flex;
     height: auto !important;
     padding: 0 1rem;
+    background-color: transparent;
+    border: none;
   }
 `;
 
 export const LinksList = styled.ul`
   list-style-type: none;
-  padding: 2rem;
+  padding: 1.5rem;
 
   @media screen and (min-width: 800px) {
     display: flex;
@@ -125,12 +131,14 @@ export const NavBarLink = styled(ReactRouterLink)`
   text-decoration: none;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0);
+  margin: 0.5rem 0;
 
   border: ${(props) =>
     props.$highlight
       ? "1px solid rgba(83, 204, 202, 0.6)"
       : "1px solid rgba(0, 0, 0, 0)"};
-  max-width: ${(props) => (props.$highlight ? "fit-content" : "none")};
+  padding: 0.25rem 0.5rem;
+  max-width: fit-content;
   box-shadow: ${(props) =>
     props.$highlight
       ? "inset 0 0 0.15em 0 var(--clr-neon), 0 0 0.15em 0 var(--clr-neon)"
