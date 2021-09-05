@@ -362,10 +362,17 @@ export const Action = styled.button`
   background: transparent;
   cursor: pointer;
   font-size: 1.4rem;
-  margin: 0.25rem 0.7rem;
+  padding: 0.25rem 0.7rem;
+
+  &:hover {
+    background-color: #0f3030;
+    box-shadow: 0 0 10px 5px #0f3030;
+  }
 `;
 
-export const Icon = styled.div``;
+export const Icon = styled.div`
+  margin: auto;
+`;
 
 export const Text = styled.p`
   padding-top: 0;

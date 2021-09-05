@@ -212,7 +212,6 @@ Card.Action = function CardAction({ label, children, ...restProps }) {
   return (
     <Action {...restProps}>
       <Icon>{children}</Icon>
-      {/* <Text>{label}</Text> */}
     </Action>
   );
 };

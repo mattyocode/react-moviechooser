@@ -150,8 +150,10 @@ export const NavBarLink = styled(ReactRouterLink)`
     border: ${(props) =>
       props.$highlight
         ? "1px solid var(--clr-neon)"
-        : "1px solid rgba(0, 0, 0, 0.5)"};
-    background-color: #222;
+        : "1px solid rgba(0, 0, 0, 0)"};
+
+    background-color: #0f3030;
+    box-shadow: 0 0 8px 2px #0f3030;
   }
 
   &.active {
@@ -166,6 +168,7 @@ export const NavBarLink = styled(ReactRouterLink)`
 
     padding: 0.25rem 0.5rem;
     margin: 0 0.2rem;
+    box-shadow: none;
 
     li {
       display: flex;
