@@ -3,6 +3,11 @@ import { NavLink as ReactRouterLink } from "react-router-dom";
 
 export const Nav = styled.nav`
   @media screen and (min-width: 800px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -11,8 +16,8 @@ export const Nav = styled.nav`
     background: linear-gradient(
       to bottom,
       black,
-      rgba(0, 0, 0, 0.5) 75%,
-      rgba(0, 0, 0, 0)
+      rgba(0, 0, 0, 0.8) 75%,
+      rgba(0, 0, 0, 0.1)
     );
   }
 `;

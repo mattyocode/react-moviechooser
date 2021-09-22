@@ -82,12 +82,12 @@ export const Action = styled.li`
   display: flex;
   justify-content: space-around;
 
-  & a {
-    text-decoration: none;
+  & :hover {
+    text-decoration: underline;
   }
 
-  & a:hover {
-    text-decoration: underline;
+  & a {
+    text-decoration: none;
   }
 
   & button {
