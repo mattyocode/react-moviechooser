@@ -8,7 +8,7 @@ describe("<Checkboxes />", () => {
   it("renders <Checkboxes />", () => {
     render(
       <Checkboxes
-        name="test"
+        section="test"
         valuesList={["one", "two", "three"]}
         isChecked={[false, false, false]}
       />
@@ -21,7 +21,7 @@ describe("<Checkboxes />", () => {
     const mockChangeHandler = jest.fn();
     render(
       <Checkboxes
-        name="test"
+        section="test"
         valuesList={["one", "two", "three"]}
         isChecked={[false, false, false]}
         changeHandler={mockChangeHandler}
@@ -36,7 +36,7 @@ describe("<Checkboxes />", () => {
   it("checkbox style is highlighed if isChecked = true", () => {
     render(
       <Checkboxes
-        name="test"
+        section="test"
         valuesList={["one", "two"]}
         isChecked={[false, true]}
       />

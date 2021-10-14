@@ -15,7 +15,7 @@ import { Home } from "../../pages";
 import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/options`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/genres/`;
 
   beforeEach(() => {
     render(
@@ -29,8 +29,8 @@ describe("<Home/> page tests", () => {
   it("renders <Home/>", async () => {
     await waitFor(() => {
       expect(screen.getByText("Sci-Fi")).toBeTruthy();
-      expect(screen.getByText("Borror")).toBeTruthy();
-      expect(screen.getByText("Badventure")).toBeTruthy();
+      expect(screen.getByText("Horror")).toBeTruthy();
+      expect(screen.getByText("Adventure")).toBeTruthy();
       expect(screen.getByText("70s")).toBeTruthy();
       expect(screen.getByText("75m")).toBeTruthy();
     });

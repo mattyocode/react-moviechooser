@@ -4,9 +4,10 @@ import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../../containers/choice-form";
 
 import homepageData from "../../fixtures/homepage.json";
+import testGenreData from "../../fixtures/testGenreData.json";
 
 describe("<ChoiceFormContainer/>", () => {
-  const genreData = homepageData.genre;
+  const genreData = testGenreData;
   const runtimeData = homepageData.runtime;
   const decadeData = homepageData.decade;
   beforeEach(() => {
@@ -25,7 +26,7 @@ describe("<ChoiceFormContainer/>", () => {
   });
 
   it("displays genres", () => {
-    genreData.forEach((g) => expect(screen.getByText(g)).toBeTruthy());
+    genreData.forEach((g) => expect(screen.getByText(g.name)).toBeTruthy());
   });
 
   it("renders with genre checkboxes all unchecked", () => {
@@ -254,8 +255,8 @@ describe("<ChoiceFormContainer/>", () => {
       />
     );
 
-    const borrorGenre = screen.getByText(/borror/i);
-    fireEvent.click(borrorGenre);
+    const horrorGenre = screen.getByText(/horror/i);
+    fireEvent.click(horrorGenre);
 
     const decadeMinThumb = screen.getByTestId("decade-thumb-min");
     const decadeMaxThumb = screen.getByTestId("decade-thumb-max");
@@ -278,7 +279,7 @@ describe("<ChoiceFormContainer/>", () => {
     fireEvent.click(submitBtn);
     expect(mockOnSubmit).toHaveBeenCalledWith({
       decade: { max: "20s", min: "Pre-60s" },
-      genre: ["Borror"],
+      genre: [11],
       runtime: { max: "Long", min: "Short" },
     });
   });

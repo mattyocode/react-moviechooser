@@ -7,8 +7,10 @@ import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 
+import homepageData from "../fixtures/homepage.json";
+
 export default function Home() {
-  const options = useSelector((state) => state.options.options);
+  const genres = useSelector((state) => state.options.options);
   const optionsStatus = useSelector((state) => state.options.status);
   const optionsError = useSelector((state) => state.options.error);
   const dispatch = useDispatch();
@@ -29,9 +31,9 @@ export default function Home() {
   if (optionsStatus === "succeeded") {
     choiceForm = (
       <ChoiceFormContainer
-        genreList={options.genre}
-        runtimeData={options.runtime}
-        decadeData={options.decade}
+        genreList={genres}
+        runtimeData={homepageData.runtime}
+        decadeData={homepageData.decade}
         onSubmitHandler={getQueryResults}
       />
     );

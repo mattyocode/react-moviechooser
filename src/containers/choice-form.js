@@ -42,7 +42,7 @@ export function ChoiceFormContainer({
     onSubmitHandler({
       genre: genreIsChecked.reduce((acc, cur, idx) => {
         if (cur === true) {
-          acc.push(genreList[idx]);
+          acc.push(genreList[idx].id);
         }
         return acc;
       }, []),
@@ -72,7 +72,7 @@ export function ChoiceFormContainer({
             <h2>Genre</h2>
           </ChoiceForm.Heading>
           <Checkboxes
-            name="genre"
+            section="genre"
             valuesList={genreList}
             isChecked={genreIsChecked}
             changeHandler={genreCheckboxChangeHandler}

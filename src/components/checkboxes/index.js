@@ -1,31 +1,31 @@
 import { Options, Label, Input } from "./styles/checkboxes";
 
 export default function Checkboxes({
-  name,
+  section,
   valuesList,
   isChecked,
   changeHandler,
   ...restProps
 }) {
   return (
-    <Options data-testid={`${name}-checkboxes`}>
+    <Options data-testid={`${section}-checkboxes`}>
       {valuesList
-        ? valuesList.map((value, index) => {
+        ? valuesList.map((genreObj, index) => {
             return (
               <li key={index}>
                 <Input
-                  id={`${name}-checkbox-${index}`}
-                  value={value}
+                  id={`${section}-checkbox-${index}`}
+                  value={genreObj.id}
                   checked={isChecked[index]}
                   onChange={() => changeHandler(index)}
                 />
                 <Label
-                  data-testid={`${name}-checkbox`}
-                  htmlFor={`${name}-checkbox-${index}`}
+                  data-testid={`${section}-checkbox`}
+                  htmlFor={`${section}-checkbox-${index}`}
                   checked={isChecked[index]}
                   {...restProps}
                 >
-                  {value}
+                  {genreObj.name}
                 </Label>
               </li>
             );

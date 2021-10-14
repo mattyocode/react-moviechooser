@@ -1,28 +1,4 @@
 {
-  "genre": [
-    "Bomedy",
-    "Borror",
-    "Sci-Fi",
-    "Thriller",
-    "Brama",
-    "History",
-    "War",
-    "Crime",
-    "Action",
-    "Biography",
-    "Badventure",
-    "Mystery",
-    "Romance",
-    "Family",
-    "Fantasy",
-    "Animation",
-    "Musical",
-    "Western",
-    "Documentary",
-    "Sport",
-    "Film-Noir"
-  ],
-
   "decade": {
     "optionsArray": [
       "Pre-60s",
@@ -34,11 +10,22 @@
       "10s",
       "20s"
     ],
+    "queryArray": [
+      "-1960",
+      "1960",
+      "1970",
+      "1980",
+      "1990",
+      "2000",
+      "2010",
+      "2022"
+    ],
     "defaultMin": "70s",
     "defaultMax": "20s"
   },
   "runtime": {
     "optionsArray": ["Short", "75m", "1h30", "1h45", "2h", "2h30", "Long"],
+    "queryArray": ["<75", "75", "90", "105", "120", "150", ">150"],
     "defaultMin": "75m",
     "defaultMax": "2h"
   }

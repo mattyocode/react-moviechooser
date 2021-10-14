@@ -11,7 +11,7 @@ const initialOptionsState = {
 export const fetchOptions = createAsyncThunk(
   "options/fetchOptions",
   async () => {
-    const response = await client.get("options");
+    const response = await client.get("genres/");
     return response;
   }
 );
