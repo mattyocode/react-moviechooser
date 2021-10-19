@@ -47,12 +47,12 @@ export function ChoiceFormContainer({
         return acc;
       }, []),
       runtime: {
-        min: runtimeState.rangeLabels[runtimeState.minValue],
-        max: runtimeState.rangeLabels[runtimeState.maxValue],
+        min: runtimeData.queryArray[runtimeState.minValue],
+        max: runtimeData.queryArray[runtimeState.maxValue],
       },
       decade: {
-        min: decadeState.rangeLabels[decadeState.minValue],
-        max: decadeState.rangeLabels[decadeState.maxValue],
+        min: decadeData.queryArray[decadeState.minValue],
+        max: decadeData.queryArray[decadeState.maxValue],
       },
     });
   };

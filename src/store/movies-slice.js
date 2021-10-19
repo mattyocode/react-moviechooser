@@ -14,7 +14,8 @@ export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (queryParams) => {
     // refactor to encode query params
-    // console.log("query params in moviesSlice", queryParams);
+    console.log("query params in moviesSlice", queryParams);
+
     const response = await client.get("movies");
     return response;
   }

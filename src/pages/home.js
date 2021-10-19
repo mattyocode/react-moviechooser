@@ -31,7 +31,7 @@ export default function Home() {
   if (optionsStatus === "succeeded") {
     choiceForm = (
       <ChoiceFormContainer
-        genreList={genres}
+        genreList={genres.slice(0, 21)}
         runtimeData={homepageData.runtime}
         decadeData={homepageData.decade}
         onSubmitHandler={getQueryResults}
