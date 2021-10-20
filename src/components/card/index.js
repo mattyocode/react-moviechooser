@@ -95,11 +95,11 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
     <AllRatings className={!expand && "closed"} {...restProps}>
       <ul>
         {ratings
-          ? ratings.map((rating, idx) => {
+          ? ratings.map((rating) => {
               return (
-                <li key={idx}>
-                  {getIcon(`${Object.keys(rating)}`)}
-                  <StarRating rating={`${Object.values(rating)}%`}></StarRating>
+                <li key={rating.id}>
+                  {getIcon(rating.source)}
+                  <StarRating rating={`${rating.score}%`}></StarRating>
                 </li>
               );
             })
@@ -137,7 +137,7 @@ Card.Header = function CardHeader({
       <Header {...restProps}>
         <h2>{title}</h2>
         <p>
-          {year} | {runtime}
+          {year} | {runtime} mins
         </p>
       </Header>
       {expand || isFullWidth ? (
@@ -163,11 +163,11 @@ Card.FurtherInfo = function CardFurtherInfo({
     <FurtherInfo className={!expand && "closed"} {...restProps}>
       <p>
         <b>Starring: </b>
-        {starring && starring.join(", ")}
+        {starring}
       </p>
       <p>
         <b>Directed by: </b>
-        {director && director.join(", ")}
+        {director}
       </p>
       <p>{country}</p>
     </FurtherInfo>
@@ -179,8 +179,8 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
     <Genres {...restProps}>
       <ul>
         {genres
-          ? genres.map((genre, idx) => {
-              return <li key={idx}>{genre}</li>;
+          ? genres.map((genre) => {
+              return <li key={genre.id}>{genre.name}</li>;
             })
           : null}
       </ul>

@@ -5,15 +5,18 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Card from "./index";
 
 describe("<Card />", () => {
+  const reviews = [
+    { id: 1, source: "testRating", score: 89 },
+    { id: 2, source: "testTomatoes", score: 67 },
+  ];
   it("renders <Card /> component", () => {
-    const ratings = [{ testRating: 89 }, { testTomatoes: 67 }];
     render(
       <Card>
         <Card.Content>
           <Card.Sidebar>
             <Card.AvgRating>55</Card.AvgRating>
             <Card.Image src={"/"} />
-            <Card.AllRatings ratings={ratings} />
+            <Card.AllRatings ratings={reviews} />
           </Card.Sidebar>
           <Card.Main>
             <Card.Header
@@ -23,11 +26,16 @@ describe("<Card />", () => {
               plot={"Once upon a time..."}
             />
             <Card.FurtherInfo
-              starring={["Anne Actor", "Telly Starr"]}
-              director={["Ack Shunn"]}
+              starring={"Anne Actor, Telly Starr"}
+              director={"Ack Shunn"}
               country={"UK"}
             />
-            <Card.Genres genres={["Borror", "Badventure"]} />
+            <Card.Genres
+              genres={[
+                { id: 3, name: "Borror" },
+                { id: 5, name: "Badventure" },
+              ]}
+            />
           </Card.Main>
           <Card.Footer />
         </Card.Content>
@@ -50,14 +58,13 @@ describe("<Card />", () => {
   });
 
   it("opens and closes when clicked", () => {
-    const ratings = [{ testRating: 89 }, { testTomatoes: 67 }];
     render(
       <Card>
         <Card.Content>
           <Card.Sidebar>
             <Card.AvgRating>55</Card.AvgRating>
             <Card.Image src={"/"} />
-            <Card.AllRatings ratings={ratings} />
+            <Card.AllRatings ratings={reviews} />
           </Card.Sidebar>
           <Card.Main>
             <Card.Header
@@ -67,11 +74,16 @@ describe("<Card />", () => {
               plot={"Once upon a time..."}
             />
             <Card.FurtherInfo
-              starring={["Anne Actor", "Telly Starr"]}
-              director={["Ack Shunn"]}
+              starring={"Anne Actor, Telly Starr"}
+              director={"Ack Shunn"}
               country={"UK"}
             />
-            <Card.Genres genres={["Borror", "Badventure"]} />
+            <Card.Genres
+              genres={[
+                { id: 3, name: "Borror" },
+                { id: 5, name: "Badventure" },
+              ]}
+            />
           </Card.Main>
           <Card.Footer />
         </Card.Content>

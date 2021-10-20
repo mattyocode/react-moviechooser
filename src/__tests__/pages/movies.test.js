@@ -5,7 +5,7 @@ import { server, rest } from "../../test/server";
 import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../test/test-utils";
-import storeMovies from "../../fixtures/moviesDataFromStore.json";
+import storeMovies from "../../fixtures/updatedMoviesData.json";
 import { Movies } from "../../pages";
 
 describe("<Movies/> page tests", () => {
@@ -35,6 +35,7 @@ describe("<Movies/> page tests", () => {
   });
 
   it("calls server for movies if queryParams but no movies in state", async () => {
+    cleanup();
     const initialState = {
       queryParams: testQueryParams,
       movies: [],
@@ -43,6 +44,7 @@ describe("<Movies/> page tests", () => {
     };
 
     reduxTestRender(<Movies />, { preloadedState: { movies: initialState } });
+    screen.debug();
     expect(screen.getByTestId("movies")).toBeTruthy();
     expect(await screen.findByText(/jurassic park/i)).toBeTruthy();
   });

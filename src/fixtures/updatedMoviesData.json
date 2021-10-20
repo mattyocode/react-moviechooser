@@ -1,199 +1,179 @@
 [
   {
-    "slug": "nq2Fvpcj-roadrunner-a-film-about",
-    "title": "Roadrunner: A Film About Anthony Bourdain",
-    "released": "2021-07-16",
-    "runtime": 118,
-    "writer": "N/A",
-    "plot": "A documentary about Anthony Bourdain and his career as a chef, writer and host, revered and renowned for his authentic approach to food, culture and travel.",
-    "country": "United States",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BYmUwMjlhYTktNWE4Zi00MDcwLWE1OTctMjAyMWU4NjVlYWM4XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_SX300.jpg",
+    "slug": "AkAFhXi3-parasite",
+    "title": "Parasite",
+    "released": "2019-11-08",
+    "runtime": 132,
+    "writer": "Bong Joon Ho (story by), Bong Joon Ho (screenplay by), Han Jin-won (screenplay by)",
+    "plot": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+    "country": "South Korea",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
     "actors": [
-      { "id": 5655, "name": "Anthony Bourdain" },
-      { "id": 5656, "name": "Ottavia Bourdain" },
-      { "id": 5657, "name": "David Chang" }
+      { "id": 1051, "name": "Song Kang-Ho" },
+      { "id": 1052, "name": "Lee Sun-Kyun" },
+      { "id": 1053, "name": "Cho Yeo-Jeong" },
+      { "id": 1054, "name": "Choi Woo-Sik" }
     ],
-    "director": [{ "id": 1101, "name": "Morgan Neville" }],
-    "genre": [{ "id": 20, "name": "Documentary" }],
-    "ondemand": [],
-    "reviews": [],
-    "avg_rating": null
-  },
-  {
-    "slug": "khhSlNMl-the-godfather",
-    "title": "The Godfather",
-    "released": "1972-03-24",
-    "runtime": 175,
-    "writer": "Mario Puzo (screenplay by), Francis Ford Coppola (screenplay by), Mario Puzo (based on the novel by)",
-    "plot": "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
-    "country": "USA",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
-    "actors": [
-      { "id": 143, "name": "Marlon Brando" },
-      { "id": 679, "name": "Al Pacino" },
-      { "id": 1402, "name": "James Caan" },
-      { "id": 1403, "name": "Richard S. Castellano" }
-    ],
-    "director": [{ "id": 39, "name": "Francis Ford Coppola" }],
+    "director": [{ "id": 57, "name": "Bong Joon Ho" }],
     "genre": [
+      { "id": 3, "name": "Thriller" },
       { "id": 5, "name": "Drama" },
-      { "id": 8, "name": "Crime" }
+      { "id": 10, "name": "Comedy" }
     ],
     "ondemand": [
       {
-        "id": 1552,
+        "id": 1132,
         "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/the-godfather-the-coppola-restoration/id285494571"
+        "url": "https://itunes.apple.com/gb/movie/parasite/id1498500635"
       },
       {
-        "id": 1553,
+        "id": 1133,
         "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/The_Godfather?gl=GB&hl=en&id=eRen-qxBPc0"
+        "url": "https://play.google.com/store/movies/details/Parasite?gl=GB&hl=en&id=tDkBK1vV_Co.P"
       },
       {
-        "id": 1554,
+        "id": 1134,
+        "service": "Amazon Prime Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
+      },
+      {
+        "id": 1135,
         "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B00KU7IL7W&tag=utellycom00-21"
+        "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
       }
     ],
     "reviews": [
-      { "id": 1670, "source": "imdb", "score": 92 },
-      { "id": 1671, "source": "rotten_toms", "score": 97 },
-      { "id": 1672, "source": "metacritic", "score": 100 }
+      { "id": 1242, "source": "imdb", "score": 86 },
+      { "id": 1243, "source": "rotten_toms", "score": 98 },
+      { "id": 1244, "source": "metacritic", "score": 96 }
     ],
-    "avg_rating": 96.33333333333333
+    "avg_rating": 93.33333333333333
   },
   {
-    "slug": "IYoA8dxd-casablanca",
-    "title": "Casablanca",
-    "released": "1943-01-23",
+    "slug": "cY8NxQlj-jurassic-park",
+    "title": "Jurassic Park",
+    "released": "1993-06-11",
+    "runtime": 127,
+    "writer": "Michael Crichton (novel), Michael Crichton (screenplay), David Koepp (screenplay)",
+    "plot": "A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
+    "country": "USA",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_SX300.jpg",
+    "actors": [
+      { "id": 292, "name": "Laura Dern" },
+      { "id": 535, "name": "Sam Neill" },
+      { "id": 807, "name": "Jeff Goldblum" },
+      { "id": 808, "name": "Richard Attenborough" }
+    ],
+    "director": [{ "id": 23, "name": "Steven Spielberg" }],
+    "genre": [
+      { "id": 2, "name": "Sci-Fi" },
+      { "id": 3, "name": "Thriller" },
+      { "id": 9, "name": "Action" },
+      { "id": 12, "name": "Adventure" }
+    ],
+    "ondemand": [
+      {
+        "id": 832,
+        "service": "iTunes",
+        "url": "https://itunes.apple.com/gb/movie/jurassic-park/id596645698"
+      },
+      {
+        "id": 833,
+        "service": "Google Play",
+        "url": "https://play.google.com/store/movies/details/Jurassic_Park?gl=GB&hl=en&id=7HnBs__n_cA"
+      },
+      {
+        "id": 834,
+        "service": "Amazon Instant Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B07XDC35TQ&tag=utellycom00-21"
+      }
+    ],
+    "reviews": [
+      { "id": 869, "source": "imdb", "score": 81 },
+      { "id": 870, "source": "rotten_toms", "score": 92 },
+      { "id": 871, "source": "metacritic", "score": 68 }
+    ],
+    "avg_rating": 80.33333333333333
+  },
+  {
+    "slug": "JLxRvHVI-le-charme-discret-de-la",
+    "title": "Le charme discret de la bourgeoisie",
+    "released": "1972-10-22",
     "runtime": 102,
-    "writer": "Julius J. Epstein (screenplay), Philip G. Epstein (screenplay), Howard Koch (screenplay), Murray Burnett (play), Joan Alison (play)",
-    "plot": "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
-    "country": "USA",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BY2IzZGY2YmEtYzljNS00NTM5LTgwMzUtMzM1NjQ4NGI0OTk0XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg",
+    "writer": "Luis Buñuel, Jean-Claude Carrière",
+    "plot": "A surreal, virtually plotless series of dreams centered around six middle-class people and their consistently interrupted attempts to have a meal together.",
+    "country": "France, Italy, Spain",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BYzQ5NjJiYWQtYjAzMC00NGU0LWFlMDYtNGFiYjFlMWI1NWM0XkEyXkFqcGdeQXVyODQ0OTczOQ@@._V1_SX300.jpg",
     "actors": [
-      { "id": 363, "name": "Humphrey Bogart" },
-      { "id": 364, "name": "Ingrid Bergman" },
-      { "id": 365, "name": "Paul Henreid" },
-      { "id": 366, "name": "Claude Rains" }
+      { "id": 2638, "name": "Fernando Rey" },
+      { "id": 2639, "name": "Delphine Seyrig" },
+      { "id": 2640, "name": "Paul Frankeur" }
     ],
-    "director": [{ "id": 88, "name": "Michael Curtiz" }],
-    "genre": [
-      { "id": 5, "name": "Drama" },
-      { "id": 7, "name": "War" },
-      { "id": 13, "name": "Romance" }
-    ],
-    "ondemand": [
-      {
-        "id": 413,
-        "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/casablanca/id282640192"
-      },
-      {
-        "id": 414,
-        "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/Casablanca?gl=GB&hl=en&id=DcFFOV8XPBo.P"
-      },
-      {
-        "id": 415,
-        "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B00I50AKIE&tag=utellycom00-21"
-      }
-    ],
+    "director": [{ "id": 540, "name": "Luis Buñuel" }],
+    "genre": [{ "id": 10, "name": "Comedy" }],
+    "ondemand": [],
     "reviews": [
-      { "id": 413, "source": "imdb", "score": 85 },
-      { "id": 414, "source": "rotten_toms", "score": 99 },
-      { "id": 415, "source": "metacritic", "score": 100 }
+      { "id": 3112, "source": "imdb", "score": 79 },
+      { "id": 3113, "source": "rotten_toms", "score": 98 },
+      { "id": 3114, "source": "metacritic", "score": 93 }
     ],
-    "avg_rating": 94.66666666666667
+    "avg_rating": 90.0
   },
   {
-    "slug": "uGsoeDqN-rear-window",
-    "title": "Rear Window",
-    "released": "1954-09-01",
-    "runtime": 112,
-    "writer": "John Michael Hayes (screenplay), Cornell Woolrich (based on the short story by)",
-    "plot": "A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.",
-    "country": "USA",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BNGUxYWM3M2MtMGM3Mi00ZmRiLWE0NGQtZjE5ODI2OTJhNTU0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+    "slug": "fPcPlCpd-finding-nemo",
+    "title": "Finding Nemo",
+    "released": "2003-05-30",
+    "runtime": 100,
+    "writer": "Andrew Stanton, Bob Peterson, David Reynolds",
+    "plot": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
+    "country": "United States",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BZTAzNWZlNmUtZDEzYi00ZjA5LWIwYjEtZGM1NWE1MjE4YWRhXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
     "actors": [
-      { "id": 1125, "name": "James Stewart" },
-      { "id": 1126, "name": "Grace Kelly" },
-      { "id": 1127, "name": "Wendell Corey" },
-      { "id": 1128, "name": "Thelma Ritter" }
+      { "id": 503, "name": "Albert Brooks" },
+      { "id": 2114, "name": "Ellen Degeneres" },
+      { "id": 2115, "name": "Alexander Gould" }
     ],
-    "director": [{ "id": 250, "name": "Alfred Hitchcock" }],
+    "director": [
+      { "id": 101, "name": "Lee Unkrich" },
+      { "id": 404, "name": "Andrew Stanton" }
+    ],
     "genre": [
-      { "id": 1, "name": "Mystery" },
-      { "id": 3, "name": "Thriller" }
+      { "id": 10, "name": "Comedy" },
+      { "id": 12, "name": "Adventure" },
+      { "id": 16, "name": "Animation" }
     ],
     "ondemand": [
       {
-        "id": 1202,
+        "id": 2348,
         "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/rear-window-1954/id331414521"
+        "url": "https://itunes.apple.com/gb/movie/finding-nemo/id255295077"
       },
       {
-        "id": 1203,
+        "id": 2349,
         "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/Rear_Window?gl=GB&hl=en&id=fYmVwje2Ze0"
+        "url": "https://play.google.com/store/movies/details/Finding_Nemo?gl=GB&hl=en&id=uJi6vsD2-as"
       },
       {
-        "id": 1204,
+        "id": 2350,
+        "service": "Amazon Prime Video",
+        "url": "https://www.amazon.co.uk/Finding-Nemo-Alison-Janney/dp/B00H36BLVG/ref=sr_1_3?crid=1ZO4SDFKBGYE4&dchild=1&keywords=finding+nemo&qid=1624641061&sprefix=finding+ne%2caps%2c343&sr=8-3&tag=utellycom00-21"
+      },
+      {
+        "id": 2351,
         "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B00I94RVQU&tag=utellycom00-21"
+        "url": "https://watch.amazon.co.uk/detail?asin=B07Y3ZVYDN&tag=utellycom00-21"
+      },
+      {
+        "id": 2352,
+        "service": "Disney+",
+        "url": "https://www.disneyplus.com/movies/finding-nemo/5Gpj2XqF7BV2"
       }
     ],
     "reviews": [
-      { "id": 1313, "source": "imdb", "score": 85 },
-      { "id": 1314, "source": "rotten_toms", "score": 98 },
-      { "id": 1315, "source": "metacritic", "score": 100 }
+      { "id": 2537, "source": "imdb", "score": 81 },
+      { "id": 2538, "source": "rotten_toms", "score": 99 },
+      { "id": 2539, "source": "metacritic", "score": 90 }
     ],
-    "avg_rating": 94.33333333333333
-  },
-  {
-    "slug": "SfFLmOBf-citizen-kane",
-    "title": "Citizen Kane",
-    "released": "1941-09-05",
-    "runtime": 119,
-    "writer": "Herman J. Mankiewicz (original screen play), Orson Welles (original screen play)",
-    "plot": "Following the death of publishing tycoon Charles Foster Kane, reporters scramble to uncover the meaning of his final utterance; 'Rosebud'.",
-    "country": "USA",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BYjBiOTYxZWItMzdiZi00NjlkLWIzZTYtYmFhZjhiMTljOTdkXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
-    "actors": [
-      { "id": 380, "name": "Joseph Cotten" },
-      { "id": 381, "name": "Dorothy Comingore" },
-      { "id": 382, "name": "Agnes Moorehead" },
-      { "id": 383, "name": "Ruth Warrick" }
-    ],
-    "director": [{ "id": 92, "name": "Orson Welles" }],
-    "genre": [
-      { "id": 1, "name": "Mystery" },
-      { "id": 5, "name": "Drama" }
-    ],
-    "ondemand": [
-      {
-        "id": 425,
-        "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/citizen-kane/id447852615"
-      },
-      {
-        "id": 426,
-        "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/Citizen_Kane?gl=GB&hl=en&id=TlIjMn0FQf8.P"
-      },
-      {
-        "id": 427,
-        "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B00FM6O86E&tag=utellycom00-21"
-      }
-    ],
-    "reviews": [
-      { "id": 425, "source": "imdb", "score": 83 },
-      { "id": 426, "source": "rotten_toms", "score": 99 },
-      { "id": 427, "source": "metacritic", "score": 100 }
-    ],
-    "avg_rating": 94.0
+    "avg_rating": 90.0
   }
 ]

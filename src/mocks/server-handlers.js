@@ -1,7 +1,7 @@
 import "whatwg-fetch";
 import { rest } from "msw";
 import testGenreData from "../fixtures/testGenreData.json";
-import moviesData from "../fixtures/moviesData.json";
+import moviesData from "../fixtures/updatedMoviesData.json";
 
 const apiUrl = `${process.env.REACT_APP_TEST_API}`;
 

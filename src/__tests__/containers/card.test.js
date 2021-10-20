@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 
 import { CardContainer } from "../../containers/card";
 
-import testMoviesData from "../../fixtures/moviesDataFromStore.json";
+import testMoviesData from "../../fixtures/updatedMoviesData.json";
 
 describe("<CardContainer/> tests", () => {
   it("renders <CardContainer/> with single movie", () => {

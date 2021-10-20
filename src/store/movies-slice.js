@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../utils/api-client";
 
 import keysToCamel from "../utils/camelcase";
+import queryString from "../utils/query-string";
 
 const initialMoviesState = {
   queryParams: undefined,
@@ -12,11 +13,14 @@ const initialMoviesState = {
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (queryParams) => {
+  async (queryObj) => {
     // refactor to encode query params
-    console.log("query params in moviesSlice", queryParams);
+    console.log("query params in moviesSlice", queryObj);
 
-    const response = await client.get("movies");
+    const queryParamsStr = queryString(queryObj);
+    console.log(queryParamsStr);
+
+    const response = await client.get(`movies/?${queryParamsStr}`);
     return response;
   }
 );
@@ -35,7 +39,7 @@ const moviesSlice = createSlice({
     },
     [fetchMovies.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      state.movies = action.payload;
+      state.movies = action.payload.results;
     },
     [fetchMovies.rejected]: (state, action) => {
       state.status = "failed";

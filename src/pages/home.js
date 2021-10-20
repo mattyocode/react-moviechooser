@@ -54,7 +54,7 @@ export default function Home() {
         <Headline.Subhead>
           Choose from 1000s of acclaimed movies.
           <br />
-          Filter by genre, decade, and runtime.
+          Filter by genre, release decade, and runtime.
         </Headline.Subhead>
       </Headline>
       {choiceForm}

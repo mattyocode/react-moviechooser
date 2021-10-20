@@ -1,6 +1,6 @@
-import imdbRating from "./svg/imdbRating.svg";
+import imdb from "./svg/imdbRating.svg";
 import metacritic from "./svg/metacritic.svg";
-import rottenTomatoes from "./svg/rottenTomatoes.svg";
+import rotten_toms from "./svg/rottenTomatoes.svg";
 import Star from "./svg/star.svg";
 
 import amazonInstantVideo from "./svg/amazonInstantVideo.svg";
@@ -18,9 +18,9 @@ import twitter from "./svg/twitter.svg";
 import whatsapp from "./svg/whatsapp.svg";
 
 export {
-  imdbRating,
+  imdb,
   metacritic,
-  rottenTomatoes,
+  rotten_toms,
   Star,
   amazonInstantVideo,
   amazonPrimeVideo,

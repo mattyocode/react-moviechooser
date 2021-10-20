@@ -48,15 +48,11 @@ export function CardContainer({ moviesData, expandInitially = false }) {
               <Card key={idx} expandState={expandInitially}>
                 <Card.Content>
                   <Card.Sidebar>
-                    <Card.AvgRating>{movie.avgRating}</Card.AvgRating>
-                    <Card.Image src={movie.posterUrl} />
-                    <Card.AllRatings
-                      ratings={[
-                        { imdbRating: movie.imdbRating },
-                        { metacritic: movie.metacritic },
-                        { rottenTomatoes: movie.rottenTomatoes },
-                      ]}
-                    />
+                    <Card.AvgRating>
+                      {movie.avg_rating.toFixed(1)}
+                    </Card.AvgRating>
+                    <Card.Image src={movie.poster_url} />
+                    <Card.AllRatings ratings={movie.reviews} />
                   </Card.Sidebar>
                   <Card.Main>
                     <Card.Header
@@ -66,8 +62,12 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                       plot={movie.plot}
                     />
                     <Card.FurtherInfo
-                      starring={movie.actors}
-                      director={movie.director}
+                      starring={movie.actors
+                        .map((actor) => actor.name)
+                        .join(",")}
+                      director={movie.director
+                        .map((director) => director.name)
+                        .join(",")}
                       country={movie.country}
                     />
                     <Card.Genres genres={movie.genre} />
@@ -94,8 +94,8 @@ export function CardContainer({ moviesData, expandInitially = false }) {
                       onClick={() =>
                         openShareHandler({
                           title: movie.title,
-                          posterUrl: movie.posterUrl,
-                          shareUrl: `www.moviechooser.co.uk/movie/${movie.imdbid}`,
+                          posterUrl: movie.poster_url,
+                          shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
                         })
                       }
                     >

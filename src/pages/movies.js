@@ -19,7 +19,7 @@ export default function Movies() {
   const history = useHistory();
 
   let movieSelection;
-  if (moviesStatus === "succeeded") {
+  if (moviesStatus === "succeeded" && movies && movies.length > 0) {
     movieSelection = <CardContainer moviesData={movies} />;
   }
   if (moviesStatus === "loading") {
@@ -36,20 +36,16 @@ export default function Movies() {
   }, [movieQuery, movies, history]);
 
   useEffect(() => {
-    if (movieQuery && movies.length < 1) {
+    console.log("MOVIES >>>", movies);
+    if ((movieQuery && movies == null) || (movieQuery && movies.length < 1)) {
       dispatch(fetchMovies(movieQuery));
     }
-  });
+  }, [movies, dispatch, movieQuery]);
 
   return (
     <>
       <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
-        {/* <Headline.Subhead>
-          Choose from 1000s of acclaimed movies.
-          <br />
-          Filter by genre, decade, and runtime.
-        </Headline.Subhead> */}
       </Headline>
       {movieSelection}
     </>
