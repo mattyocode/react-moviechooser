@@ -237,9 +237,9 @@ describe("<ChoiceFormContainer/>", () => {
 
     fireEvent.click(submitBtn);
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      decade: { max: "20s", min: "70s" },
+      decade: { max: "cur", min: "1970" },
       genre: [],
-      runtime: { max: "2h", min: "75m" },
+      runtime: { max: "120", min: "75" },
     });
   });
 
@@ -278,9 +278,9 @@ describe("<ChoiceFormContainer/>", () => {
 
     fireEvent.click(submitBtn);
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      decade: { max: "20s", min: "Pre-60s" },
+      decade: { max: "cur", min: "pre" },
       genre: [11],
-      runtime: { max: "Long", min: "Short" },
+      runtime: { max: ">150", min: "<75" },
     });
   });
 });

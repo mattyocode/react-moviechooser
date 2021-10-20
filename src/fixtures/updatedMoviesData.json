@@ -1,0 +1,199 @@
+[
+  {
+    "slug": "nq2Fvpcj-roadrunner-a-film-about",
+    "title": "Roadrunner: A Film About Anthony Bourdain",
+    "released": "2021-07-16",
+    "runtime": 118,
+    "writer": "N/A",
+    "plot": "A documentary about Anthony Bourdain and his career as a chef, writer and host, revered and renowned for his authentic approach to food, culture and travel.",
+    "country": "United States",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BYmUwMjlhYTktNWE4Zi00MDcwLWE1OTctMjAyMWU4NjVlYWM4XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_SX300.jpg",
+    "actors": [
+      { "id": 5655, "name": "Anthony Bourdain" },
+      { "id": 5656, "name": "Ottavia Bourdain" },
+      { "id": 5657, "name": "David Chang" }
+    ],
+    "director": [{ "id": 1101, "name": "Morgan Neville" }],
+    "genre": [{ "id": 20, "name": "Documentary" }],
+    "ondemand": [],
+    "reviews": [],
+    "avg_rating": null
+  },
+  {
+    "slug": "khhSlNMl-the-godfather",
+    "title": "The Godfather",
+    "released": "1972-03-24",
+    "runtime": 175,
+    "writer": "Mario Puzo (screenplay by), Francis Ford Coppola (screenplay by), Mario Puzo (based on the novel by)",
+    "plot": "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
+    "country": "USA",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    "actors": [
+      { "id": 143, "name": "Marlon Brando" },
+      { "id": 679, "name": "Al Pacino" },
+      { "id": 1402, "name": "James Caan" },
+      { "id": 1403, "name": "Richard S. Castellano" }
+    ],
+    "director": [{ "id": 39, "name": "Francis Ford Coppola" }],
+    "genre": [
+      { "id": 5, "name": "Drama" },
+      { "id": 8, "name": "Crime" }
+    ],
+    "ondemand": [
+      {
+        "id": 1552,
+        "service": "iTunes",
+        "url": "https://itunes.apple.com/gb/movie/the-godfather-the-coppola-restoration/id285494571"
+      },
+      {
+        "id": 1553,
+        "service": "Google Play",
+        "url": "https://play.google.com/store/movies/details/The_Godfather?gl=GB&hl=en&id=eRen-qxBPc0"
+      },
+      {
+        "id": 1554,
+        "service": "Amazon Instant Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B00KU7IL7W&tag=utellycom00-21"
+      }
+    ],
+    "reviews": [
+      { "id": 1670, "source": "imdb", "score": 92 },
+      { "id": 1671, "source": "rotten_toms", "score": 97 },
+      { "id": 1672, "source": "metacritic", "score": 100 }
+    ],
+    "avg_rating": 96.33333333333333
+  },
+  {
+    "slug": "IYoA8dxd-casablanca",
+    "title": "Casablanca",
+    "released": "1943-01-23",
+    "runtime": 102,
+    "writer": "Julius J. Epstein (screenplay), Philip G. Epstein (screenplay), Howard Koch (screenplay), Murray Burnett (play), Joan Alison (play)",
+    "plot": "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
+    "country": "USA",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BY2IzZGY2YmEtYzljNS00NTM5LTgwMzUtMzM1NjQ4NGI0OTk0XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg",
+    "actors": [
+      { "id": 363, "name": "Humphrey Bogart" },
+      { "id": 364, "name": "Ingrid Bergman" },
+      { "id": 365, "name": "Paul Henreid" },
+      { "id": 366, "name": "Claude Rains" }
+    ],
+    "director": [{ "id": 88, "name": "Michael Curtiz" }],
+    "genre": [
+      { "id": 5, "name": "Drama" },
+      { "id": 7, "name": "War" },
+      { "id": 13, "name": "Romance" }
+    ],
+    "ondemand": [
+      {
+        "id": 413,
+        "service": "iTunes",
+        "url": "https://itunes.apple.com/gb/movie/casablanca/id282640192"
+      },
+      {
+        "id": 414,
+        "service": "Google Play",
+        "url": "https://play.google.com/store/movies/details/Casablanca?gl=GB&hl=en&id=DcFFOV8XPBo.P"
+      },
+      {
+        "id": 415,
+        "service": "Amazon Instant Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B00I50AKIE&tag=utellycom00-21"
+      }
+    ],
+    "reviews": [
+      { "id": 413, "source": "imdb", "score": 85 },
+      { "id": 414, "source": "rotten_toms", "score": 99 },
+      { "id": 415, "source": "metacritic", "score": 100 }
+    ],
+    "avg_rating": 94.66666666666667
+  },
+  {
+    "slug": "uGsoeDqN-rear-window",
+    "title": "Rear Window",
+    "released": "1954-09-01",
+    "runtime": 112,
+    "writer": "John Michael Hayes (screenplay), Cornell Woolrich (based on the short story by)",
+    "plot": "A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.",
+    "country": "USA",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BNGUxYWM3M2MtMGM3Mi00ZmRiLWE0NGQtZjE5ODI2OTJhNTU0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+    "actors": [
+      { "id": 1125, "name": "James Stewart" },
+      { "id": 1126, "name": "Grace Kelly" },
+      { "id": 1127, "name": "Wendell Corey" },
+      { "id": 1128, "name": "Thelma Ritter" }
+    ],
+    "director": [{ "id": 250, "name": "Alfred Hitchcock" }],
+    "genre": [
+      { "id": 1, "name": "Mystery" },
+      { "id": 3, "name": "Thriller" }
+    ],
+    "ondemand": [
+      {
+        "id": 1202,
+        "service": "iTunes",
+        "url": "https://itunes.apple.com/gb/movie/rear-window-1954/id331414521"
+      },
+      {
+        "id": 1203,
+        "service": "Google Play",
+        "url": "https://play.google.com/store/movies/details/Rear_Window?gl=GB&hl=en&id=fYmVwje2Ze0"
+      },
+      {
+        "id": 1204,
+        "service": "Amazon Instant Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B00I94RVQU&tag=utellycom00-21"
+      }
+    ],
+    "reviews": [
+      { "id": 1313, "source": "imdb", "score": 85 },
+      { "id": 1314, "source": "rotten_toms", "score": 98 },
+      { "id": 1315, "source": "metacritic", "score": 100 }
+    ],
+    "avg_rating": 94.33333333333333
+  },
+  {
+    "slug": "SfFLmOBf-citizen-kane",
+    "title": "Citizen Kane",
+    "released": "1941-09-05",
+    "runtime": 119,
+    "writer": "Herman J. Mankiewicz (original screen play), Orson Welles (original screen play)",
+    "plot": "Following the death of publishing tycoon Charles Foster Kane, reporters scramble to uncover the meaning of his final utterance; 'Rosebud'.",
+    "country": "USA",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BYjBiOTYxZWItMzdiZi00NjlkLWIzZTYtYmFhZjhiMTljOTdkXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    "actors": [
+      { "id": 380, "name": "Joseph Cotten" },
+      { "id": 381, "name": "Dorothy Comingore" },
+      { "id": 382, "name": "Agnes Moorehead" },
+      { "id": 383, "name": "Ruth Warrick" }
+    ],
+    "director": [{ "id": 92, "name": "Orson Welles" }],
+    "genre": [
+      { "id": 1, "name": "Mystery" },
+      { "id": 5, "name": "Drama" }
+    ],
+    "ondemand": [
+      {
+        "id": 425,
+        "service": "iTunes",
+        "url": "https://itunes.apple.com/gb/movie/citizen-kane/id447852615"
+      },
+      {
+        "id": 426,
+        "service": "Google Play",
+        "url": "https://play.google.com/store/movies/details/Citizen_Kane?gl=GB&hl=en&id=TlIjMn0FQf8.P"
+      },
+      {
+        "id": 427,
+        "service": "Amazon Instant Video",
+        "url": "https://watch.amazon.co.uk/detail?asin=B00FM6O86E&tag=utellycom00-21"
+      }
+    ],
+    "reviews": [
+      { "id": 425, "source": "imdb", "score": 83 },
+      { "id": 426, "source": "rotten_toms", "score": 99 },
+      { "id": 427, "source": "metacritic", "score": 100 }
+    ],
+    "avg_rating": 94.0
+  }
+]
