@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../utils/api-client";
 
-import keysToCamel from "../utils/camelcase";
+// import keysToCamel from "../utils/camelcase";
 import queryString from "../utils/query-string";
 
 const initialMoviesState = {
@@ -38,8 +38,8 @@ const moviesSlice = createSlice({
       state.status = "loading";
     },
     [fetchMovies.fulfilled]: (state, action) => {
-      state.status = "succeeded";
       state.movies = action.payload.results;
+      state.status = "succeeded";
     },
     [fetchMovies.rejected]: (state, action) => {
       state.status = "failed";

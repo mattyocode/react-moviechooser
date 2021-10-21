@@ -19,7 +19,7 @@ export default function Movies() {
   const history = useHistory();
 
   let movieSelection;
-  if (moviesStatus === "succeeded" && movies && movies.length > 0) {
+  if (moviesStatus === "succeeded") {
     movieSelection = <CardContainer moviesData={movies} />;
   }
   if (moviesStatus === "loading") {
@@ -35,12 +35,12 @@ export default function Movies() {
     }
   }, [movieQuery, movies, history]);
 
-  useEffect(() => {
-    console.log("MOVIES >>>", movies);
-    if ((movieQuery && movies == null) || (movieQuery && movies.length < 1)) {
-      dispatch(fetchMovies(movieQuery));
-    }
-  }, [movies, dispatch, movieQuery]);
+  // useEffect(() => {
+  //   console.log("MOVIES >>>", movies);
+  //   if (movieQuery && moviesStatus === "idle" && movies === []) {
+  //     dispatch(fetchMovies(movieQuery));
+  //   }
+  // }, [movies, moviesStatus, dispatch, movieQuery]);
 
   return (
     <>

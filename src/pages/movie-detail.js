@@ -34,6 +34,7 @@ export default function MovieDetail() {
   }
 
   if (status === "succeeded" && movieData.length === 1) {
+    console.log("moviesData in succeed block", movieData);
     movie = <CardContainer moviesData={movieData} expandInitially={true} />;
   }
 
