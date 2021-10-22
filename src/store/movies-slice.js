@@ -9,17 +9,15 @@ const initialMoviesState = {
   movies: [],
   status: "idle",
   error: null,
+  totalCount: 0,
+  nextPageUrl: null,
 };
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (queryObj) => {
     // refactor to encode query params
-    console.log("query params in moviesSlice", queryObj);
-
     const queryParamsStr = queryString(queryObj);
-    console.log(queryParamsStr);
-
     const response = await client.get(`movies/?${queryParamsStr}`);
     return response;
   }
@@ -39,6 +37,8 @@ const moviesSlice = createSlice({
     },
     [fetchMovies.fulfilled]: (state, action) => {
       state.movies = action.payload.results;
+      state.totalCount = action.payload.count;
+      state.nextPageUrl = action.payload.next;
       state.status = "succeeded";
     },
     [fetchMovies.rejected]: (state, action) => {
