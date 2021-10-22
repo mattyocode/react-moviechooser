@@ -11,9 +11,6 @@ export function CardContainer({ moviesData, expandInitially = false }) {
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
 
-  console.log("movies data >>>>", moviesData);
-  console.log("movies data undefined >>>>", moviesData !== undefined);
-
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
     setOndemandData({});
@@ -32,6 +29,14 @@ export function CardContainer({ moviesData, expandInitially = false }) {
     setShareOpen(true);
   };
 
+  // const copyCondenser = (copy, maxLength, moreSuffix = false) => {
+  //   if (copy.length > maxLength) {
+  //     copy =
+  //       copy.slice(0, maxLength - 4) + " ... " + (moreSuffix ? "more" : "");
+  //   }
+  //   return copy;
+  // };
+
   return (
     <>
       {ondemandOpen && ondemandData && (
@@ -45,7 +50,7 @@ export function CardContainer({ moviesData, expandInitially = false }) {
         </Modal>
       )}
       <Card.Group>
-        {moviesData && moviesData !== undefined ? (
+        {moviesData && moviesData.length > 0 ? (
           moviesData.map((movie, idx) => {
             return (
               <Card key={idx} expandState={expandInitially}>

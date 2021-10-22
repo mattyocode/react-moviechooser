@@ -130,21 +130,40 @@ Card.Header = function CardHeader({
   ...restProps
 }) {
   const { expand } = useContext(CardExpandContext);
-  const isFullWidth = useMediaQuery({ query: "(min-width: 450px" });
+  const isFullWidth = useMediaQuery({ query: "(min-width: 450px)" });
   const year = released ? released.slice(0, 4) : "";
+  const copyCondenser = (copy, maxLength, moreSuffix = false) => {
+    if (copy.length > maxLength) {
+      copy =
+        copy.slice(0, maxLength - 4) + " ... " + (moreSuffix ? "more" : "");
+    }
+    return copy;
+  };
   return (
     <>
       <Header {...restProps}>
-        <h2>{title}</h2>
+        {/* <h2>{title}</h2> */}
+        {expand ? (
+          <h2>{title}</h2>
+        ) : (
+          <h2>
+            {isFullWidth
+              ? `${copyCondenser(title, 44)} `
+              : `${copyCondenser(title, 33)} `}
+          </h2>
+        )}
         <p>
           {year} | {runtime} mins
         </p>
       </Header>
-      {expand || isFullWidth ? (
+      {expand ? (
         <Plot>{plot}</Plot>
       ) : (
         <Plot>
-          {`${plot.slice(0, 75)}... `}
+          {isFullWidth
+            ? `${plot.slice(0, 150)}... `
+            : `${plot.slice(0, 75)}... `}
+          {/* {plot.slice(0, 75)} */}
           <b>more</b>
         </Plot>
       )}
