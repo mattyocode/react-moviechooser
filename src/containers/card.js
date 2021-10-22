@@ -11,6 +11,9 @@ export function CardContainer({ moviesData, expandInitially = false }) {
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
 
+  console.log("movies data >>>>", moviesData);
+  console.log("movies data undefined >>>>", moviesData !== undefined);
+
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
     setOndemandData({});
@@ -42,14 +45,14 @@ export function CardContainer({ moviesData, expandInitially = false }) {
         </Modal>
       )}
       <Card.Group>
-        {moviesData && moviesData.length > 0 ? (
+        {moviesData && moviesData !== undefined ? (
           moviesData.map((movie, idx) => {
             return (
               <Card key={idx} expandState={expandInitially}>
                 <Card.Content>
                   <Card.Sidebar>
                     <Card.AvgRating>
-                      {movie.avg_rating.toFixed(1)}
+                      {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
                     </Card.AvgRating>
                     <Card.Image src={movie.poster_url} />
                     <Card.AllRatings ratings={movie.reviews} />

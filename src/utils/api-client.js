@@ -29,20 +29,7 @@ export async function client(
     if (response.ok) {
       return data;
     }
-    // console.log(data);
 
-    // if (response.ok) {
-    //   // make sure keys from API are in camelcase
-    //   if (Array.isArray(data)) {
-    //     let camelcaseKeys = [];
-    //     data.forEach((item) => {
-    //       camelcaseKeys.push(keysToCamel(item));
-    //     });
-    //     return camelcaseKeys;
-    //   } else {
-    //     return keysToCamel(data);
-    //   }
-    // }
     throw new Error(response.statusText);
   } catch (err) {
     return Promise.reject(err.message ? err.message : data);

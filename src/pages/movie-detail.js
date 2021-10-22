@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 
 import { Headline, Loading } from "../components";
@@ -12,10 +12,25 @@ export default function MovieDetail() {
   const params = useParams();
   let route = "";
   if (params.movieId === "surprise") {
-    route = "movie/random";
+    route = "movies/random/";
   } else {
-    route = `movie/${params.movieId}`;
+    route = `movies/${params.movieId}`;
     // route = `movie/`;
+  }
+
+  let movie;
+  if (status === "pending") {
+    console.log("loading block");
+    movie = <Loading />;
+  }
+
+  if (status === "succeeded") {
+    movie = <CardContainer moviesData={[movieData]} expandInitially={true} />;
+  }
+
+  if (status === "rejected") {
+    console.log("error block");
+    movie = <p>Error: {error} </p>;
   }
 
   useEffect(() => {
@@ -28,39 +43,15 @@ export default function MovieDetail() {
     };
   }, [route, sendRequest]);
 
-  let movie;
-  if (status === "pending") {
-    movie = <Loading />;
-  }
-
-  if (status === "succeeded" && movieData.length === 1) {
-    console.log("moviesData in succeed block", movieData);
-    movie = <CardContainer moviesData={movieData} expandInitially={true} />;
-  }
-
-  if (status === "rejected") {
-    movie = <p>Error: {error} </p>;
-  }
-
   return (
     <>
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
           <Headline.Title>Surprise</Headline.Title>
-          {/* <Headline.Subhead>
-            Choose from 1000s of acclaimed movies.
-            <br />
-            Filter by genre, decade, and runtime.
-          </Headline.Subhead> */}
         </Headline>
       ) : (
         <Headline data-testid={`movie-detail-${params.movieId}`}>
-          <Headline.Title>Movie Detail</Headline.Title>
-          {/* <Headline.Subhead>
-            Choose from 1000s of acclaimed movies.
-            <br />
-            Filter by genre, decade, and runtime.
-        </Headline.Subhead> */}
+          <Headline.Title>Check this out!</Headline.Title>
         </Headline>
       )}
 
