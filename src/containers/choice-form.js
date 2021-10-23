@@ -96,6 +96,7 @@ export function ChoiceFormContainer({
             updateMin={decadeSetMin}
             updateMax={decadeSetMax}
             stepValues={decadeState.rangeLabels}
+            labelValues={decadeData.optionsArrayFull}
             dataTestId="decade"
           />
         </ChoiceForm.Panel>
@@ -117,6 +118,7 @@ export function ChoiceFormContainer({
             updateMin={runtimeSetMin}
             updateMax={runtimeSetMax}
             stepValues={runtimeState.rangeLabels}
+            labelValues={runtimeData.optionsArrayFull}
             dataTestId="runtime"
           />
         </ChoiceForm.Panel>

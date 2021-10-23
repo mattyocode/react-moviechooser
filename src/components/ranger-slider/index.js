@@ -24,6 +24,7 @@ export default function RangeSlider({
   updateMin,
   updateMax,
   stepValues,
+  labelValues = stepValues,
   dataTestId = "",
   bubbleValues = false,
 }) {
@@ -109,11 +110,11 @@ export default function RangeSlider({
     sliderValues = (
       <>
         <SliderMinVal data-testid={`${dataTestId}-min-val`}>
-          {stepValues[minValue]}
+          {labelValues[minValue]}
         </SliderMinVal>
         <p>...</p>
         <SliderMaxVal data-testid={`${dataTestId}-max-val`}>
-          {stepValues[maxValue]}
+          {labelValues[maxValue]}
         </SliderMaxVal>
       </>
     );
