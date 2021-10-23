@@ -385,3 +385,35 @@ export const Text = styled.p`
     font-size: 0.6rem;
   }
 `;
+
+export const MoreBtnWrapper = styled.div`
+  max-width: 350px;
+  height: 3rem;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem 1rem 3rem 1rem;
+`;
+
+export const MoreBtn = styled.button`
+  max-width: 25rem;
+  margin: 0 auto;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 5px;
+  border-style: hidden;
+  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
+  box-shadow: inset 0 0 0.15em 0 var(--clr-neon), 0 0 0.15em 0 var(--clr-neon);
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  color: #111;
+  font-size: 1rem;
+  font-weight: bold;
+
+  @media screen and (max-width: 400px) {
+    font-size: 0.8rem;
+    width: 7rem;
+  }
+`;

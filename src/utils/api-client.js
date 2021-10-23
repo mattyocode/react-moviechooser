@@ -5,7 +5,8 @@ console.log("apiURL", apiURL);
 
 export async function client(
   endpoint,
-  { body, token, signal, headers: customHeaders, ...customConfig } = {}
+  { body, token, signal, headers: customHeaders, ...customConfig } = {},
+  fullUrl
 ) {
   const config = {
     method: body ? "POST" : "GET",
@@ -19,10 +20,17 @@ export async function client(
 
     ...customConfig,
   };
-
+  console.log("fullUrl value", fullUrl);
   let data;
   try {
-    const response = await fetch(`${apiURL}/${endpoint}`, config);
+    let response;
+    if (fullUrl === true) {
+      console.log("full", fullUrl);
+      response = await fetch(`${endpoint}`, config);
+    } else {
+      console.log("Not full");
+      response = await fetch(`${apiURL}/${endpoint}`, config);
+    }
     // console.log(response);
 
     data = await response.json();
@@ -36,10 +44,10 @@ export async function client(
   }
 }
 
-client.get = function (endpoint, customConfig = {}) {
-  return client(endpoint, { ...customConfig, method: "GET" });
+client.get = function (endpoint, customConfig = {}, fullUrl = false) {
+  return client(endpoint, { ...customConfig, method: "GET" }, fullUrl);
 };
 
-client.post = function (endpoint, body, customConfig = {}) {
-  return client(endpoint, { ...customConfig, body });
+client.post = function (endpoint, body, customConfig = {}, fullUrl = false) {
+  return client(endpoint, { ...customConfig, body }, fullUrl);
 };

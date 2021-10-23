@@ -13,7 +13,7 @@ export const ReleaseBody = createGlobalStyle`
 `;
 
 export const Spinner = styled.div`
-  position: fixed;
+  position: ${(props) => (props.small ? "relative" : "fixed")};
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -31,6 +31,19 @@ export const Spinner = styled.div`
     margin-left: -75px;
     width: 150px;
     height: 150px;
+    ${(props) =>
+      props.small &&
+      `
+        margin-top: -30px;
+        margin-left: -15px;
+        width: 30px;
+        height: 30px;
+    `}
+
+    /* margin-top: ${(props) => (props.$small ? "-30px" : "-150px")}
+    margin-left: ${(props) => (props.$small ? "-15px" : "-75px")};
+    width: ${(props) => (props.$small ? "-30px" : "-150px")};
+    height: ${(props) => (props.$small ? "-30px" : "-150px")}; */
     animation-name: spin;
     animation-duration: 1000ms;
     animation-iteration-count: infinite;

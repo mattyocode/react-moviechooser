@@ -21,7 +21,8 @@ import {
   Actions,
   Action,
   Icon,
-  Text,
+  MoreBtn,
+  MoreBtnWrapper,
 } from "./styles/card";
 
 import * as IconAssets from "../../assets";
@@ -163,7 +164,6 @@ Card.Header = function CardHeader({
           {isFullWidth
             ? `${plot.slice(0, 150)}... `
             : `${plot.slice(0, 75)}... `}
-          {/* {plot.slice(0, 75)} */}
           <b>more</b>
         </Plot>
       )}
@@ -207,7 +207,7 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
   );
 };
 
-Card.Footer = function CardFooter({ children, ...restProps }) {
+Card.Footer = function CardFooter({ show = true, children, ...restProps }) {
   const { expand, setExpand } = useContext(CardExpandContext);
   return (
     <Footer {...restProps}>
@@ -215,11 +215,17 @@ Card.Footer = function CardFooter({ children, ...restProps }) {
         <MdExpandMore
           fill="#666"
           onClick={() => setExpand((expand) => !expand)}
+          style={
+            show ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
+          }
         />
       ) : (
         <MdExpandLess
           fill="#666"
           onClick={() => setExpand((expand) => !expand)}
+          style={
+            show ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
+          }
         />
       )}
       <Actions>{children}</Actions>
@@ -233,4 +239,12 @@ Card.Action = function CardAction({ label, children, ...restProps }) {
       <Icon>{children}</Icon>
     </Action>
   );
+};
+
+Card.MoreBtnWrapper = function CardMoreBtnWrapper({ children, ...restProps }) {
+  return <MoreBtnWrapper {...restProps}>{children}</MoreBtnWrapper>;
+};
+
+Card.MoreBtn = function CardMoreButton({ children, ...restProps }) {
+  return <MoreBtn {...restProps}>{children}</MoreBtn>;
 };

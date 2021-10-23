@@ -5,7 +5,7 @@ import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
 
-export function CardContainer({ moviesData, expandInitially = false }) {
+export function CardContainer({ movie, expandInitially = false }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
   const [shareOpen, setShareOpen] = useState(false);
@@ -49,78 +49,66 @@ export function CardContainer({ moviesData, expandInitially = false }) {
           <ShareContainer data={shareData} />
         </Modal>
       )}
-      <Card.Group>
-        {moviesData && moviesData.length > 0 ? (
-          moviesData.map((movie, idx) => {
-            return (
-              <Card key={idx} expandState={expandInitially}>
-                <Card.Content>
-                  <Card.Sidebar>
-                    <Card.AvgRating>
-                      {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
-                    </Card.AvgRating>
-                    <Card.Image src={movie.poster_url} />
-                    <Card.AllRatings ratings={movie.reviews} />
-                  </Card.Sidebar>
-                  <Card.Main>
-                    <Card.Header
-                      title={movie.title}
-                      released={movie.released}
-                      runtime={movie.runtime}
-                      plot={movie.plot}
-                    />
-                    <Card.FurtherInfo
-                      starring={movie.actors
-                        .map((actor) => actor.name)
-                        .join(",")}
-                      director={movie.director
-                        .map((director) => director.name)
-                        .join(",")}
-                      country={movie.country}
-                    />
-                    <Card.Genres genres={movie.genre} />
-                  </Card.Main>
-                  <Card.Footer>
-                    {movie.ondemand && movie.ondemand.length > 0 && (
-                      <Card.Action
-                        data-testid={`${movie.title}-ondemand`}
-                        label="Watch"
-                        onClick={() =>
-                          openOndemandHandler({
-                            title: movie.title,
-                            imgUrl: movie.ondemandImg,
-                            linksData: movie.ondemand,
-                          })
-                        }
-                      >
-                        <MdOndemandVideo />
-                      </Card.Action>
-                    )}
-                    <Card.Action
-                      data-testid={`${movie.title}-share`}
-                      label="Share"
-                      onClick={() =>
-                        openShareHandler({
-                          title: movie.title,
-                          posterUrl: movie.poster_url,
-                          shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
-                        })
-                      }
-                    >
-                      <MdShare />
-                    </Card.Action>
-                    <Card.Action label="Save">
-                      <MdLibraryAdd />
-                    </Card.Action>
-                  </Card.Footer>
-                </Card.Content>
-              </Card>
-            );
-          })
-        ) : (
-          <p>Error: no movies recieved!</p>
-        )}
-      </Card.Group>
+      <Card expandState={expandInitially}>
+        <Card.Content>
+          <Card.Sidebar>
+            <Card.AvgRating>
+              {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
+            </Card.AvgRating>
+            <Card.Image src={movie.poster_url} />
+            <Card.AllRatings ratings={movie.reviews} />
+          </Card.Sidebar>
+          <Card.Main>
+            <Card.Header
+              title={movie.title}
+              released={movie.released}
+              runtime={movie.runtime}
+              plot={movie.plot}
+            />
+            <Card.FurtherInfo
+              starring={movie.actors.map((actor) => actor.name).join(",")}
+              director={movie.director
+                .map((director) => director.name)
+                .join(",")}
+              country={movie.country}
+            />
+            <Card.Genres genres={movie.genre} />
+          </Card.Main>
+          <Card.Footer show={!expandInitially}>
+            {movie.ondemand && movie.ondemand.length > 0 && (
+              <Card.Action
+                data-testid={`${movie.title}-ondemand`}
+                label="Watch"
+                onClick={() =>
+                  openOndemandHandler({
+                    title: movie.title,
+                    imgUrl: movie.ondemandImg,
+                    linksData: movie.ondemand,
+                  })
+                }
+              >
+                <MdOndemandVideo />
+              </Card.Action>
+            )}
+            <Card.Action
+              data-testid={`${movie.title}-share`}
+              label="Share"
+              onClick={() =>
+                openShareHandler({
+                  title: movie.title,
+                  posterUrl: movie.poster_url,
+                  shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
+                })
+              }
+            >
+              <MdShare />
+            </Card.Action>
+            <Card.Action label="Save">
+              <MdLibraryAdd />
+            </Card.Action>
+          </Card.Footer>
+        </Card.Content>
+      </Card>
     </>
   );
 }

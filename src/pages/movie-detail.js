@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
@@ -8,6 +8,8 @@ import { useHttp } from "../hooks";
 
 export default function MovieDetail() {
   const { sendRequest, status, error, data: movieData } = useHttp(client);
+  const location = useLocation();
+  console.log("useLocation", location);
 
   const params = useParams();
   let route = "";
@@ -20,16 +22,14 @@ export default function MovieDetail() {
 
   let movie;
   if (status === "pending") {
-    console.log("loading block");
     movie = <Loading />;
   }
 
   if (status === "succeeded") {
-    movie = <CardContainer moviesData={[movieData]} expandInitially={true} />;
+    movie = <CardContainer movie={movieData} expandInitially={true} />;
   }
 
   if (status === "rejected") {
-    console.log("error block");
     movie = <p>Error: {error} </p>;
   }
 
@@ -41,13 +41,13 @@ export default function MovieDetail() {
     return () => {
       abortController.abort();
     };
-  }, [route, sendRequest]);
+  }, [route, sendRequest, location.key]);
 
   return (
     <>
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
-          <Headline.Title>Surprise</Headline.Title>
+          <Headline.Title>Surprise!</Headline.Title>
         </Headline>
       ) : (
         <Headline data-testid={`movie-detail-${params.movieId}`}>

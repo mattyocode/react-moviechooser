@@ -16,9 +16,16 @@ const initialMoviesState = {
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (queryObj) => {
-    // refactor to encode query params
     const queryParamsStr = queryString(queryObj);
     const response = await client.get(`movies/?${queryParamsStr}`);
+    return response;
+  }
+);
+
+export const addMovies = createAsyncThunk(
+  "movies/addMovies",
+  async (nextPageUrl) => {
+    const response = await client.get(`${nextPageUrl}`, {}, true);
     return response;
   }
 );
@@ -42,6 +49,18 @@ const moviesSlice = createSlice({
       state.status = "succeeded";
     },
     [fetchMovies.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    },
+    [addMovies.pending]: (state, action) => {
+      state.status = "updating";
+    },
+    [addMovies.fulfilled]: (state, action) => {
+      state.movies = state.movies.concat(action.payload.results);
+      state.nextPageUrl = action.payload.next;
+      state.status = "succeeded";
+    },
+    [addMovies.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
     },
