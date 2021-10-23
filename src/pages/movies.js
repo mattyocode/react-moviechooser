@@ -11,10 +11,13 @@ export default function Movies() {
   const movieQuery = useSelector((state) => state.movies.queryParams);
   const moviesStatus = useSelector((state) => state.movies.status);
   const moviesError = useSelector((state) => state.movies.error);
-  const moviesMore = useSelector((state) => state.movies.nextPageUrl);
+  const nextPage = useSelector((state) => state.movies.nextPageUrl);
+  const moviesCount = useSelector((state) => state.movies.totalCount);
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const moreMovies = movies.length < moviesCount;
 
   useEffect(() => {
     if (!movieQuery) {
@@ -30,7 +33,7 @@ export default function Movies() {
   // }, [movies, moviesStatus, dispatch, movieQuery]);
 
   const addMoviesHandler = () => {
-    dispatch(addMovies(moviesMore));
+    dispatch(addMovies(nextPage));
   };
 
   return (
@@ -47,8 +50,11 @@ export default function Movies() {
       <div>{moviesStatus === "loading" && <Loading />}</div>
       <div>{moviesStatus === "failed" && <p>Error: {moviesError}</p>}</div>
       <Card.MoreBtnWrapper>
-        {moviesMore !== null && moviesStatus === "succeeded" && (
+        {moreMovies && moviesStatus === "succeeded" && (
           <Card.MoreBtn onClick={addMoviesHandler}>More</Card.MoreBtn>
+        )}
+        {!moreMovies && moviesStatus === "succeeded" && (
+          <p>No more movies to load.</p>
         )}
         {moviesStatus === "updating" && <Loading small />}
       </Card.MoreBtnWrapper>
