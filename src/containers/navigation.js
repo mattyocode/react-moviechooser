@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import { Navbar } from "../components";
 
 import { linksData } from "../fixtures/navData";
@@ -12,6 +13,19 @@ export function NavbarContainer({ children }) {
   const closeLinks = () => {
     setShowLinks(false);
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      let elem = document.getElementById(location.hash.slice(1));
+      if (elem) {
+        elem.scrollIntoView();
+      } else {
+        window.scrollTo({ top: 0, left: 0 });
+      }
+    }
+  }, [location]);
 
   return (
     <Navbar>

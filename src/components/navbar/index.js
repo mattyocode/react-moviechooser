@@ -28,8 +28,11 @@ Navbar.Header = function Header({ children, ...restProps }) {
 };
 
 Navbar.Logo = function NavLogo({ to, src, ...restProps }) {
+  const goToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
-    <ReactRouterLink to={to}>
+    <ReactRouterLink to={to} onClick={goToTop}>
       <Logo src={src} {...restProps} />
     </ReactRouterLink>
   );
@@ -82,29 +85,16 @@ Navbar.Links = function NavBarLinks({
       <LinksContainer ref={linksContainerRef}>
         <LinksList ref={linksListRef}>
           {linksData.map((link) => {
-            const { id, url, text, highlight, isHash } = link;
-            const hashLink = isHash;
-            console.log("HASH", hashLink);
+            const { id, url, text, activeClass, highlight } = link;
             return (
               <li key={id} onClick={togglefn}>
-                {!hashLink ? (
-                  <NavBarLink
-                    to={url}
-                    activeClassName="active"
-                    $highlight={highlight}
-                  >
-                    {text}
-                  </NavBarLink>
-                ) : (
-                  <NavBarHashLink
-                    to={url}
-                    $highlight={highlight}
-                    spy={true}
-                    smooth={true}
-                  >
-                    {text}
-                  </NavBarHashLink>
-                )}
+                <NavBarLink
+                  to={url}
+                  activeClassName={activeClass}
+                  $highlight={highlight}
+                >
+                  {text}
+                </NavBarLink>
               </li>
             );
           })}

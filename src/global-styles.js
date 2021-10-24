@@ -14,6 +14,10 @@ export const GlobalStyles = createGlobalStyle`
         color: #eee;
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     html, body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
