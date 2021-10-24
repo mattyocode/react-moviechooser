@@ -40,12 +40,12 @@ export function CardContainer({ movie, expandInitially = false }) {
   return (
     <>
       {ondemandOpen && ondemandData && (
-        <Modal closeModal={closeOndemandHandler}>
+        <Modal openState={ondemandOpen} closeModal={closeOndemandHandler}>
           <OndemandContainer data={ondemandData} />
         </Modal>
       )}
       {shareOpen && shareData && (
-        <Modal closeModal={closeShareHandler}>
+        <Modal openState={shareOpen} closeModal={closeShareHandler}>
           <ShareContainer data={shareData} />
         </Modal>
       )}

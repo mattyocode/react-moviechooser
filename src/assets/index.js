@@ -5,7 +5,7 @@ import Star from "./svg/star.svg";
 
 import amazonInstantVideo from "./svg/amazonInstantVideo.svg";
 import amazonPrimeVideo from "./svg/amazonPrimeVideo.svg";
-import disneyPlus from "./svg/disneyPlus.svg";
+import disney from "./svg/disney.svg";
 import googlePlay from "./svg/googlePlay.svg";
 import netflix from "./svg/netflix.svg";
 import iTunes from "./svg/iTunes.svg";
@@ -24,7 +24,7 @@ export {
   Star,
   amazonInstantVideo,
   amazonPrimeVideo,
-  disneyPlus,
+  disney,
   googlePlay,
   netflix,
   iTunes,

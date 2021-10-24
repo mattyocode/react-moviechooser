@@ -6,7 +6,7 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 20;
+  z-index: 120;
   background-image: linear-gradient(
     135deg,
     rgb(0, 0, 0),
@@ -29,7 +29,7 @@ export const Overlay = styled.div`
   border-radius: 5px;
   border: var(--clr-neon) 2px solid;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  z-index: 30;
+  z-index: 130;
   /* animation: slide-down 300ms ease-out forwards; */
 
   @media screen and (min-width: 400px) {
@@ -44,5 +44,5 @@ export const Close = styled.div`
   top: -4rem;
   right: -1rem;
   cursor: pointer;
-  z-index: 40;
+  z-index: 140;
 `;
