@@ -11,6 +11,8 @@ import {
   LinksContainer,
   LinksList,
   NavBarLink,
+  NavBarHashLink,
+  NavLinkBackdrop,
 } from "./styles/navigation";
 
 export default function Navbar({ children, ...restProps }) {
@@ -52,7 +54,13 @@ Navbar.ToggleBtn = function NavToggle({ isOpen, togglefn }) {
   );
 };
 
-Navbar.Links = function NavBarLinks({ linksData, showLinks, ...restProps }) {
+Navbar.Links = function NavBarLinks({
+  linksData,
+  showLinks,
+  togglefn,
+  closefn,
+  ...restProps
+}) {
   const linksContainerRef = useRef();
   const linksListRef = useRef();
 
@@ -66,23 +74,42 @@ Navbar.Links = function NavBarLinks({ linksData, showLinks, ...restProps }) {
   }, [showLinks]);
 
   return (
-    <LinksContainer ref={linksContainerRef}>
-      <LinksList ref={linksListRef}>
-        {linksData.map((link) => {
-          const { id, url, text, highlight } = link;
-          return (
-            <li key={id}>
-              <NavBarLink
-                to={url}
-                activeClassName="active"
-                $highlight={highlight}
-              >
-                {text}
-              </NavBarLink>
-            </li>
-          );
-        })}
-      </LinksList>
-    </LinksContainer>
+    <>
+      <NavLinkBackdrop
+        onClick={closefn}
+        className={!showLinks && "remove"}
+      ></NavLinkBackdrop>
+      <LinksContainer ref={linksContainerRef}>
+        <LinksList ref={linksListRef}>
+          {linksData.map((link) => {
+            const { id, url, text, highlight, isHash } = link;
+            const hashLink = isHash;
+            console.log("HASH", hashLink);
+            return (
+              <li key={id} onClick={togglefn}>
+                {!hashLink ? (
+                  <NavBarLink
+                    to={url}
+                    activeClassName="active"
+                    $highlight={highlight}
+                  >
+                    {text}
+                  </NavBarLink>
+                ) : (
+                  <NavBarHashLink
+                    to={url}
+                    $highlight={highlight}
+                    spy={true}
+                    smooth={true}
+                  >
+                    {text}
+                  </NavBarHashLink>
+                )}
+              </li>
+            );
+          })}
+        </LinksList>
+      </LinksContainer>
+    </>
   );
 };

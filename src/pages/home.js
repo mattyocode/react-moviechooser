@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { Headline, Loading } from "../components";
+import { About, Headline, Loading } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 
 import homepageData from "../fixtures/homepage.json";
+import largeLogo from "../assets/png/logo_large.png";
 
 export default function Home() {
   const genres = useSelector((state) => state.options.options);
@@ -58,6 +59,28 @@ export default function Home() {
         </Headline.Subhead>
       </Headline>
       {choiceForm}
+      <About src={largeLogo} id="about">
+        <h2>About MOVIECHOOSER</h2>
+        <br />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem
+          velit, condimentum quis dolor finibus, laoreet ornare sem. In
+          dignissim.
+        </p>
+        <br />
+        <p>
+          Maecenas porta euismod mi ac volutpat. In in leo tempor, pellentesque
+          urna non, ultricies elit. Sed ipsum purus, malesuada vel est ut,
+          eleifend semper ligula. In tempus ultricies pretium. Cras sit amet
+          viverra ex.
+        </p>
+        <br />
+        <p>
+          Nullam posuere nibh quis porta ullamcorper. Aliquam fringilla
+          hendrerit lectus, sed dignissim velit varius in. Phasellus egestas
+          quam eget lectus viverra finibus. Vestibulum quis tempor velit.{" "}
+        </p>
+      </About>
     </>
   );
 }

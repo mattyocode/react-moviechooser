@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components/macro";
 import { NavLink as ReactRouterLink } from "react-router-dom";
+import { Link as HashLink } from "react-scroll";
 
 export const Nav = styled.nav`
   @media screen and (min-width: 800px) {
@@ -7,7 +8,7 @@ export const Nav = styled.nav`
     top: 0;
     left: 0;
     right: 0;
-    z-index: 20;
+    z-index: 100;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -94,18 +95,18 @@ export const Button = styled.button`
 `;
 
 export const LinksContainer = styled.div`
-  position: fixed;
+  position: absolute;
   right: 0;
   display: block;
   height: 0;
   overflow: hidden;
   transition: all 0.3s linear;
-  min-width: 40%;
+  min-width: 50%;
   background-color: black;
   border-radius: 0 0 0 5px;
   /* border: var(--clr-neon) 1px solid; */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  z-index: 10;
+  z-index: 90;
 
   @media screen and (min-width: 800px) {
     position: relative;
@@ -180,5 +181,70 @@ export const NavBarLink = styled(ReactRouterLink)`
       flex-direction: row;
       align-items: center;
     }
+  }
+`;
+
+export const NavBarHashLink = styled(HashLink)`
+  letter-spacing: 0.1rem;
+  display: block;
+  transition: all 0.3s linear;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  margin: 0.5rem 0;
+
+  border: ${(props) =>
+    props.$highlight
+      ? "1px solid rgba(83, 204, 202, 0.6)"
+      : "1px solid rgba(0, 0, 0, 0)"};
+  padding: 0.25rem 0.5rem;
+  max-width: fit-content;
+  box-shadow: ${(props) =>
+    props.$highlight
+      ? "inset 0 0 0.15em 0 var(--clr-neon), 0 0 0.15em 0 var(--clr-neon)"
+      : "none"};
+
+  &:hover {
+    text-shadow: 0 0 0.5em hsl(0 0% 50% / 0.5), 0 0 0.01em currentColor;
+    border: ${(props) =>
+      props.$highlight
+        ? "1px solid var(--clr-neon)"
+        : "1px solid rgba(0, 0, 0, 0)"};
+
+    background-color: #0f3030;
+    box-shadow: 0 0 8px 2px #0f3030;
+  }
+
+  &.active {
+    color: var(--clr-neon);
+    border: 1px solid rgba(0, 0, 0, 0);
+  }
+
+  @media screen and (min-width: 800px) {
+    font-size: 1rem;
+    max-width: none;
+
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.2rem;
+    box-shadow: none;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+`;
+
+export const NavLinkBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 80;
+
+  &.remove {
+    display: none;
   }
 `;

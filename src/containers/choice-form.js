@@ -126,7 +126,7 @@ export function ChoiceFormContainer({
           <ChoiceForm.Submit>
             {/* <ChoiceForm.SubmitBtn>Choose One</ChoiceForm.SubmitBtn> */}
             <ChoiceForm.SubmitBtn data-testid="all-matches-btn">
-              All Matches
+              Get Movies
             </ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>
         </ChoiceForm.Panel>
