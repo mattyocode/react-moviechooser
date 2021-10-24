@@ -8,3 +8,4 @@ export { default as Card } from "./card";
 export { default as CardActions } from "./card-actions";
 export { default as Modal } from "./modal";
 export { default as About } from "./about";
+export { default as Footer } from "./footer";

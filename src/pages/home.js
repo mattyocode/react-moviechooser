@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { About, Headline, Loading } from "../components";
+import { About, Headline, Loading, Footer } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
@@ -63,24 +63,28 @@ export default function Home() {
         <h2>About MOVIECHOOSER</h2>
         <br />
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem
-          velit, condimentum quis dolor finibus, laoreet ornare sem. In
-          dignissim.
+          Tired of spending so much time figuring out <i>what</i> to watch that
+          you give up and put on a TV show you could recite from memory? Yeah,
+          same. Which is why I made MOVIECHOOSER.
         </p>
         <br />
         <p>
-          Maecenas porta euismod mi ac volutpat. In in leo tempor, pellentesque
-          urna non, ultricies elit. Sed ipsum purus, malesuada vel est ut,
-          eleifend semper ligula. In tempus ultricies pretium. Cras sit amet
-          viverra ex.
+          MOVIECHOOSER is 1000s of stand-out movies all a few clicks away – from
+          classics and critics' favourites to box office hits and hidden gems.
+          Search is based on the fundamental things that define a film: what
+          it's about (genre), when it was made (release decade), and how long it
+          is (runtime). Then browse the results and start watching. Or, if you
+          want to let fate decide, click 'Surprise Me' for a totally random
+          movie choice from the collection. Where available, click through to
+          play movie on streaming services (UK-only for now).
         </p>
         <br />
         <p>
-          Nullam posuere nibh quis porta ullamcorper. Aliquam fringilla
-          hendrerit lectus, sed dignissim velit varius in. Phasellus egestas
-          quam eget lectus viverra finibus. Vestibulum quis tempor velit.{" "}
+          Life's too short for bad movies. <br />
+          Chooser better with MOVIECHOOSER.
         </p>
       </About>
+      <Footer />
     </>
   );
 }

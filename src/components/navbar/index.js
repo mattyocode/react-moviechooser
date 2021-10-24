@@ -85,13 +85,14 @@ Navbar.Links = function NavBarLinks({
       <LinksContainer ref={linksContainerRef}>
         <LinksList ref={linksListRef}>
           {linksData.map((link) => {
-            const { id, url, text, activeClass, highlight } = link;
+            const { id, url, text, activeClass, highlight, addClass } = link;
             return (
               <li key={id} onClick={togglefn}>
                 <NavBarLink
                   to={url}
                   activeClassName={activeClass}
                   $highlight={highlight}
+                  className={addClass}
                 >
                   {text}
                 </NavBarLink>

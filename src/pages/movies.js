@@ -25,13 +25,6 @@ export default function Movies() {
     }
   }, [movieQuery, movies, history]);
 
-  // useEffect(() => {
-  //   console.log("MOVIES >>>", movies);
-  //   if (movieQuery && moviesStatus === "idle" && movies === []) {
-  //     dispatch(fetchMovies(movieQuery));
-  //   }
-  // }, [movies, moviesStatus, dispatch, movieQuery]);
-
   const addMoviesHandler = () => {
     dispatch(addMovies(nextPage));
   };

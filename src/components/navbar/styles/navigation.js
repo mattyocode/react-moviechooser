@@ -168,6 +168,10 @@ export const NavBarLink = styled(ReactRouterLink)`
     /* border-bottom: 1px solid rgba(100, 100, 50, 0.5); */
   }
 
+  &.grey {
+    color: gray;
+  }
+
   @media screen and (min-width: 800px) {
     font-size: 1rem;
     max-width: none;
