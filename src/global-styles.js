@@ -14,10 +14,6 @@ export const GlobalStyles = createGlobalStyle`
         color: #eee;
     }
 
-    html {
-        scroll-behavior: smooth;
-    }
-
     html, body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -29,18 +25,29 @@ export const GlobalStyles = createGlobalStyle`
     body {
         width: 100vw;
         background-image: linear-gradient(
-            135deg,
+            155deg,
             #000,
-            #000 30%,
-            #00192d 65%,
+            #000 10%,
+            #00192d 25%,
             #164642 85%,
             #44bb9f 110%
         );
         background-attachment: fixed;
+        
+        @media screen and (min-width: 1000px) {
+            background-image: linear-gradient(
+            155deg,
+            #000,
+            #000 17%,
+            #00192d 35%,
+            #164642 85%,
+            #44bb9f 110%
+        );
+        }
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         margin: 0 0 0.5rem 0;
     }
 
@@ -75,7 +82,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0.2rem 0;
     }
     h3 {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
         }
     }
 

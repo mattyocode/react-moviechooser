@@ -20,7 +20,7 @@ export const Label = styled.label`
   cursor: pointer;
 
   @media screen and (max-width: 400px) {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     margin: 0.3rem 0.25rem;
   }
 

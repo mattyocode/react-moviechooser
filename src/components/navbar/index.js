@@ -11,7 +11,6 @@ import {
   LinksContainer,
   LinksList,
   NavBarLink,
-  NavBarHashLink,
   NavLinkBackdrop,
 } from "./styles/navigation";
 

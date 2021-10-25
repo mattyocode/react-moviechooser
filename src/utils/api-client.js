@@ -1,7 +1,4 @@
-import keysToCamel from "../utils/camelcase";
-
 const apiURL = process.env.REACT_APP_TEST_API;
-console.log("apiURL", apiURL);
 
 export async function client(
   endpoint,
@@ -20,18 +17,15 @@ export async function client(
 
     ...customConfig,
   };
-  console.log("fullUrl value", fullUrl);
+
   let data;
   try {
     let response;
     if (fullUrl === true) {
-      console.log("full", fullUrl);
       response = await fetch(`${endpoint}`, config);
     } else {
-      console.log("Not full");
       response = await fetch(`${apiURL}/${endpoint}`, config);
     }
-    // console.log(response);
 
     data = await response.json();
     if (response.ok) {

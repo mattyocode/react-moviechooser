@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Navbar } from "../components";
 
+import { elementScrollIntoView } from "seamless-scroll-polyfill";
+
 import { linksData } from "../fixtures/navData";
 import mainLogo from "../assets/png/logo.png";
 
@@ -20,7 +22,10 @@ export function NavbarContainer({ children }) {
     if (location.hash) {
       let elem = document.getElementById(location.hash.slice(1));
       if (elem) {
-        elem.scrollIntoView();
+        elementScrollIntoView(
+          document.querySelector(`#${location.hash.slice(1)}`),
+          { behavior: "smooth", block: "center", inline: "center" }
+        );
       } else {
         window.scrollTo({ top: 0, left: 0 });
       }

@@ -112,7 +112,7 @@ export default function RangeSlider({
         <SliderMinVal data-testid={`${dataTestId}-min-val`}>
           {labelValues[minValue]}
         </SliderMinVal>
-        <p>...</p>
+        <p> to </p>
         <SliderMaxVal data-testid={`${dataTestId}-max-val`}>
           {labelValues[maxValue]}
         </SliderMaxVal>

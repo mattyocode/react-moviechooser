@@ -47,7 +47,7 @@ export default function MovieDetail() {
     <>
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
-          <Headline.Title>Surprise!</Headline.Title>
+          <Headline.Title>Random has chosen...</Headline.Title>
         </Headline>
       ) : (
         <Headline data-testid={`movie-detail-${params.movieId}`}>

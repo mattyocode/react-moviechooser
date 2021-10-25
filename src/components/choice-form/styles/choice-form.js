@@ -15,10 +15,10 @@ export const Base = styled.form``;
 export const Panel = styled.div`
   position: relative;
   border-radius: 5px;
-  background: rgba(34, 34, 34, 0.3);
+  background: rgba(34, 34, 34, 0.5);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   width: 100%;
-  padding: 1rem;
+  padding: 2rem 1rem;
   margin: 20px 0;
   text-align: center;
 

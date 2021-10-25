@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { Backdrop, Close, Overlay } from "./styles/modal";
@@ -16,16 +16,6 @@ export default function Modal({
   children,
   ...restProps
 }) {
-  useEffect(() => {
-    if (openState) {
-      document.body.style.position = "fixed";
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.position = "static";
-      document.body.style.overflow = "visible";
-    };
-  }, [openState]);
   return (
     <>
       {ReactDOM.createPortal(

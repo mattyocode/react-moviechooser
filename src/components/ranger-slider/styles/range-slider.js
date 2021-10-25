@@ -51,6 +51,7 @@ const Thumb = styled.input`
   width: 20rem;
   outline: none;
   z-index: 6;
+  border: none;
 
   @media screen and (max-width: 400px) {
     width: 15rem;
@@ -59,28 +60,44 @@ const Thumb = styled.input`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    background-color: #f1f5f7;
-    border: none;
+    background-image: radial-gradient(
+      rgba(81, 199, 214, 1) 0%,
+      rgba(81, 199, 214, 1) 45%,
+      rgba(81, 199, 214, 0) 45%
+    );
+    border: 0 !important;
     border-radius: 50%;
-    box-shadow: 0 0 1px 1px #ced4da;
     cursor: pointer;
-    height: 12px;
-    width: 12px;
+    height: 20px;
+    width: 20px;
     margin-top: 4px;
     pointer-events: all;
     position: relative;
+    transform: scale(1.5);
+
+    @media screen and (min-width: 400px) {
+      transform: scale(1.4);
+    }
   }
+
   &::-moz-range-thumb {
-    background-color: #f1f5f7;
-    border: none;
+    background-image: radial-gradient(
+      rgba(81, 199, 214, 1) 0%,
+      rgba(81, 199, 214, 1) 45%,
+      rgba(81, 199, 214, 0) 45%
+    );
     border-radius: 50%;
-    box-shadow: 0 0 1px 1px #ced4da;
+    border: 0 !important;
     cursor: pointer;
-    height: 12px;
-    width: 12px;
+    height: 20px;
+    width: 20px;
     margin-top: 4px;
     pointer-events: all;
     position: relative;
+    transform: scale(1.5);
+    @media screen and (min-width: 400px) {
+      transform: scale(1.4);
+    }
   }
 `;
 
@@ -98,8 +115,8 @@ export const SliderValWrapper = styled.div`
   justify-content: center;
 
   p {
-    padding: 0 0.4rem;
     align-self: flex-end;
+    padding: 0.2rem;
   }
 `;
 
@@ -114,7 +131,7 @@ export const SliderVal = styled.output`
   border-radius: 5px;
 
   @media screen and (max-width: 800px) {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 `;
 
@@ -181,7 +198,7 @@ export const RangeLabel = styled.div`
     transition: color 0.3s;
 
     @media screen and (max-width: 400px) {
-      font-size: ${(props) => (props.highlight ? "11px" : "10px")};
+      font-size: ${(props) => (props.highlight ? "12px" : "11px")};
     }
   }
 `;
