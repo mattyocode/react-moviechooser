@@ -46,7 +46,7 @@ jobs:
         run: yarn build
 
       - name: Deploy
+        env:
+          BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
         run: |
-          echo "BUCKET_NAME=s3://${{ secrets.BUCKET_NAME }}" >> $GITHUB_ENV
-
-          aws s3 sync ./build ${{ env.BUCKET_NAME}}
+          aws s3 sync ./build 'echo "$BUCKET_NAME"'
