@@ -46,7 +46,7 @@ jobs:
         run: yarn build
 
       - name: Deploy
-        env:
+        with:
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           aws s3 sync . s3://$BUCKET_NAME
