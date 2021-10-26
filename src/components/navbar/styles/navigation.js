@@ -199,4 +199,8 @@ export const NavLinkBackdrop = styled.div`
   &.remove {
     display: none;
   }
+
+  @media screen and (min-width: 800px) {
+    display: none;
+  }
 `;

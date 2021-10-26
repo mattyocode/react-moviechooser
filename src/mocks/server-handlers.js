@@ -12,16 +12,14 @@ const handlers = [
     return res(ctx.status(200), ctx.json(testGenreData));
   }),
   rest.get(`${apiUrl}/movies/`, async (req, res, ctx) => {
-    const queryParams = req.url.searchParams;
-    // console.log(queryParams);
     return res(ctx.status(200), ctx.json(moviesData));
   }),
-  rest.get(`${apiUrl}/movie/random`, async (req, res, ctx) => {
-    const movieData = Array(moviesData[0]);
+  rest.get(`${apiUrl}/movies/random`, async (req, res, ctx) => {
+    const movieData = moviesData[0];
     return res(ctx.status(200), ctx.json(movieData));
   }),
-  rest.get(`${apiUrl}/movie/123`, async (req, res, ctx) => {
-    const movieData = Array(moviesData[3]);
+  rest.get(`${apiUrl}/movies/123`, async (req, res, ctx) => {
+    const movieData = moviesData[3];
     return res(ctx.status(200), ctx.json(movieData));
   }),
 ];

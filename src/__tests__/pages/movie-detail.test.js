@@ -7,11 +7,11 @@ import "@testing-library/jest-dom";
 import { MovieDetail } from "../../pages";
 
 describe("<MovieDetail/> Surprise page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/movie/random`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/movies/random`;
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={["/movie/surprise"]}>
-        <Route path="/movie/:movieId">
+      <MemoryRouter initialEntries={["/movies/surprise"]}>
+        <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
       </MemoryRouter>
@@ -27,10 +27,8 @@ describe("<MovieDetail/> Surprise page tests", () => {
   });
 
   it("shows movie card once loaded", async () => {
-    await waitFor(() => {
-      expect(screen.getByText(/parasite/i)).toBeInTheDocument();
-      expect(screen.getByTestId("card")).toBeInTheDocument();
-    });
+    expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
+    expect(await screen.findByTestId("card")).toBeInTheDocument();
   });
 
   it("shows error on error", async () => {
@@ -41,8 +39,8 @@ describe("<MovieDetail/> Surprise page tests", () => {
       })
     );
     render(
-      <MemoryRouter initialEntries={["/movie/surprise"]}>
-        <Route path="/movie/:movieId">
+      <MemoryRouter initialEntries={["/movies/surprise"]}>
+        <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
       </MemoryRouter>
@@ -54,11 +52,11 @@ describe("<MovieDetail/> Surprise page tests", () => {
 });
 
 describe("<MovieDetail/> Movie ID page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/movie/123`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/movies/123`;
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={["/movie/123"]}>
-        <Route path="/movie/:movieId">
+      <MemoryRouter initialEntries={["/movies/123"]}>
+        <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
       </MemoryRouter>
@@ -74,9 +72,10 @@ describe("<MovieDetail/> Movie ID page tests", () => {
   });
 
   it("shows movie card once loaded", async () => {
+    screen.debug();
     await waitFor(() => {
-      expect(screen.getByText(/finding nemo/i)).toBeInTheDocument();
       expect(screen.getByTestId("card")).toBeInTheDocument();
+      expect(screen.getByText(/finding nemo/i)).toBeInTheDocument();
     });
   });
 
@@ -88,8 +87,8 @@ describe("<MovieDetail/> Movie ID page tests", () => {
       })
     );
     render(
-      <MemoryRouter initialEntries={["/movie/123"]}>
-        <Route path="/movie/:movieId">
+      <MemoryRouter initialEntries={["/movies/123"]}>
+        <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
       </MemoryRouter>

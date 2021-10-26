@@ -73,19 +73,27 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("renders Decade slider with default values", () => {
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.defaultMin
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMin)
+      ]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.defaultMax
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMax)
+      ]
     );
   });
 
   it("decade all button selects all", () => {
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.defaultMin
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMin)
+      ]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.defaultMax
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMax)
+      ]
     );
 
     const allBtn = screen.getByTestId("decade-all-btn");
@@ -93,19 +101,23 @@ describe("<ChoiceFormContainer/>", () => {
     fireEvent.click(allBtn);
 
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.optionsArray[0]
+      decadeData.optionsArrayFull[0]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.optionsArray.slice(-1)[0]
+      decadeData.optionsArrayFull.slice(-1)[0]
     );
   });
 
   it("clicking decade all button second time returns to previous values", () => {
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.defaultMin
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMin)
+      ]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.defaultMax
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMax)
+      ]
     );
 
     const allBtn = screen.getByTestId("decade-all-btn");
@@ -113,19 +125,23 @@ describe("<ChoiceFormContainer/>", () => {
     fireEvent.click(allBtn);
 
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.optionsArray[0]
+      decadeData.optionsArrayFull[0]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.optionsArray.slice(-1)[0]
+      decadeData.optionsArrayFull.slice(-1)[0]
     );
 
     fireEvent.click(allBtn);
 
     expect(screen.getByTestId("decade-min-val").value).toBe(
-      decadeData.defaultMin
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMin)
+      ]
     );
     expect(screen.getByTestId("decade-max-val").value).toBe(
-      decadeData.defaultMax
+      decadeData.optionsArrayFull[
+        decadeData.optionsArray.indexOf(decadeData.defaultMax)
+      ]
     );
   });
 
@@ -233,11 +249,11 @@ describe("<ChoiceFormContainer/>", () => {
       />
     );
 
-    const submitBtn = screen.getByText(/matches/i);
+    const submitBtn = screen.getByText(/get movies/i);
 
     fireEvent.click(submitBtn);
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      decade: { max: "cur", min: "1970" },
+      decade: { max: "2020", min: "1970" },
       genre: [],
       runtime: { max: "120", min: "75" },
     });
@@ -274,11 +290,11 @@ describe("<ChoiceFormContainer/>", () => {
       target: { value: runtimeData.optionsArray.length - 1 },
     });
 
-    const submitBtn = screen.getByText(/matches/i);
+    const submitBtn = screen.getByText(/get movies/i);
 
     fireEvent.click(submitBtn);
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      decade: { max: "cur", min: "pre" },
+      decade: { max: "2020", min: "pre" },
       genre: [11],
       runtime: { max: ">150", min: "<75" },
     });

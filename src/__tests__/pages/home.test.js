@@ -31,7 +31,7 @@ describe("<Home/> page tests", () => {
       expect(screen.getByText("Sci-Fi")).toBeTruthy();
       expect(screen.getByText("Horror")).toBeTruthy();
       expect(screen.getByText("Adventure")).toBeTruthy();
-      expect(screen.getByText("70s")).toBeTruthy();
+      expect(screen.getByText("1970s")).toBeTruthy();
       expect(screen.getByText("75m")).toBeTruthy();
     });
   });
@@ -76,8 +76,9 @@ describe("<Home/> page tests", () => {
       </reactRedux.Provider>
     );
 
-    expect(screen.getByText(/start watching/i)).toBeInTheDocument();
-    expect(screen.getByText(/runtime/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/browse the results and start watching/i)
+    ).toBeInTheDocument();
 
     let submitBtn = await screen.findByTestId(
       "all-matches-btn",

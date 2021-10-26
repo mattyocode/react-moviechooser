@@ -1,15 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PageFooter } from "./styles/footer";
 
 export default function Footer({ children, ...restProps }) {
-  let showFooter;
+  const footerRef = useRef();
   useEffect(() => {
-    showFooter = true;
+    footerRef.current = true;
     return () => {
-      showFooter = false;
+      footerRef.current = false;
     };
   }, []);
   return (
-    <>{showFooter && <PageFooter {...restProps}>{children}</PageFooter>}</>
+    <>
+      {footerRef.current && <PageFooter {...restProps}>{children}</PageFooter>}
+    </>
   );
 }

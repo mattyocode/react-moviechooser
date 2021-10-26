@@ -9,21 +9,13 @@ import testMoviesData from "../../fixtures/updatedMoviesData.json";
 describe("<CardContainer/> tests", () => {
   it("renders <CardContainer/> with single movie", () => {
     const singleMovie = testMoviesData[0];
-    render(<CardContainer moviesData={[singleMovie]} />);
+    render(<CardContainer movie={singleMovie} />);
     expect(screen.getByText(/parasite/i)).toBeInTheDocument();
-  });
-
-  it("renders <CardContainer/> with multiple movies", () => {
-    render(<CardContainer moviesData={testMoviesData} />);
-    expect(screen.getByText(/parasite/i)).toBeInTheDocument();
-    expect(screen.getByText(/nemo/i)).toBeInTheDocument();
-    expect(screen.getByText(/jurassic/i)).toBeInTheDocument();
-    expect(screen.getByText(/charme/i)).toBeInTheDocument();
   });
 
   it("launches ondemand modal on click", () => {
     const singleMovie = testMoviesData[0];
-    render(<CardContainer moviesData={[singleMovie]} />);
+    render(<CardContainer movie={singleMovie} />);
 
     const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
 
@@ -40,7 +32,8 @@ describe("<CardContainer/> tests", () => {
 
   it("closes ondemand modal on click", async () => {
     const singleMovie = testMoviesData[0];
-    render(<CardContainer moviesData={[singleMovie]} />);
+    console.log("movie in ondemand", singleMovie);
+    render(<CardContainer movie={singleMovie} />);
 
     const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
     fireEvent.click(ondemandBtn);
