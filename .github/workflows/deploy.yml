@@ -37,7 +37,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test
+        run: CI=false yarn test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
