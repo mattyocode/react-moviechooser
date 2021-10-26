@@ -24,8 +24,7 @@ export default function CardActions({
   children,
   ...restProps
 }) {
-  const [imgIsLandscape, setImgIsLandscape] = useState();
-  setImgIsLandscape(landscape);
+  const [imgIsLandscape, setImgIsLandscape] = useState(landscape);
 
   return (
     <ImgOrientationContext.Provider value={{ imgIsLandscape }}>

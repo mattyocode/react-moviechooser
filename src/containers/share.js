@@ -12,7 +12,6 @@ import { CardActions } from "../components";
 
 export function ShareContainer({ data }) {
   const [copySuccess, setCopySuccess] = useState("");
-  console.log(copySuccess);
 
   const updateClipboard = (clip) => {
     navigator.clipboard.writeText(clip).then(

@@ -32,7 +32,6 @@ describe("<CardContainer/> tests", () => {
 
   it("closes ondemand modal on click", async () => {
     const singleMovie = testMoviesData[0];
-    console.log("movie in ondemand", singleMovie);
     render(<CardContainer movie={singleMovie} />);
 
     const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
