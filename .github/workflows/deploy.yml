@@ -49,4 +49,4 @@ jobs:
         env:
           BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync ./build 'echo "$BUCKET_NAME"'
+          aws s3 sync ./build "$BUCKET_NAME"
