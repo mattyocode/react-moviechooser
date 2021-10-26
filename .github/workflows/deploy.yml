@@ -47,6 +47,6 @@ jobs:
 
       - name: Deploy
         env:
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+          BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync ./build s3://${env.BUCKET_NAME}
+          aws s3 sync ./build $BUCKET_NAME
