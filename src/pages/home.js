@@ -71,12 +71,19 @@ export default function Home() {
         <p>
           MOVIECHOOSER is 1000s of stand-out movies all a few clicks away – from
           classics and critics' favourites to box office hits and hidden gems.
-          Search is based on the fundamental things that define a film: what
-          it's about (genre), when it was made (release decade), and how long it
-          is (runtime). Then browse the results and start watching. Or, if you
-          want to let fate decide, click 'Surprise Me' for a totally random
-          movie choice from the collection. Where available, click through to
-          play movie on streaming services (UK-only for now).
+        </p>
+        <br />
+        <p>
+          Search based on the fundamental things that define a film: what it's
+          about (genre), when it was made (release decade), and how long it is
+          (runtime). Then browse the results and start watching.
+        </p>
+        <br />
+        <p>
+          Or, if you want to let fate decide, click{" "}
+          <a href="/movies/surprise/">'Surprise Me'</a> for a totally random
+          movie choice from the collection. Click through to play movie on
+          streaming services, where available (UK-only for now).
         </p>
         <br />
         <p>

@@ -29,6 +29,10 @@ export default function Movies() {
     dispatch(addMovies(nextPage));
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
+
   return (
     <>
       <Headline data-testid="movies">
