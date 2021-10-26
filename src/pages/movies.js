@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card } from "../components";
-import { fetchMovies, addMovies } from "../store/movies-slice";
+import { addMovies } from "../store/movies-slice";
 
 export default function Movies() {
   const movies = useSelector((state) => state.movies.movies);
