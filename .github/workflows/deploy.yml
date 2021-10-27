@@ -50,5 +50,5 @@ jobs:
         env:
           BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
         run: |
-          echo "S3_BUCKET=$BUCKET_NAME" >> .env
+          echo S3_BUCKET=$BUCKET_NAME >> .env
           aws s3 sync ./build $S3_BUCKET
