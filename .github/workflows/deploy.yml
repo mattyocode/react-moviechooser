@@ -46,7 +46,9 @@ jobs:
         run: yarn build
 
       - name: Deploy
+        shell: bash
         env:
           BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync ./build "$BUCKET_NAME"
+          'echo "$BUCKET_NAME" > bucket_name'
+          aws s3 sync ./build bucket_name
