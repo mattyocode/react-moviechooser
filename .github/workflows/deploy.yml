@@ -40,7 +40,7 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Get bucket name
+      - name: Set bucket name
         run: |
           echo BUCKET="${{ env.AWS_S3_BUCKET_NAME }}" >> .env
 
