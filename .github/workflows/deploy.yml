@@ -40,6 +40,12 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Get bucket name
+        run: |
+          echo "${{ env.AWS_S3_BUCKET_NAME }}"
+          echo BUCKET="${{ env.AWS_S3_BUCKET_NAME }}" >> .env
+          echo "$BUCKET"
+
       - name: Deploy
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
