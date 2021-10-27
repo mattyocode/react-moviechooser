@@ -48,7 +48,7 @@ jobs:
       - name: Deploy
         shell: bash
         env:
-          BUCKET_NAME: s3://${{ secrets.BUCKET_NAME }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
-          echo S3_BUCKET=$BUCKET_NAME >> .env
+          echo S3_BUCKET=s3://$BUCKET_NAME >> .env
           aws s3 sync ./build $S3_BUCKET
