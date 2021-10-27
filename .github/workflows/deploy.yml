@@ -11,6 +11,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
     steps:
       - uses: actions/checkout@v2
       - name: Cache modules
@@ -39,11 +41,11 @@ jobs:
         run: yarn build
 
       - name: Deploy
-        uses: jakejarvis/s3-sync-action@master
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
+          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
