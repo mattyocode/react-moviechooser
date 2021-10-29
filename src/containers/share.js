@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdShare } from "react-icons/md";
 import {
   FacebookShareButton,
