@@ -13,7 +13,7 @@ import { CardActions } from "../components";
 export function ShareContainer({ data }) {
   const [, setCopySuccess] = useState("");
 
-  const updateClipboard = (clip) => {
+  const copyLink = (clip) => {
     navigator.clipboard
       .writeText(clip)
       .then(() => {
@@ -26,13 +26,13 @@ export function ShareContainer({ data }) {
       });
   };
 
-  const copyLink = (link) => {
-    navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-      // if (result.state === "granted" || result.state === "prompt") {
-      updateClipboard(link);
-      // }
-    });
-  };
+  // const copyLink = (link) => {
+  //   navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+  //     // if (result.state === "granted" || result.state === "prompt") {
+  //     updateClipboard(link);
+  //     // }
+  //   });
+  // };
 
   // const copyLink = (link) => {
   //   const tmpTextField = document.createElement("textarea");
