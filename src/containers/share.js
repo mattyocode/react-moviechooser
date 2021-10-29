@@ -11,20 +11,20 @@ import {
 import { CardActions } from "../components";
 
 export function ShareContainer({ data }) {
-  const [, setCopySuccess] = useState("");
+  // const [, setCopySuccess] = useState("");
 
-  const copyLink = (clip) => {
-    navigator.clipboard
-      .writeText(clip)
-      .then(() => {
-        setCopySuccess("Copied");
-        alert("Copied!");
-      })
-      .catch(() => {
-        setCopySuccess("Copy failed!");
-        alert("Copy Failed!");
-      });
-  };
+  // const copyLink = (clip) => {
+  //   navigator.clipboard
+  //     .writeText(clip)
+  //     .then(() => {
+  //       setCopySuccess("Copied");
+  //       alert("Copied!");
+  //     })
+  //     .catch(() => {
+  //       setCopySuccess("Copy failed!");
+  //       alert("Copy Failed!");
+  //     });
+  // };
 
   // const copyLink = (link) => {
   //   navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
