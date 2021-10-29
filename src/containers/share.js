@@ -14,23 +14,34 @@ export function ShareContainer({ data }) {
   const [, setCopySuccess] = useState("");
 
   const updateClipboard = (clip) => {
-    navigator.clipboard.writeText(clip).then(
-      () => {
+    navigator.clipboard
+      .writeText(clip)
+      .then(() => {
         setCopySuccess("Copied");
-      },
-      () => {
+      })
+      .catch(() => {
         setCopySuccess("Copy failed!");
-      }
-    );
+      });
   };
 
   const copyLink = (link) => {
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-      if (result.state === "granted" || result.state === "prompt") {
-        updateClipboard(link);
-      }
+      // if (result.state === "granted" || result.state === "prompt") {
+      updateClipboard(link);
+      // }
     });
   };
+
+  // const copyLink = (link) => {
+  //   const tmpTextField = document.createElement("textarea");
+  //   tmpTextField.textContent = link;
+  //   tmpTextField.setAttribute("style", "position:absolute; right:200%;");
+  //   document.body.appendChild(tmpTextField);
+  //   tmpTextField.select();
+  //   tmpTextField.setSelectionRange(0, 99999); /*For mobile devices*/
+  //   document.execCommand("copy");
+  //   tmpTextField.remove();
+  // };
 
   return (
     <CardActions landscape={false}>
