@@ -94,7 +94,7 @@ export function ShareContainer({ data }) {
           <CardActions.Action>
             <button
               onClick={() => {
-                copyLink(data.shareUrl);
+                navigator.clipboard.writeText(data.shareUrl);
               }}
             >
               <CardActions.Icon name="copy link">Copy Link</CardActions.Icon>
