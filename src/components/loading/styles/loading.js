@@ -24,7 +24,7 @@ export const Spinner = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    background-image: url(/images/misc/spinner.png);
+    background-image: url(/images/misc/reel-spinner.png);
     background-size: contain;
     background-repeat: no-repeat;
     margin-top: -150px;
@@ -40,10 +40,6 @@ export const Spinner = styled.div`
         height: 30px;
     `}
 
-    /* margin-top: ${(props) => (props.$small ? "-30px" : "-150px")}
-    margin-left: ${(props) => (props.$small ? "-15px" : "-75px")};
-    width: ${(props) => (props.$small ? "-30px" : "-150px")};
-    height: ${(props) => (props.$small ? "-30px" : "-150px")}; */
     animation-name: spin;
     animation-duration: 1000ms;
     animation-iteration-count: infinite;
