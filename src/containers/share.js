@@ -18,9 +18,11 @@ export function ShareContainer({ data }) {
       .writeText(clip)
       .then(() => {
         setCopySuccess("Copied");
+        alert("Copied!");
       })
       .catch(() => {
         setCopySuccess("Copy failed!");
+        alert("Copy Failed!");
       });
   };
 
