@@ -117,9 +117,9 @@ CardActions.Icon = function CardActionIcon({ name, children, ...restProps }) {
   }
 
   return (
-    <React.Fragment {...restProps}>
+    <React.Fragment>
       <IconContainer>{icon}</IconContainer>
-      <IconText>{children}</IconText>
+      <IconText {...restProps}>{children}</IconText>
     </React.Fragment>
   );
 };

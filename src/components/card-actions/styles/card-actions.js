@@ -86,10 +86,6 @@ export const Action = styled.li`
     text-decoration: underline;
   }
 
-  & a {
-    text-decoration: none;
-  }
-
   & button {
     border: none;
     text-decoration: none;
@@ -115,6 +111,14 @@ export const IconText = styled.h5`
   font-size: 0.6rem;
   text-align: center;
   margin: 0 auto;
+  text-shadow: none;
+
+  &.flash {
+    text-shadow: 0 0 0.1em #51c7d6;
+    color: #51c7d6;
+    transition: text-shadow 1s ease-out;
+    transition: color 1s ease-out;
+  }
 
   @media screen and (min-width: 375px) {
     width: 5rem;

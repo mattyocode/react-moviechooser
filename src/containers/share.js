@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdShare } from "react-icons/md";
 import {
   FacebookShareButton,
@@ -11,39 +11,17 @@ import {
 import { CardActions } from "../components";
 
 export function ShareContainer({ data }) {
-  // const [, setCopySuccess] = useState("");
+  const [copyClass, setCopyClass] = useState("");
+  const [copyText, setCopyText] = useState("Copy Link");
 
-  // const copyLink = (clip) => {
-  //   navigator.clipboard
-  //     .writeText(clip)
-  //     .then(() => {
-  //       setCopySuccess("Copied");
-  //       alert("Copied!");
-  //     })
-  //     .catch(() => {
-  //       setCopySuccess("Copy failed!");
-  //       alert("Copy Failed!");
-  //     });
-  // };
-
-  // const copyLink = (link) => {
-  //   navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-  //     // if (result.state === "granted" || result.state === "prompt") {
-  //     updateClipboard(link);
-  //     // }
-  //   });
-  // };
-
-  // const copyLink = (link) => {
-  //   const tmpTextField = document.createElement("textarea");
-  //   tmpTextField.textContent = link;
-  //   tmpTextField.setAttribute("style", "position:absolute; right:200%;");
-  //   document.body.appendChild(tmpTextField);
-  //   tmpTextField.select();
-  //   tmpTextField.setSelectionRange(0, 99999); /*For mobile devices*/
-  //   document.execCommand("copy");
-  //   tmpTextField.remove();
-  // };
+  const copySuccess = () => {
+    setCopyClass("flash");
+    setCopyText("Copied!");
+    setTimeout(() => {
+      setCopyClass("");
+      setCopyText("Copy Text");
+    }, 1000);
+  };
 
   return (
     <CardActions landscape={false}>
@@ -94,10 +72,17 @@ export function ShareContainer({ data }) {
           <CardActions.Action>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(data.shareUrl);
+                navigator.clipboard
+                  .writeText(data.shareUrl)
+                  .then(() => {
+                    copySuccess();
+                  })
+                  .catch();
               }}
             >
-              <CardActions.Icon name="copy link">Copy Link</CardActions.Icon>
+              <CardActions.Icon name="copy link" className={copyClass}>
+                {copyText}
+              </CardActions.Icon>
             </button>
           </CardActions.Action>
         </CardActions.Actions>
