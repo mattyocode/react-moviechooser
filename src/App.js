@@ -27,8 +27,8 @@ export default function App() {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/movies" exact component={Movies}>
-            {/* <Movies /> */}
+          <Route path="/movies" exact>
+            <Movies />
           </Route>
           <Route path="/movies/:movieId">
             <MovieDetail />
