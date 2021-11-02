@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import ReactGA from "react-ga4";
 import { Home, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
+import { pageView } from "./utils/gtag-helper";
 
 export default function App() {
   const history = useHistory();
@@ -13,9 +13,7 @@ export default function App() {
       if (location.hash) {
         path = location.pathname + location.hash;
       }
-      ReactGA.initialize("G-ZXD4BK35ZX");
-      // ReactGA.set({ page: path });
-      ReactGA.send({ hitType: "pageview", page: path });
+      pageView(path);
     });
   }, [history]);
 
