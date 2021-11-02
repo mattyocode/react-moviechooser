@@ -1,21 +1,33 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Home, MovieDetail, Movies } from "./pages";
-import { Loading } from "./components";
+import { Loading, CookieConsentBanner } from "./components";
 import { NavbarContainer } from "./containers/navigation";
-import { pageView } from "./utils/gtag-helper";
 
-import CookieConsent from "react-cookie-consent";
+import { getCookieConsentValue } from "react-cookie-consent";
+import TagManager from "react-gtm-module";
 
 export default function App() {
   const history = useHistory();
+
   useEffect(() => {
+    const tagManagerArgs = {
+      gtmId: "GTM-MT7G2TR",
+    };
     history.listen((location) => {
-      let path = location.pathname;
-      if (location.hash) {
-        path = location.pathname + location.hash;
+      const isConsent = getCookieConsentValue();
+      if (isConsent) {
+        let path = location.pathname;
+        if (location.hash) {
+          path = location.pathname + location.hash;
+        }
+        TagManager.initialize(tagManagerArgs);
+        TagManager.dataLayer({
+          dataLayer: {
+            page: path,
+          },
+        });
       }
-      pageView(path);
     });
   }, [history]);
 
@@ -35,16 +47,7 @@ export default function App() {
           </Route>
           <Route render={() => <Redirect to="/" />} />
         </Switch>
-        <CookieConsent
-          enableDeclineButton
-          style={{ background: "#222", opacity: "0.95" }}
-          buttonStyle={{
-            background: "#51c7d6",
-            fontFamily: "HelveticaNeue-CondensedBold, sans-serif",
-          }}
-        >
-          This website uses cookies to enhance user experience.
-        </CookieConsent>
+        <CookieConsentBanner />
       </Router>
     </Suspense>
   );
