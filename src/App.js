@@ -15,7 +15,7 @@ export default function App() {
       }
       ReactGA.initialize("G-ZXD4BK35ZX");
       ReactGA.set({ page: path });
-      ReactGA.pageview(path);
+      ReactGA.send(path);
     });
   }, [history]);
 
