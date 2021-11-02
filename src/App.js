@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import { Home, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
