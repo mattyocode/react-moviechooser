@@ -14,8 +14,8 @@ export default function App() {
         path = location.pathname + location.hash;
       }
       ReactGA.initialize("G-ZXD4BK35ZX");
-      ReactGA.set({ page: path });
-      ReactGA.send(path);
+      // ReactGA.set({ page: path });
+      ReactGA.send({ hitType: "pageview", page: path });
     });
   }, [history]);
 
