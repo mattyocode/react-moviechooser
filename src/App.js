@@ -5,6 +5,8 @@ import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
 import { pageView } from "./utils/gtag-helper";
 
+import CookieConsent from "react-cookie-consent";
+
 export default function App() {
   const history = useHistory();
   useEffect(() => {
@@ -33,6 +35,16 @@ export default function App() {
           </Route>
           <Route render={() => <Redirect to="/" />} />
         </Switch>
+        <CookieConsent
+          enableDeclineButton
+          style={{ background: "#222", opacity: "0.95" }}
+          buttonStyle={{
+            background: "#51c7d6",
+            fontFamily: "HelveticaNeue-CondensedBold, sans-serif",
+          }}
+        >
+          This website uses cookies to enhance user experience.
+        </CookieConsent>
       </Router>
     </Suspense>
   );
