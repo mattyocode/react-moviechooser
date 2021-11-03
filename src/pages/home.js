@@ -56,6 +56,8 @@ export default function Home() {
           Choose from 1000s of acclaimed movies.
           <br />
           Filter by genre, release decade, and runtime.
+          <br />
+          Click through to streaming services. Share on social.
         </Headline.Subhead>
       </Headline>
       {choiceForm}

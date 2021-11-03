@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 import * as reactRedux from "react-redux";
-import { server, rest } from "../../test/server";
+import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { Home } from "../../pages";

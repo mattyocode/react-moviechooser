@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
-import { server, rest } from "../../test/server";
+import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { MovieDetail } from "../../pages";

@@ -1,10 +1,10 @@
 import React from "react";
 import { cleanup, screen } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
-import { server, rest } from "../../test/server";
+import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
-import { reduxTestRender } from "../../test/test-utils";
+import { reduxTestRender } from "../../mocks/test-utils";
 import storeMovies from "../../fixtures/updatedMoviesData.json";
 import { Movies } from "..";
 

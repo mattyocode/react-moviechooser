@@ -1,4 +1,4 @@
-import { server } from "./test/server";
+import { server } from "./mocks/server";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
