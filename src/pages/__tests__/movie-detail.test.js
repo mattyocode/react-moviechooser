@@ -72,7 +72,6 @@ describe("<MovieDetail/> Movie ID page tests", () => {
   });
 
   it("shows movie card once loaded", async () => {
-    screen.debug();
     await waitFor(() => {
       expect(screen.getByTestId("card")).toBeInTheDocument();
       expect(screen.getByText(/finding nemo/i)).toBeInTheDocument();

@@ -1,8 +1,9 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Home, MovieDetail, Movies } from "./pages";
-import { Loading, CookieConsentBanner } from "./components";
+import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
+import { CookieConsentContainer } from "./containers/cookie-consent";
 
 import { getCookieConsentValue } from "react-cookie-consent";
 import TagManager from "react-gtm-module";
@@ -47,7 +48,7 @@ export default function App() {
           </Route>
           <Route render={() => <Redirect to="/" />} />
         </Switch>
-        <CookieConsentBanner />
+        <CookieConsentContainer />
       </Router>
     </Suspense>
   );

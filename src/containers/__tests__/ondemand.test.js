@@ -1,8 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { OndemandContainer } from "../../containers/ondemand";
+import { OndemandContainer } from "../ondemand";
 
 import testMoviesData from "../../fixtures/moviesDataFromStore.json";
 

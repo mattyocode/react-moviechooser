@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { toHaveStyle } from "@testing-library/jest-dom";
-import { ChoiceFormContainer } from "../../containers/choice-form";
+import { ChoiceFormContainer } from "../choice-form";
 
 import homepageData from "../../fixtures/homepage.json";
 import testGenreData from "../../fixtures/testGenreData.json";

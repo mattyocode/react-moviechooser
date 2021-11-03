@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../test/test-utils";
 import storeMovies from "../../fixtures/updatedMoviesData.json";
-import { Movies } from "../../pages";
+import { Movies } from "..";
 
 describe("<Movies/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/movies`;
@@ -21,6 +21,10 @@ describe("<Movies/> page tests", () => {
       max: "2h",
     },
   };
+  window.scrollTo = jest.fn();
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
   it("renders Movie page with queryParams and movies in Redux state", async () => {
     const initialState = {
       queryParams: testQueryParams,
