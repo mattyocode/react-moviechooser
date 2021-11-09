@@ -11,6 +11,7 @@ import {
   LinksContainer,
   LinksList,
   NavBarLink,
+  NavBarActionBtn,
   NavLinkBackdrop,
 } from "./styles/navigation";
 
@@ -57,10 +58,9 @@ Navbar.ToggleBtn = function NavToggle({ isOpen, togglefn }) {
 };
 
 Navbar.Links = function NavBarLinks({
-  linksData,
   showLinks,
-  togglefn,
   closefn,
+  children,
   ...restProps
 }) {
   const linksContainerRef = useRef();
@@ -81,25 +81,51 @@ Navbar.Links = function NavBarLinks({
         onClick={closefn}
         className={!showLinks && "remove"}
       ></NavLinkBackdrop>
-      <LinksContainer ref={linksContainerRef}>
-        <LinksList ref={linksListRef}>
-          {linksData.map((link) => {
-            const { id, url, text, activeClass, highlight, addClass } = link;
-            return (
-              <li key={id} onClick={togglefn}>
-                <NavBarLink
-                  to={url}
-                  activeClassName={activeClass}
-                  $highlight={highlight}
-                  className={addClass}
-                >
-                  {text}
-                </NavBarLink>
-              </li>
-            );
-          })}
-        </LinksList>
+      <LinksContainer ref={linksContainerRef} {...restProps}>
+        <LinksList ref={linksListRef}>{children}</LinksList>
       </LinksContainer>
     </>
+  );
+};
+
+Navbar.NavbarLink = function NavbarLink({
+  url,
+  text,
+  activeClass,
+  highlight,
+  addClass,
+  children,
+  ...restProps
+}) {
+  return (
+    <NavBarLink
+      to={url}
+      activeClassName={activeClass}
+      $highlight={highlight}
+      className={addClass}
+      {...restProps}
+    >
+      {text}
+    </NavBarLink>
+  );
+};
+
+Navbar.NavbarBtn = function NavbarBtn({
+  actionFn,
+  activeClass,
+  highlight,
+  addClass,
+  children,
+  ...restProps
+}) {
+  return (
+    <NavBarActionBtn
+      onClick={actionFn}
+      activeClassName={activeClass}
+      $highlight={highlight}
+      className={addClass}
+    >
+      {children}
+    </NavBarActionBtn>
   );
 };

@@ -14,9 +14,9 @@ export default function MovieDetail() {
 
   let route = "";
   if (params.movieId === "surprise") {
-    route = "movies/random/";
+    route = "api/movies/random/";
   } else {
-    route = `movies/${params.movieId}`;
+    route = `api/movies/${params.movieId}`;
   }
 
   let movie;

@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components/macro";
+import styled, { css, keyframes } from "styled-components/macro";
 import { NavLink as ReactRouterLink } from "react-router-dom";
 
 export const Nav = styled.nav`
@@ -129,7 +129,7 @@ export const LinksList = styled.ul`
   }
 `;
 
-export const NavBarLink = styled(ReactRouterLink)`
+const baseNavLinkStyles = css`
   letter-spacing: 0.1rem;
   display: block;
   transition: all 0.3s linear;
@@ -185,6 +185,22 @@ export const NavBarLink = styled(ReactRouterLink)`
       align-items: center;
     }
   }
+`;
+
+export const NavBarLink = styled(ReactRouterLink)`
+  ${baseNavLinkStyles}
+`;
+
+export const NavBarActionBtn = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  ${baseNavLinkStyles}
 `;
 
 export const NavLinkBackdrop = styled.div`

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router";
-import { Navbar } from "../components";
+import { useLocation, useHistory } from "react-router";
+import { Modal, Navbar } from "../components";
+import { Auth } from "./auth";
 
 import { elementScrollIntoView } from "seamless-scroll-polyfill";
 
@@ -9,6 +10,19 @@ import mainLogo from "../assets/png/logo.png";
 
 export function NavbarContainer({ children }) {
   const [showLinks, setShowLinks] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const location = useLocation();
+  const history = useHistory();
+
+  const closeAuthHandler = () => {
+    history.replace(`${location.pathname}`);
+    setAuthOpen(false);
+  };
+  const openAuthHandler = (data) => {
+    history.replace(`${location.pathname}#auth`);
+    setAuthOpen(true);
+  };
+
   const toggleLinks = () => {
     setShowLinks(!showLinks);
   };
@@ -16,10 +30,8 @@ export function NavbarContainer({ children }) {
     setShowLinks(false);
   };
 
-  const location = useLocation();
-
   useEffect(() => {
-    if (location.hash) {
+    if (location.hash && location.hash !== "#auth") {
       let elem = document.getElementById(location.hash.slice(1));
       if (elem) {
         elementScrollIntoView(
@@ -30,20 +42,56 @@ export function NavbarContainer({ children }) {
         window.scrollTo({ top: 0, left: 0 });
       }
     }
-  }, [location]);
+  }, [location.hash]);
+
+  useEffect(() => {
+    if (location.hash && location.hash === "#auth") {
+      setAuthOpen(true);
+    }
+  }, [location.hash]);
 
   return (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Logo to="/" src={mainLogo} alt="Movie Chooser" />
-        <Navbar.ToggleBtn isOpen={showLinks} togglefn={toggleLinks} />
-      </Navbar.Header>
-      <Navbar.Links
-        linksData={linksData}
-        showLinks={showLinks}
-        togglefn={toggleLinks}
-        closefn={closeLinks}
-      />
-    </Navbar>
+    <>
+      {authOpen && (
+        <Modal openState={authOpen} closeModal={closeAuthHandler}>
+          <Auth />
+        </Modal>
+      )}
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Logo to="/" src={mainLogo} alt="Movie Chooser" />
+          <Navbar.ToggleBtn isOpen={showLinks} togglefn={toggleLinks} />
+        </Navbar.Header>
+        <Navbar.Links
+          linksData={linksData}
+          showLinks={showLinks}
+          closefn={closeLinks}
+        >
+          {linksData.map((link) => {
+            return (
+              <li key={link.id} onClick={toggleLinks}>
+                <Navbar.NavbarLink
+                  to={link.url}
+                  text={link.text}
+                  activeClassName={link.activeClass}
+                  highlight={link.highlight}
+                  addClass={link.addClass}
+                />
+              </li>
+            );
+          })}
+          <li>
+            <Navbar.NavbarBtn
+              id={0}
+              actionFn={openAuthHandler}
+              activeClassName={"active"}
+              highlight={true}
+            >
+              Sign In
+            </Navbar.NavbarBtn>
+          </li>
+        </Navbar.Links>
+      </Navbar>
+    </>
   );
 }

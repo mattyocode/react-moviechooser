@@ -17,7 +17,7 @@ export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (queryObj) => {
     const queryParamsStr = queryString(queryObj);
-    const response = await client.get(`movies/?${queryParamsStr}`);
+    const response = await client.get(`api/movies/?${queryParamsStr}`);
     return response;
   }
 );

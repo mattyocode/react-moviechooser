@@ -21,12 +21,11 @@ export const linksData = [
     activeClass: "none",
     addClass: "grey",
   },
-  {
-    id: 3,
-    url: "/",
-    text: "Sign In",
-    highlight: true,
-    activeClass: "none",
-    addClass: "grey",
-  },
+  // {
+  //   id: 3,
+  //   url: "/user/login",
+  //   text: "Sign In",
+  //   highlight: true,
+  //   activeClass: "active",
+  // },
 ];

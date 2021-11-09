@@ -5,6 +5,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "firebase": "^8.7.1",
+    "formik": "^2.2.9",
     "fuse.js": "^6.4.6",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
@@ -22,7 +23,8 @@
     "react-share": "^4.4.0",
     "seamless-scroll-polyfill": "^2.1.4",
     "styled-components": "^5.3.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "proxy": "https://api1.moviechooser.co.uk",
   "scripts": {

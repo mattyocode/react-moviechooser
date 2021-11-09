@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import { Home, MovieDetail, Movies } from "./pages";
+import { AuthPage, Home, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
 import { CookieConsentContainer } from "./containers/cookie-consent";
@@ -46,7 +46,10 @@ export default function App() {
           <Route path="/movies/:movieId">
             <MovieDetail />
           </Route>
-          <Route render={() => <Redirect to="/" />} />
+          <Route path="/auth/:params">
+            <AuthPage />
+          </Route>
+          <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
         <CookieConsentContainer />
       </Router>
