@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router";
 import { Modal, Navbar } from "../components";
-import { Auth } from "./auth";
+import { AuthForm } from "./auth-form";
 
 import { elementScrollIntoView } from "seamless-scroll-polyfill";
 
@@ -54,7 +54,7 @@ export function NavbarContainer({ children }) {
     <>
       {authOpen && (
         <Modal openState={authOpen} closeModal={closeAuthHandler}>
-          <Auth />
+          <AuthForm />
         </Modal>
       )}
       <Navbar>

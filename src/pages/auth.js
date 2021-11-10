@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Modal } from "../components";
-import { Auth } from "../containers/auth";
+import { AuthForm } from "../containers/auth-form";
 
 export default function AuthPage({ children, ...restProps }) {
   // on click exit/out
@@ -26,9 +26,9 @@ export default function AuthPage({ children, ...restProps }) {
   return (
     <Modal openState={true} closeModal={exitAuthPageHandler}>
       {login ? (
-        <Auth login={true} isPage={true} />
+        <AuthForm login={true} isPage={true} />
       ) : (
-        <Auth login={false} isPage={true} />
+        <AuthForm login={false} isPage={true} />
       )}
     </Modal>
   );

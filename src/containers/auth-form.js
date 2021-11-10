@@ -7,11 +7,11 @@ import * as Yup from "yup";
 import { Form } from "../components";
 import largeLogo from "../assets/png/logo_large.png";
 
-export function Auth({ login = true, isPage = false }) {
+export function AuthForm({ login = true, isPage = false }) {
   const [isLogin, setIsLogin] = useState(login);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
@@ -93,7 +93,7 @@ export function Auth({ login = true, isPage = false }) {
       </Form.Text>
       <Form.Base onSubmit={formik.handleSubmit}>
         <Form.Input
-          placeholder="Email address"
+          placeholder="Enter email address"
           id="email"
           type="email"
           name="email"

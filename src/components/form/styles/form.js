@@ -52,7 +52,15 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-export const Link = styled(ReactRouterLink)`
+// export const Link = styled(ReactRouterLink)`
+export const Link = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   color: #51c7d6;
   text-decoration: none;
 
