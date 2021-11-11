@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router";
 import { Modal, Navbar } from "../components";
 import { AuthForm } from "./auth-form";
+import { useDispatch, useSelector } from "react-redux";
 
 import { elementScrollIntoView } from "seamless-scroll-polyfill";
-
+import { logout } from "../store/auth-slice";
 import { linksData } from "../fixtures/navData";
 import mainLogo from "../assets/png/logo.png";
 
@@ -13,6 +14,9 @@ export function NavbarContainer({ children }) {
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.persistedReducer.auth);
+  console.log("navigation user", user);
 
   const closeAuthHandler = () => {
     history.replace(`${location.pathname}`);
@@ -28,6 +32,11 @@ export function NavbarContainer({ children }) {
   };
   const closeLinks = () => {
     setShowLinks(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push("/");
   };
 
   useEffect(() => {
@@ -54,7 +63,7 @@ export function NavbarContainer({ children }) {
     <>
       {authOpen && (
         <Modal openState={authOpen} closeModal={closeAuthHandler}>
-          <AuthForm />
+          <AuthForm closeSelf={setAuthOpen} />
         </Modal>
       )}
       <Navbar>
@@ -80,16 +89,29 @@ export function NavbarContainer({ children }) {
               </li>
             );
           })}
-          <li>
-            <Navbar.NavbarBtn
-              id={0}
-              actionFn={openAuthHandler}
-              activeClassName={"active"}
-              highlight={true}
-            >
-              Sign In
-            </Navbar.NavbarBtn>
-          </li>
+          {!user.account ? (
+            <li>
+              <Navbar.NavbarBtn
+                id={0}
+                actionFn={openAuthHandler}
+                activeClassName={"active"}
+                highlight={true}
+              >
+                Sign In
+              </Navbar.NavbarBtn>
+            </li>
+          ) : (
+            <li>
+              <Navbar.NavbarBtn
+                id={10}
+                actionFn={handleLogout}
+                activeClassName={"active"}
+                highlight={false}
+              >
+                Sign Out
+              </Navbar.NavbarBtn>
+            </li>
+          )}
         </Navbar.Links>
       </Navbar>
     </>

@@ -15,11 +15,11 @@ export const linksData = [
   },
   {
     id: 2,
-    url: "/",
+    url: "/user/lists",
     text: "My List",
     highlight: false,
     activeClass: "none",
-    addClass: "grey",
+    // addClass: "grey",
   },
   // {
   //   id: 3,

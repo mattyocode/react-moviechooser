@@ -6,7 +6,6 @@ import { About, Headline, Loading, Footer } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
 import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
-
 import homepageData from "../fixtures/homepage.json";
 import largeLogo from "../assets/png/logo_large.png";
 

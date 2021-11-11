@@ -1,12 +1,12 @@
 import React, { Suspense, useEffect } from "react";
 import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { CookieConsentContainer } from "./containers/cookie-consent";
+import { getCookieConsentValue } from "react-cookie-consent";
+import TagManager from "react-gtm-module";
+import ProtectedRoute from "./routes/protected-route";
 import { AuthPage, Home, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
-import { CookieConsentContainer } from "./containers/cookie-consent";
-
-import { getCookieConsentValue } from "react-cookie-consent";
-import TagManager from "react-gtm-module";
 
 export default function App() {
   const history = useHistory();
@@ -49,6 +49,9 @@ export default function App() {
           <Route path="/auth/:params">
             <AuthPage />
           </Route>
+          <ProtectedRoute path="/user/lists">
+            <h1>Lists page!</h1>
+          </ProtectedRoute>
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
         <CookieConsentContainer />

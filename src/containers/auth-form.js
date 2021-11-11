@@ -1,33 +1,60 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { Form } from "../components";
+import { handleAuth, logout } from "../store/auth-slice";
 import largeLogo from "../assets/png/logo_large.png";
 
-export function AuthForm({ login = true, isPage = false }) {
+export function AuthForm({ login = true, isPage = false, closeSelf = null }) {
   const [isLogin, setIsLogin] = useState(login);
-  // const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
+  const user = useSelector((state) => state.persistedReducer.auth.account);
+  const authStatus = useSelector((state) => state.persistedReducer.auth.status);
+  const authError = useSelector((state) => state.persistedReducer.auth.error);
+  const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
 
   const isLoginToggler = () => {
     if (isPage) {
       const url = isLogin ? "/auth/register" : "/auth/login";
       history.push(url);
     }
-    if (!isPage && location.hash) {
-      console.log("HASHHHH", location.hash);
-    }
+    // if (!isPage && location.hash) {
+    //   console.log("HASHHHH", location.hash);
+    // }
     setIsLogin((prevState) => !prevState);
   };
 
-  const loginHandler = (email, password) => {};
-  const registerHandler = (email, password, passwordConfirmation) => {};
+  const loginHandler = (email, password) => {
+    const endpoint = "login/";
+    dispatch(handleAuth({ email, password, endpoint }));
+    if (isPage && authStatus === "succeeded") {
+      history.push("/");
+    }
+
+    if (!isPage && authStatus === "succeeded") {
+      closeSelf();
+    }
+  };
+
+  const registerHandler = (email, password) => {
+    const endpoint = "register/";
+    dispatch(handleAuth({ email, password, endpoint }));
+    console.log("reg isPage & authStatus", isPage, authStatus);
+    if (isPage && authStatus === "succeeded") {
+      history.push("/");
+    }
+    if (!isPage && authStatus === "succeeded") {
+      closeSelf();
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push("/");
+  };
 
   const SignInSchema = Yup.object().shape({
     email: Yup.string()
@@ -49,7 +76,6 @@ export function AuthForm({ login = true, isPage = false }) {
       passwordConfirmation: "",
     },
     onSubmit: (values) => {
-      setLoading(true);
       if (isLogin) {
         loginHandler(values.email, values.password);
       } else {
@@ -65,10 +91,42 @@ export function AuthForm({ login = true, isPage = false }) {
 
   // add pwConf into criteria / give it its own?
   const btnDisabled =
-    formik.errors.email ||
-    !formik.touched.email ||
-    formik.errors.password ||
-    !formik.touched.password;
+    formik.errors.email || !formik.touched.email || formik.errors.password;
+
+  let titleText;
+  let subtitle;
+  let link;
+  let submitBtn;
+  if (isLogin && !user) {
+    titleText = "Sign In";
+    subtitle = "No account? ";
+    link = (
+      <Form.Link onClick={isLoginToggler}>Click here to register.</Form.Link>
+    );
+    submitBtn = (
+      <Form.Submit type="submit" disabled={btnDisabled}>
+        Sign In
+      </Form.Submit>
+    );
+  }
+  if (!isLogin && !user) {
+    titleText = "Register";
+    subtitle = "Already signed up? ";
+    link = (
+      <Form.Link onClick={isLoginToggler}>Click here to sign in.</Form.Link>
+    );
+    submitBtn = (
+      <Form.Submit type="submit" disabled={btnDisabled}>
+        Register
+      </Form.Submit>
+    );
+  }
+  if (user) {
+    titleText = "Signed In";
+    subtitle = "Currently logged in. ";
+    link = <Form.Link onClick={handleLogout}>Click here to log out.</Form.Link>;
+    submitBtn = null;
+  }
 
   return (
     <Form>
@@ -78,64 +136,61 @@ export function AuthForm({ login = true, isPage = false }) {
           <span role="img" aria-label="lock and key">
             &#128272;
           </span>
-          {isLogin ? "Sign In" : "Register"}
+          {titleText}
         </Form.Title>
       </Form.Header>
       <Form.Text>
-        {isLogin ? "No account? " : "Already signed up? "}
-        {isLogin ? (
-          <Form.Link onClick={isLoginToggler}>
-            Click here to register.
-          </Form.Link>
-        ) : (
-          <Form.Link onClick={isLoginToggler}>Click here to sign in.</Form.Link>
-        )}
+        {subtitle} {link}
       </Form.Text>
-      <Form.Base onSubmit={formik.handleSubmit}>
-        <Form.Input
-          placeholder="Enter email address"
-          id="email"
-          type="email"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.errors.email && formik.touched.email && (
-          <Form.Error>*{formik.errors.email}</Form.Error>
-        )}
-        <Form.Input
-          placeholder="Password"
-          id="password"
-          type="password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.errors.password && formik.touched.password && (
-          <Form.Error>*{formik.errors.password}</Form.Error>
-        )}
-        {!isLogin && (
+
+      {!user && (
+        <Form.Base onSubmit={formik.handleSubmit}>
           <Form.Input
-            placeholder="Confirm password"
-            id="passwordConfirmation"
-            type="passwordConfirmation"
-            name="passwordConfirmation"
-            value={formik.values.passwordConfirmation}
+            placeholder="Enter email address"
+            id="email"
+            type="email"
+            name="email"
+            value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-        )}
-        {!isLogin &&
-          formik.errors.passwordConfirmation &&
-          formik.touched.passwordConfirmation && (
-            <Form.Error>*{formik.errors.passwordConfirmation}</Form.Error>
+          {formik.errors.email && formik.touched.email && (
+            <Form.Error>*{formik.errors.email}</Form.Error>
           )}
-        <Form.Submit type="submit" disabled={btnDisabled}>
-          {isLogin ? "Sign in!" : "Register"}
-        </Form.Submit>
-      </Form.Base>
+          <Form.Input
+            placeholder="Password"
+            id="password"
+            type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <Form.Error>*{formik.errors.password}</Form.Error>
+          )}
+          {!isLogin && (
+            <Form.Input
+              placeholder="Confirm password"
+              id="passwordConfirmation"
+              type="passwordConfirmation"
+              name="passwordConfirmation"
+              value={formik.values.passwordConfirmation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          )}
+          {!isLogin &&
+            formik.errors.passwordConfirmation &&
+            formik.touched.passwordConfirmation && (
+              <Form.Error>*{formik.errors.passwordConfirmation}</Form.Error>
+            )}
+          {authStatus === "failed" && authError && (
+            <Form.Error>{authError}</Form.Error>
+          )}
+          {submitBtn}
+        </Form.Base>
+      )}
     </Form>
   );
 }
