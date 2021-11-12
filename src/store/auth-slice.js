@@ -24,14 +24,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
   reducers: {
-    // setAuthTokens(state, action) {
-    //   state.refreshToken = action.payload.refreshToken;
-    //   state.token = action.payload.token;
-    // },
+    setAuthTokens(state, action) {
+      state.refreshToken = action.payload.refreshToken;
+      state.token = action.payload.access;
+    },
     // setAccount(state, action) {
     //   state.account = action.payload;
     // },
-    logout(state) {
+    setLogout(state) {
       state.account = null;
       state.refreshToken = null;
       state.token = null;
@@ -44,7 +44,7 @@ const authSlice = createSlice({
       state.status = "loading";
     },
     [handleAuth.fulfilled]: (state, action) => {
-      state.token = action.payload.token;
+      state.token = action.payload.access;
       state.refreshToken = action.payload.refresh;
       state.account = action.payload.user;
       state.status = "succeeded";
@@ -56,6 +56,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { setAuthTokens, setLogout } = authSlice.actions;
 // export const authActions = authSlice.actions;
 export default authSlice.reducer;

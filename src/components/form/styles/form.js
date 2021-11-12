@@ -34,13 +34,14 @@ export const Title = styled.h2`
   text-align: center;
   padding: 0 1rem;
   color: var(--clr-neon);
-  margin: 0.5rem 0;
+  margin: 2rem 0 0.5rem 0;
 
   & span {
     margin-right: 0.5rem;
   }
 
   @media screen and (min-width: 450px) {
+    margin: 0.5rem 0;
     font-size: 1.75rem;
   }
 `;
@@ -121,5 +122,35 @@ export const SubmitBtn = styled.button`
   @media screen and (max-width: 400px) {
     font-size: 0.8rem;
     width: 7rem;
+  }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+`;
+
+export const ActionBtn = styled.button`
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+
+  letter-spacing: 0.1rem;
+  display: block;
+  transition: all 0.3s linear;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid var(--clr-neon);
+  padding: 0.5rem;
+  margin: 0.5rem;
+
+  &.active {
+    background: var(--clr-neon);
+    color: #222;
+    /* border: 1px solid rgba(0, 0, 0, 0); */
   }
 `;

@@ -3,18 +3,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import useSWR from "swr";
 import { Form } from "../components";
-import { handleAuth, logout } from "../store/auth-slice";
+import { ProfileData } from "./profile-data";
+import { handleAuth, setLogout } from "../store/auth-slice";
+import { fetcher } from "../utils/axios-refresh";
 import largeLogo from "../assets/png/logo_large.png";
 
 export function AuthForm({ login = true, isPage = false, closeSelf }) {
   const [isLogin, setIsLogin] = useState(login);
-  const user = useSelector((state) => state.persistedReducer.auth.account);
+  const [showProfile, setShowProfile] = useState(false);
+  const account = useSelector((state) => state.persistedReducer.auth.account);
   const authStatus = useSelector((state) => state.persistedReducer.auth.status);
   const authError = useSelector((state) => state.persistedReducer.auth.error);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const userId = account?.uid;
+  const user = useSWR(`/accounts/user/${userId}/`, fetcher);
+  console.log("user from SWR > ", user);
 
   const isLoginToggler = () => {
     if (isPage) {
@@ -33,8 +40,6 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
     if (isPage && authStatus === "idle") {
       history.push("/");
     }
-
-    console.log("gets here", authStatus);
     if (!isPage && authStatus === "idle") {
       closeSelf();
     }
@@ -52,8 +57,12 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(setLogout());
     history.push("/");
+  };
+
+  const toggleShowProfile = () => {
+    setShowProfile(!showProfile);
   };
 
   const SignInSchema = Yup.object().shape({
@@ -97,7 +106,9 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
   let subtitle;
   let link;
   let submitBtn;
-  if (isLogin && !user) {
+  let actionBtns;
+
+  if (isLogin && !account) {
     titleText = "Sign In";
     subtitle = "No account? ";
     link = (
@@ -109,7 +120,8 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       </Form.Submit>
     );
   }
-  if (!isLogin && !user) {
+
+  if (!isLogin && !account) {
     titleText = "Register";
     subtitle = "Already signed up? ";
     link = (
@@ -121,11 +133,22 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       </Form.Submit>
     );
   }
-  if (user) {
+
+  if (account) {
     titleText = "Signed In";
     subtitle = "Currently logged in. ";
-    link = <Form.Link onClick={handleLogout}>Click here to log out.</Form.Link>;
     submitBtn = null;
+    actionBtns = (
+      <Form.Actions>
+        <Form.ActionBtn
+          onClick={toggleShowProfile}
+          className={showProfile ? "active" : ""}
+        >
+          View Profile
+        </Form.ActionBtn>
+        <Form.ActionBtn onClick={handleLogout}>Log Out</Form.ActionBtn>
+      </Form.Actions>
+    );
   }
 
   return (
@@ -142,8 +165,9 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       <Form.Text>
         {subtitle} {link}
       </Form.Text>
-
-      {!user && (
+      {account && actionBtns}
+      {account && user && showProfile && <ProfileData userData={user} />}
+      {!account && (
         <Form.Base onSubmit={formik.handleSubmit}>
           <Form.Input
             placeholder="Enter email address"

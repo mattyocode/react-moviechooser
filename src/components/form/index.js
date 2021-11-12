@@ -10,6 +10,8 @@ import {
   Link,
   Error,
   Input,
+  Actions,
+  ActionBtn,
   SubmitBtn,
 } from "./styles/form";
 
@@ -62,4 +64,12 @@ Form.Link = function FormLink({ children, ...restProps }) {
 
 Form.Submit = function FormSubmit({ children, ...restProps }) {
   return <SubmitBtn {...restProps}>{children}</SubmitBtn>;
+};
+
+Form.ActionBtn = function FormActionBtn({ children, ...restProps }) {
+  return <ActionBtn {...restProps}>{children}</ActionBtn>;
+};
+
+Form.Actions = function FormActions({ children, ...restProps }) {
+  return <Actions {...restProps}>{children}</Actions>;
 };
