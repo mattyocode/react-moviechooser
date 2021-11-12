@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { client } from "../utils/api-client";
+import { client } from "../utils/axios-client";
 
 // import keysToCamel from "../utils/camelcase";
 import queryString from "../utils/query-string";
@@ -25,7 +25,7 @@ export const fetchMovies = createAsyncThunk(
 export const addMovies = createAsyncThunk(
   "movies/addMovies",
   async (nextPageUrl) => {
-    const response = await client.get(`${nextPageUrl}`, {}, true);
+    const response = await client.get(`${nextPageUrl}`, {});
     return response;
   }
 );

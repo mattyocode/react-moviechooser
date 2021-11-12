@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router";
 import { Modal, Navbar } from "../components";
 import { AuthForm } from "./auth-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { elementScrollIntoView } from "seamless-scroll-polyfill";
-import { logout } from "../store/auth-slice";
 import { linksData } from "../fixtures/navData";
 import mainLogo from "../assets/png/logo.png";
 
@@ -14,9 +13,7 @@ export function NavbarContainer({ children }) {
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.persistedReducer.auth);
-  console.log("navigation user", user);
 
   const closeAuthHandler = () => {
     history.replace(`${location.pathname}`);
@@ -35,8 +32,7 @@ export function NavbarContainer({ children }) {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
-    history.push("/");
+    setAuthOpen(true);
   };
 
   useEffect(() => {

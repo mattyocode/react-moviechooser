@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router";
-
+import axios from "axios";
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
-import { client } from "../utils/api-client";
+import { client } from "../utils/axios-client";
 import { useHttp } from "../hooks";
 
 export default function MovieDetail() {
@@ -34,12 +34,13 @@ export default function MovieDetail() {
 
   useEffect(() => {
     if (locationRef !== location.key) {
-      const abortController = new AbortController();
+      const CancelToken = axios.CancelToken;
+      const source = CancelToken.source();
       locationRef.current = location.key;
-      sendRequest(route, { signal: abortController.signal });
+      sendRequest(route, { cancelToken: source.token });
 
       return () => {
-        abortController.abort();
+        source.cancel("axios request cancelled");
       };
     }
   }, [route, sendRequest, locationRef, location]);

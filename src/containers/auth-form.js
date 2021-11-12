@@ -8,7 +8,7 @@ import { Form } from "../components";
 import { handleAuth, logout } from "../store/auth-slice";
 import largeLogo from "../assets/png/logo_large.png";
 
-export function AuthForm({ login = true, isPage = false, closeSelf = null }) {
+export function AuthForm({ login = true, isPage = false, closeSelf }) {
   const [isLogin, setIsLogin] = useState(login);
   const user = useSelector((state) => state.persistedReducer.auth.account);
   const authStatus = useSelector((state) => state.persistedReducer.auth.status);
@@ -30,11 +30,12 @@ export function AuthForm({ login = true, isPage = false, closeSelf = null }) {
   const loginHandler = (email, password) => {
     const endpoint = "login/";
     dispatch(handleAuth({ email, password, endpoint }));
-    if (isPage && authStatus === "succeeded") {
+    if (isPage && authStatus === "idle") {
       history.push("/");
     }
 
-    if (!isPage && authStatus === "succeeded") {
+    console.log("gets here", authStatus);
+    if (!isPage && authStatus === "idle") {
       closeSelf();
     }
   };
@@ -42,11 +43,10 @@ export function AuthForm({ login = true, isPage = false, closeSelf = null }) {
   const registerHandler = (email, password) => {
     const endpoint = "register/";
     dispatch(handleAuth({ email, password, endpoint }));
-    console.log("reg isPage & authStatus", isPage, authStatus);
-    if (isPage && authStatus === "succeeded") {
+    if (isPage && authStatus === "idle") {
       history.push("/");
     }
-    if (!isPage && authStatus === "succeeded") {
+    if (!isPage && authStatus === "idle") {
       closeSelf();
     }
   };

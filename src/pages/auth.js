@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Modal } from "../components";
 import { AuthForm } from "../containers/auth-form";

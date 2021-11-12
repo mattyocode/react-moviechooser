@@ -51,6 +51,7 @@ export default function App() {
           </Route>
           <ProtectedRoute path="/user/lists">
             <h1>Lists page!</h1>
+            <h1>Lists page!</h1>
           </ProtectedRoute>
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>

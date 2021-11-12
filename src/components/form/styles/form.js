@@ -1,5 +1,4 @@
 import styled from "styled-components/macro";
-import { Link as ReactRouterLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
   max-width: 780px;
@@ -52,7 +51,6 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-// export const Link = styled(ReactRouterLink)`
 export const Link = styled.button`
   background: none;
   color: inherit;
@@ -70,9 +68,10 @@ export const Link = styled.button`
 `;
 
 export const Error = styled.div`
-  /* width: 14rem;
+  width: 14rem;
   display: flex;
-  justify-content: flex-end; */
+  justify-content: flex-end;
+  padding-top: 2px;
 
   p {
     font-size: 0.8rem;
@@ -82,8 +81,11 @@ export const Error = styled.div`
 `;
 
 export const Input = styled.input`
-  background: #eee;
-  color: #222;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid #51c7d6;
+  color: #eee;
   font-weight: bold;
   height: 50px;
   line-height: 50px;
