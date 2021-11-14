@@ -8,12 +8,20 @@ import { elementScrollIntoView } from "seamless-scroll-polyfill";
 import { linksData } from "../fixtures/navData";
 import mainLogo from "../assets/png/logo.png";
 
-export function NavbarContainer({ children }) {
+export function NavbarContainer() {
   const [showLinks, setShowLinks] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const user = useSelector((state) => state.persistedReducer.auth);
+
+  let loggedInGreeting;
+  if (user.account) {
+    loggedInGreeting = `Hi, ${
+      user.account.username ||
+      user.account.email.substr(0, user.account.email.indexOf("@"))
+    }`;
+  }
 
   const closeAuthHandler = () => {
     history.replace(`${location.pathname}`);
@@ -104,7 +112,7 @@ export function NavbarContainer({ children }) {
                 activeClassName={"active"}
                 highlight={false}
               >
-                Sign Out
+                {loggedInGreeting}
               </Navbar.NavbarBtn>
             </li>
           )}

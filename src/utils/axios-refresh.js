@@ -14,69 +14,76 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
-  const { token } = store.getState().persistedReducer.auth;
+  const token = store.getState().persistedReducer.auth.token;
   const authStore = store.getState().persistedReducer.auth;
-  console.log("authStore", authStore);
-  if (token !== null) {
+  console.log("authStore request interceptor", authStore);
+  console.log("axios-refresh persist reducer token", token);
+  if (token) {
     config.headers.Authorization = "JWT " + token;
-    // console.debug(
-    //   "[Request]",
-    //   config.baseURL + config.url,
-    //   JSON.stringify(token)
-    // );
+    console.debug(
+      "[Request]",
+      config.baseURL + config.url,
+      JSON.stringify(token)
+    );
   }
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   (res) => {
-    console.log("response interceptor!");
-    // console.debug(
-    //   "[Response]",
-    //   res.config.baseURL + res.config.url,
-    //   res.status,
-    //   res.data
-    // );
+    console.debug(
+      "[Response]",
+      res.config.baseURL + res.config.url,
+      res.status,
+      res.data
+    );
     return Promise.resolve(res);
   },
   (err) => {
-    // console.debug(
-    //   "[Response]",
-    //   err.config.baseURL + err.config.url,
-    //   err.response.status,
-    //   err.response.data
-    // );
+    console.debug(
+      "[Response]",
+      err.config.baseURL + err.config.url,
+      err.response.status,
+      err.response.data
+    );
     return Promise.reject(err);
   }
 );
 
 const refreshAuthHandler = async (failedRequest) => {
-  const { refreshToken } = store.getState().persistedReducer.auth;
-  console.log("refresh auth handler runs");
-  if (refreshToken !== null) {
+  const refreshToken = store.getState().persistedReducer.auth.refreshToken;
+  console.log("refreshAuthHandler refreshToken", refreshToken);
+  if (refreshToken) {
     return axios
       .post(
-        "/auth/refresh",
+        "/auth/refresh/",
         {
           refresh: refreshToken,
         },
         {
-          baseURL: process.env.REACT_APP_TEST_API,
+          baseURL: apiURL,
         }
       )
       .then((resp) => {
         const { access, refresh } = resp.data;
+        console.log("then statement refreshAuthHandler", resp.data);
         failedRequest.response.config.headers.Authorization = "JWT " + access;
-        store.dispatch(setAuthTokens({ token: access, refreshToken: refresh }));
+        if (access && refresh) {
+          store.dispatch(
+            setAuthTokens({ token: access, refreshToken: refresh })
+          );
+        }
       })
       .catch((err) => {
         if (
-          (err.response && err.response.status === 401) ||
-          err.response.status === 403
+          err.response &&
+          (err.response.status === 401 || err.response.status === 403)
         ) {
           store.dispatch(setLogout());
         }
       });
+  } else {
+    console.log("REDIRECT TO LOGIN");
   }
 };
 

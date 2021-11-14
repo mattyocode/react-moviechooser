@@ -26,7 +26,7 @@ const authSlice = createSlice({
   reducers: {
     setAuthTokens(state, action) {
       state.refreshToken = action.payload.refreshToken;
-      state.token = action.payload.access;
+      state.token = action.payload.token;
     },
     // setAccount(state, action) {
     //   state.account = action.payload;

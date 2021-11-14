@@ -21,16 +21,13 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
 
   const userId = account?.uid;
   const user = useSWR(`/accounts/user/${userId}/`, fetcher);
-  console.log("user from SWR > ", user);
+  console.log("USER in auth-form >> ", user);
 
   const isLoginToggler = () => {
     if (isPage) {
       const url = isLogin ? "/auth/register" : "/auth/login";
       history.push(url);
     }
-    // if (!isPage && location.hash) {
-    //   console.log("HASHHHH", location.hash);
-    // }
     setIsLogin((prevState) => !prevState);
   };
 
@@ -136,20 +133,24 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
 
   if (account) {
     titleText = "Signed In";
-    subtitle = "Currently logged in. ";
+    subtitle =
+      `${
+        account.username ||
+        (account.email && account.email.substr(0, account.email.indexOf("@")))
+      }, you're logged in` || "You're currently logged in.";
     submitBtn = null;
-    actionBtns = (
-      <Form.Actions>
-        <Form.ActionBtn
-          onClick={toggleShowProfile}
-          className={showProfile ? "active" : ""}
-        >
-          View Profile
-        </Form.ActionBtn>
-        <Form.ActionBtn onClick={handleLogout}>Log Out</Form.ActionBtn>
-      </Form.Actions>
-    );
   }
+  actionBtns = (
+    <Form.Actions>
+      <Form.ActionBtn
+        onClick={toggleShowProfile}
+        className={showProfile ? "active" : ""}
+      >
+        View Profile
+      </Form.ActionBtn>
+      <Form.ActionBtn onClick={handleLogout}>Log Out</Form.ActionBtn>
+    </Form.Actions>
+  );
 
   return (
     <Form>

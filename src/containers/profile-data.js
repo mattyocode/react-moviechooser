@@ -17,6 +17,7 @@ export function ProfileData({ userData }) {
     "December",
   ];
   let d;
+  console.log("profile-data userData.data >>", userData.data);
   if (userData.data.date_joined) {
     d = new Date(userData.data.date_joined);
   }
