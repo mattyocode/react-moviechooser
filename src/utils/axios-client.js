@@ -32,14 +32,10 @@ export async function client(
 
     throw new Error(response.data);
   } catch (err) {
-    console.log("client err data entries", Object.entries(err.response.data));
-    console.log(
-      "client err data values",
-      Object.values(err.response.data)[0][0]
-    );
-    console.log("client err.message ", err.message);
     return Promise.reject(
-      err.response.data ? Object.values(err.response.data)[0][0] : err.message
+      err.response.data
+        ? String(Object.values(err.response.data)[0])
+        : err.message
     );
   }
 }
