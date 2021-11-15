@@ -1,27 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useSWR from "swr";
 import { Form } from "../components";
 import { ProfileData } from "./profile-data";
-import { handleAuth, setLogout } from "../store/auth-slice";
-import { fetcher } from "../utils/axios-refresh";
+import { handleAuth, setLogout, clearStatus } from "../store/auth-slice";
 import largeLogo from "../assets/png/logo_large.png";
 
 export function AuthForm({ login = true, isPage = false, closeSelf }) {
   const [isLogin, setIsLogin] = useState(login);
   const [showProfile, setShowProfile] = useState(false);
+  const [activeField, setActiveField] = useState(false);
   const account = useSelector((state) => state.persistedReducer.auth.account);
   const authStatus = useSelector((state) => state.persistedReducer.auth.status);
   const authError = useSelector((state) => state.persistedReducer.auth.error);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const userId = account?.uid;
-  const user = useSWR(`/accounts/user/${userId}/`, fetcher);
-  console.log("USER in auth-form >> ", user);
+  const succeedRef = useRef();
 
   const isLoginToggler = () => {
     if (isPage) {
@@ -33,25 +29,39 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
 
   const loginHandler = (email, password) => {
     const endpoint = "login/";
+    setActiveField(false);
     dispatch(handleAuth({ email, password, endpoint }));
-    if (isPage && authStatus === "idle") {
-      history.push("/");
-    }
-    if (!isPage && authStatus === "idle") {
-      closeSelf();
-    }
   };
 
-  const registerHandler = (email, password) => {
+  const registerHandler = (username, email, password) => {
     const endpoint = "register/";
-    dispatch(handleAuth({ email, password, endpoint }));
-    if (isPage && authStatus === "idle") {
-      history.push("/");
+    if (username === "") {
+      username = null;
     }
-    if (!isPage && authStatus === "idle") {
-      closeSelf();
-    }
+    setActiveField(false);
+    dispatch(handleAuth({ username, email, password, endpoint }));
   };
+
+  useEffect(() => {
+    console.log("useEffect authStatus", authStatus);
+    if (authStatus === "succeeded" && succeedRef.current === false) {
+      if (isPage) {
+        history.push("/");
+      } else {
+        closeSelf();
+      }
+      succeedRef.current = true;
+    }
+    return () => {
+      succeedRef.current = false;
+    };
+  }, [authStatus, history, isPage, closeSelf]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearStatus());
+    };
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(setLogout());
@@ -62,7 +72,16 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
     setShowProfile(!showProfile);
   };
 
+  const handleFocus = (e) => {
+    setActiveField(e.target.name);
+  };
+
   const SignInSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(2, "Username must be at least 2 characters")
+      .max(24, "Max username length is 24 characters")
+      .nullable()
+      .notRequired(),
     email: Yup.string()
       .email("Email must be valid")
       .required("Email is required"),
@@ -77,6 +96,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
 
   const formik = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -86,6 +106,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
         loginHandler(values.email, values.password);
       } else {
         registerHandler(
+          values.username,
           values.email,
           values.password,
           values.passwordConfirmation
@@ -167,51 +188,78 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
         {subtitle} {link}
       </Form.Text>
       {account && actionBtns}
-      {account && user && showProfile && <ProfileData userData={user} />}
+      {account && showProfile && <ProfileData account={account} />}
       {!account && (
         <Form.Base onSubmit={formik.handleSubmit}>
+          {!isLogin && (
+            <Form.Input
+              placeholder="Username (optional)"
+              id="username"
+              type="username"
+              name="username"
+              // autocomplete="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              onFocus={handleFocus}
+            />
+          )}
+          {!isLogin && formik.errors.username && formik.touched.username && (
+            <Form.FieldError>*{formik.errors.username}</Form.FieldError>
+          )}
           <Form.Input
             placeholder="Enter email address"
             id="email"
             type="email"
             name="email"
+            // autocomplete="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            onFocus={handleFocus}
           />
           {formik.errors.email && formik.touched.email && (
-            <Form.Error>*{formik.errors.email}</Form.Error>
+            <Form.FieldError>*{formik.errors.email}</Form.FieldError>
           )}
           <Form.Input
             placeholder="Password"
             id="password"
             type="password"
             name="password"
+            // autocomplete="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            onFocus={handleFocus}
           />
           {formik.errors.password && formik.touched.password && (
-            <Form.Error>*{formik.errors.password}</Form.Error>
+            <Form.FieldError>*{formik.errors.password}</Form.FieldError>
           )}
           {!isLogin && (
             <Form.Input
               placeholder="Confirm password"
               id="passwordConfirmation"
-              type="passwordConfirmation"
+              type="password"
               name="passwordConfirmation"
+              // autocomplete="passwordConfirmation"
               value={formik.values.passwordConfirmation}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onFocus={handleFocus}
             />
           )}
           {!isLogin &&
             formik.errors.passwordConfirmation &&
             formik.touched.passwordConfirmation && (
-              <Form.Error>*{formik.errors.passwordConfirmation}</Form.Error>
+              <Form.FieldError>
+                *{formik.errors.passwordConfirmation}
+              </Form.FieldError>
             )}
-          {authStatus === "failed" && authError && (
-            <Form.Error>{authError}</Form.Error>
+          {authStatus === "failed" && authError && !activeField && (
+            <Form.FormError>
+              {authError}
+              {activeField}
+            </Form.FormError>
           )}
           {submitBtn}
         </Form.Base>

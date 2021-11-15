@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Backdrop, Close, Overlay } from "./styles/modal";
+import {
+  Backdrop,
+  Close,
+  Overlay,
+  LockBody,
+  ReleaseBody,
+  ModalContent,
+  ModalWrapper,
+} from "./styles/modal";
 
 let portalElement = document.getElementById("overlays");
 if (!portalElement) {
@@ -23,12 +31,19 @@ export default function Modal({
         portalElement
       )}
       {ReactDOM.createPortal(
-        <Overlay data-testid="modal" {...restProps}>
-          <Close onClick={closeModal}>{"\u{D7}"}</Close>
-          {children}
-        </Overlay>,
+        <ModalWrapper>
+          <Overlay data-testid="modal" {...restProps}>
+            <LockBody />
+            <Close onClick={closeModal}>{"\u{D7}"}</Close>
+            <ModalContent>{children}</ModalContent>
+          </Overlay>
+        </ModalWrapper>,
         portalElement
       )}
     </>
   );
 }
+
+Modal.ReleaseBody = function ModalReleaseBody() {
+  return <ReleaseBody />;
+};

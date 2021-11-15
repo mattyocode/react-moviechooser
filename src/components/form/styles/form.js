@@ -81,6 +81,19 @@ export const Error = styled.div`
   }
 `;
 
+export const FormError = styled.div`
+  width: 14rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 14px;
+
+  p {
+    font-size: 0.8rem;
+    color: #ce2352;
+    text-align: left;
+  }
+`;
+
 export const Input = styled.input`
   border: 0;
   outline: 0;

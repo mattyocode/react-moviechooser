@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const apiURL = process.env.REACT_APP_TEST_API;
 
 export async function client(
@@ -23,16 +24,23 @@ export async function client(
   let data;
   try {
     let response;
-    console.log("config >>>", config);
     response = await axios(config);
     data = response.data;
-    if (response.statusText === "OK") {
+    if (response.status === 200 || response.status === 201) {
       return data;
     }
 
-    throw new Error(response.statusText);
+    throw new Error(response.data);
   } catch (err) {
-    return Promise.reject(err.message ? err.message : data);
+    console.log("client err data entries", Object.entries(err.response.data));
+    console.log(
+      "client err data values",
+      Object.values(err.response.data)[0][0]
+    );
+    console.log("client err.message ", err.message);
+    return Promise.reject(
+      err.response.data ? Object.values(err.response.data)[0][0] : err.message
+    );
   }
 }
 

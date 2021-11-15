@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { client } from "../utils/axios-client";
 
 const initialAuthState = {
@@ -11,12 +11,21 @@ const initialAuthState = {
 
 export const handleAuth = createAsyncThunk(
   "auth/handleAuth",
-  async ({ email, password, endpoint }) => {
-    const response = await client.post(`auth/${endpoint}`, {
-      email,
-      password,
-    });
-    return response;
+  async ({ username, email, password, endpoint }) => {
+    if (endpoint === "register/") {
+      const response = await client.post(`auth/${endpoint}`, {
+        username,
+        email,
+        password,
+      });
+      return response;
+    } else {
+      const response = await client.post(`auth/${endpoint}`, {
+        email,
+        password,
+      });
+      return response;
+    }
   }
 );
 
@@ -27,6 +36,10 @@ const authSlice = createSlice({
     setAuthTokens(state, action) {
       state.refreshToken = action.payload.refreshToken;
       state.token = action.payload.token;
+    },
+    clearStatus(state, action) {
+      state.status = "idle";
+      state.error = null;
     },
     // setAccount(state, action) {
     //   state.account = action.payload;
@@ -42,20 +55,23 @@ const authSlice = createSlice({
   extraReducers: {
     [handleAuth.pending]: (state, action) => {
       state.status = "loading";
+      state.error = null;
     },
     [handleAuth.fulfilled]: (state, action) => {
+      state.status = "succeeded";
       state.token = action.payload.access;
       state.refreshToken = action.payload.refresh;
       state.account = action.payload.user;
-      state.status = "succeeded";
+      state.error = null;
     },
     [handleAuth.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
+      console.log(current(state));
     },
   },
 });
 
-export const { setAuthTokens, setLogout } = authSlice.actions;
+export const { clearStatus, setAuthTokens, setLogout } = authSlice.actions;
 // export const authActions = authSlice.actions;
 export default authSlice.reducer;

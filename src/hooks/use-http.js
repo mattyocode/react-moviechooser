@@ -36,13 +36,14 @@ export default function useHttp(requestFunction, startWithPending = false) {
   const sendRequest = useCallback(
     async function (requestData, ...config) {
       dispatch({ type: "SEND" });
-      let { signal } = config[0];
+      // let { signal } = config[0];
       try {
         const responseData = await requestFunction(requestData, ...config);
-        if (!signal || (signal && !signal.aborted)) {
-          dispatch({ type: "SUCCESS", responseData });
-        }
+        // if (!signal || (signal && !signal.aborted)) {
+        dispatch({ type: "SUCCESS", responseData });
+        // }
       } catch (error) {
+        console.log("use HTTP called - catch block");
         // if (signal && signal.aborted) {
         if (error === "Aborted") {
           return;

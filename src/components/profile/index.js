@@ -3,6 +3,7 @@ import {
   ProfileWrapper,
   DataList,
   DataItem,
+  Error,
   Title,
   Field,
   Value,
@@ -30,4 +31,8 @@ Profile.Field = function ProfileField({ children, ...restProps }) {
 
 Profile.Value = function ProfileValue({ children, ...restProps }) {
   return <Value {...restProps}>{children}</Value>;
+};
+
+Profile.Error = function ProfileError({ children, ...restProps }) {
+  return <Error {...restProps}>{children}</Error>;
 };

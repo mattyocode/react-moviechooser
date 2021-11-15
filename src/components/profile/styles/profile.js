@@ -33,3 +33,16 @@ export const Value = styled.p`
   color: white;
   font-size: 1rem;
 `;
+
+export const Error = styled.div`
+  width: 14rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
+
+  p {
+    font-size: 0.8rem;
+    color: #d67f3c;
+    text-align: left;
+  }
+`;

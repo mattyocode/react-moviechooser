@@ -9,6 +9,7 @@ import {
   Text,
   Link,
   Error,
+  FormError,
   Input,
   Actions,
   ActionBtn,
@@ -46,11 +47,19 @@ Form.Text = function FormText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
 };
 
-Form.Error = function FormError({ children, ...restProps }) {
+Form.FieldError = function FormFieldError({ children, ...restProps }) {
   return (
     <Error {...restProps}>
       <p>{children}</p>
     </Error>
+  );
+};
+
+Form.FormError = function FormFormError({ children, ...restProps }) {
+  return (
+    <FormError {...restProps}>
+      <p>{children}</p>
+    </FormError>
   );
 };
 
