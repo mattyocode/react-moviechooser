@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Form } from "../components";
 import { ProfileData } from "./profile-data";
 import { handleAuth, setLogout, clearStatus } from "../store/auth-slice";
@@ -12,12 +13,15 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
   const [isLogin, setIsLogin] = useState(login);
   const [showProfile, setShowProfile] = useState(false);
   const [activeField, setActiveField] = useState(false);
+  const [recaptchaKey, setRecaptchaKey] = useState();
   const account = useSelector((state) => state.persistedReducer.auth.account);
   const authStatus = useSelector((state) => state.persistedReducer.auth.status);
   const authError = useSelector((state) => state.persistedReducer.auth.error);
   const dispatch = useDispatch();
   const history = useHistory();
   const succeedRef = useRef();
+  const recaptchaRef = useRef();
+  const sitekey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
   const isLoginToggler = () => {
     if (isPage) {
@@ -25,6 +29,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       history.push(url);
     }
     setIsLogin((prevState) => !prevState);
+    dispatch(clearStatus());
   };
 
   const loginHandler = (email, password) => {
@@ -33,13 +38,19 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
     dispatch(handleAuth({ email, password, endpoint }));
   };
 
-  const registerHandler = (username, email, password) => {
+  const registerHandler = async (username, email, password) => {
     const endpoint = "register/";
     if (username === "") {
-      username = null;
+      username = undefined;
     }
     setActiveField(false);
-    dispatch(handleAuth({ username, email, password, endpoint }));
+    if (recaptchaKey) {
+      dispatch(
+        handleAuth({ username, email, password, endpoint, recaptchaKey })
+      );
+      recaptchaRef.current.reset();
+      setRecaptchaKey(false);
+    }
   };
 
   useEffect(() => {
@@ -74,6 +85,10 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
 
   const handleFocus = (e) => {
     setActiveField(e.target.name);
+  };
+
+  const handleRecaptcha = (key) => {
+    setRecaptchaKey(key);
   };
 
   const SignInSchema = Yup.object().shape({
@@ -116,9 +131,18 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
     validationSchema: SignInSchema,
   });
 
-  // add pwConf into criteria / give it its own?
-  const btnDisabled =
+  const loginBtnDisabled =
     formik.errors.email || !formik.touched.email || formik.errors.password;
+
+  const recaptchaDisabled =
+    formik.errors.email ||
+    !formik.touched.email ||
+    formik.errors.password ||
+    !formik.touched.password ||
+    formik.errors.passwordConfirmation ||
+    formik.values.passwordConfirmation.length < 8;
+
+  const registerBtnDisabled = recaptchaDisabled || !recaptchaKey;
 
   let titleText;
   let subtitle;
@@ -133,7 +157,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       <Form.Link onClick={isLoginToggler}>Click here to register.</Form.Link>
     );
     submitBtn = (
-      <Form.Submit type="submit" disabled={btnDisabled}>
+      <Form.Submit type="submit" disabled={loginBtnDisabled}>
         Sign In
       </Form.Submit>
     );
@@ -146,7 +170,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       <Form.Link onClick={isLoginToggler}>Click here to sign in.</Form.Link>
     );
     submitBtn = (
-      <Form.Submit type="submit" disabled={btnDisabled}>
+      <Form.Submit type="submit" disabled={registerBtnDisabled}>
         Register
       </Form.Submit>
     );
@@ -197,7 +221,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
               id="username"
               type="username"
               name="username"
-              // autocomplete="username"
+              autocomplete="username"
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -212,7 +236,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
             id="email"
             type="email"
             name="email"
-            // autocomplete="email"
+            autocomplete="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -226,7 +250,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
             id="password"
             type="password"
             name="password"
-            // autocomplete="password"
+            autocomplete={isLogin ? "current-password" : "new-password"}
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -241,7 +265,7 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
               id="passwordConfirmation"
               type="password"
               name="passwordConfirmation"
-              // autocomplete="passwordConfirmation"
+              autocomplete="new-password"
               value={formik.values.passwordConfirmation}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -260,6 +284,16 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
               {authError}
               {activeField}
             </Form.FormError>
+          )}
+          {!isLogin && !recaptchaDisabled && (
+            <ReCAPTCHA
+              onChange={handleRecaptcha}
+              ref={recaptchaRef}
+              sitekey={sitekey}
+              theme="dark"
+              size="compact"
+              style={{ paddingTop: "1rem" }}
+            />
           )}
           {submitBtn}
         </Form.Base>

@@ -11,12 +11,13 @@ const initialAuthState = {
 
 export const handleAuth = createAsyncThunk(
   "auth/handleAuth",
-  async ({ username, email, password, endpoint }) => {
+  async ({ username, email, password, endpoint, recaptchaKey }) => {
     if (endpoint === "register/") {
       const response = await client.post(`auth/${endpoint}`, {
         username,
         email,
         password,
+        recaptcha_key: recaptchaKey,
       });
       return response;
     } else {

@@ -53,7 +53,7 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: auto !important;
 `;
 

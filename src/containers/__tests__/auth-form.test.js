@@ -1,49 +1,58 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { AuthForm } from "../auth-form";
+import store from "../../store/index";
+import * as reactRedux from "react-redux";
+import { server, rest } from "../../mocks/server";
 
 describe("<AuthForm /> tests", () => {
-  it("renders the auth form as signin with no props passed", () => {
+  beforeEach(() => {
     render(
-      <MemoryRouter>
-        <AuthForm />
-      </MemoryRouter>
+      <reactRedux.Provider store={store}>
+        <MemoryRouter>
+          <AuthForm />
+        </MemoryRouter>
+      </reactRedux.Provider>
     );
+  });
+  it("renders the auth form as signin with no props passed", () => {
     expect(
-      screen.getByRole("button", { name: /^sign in!$/i })
+      screen.getByRole("button", { name: /click here to register/i })
     ).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^register$/i })).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: /click here to sign in/i })
+    ).toBeNull();
   });
 
   it("switches to register form on register link click", () => {
-    render(
-      <MemoryRouter>
-        <AuthForm />
-      </MemoryRouter>
-    );
     expect(
-      screen.getByRole("button", { name: /^sign in!$/i })
+      screen.getByRole("button", { name: /click here to register/i })
     ).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^register$/i })).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: /click here to sign in/i })
+    ).toBeNull();
 
-    const registerLink = screen.getByText(/Click here to register./i);
+    const registerLink = screen.getByText(/Click here to register/i);
     fireEvent.click(registerLink);
 
     expect(
-      screen.getByRole("button", { name: /^register$/i })
+      screen.getByRole("button", { name: /Click here to sign in/i })
     ).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^sign in!$/i })).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: /click here to register/i })
+    ).toBeNull();
   });
 
   it("shows error with incorrect email", async () => {
-    render(
-      <MemoryRouter>
-        <AuthForm />
-      </MemoryRouter>
-    );
     const input = screen.getByPlaceholderText("Enter email address");
     await waitFor(() => {
       fireEvent.change(input, {
@@ -56,11 +65,6 @@ describe("<AuthForm /> tests", () => {
   });
 
   it("shows error with short password", async () => {
-    render(
-      <MemoryRouter>
-        <AuthForm />
-      </MemoryRouter>
-    );
     const input = screen.getByPlaceholderText("Password");
     await waitFor(() => {
       fireEvent.change(input, {
@@ -75,10 +79,14 @@ describe("<AuthForm /> tests", () => {
   });
 
   it("shows error on register if passwords don't match", async () => {
+    cleanup();
+
     render(
-      <MemoryRouter>
-        <AuthForm login={false} />
-      </MemoryRouter>
+      <reactRedux.Provider store={store}>
+        <MemoryRouter>
+          <AuthForm login={false} />
+        </MemoryRouter>
+      </reactRedux.Provider>
     );
     const password1 = screen.getByPlaceholderText("Password");
     const password2 = screen.getByPlaceholderText("Confirm password");

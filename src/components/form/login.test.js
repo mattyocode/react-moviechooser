@@ -34,7 +34,7 @@ describe("<Form/>", () => {
   it("renders <Form /> for register with error", () => {
     render(
       <Form>
-        <Form.Error>There is an error with the form</Form.Error>
+        <Form.FormError>There is an error with the form</Form.FormError>
         <Form.Submit type="submit">Sign In</Form.Submit>
       </Form>
     );
