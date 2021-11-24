@@ -86,11 +86,26 @@ export const FormError = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 14px;
+  margin: 0 auto;
 
   p {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #ce2352;
-    text-align: left;
+    text-align: center;
+  }
+`;
+
+export const FormSuccess = styled.div`
+  width: 14rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 14px;
+  margin: 0 auto;
+
+  p {
+    font-size: 1rem;
+    color: #51c7d6;
+    text-align: center;
   }
 `;
 

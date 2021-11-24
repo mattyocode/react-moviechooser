@@ -10,26 +10,25 @@ export default function AuthPage({ children, ...restProps }) {
   const history = useHistory();
   const params = useParams();
 
-  const exitAuthPageHandler = () => {
-    history.push("/");
-  };
+  console.log("params in auth >> ", params.params);
 
-  let login;
+  let formTypeInitial;
   if (params.params === "register") {
-    login = false;
+    formTypeInitial = "register";
   } else if (params.params === "login") {
-    login = true;
+    formTypeInitial = "login";
+  } else if (params.params === "reset") {
+    formTypeInitial = "reset";
+  } else if (params.params === "new-password") {
+    formTypeInitial = "new-password";
   } else {
     history.push("/");
   }
+  console.log("formTypeInitial", formTypeInitial);
 
   return (
-    <Modal openState={true} closeModal={exitAuthPageHandler}>
-      {login ? (
-        <AuthForm login={true} isPage={true} />
-      ) : (
-        <AuthForm login={false} isPage={true} />
-      )}
-    </Modal>
+    <Modal.OverlayOnly {...restProps}>
+      <AuthForm formTypeInitial={formTypeInitial} isPage={true} />
+    </Modal.OverlayOnly>
   );
 }

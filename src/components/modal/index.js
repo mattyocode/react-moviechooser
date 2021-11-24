@@ -47,3 +47,13 @@ export default function Modal({
 Modal.ReleaseBody = function ModalReleaseBody() {
   return <ReleaseBody />;
 };
+
+Modal.OverlayOnly = function ModalOverlayOnly({ children, ...restProps }) {
+  return (
+    <ModalWrapper>
+      <Overlay data-testid="modal" {...restProps}>
+        <ModalContent>{children}</ModalContent>
+      </Overlay>
+    </ModalWrapper>
+  );
+};

@@ -27,9 +27,19 @@ export function NavbarContainer() {
     history.replace(`${location.pathname}`);
     setAuthOpen(false);
   };
+
   const openAuthHandler = (data) => {
-    history.replace(`${location.pathname}#auth`);
-    setAuthOpen(true);
+    console.log(
+      "location.pathname >>",
+      location.pathname,
+      location.pathname.includes("/auth/")
+    );
+    if (!location.pathname.includes("/auth/")) {
+      history.replace(`${location.pathname}#auth`);
+      setAuthOpen(true);
+    } else {
+      history.push("/auth/login");
+    }
   };
 
   const toggleLinks = () => {

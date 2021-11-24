@@ -37,6 +37,7 @@ export default function useHttp(requestFunction, startWithPending = false) {
     async function (requestData, ...config) {
       dispatch({ type: "SEND" });
       // let { signal } = config[0];
+      console.log("request data >>", requestData);
       try {
         const responseData = await requestFunction(requestData, ...config);
         // if (!signal || (signal && !signal.aborted)) {
@@ -45,9 +46,9 @@ export default function useHttp(requestFunction, startWithPending = false) {
       } catch (error) {
         console.log("use HTTP called - catch block");
         // if (signal && signal.aborted) {
-        if (error === "Aborted") {
-          return;
-        }
+        // if (error === "Aborted") {
+        //   return;
+        // }
 
         dispatch({
           type: "ERROR",

@@ -44,8 +44,16 @@ export default function Movies() {
             return <CardContainer key={movie.slug} movie={movie} />;
           })}
       </Card.Group>
-      <div>{moviesStatus === "loading" && <Loading />}</div>
-      <div>{moviesStatus === "failed" && <p>Error: {moviesError}</p>}</div>
+      {moviesStatus === "loading" && (
+        <div>
+          <Loading />
+        </div>
+      )}
+      {moviesStatus === "failed" && (
+        <div>
+          <p>Error: {moviesError}</p>
+        </div>
+      )}
       <Card.MoreBtnWrapper>
         {moreMovies && moviesStatus === "succeeded" && (
           <Card.MoreBtn onClick={addMoviesHandler}>More</Card.MoreBtn>

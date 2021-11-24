@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import ReCAPTCHA from "react-google-recaptcha";
-import { Form } from "../components";
-import { ProfileData } from "./profile-data";
+import { Login } from "./login";
+import { Register } from "./register";
+import { ProfileData } from "./profile";
+import { PasswordReset } from "./password-reset";
+import { NewPassword } from "./new-password";
 import { handleAuth, setLogout, clearStatus } from "../store/auth-slice";
-import largeLogo from "../assets/png/logo_large.png";
 
-export function AuthForm({ login = true, isPage = false, closeSelf }) {
-  const [isLogin, setIsLogin] = useState(login);
-  const [showProfile, setShowProfile] = useState(false);
+export function AuthForm({
+  formTypeInitial = "login",
+  isPage = false,
+  closeSelf,
+}) {
+  const [formType, setFormType] = useState(formTypeInitial);
   const [activeField, setActiveField] = useState(false);
   const [recaptchaKey, setRecaptchaKey] = useState();
   const account = useSelector((state) => state.persistedReducer.auth.account);
@@ -20,15 +24,16 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const succeedRef = useRef();
-  const recaptchaRef = useRef();
-  const sitekey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
-  const isLoginToggler = () => {
+  console.log("formTypeInitial in auth-form >>", formType);
+
+  const formTypeHandler = (type) => {
+    setFormType(type);
     if (isPage) {
-      const url = isLogin ? "/auth/register" : "/auth/login";
+      const url = `/auth/${type}`;
       history.push(url);
     }
-    setIsLogin((prevState) => !prevState);
+    console.log("form type >>", type);
     dispatch(clearStatus());
   };
 
@@ -48,13 +53,18 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       dispatch(
         handleAuth({ username, email, password, endpoint, recaptchaKey })
       );
-      recaptchaRef.current.reset();
+      // recaptchaRef.current.reset();
       setRecaptchaKey(false);
     }
   };
 
+  const resetHandler = (email) => {
+    const endpoint = "reset/";
+    setActiveField(false);
+    dispatch(handleAuth({ email, endpoint }));
+  };
+
   useEffect(() => {
-    console.log("useEffect authStatus", authStatus);
     if (authStatus === "succeeded" && succeedRef.current === false) {
       if (isPage) {
         history.push("/");
@@ -74,24 +84,22 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    if (formType !== formTypeInitial && isPage) {
+      setFormType(formTypeInitial);
+    }
+  }, [formType, formTypeInitial, isPage]);
+
   const handleLogout = () => {
     dispatch(setLogout());
     history.push("/");
-  };
-
-  const toggleShowProfile = () => {
-    setShowProfile(!showProfile);
   };
 
   const handleFocus = (e) => {
     setActiveField(e.target.name);
   };
 
-  const handleRecaptcha = (key) => {
-    setRecaptchaKey(key);
-  };
-
-  const SignInSchema = Yup.object().shape({
+  const authSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, "Username must be at least 2 characters")
       .max(24, "Max username length is 24 characters")
@@ -117,9 +125,10 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
       passwordConfirmation: "",
     },
     onSubmit: (values) => {
-      if (isLogin) {
+      if (formType === "login") {
         loginHandler(values.email, values.password);
-      } else {
+      }
+      if (formType === "register") {
         registerHandler(
           values.username,
           values.email,
@@ -127,177 +136,63 @@ export function AuthForm({ login = true, isPage = false, closeSelf }) {
           values.passwordConfirmation
         );
       }
+      if (formType === "rest") {
+        resetHandler(values.email);
+      }
     },
-    validationSchema: SignInSchema,
+    validationSchema: authSchema,
   });
 
-  const loginBtnDisabled =
-    formik.errors.email || !formik.touched.email || formik.errors.password;
-
-  const recaptchaDisabled =
-    formik.errors.email ||
-    !formik.touched.email ||
-    formik.errors.password ||
-    !formik.touched.password ||
-    formik.errors.passwordConfirmation ||
-    formik.values.passwordConfirmation.length < 8;
-
-  const registerBtnDisabled = recaptchaDisabled || !recaptchaKey;
-
-  let titleText;
-  let subtitle;
-  let link;
-  let submitBtn;
-  let actionBtns;
-
-  if (isLogin && !account) {
-    titleText = "Sign In";
-    subtitle = "No account? ";
-    link = (
-      <Form.Link onClick={isLoginToggler}>Click here to register.</Form.Link>
-    );
-    submitBtn = (
-      <Form.Submit type="submit" disabled={loginBtnDisabled}>
-        Sign In
-      </Form.Submit>
-    );
-  }
-
-  if (!isLogin && !account) {
-    titleText = "Register";
-    subtitle = "Already signed up? ";
-    link = (
-      <Form.Link onClick={isLoginToggler}>Click here to sign in.</Form.Link>
-    );
-    submitBtn = (
-      <Form.Submit type="submit" disabled={registerBtnDisabled}>
-        Register
-      </Form.Submit>
-    );
-  }
-
-  if (account) {
-    titleText = "Signed In";
-    subtitle =
-      `${
-        account.username ||
-        (account.email && account.email.substr(0, account.email.indexOf("@")))
-      }, you're logged in` || "You're currently logged in.";
-    submitBtn = null;
-  }
-  actionBtns = (
-    <Form.Actions>
-      <Form.ActionBtn
-        onClick={toggleShowProfile}
-        className={showProfile ? "active" : ""}
-      >
-        View Profile
-      </Form.ActionBtn>
-      <Form.ActionBtn onClick={handleLogout}>Log Out</Form.ActionBtn>
-    </Form.Actions>
-  );
-
   return (
-    <Form>
-      <Form.Header>
-        <Form.Logo to={"/"} src={largeLogo} />
-        <Form.Title>
-          <span role="img" aria-label="lock and key">
-            &#128272;
-          </span>
-          {titleText}
-        </Form.Title>
-      </Form.Header>
-      <Form.Text>
-        {subtitle} {link}
-      </Form.Text>
-      {account && actionBtns}
-      {account && showProfile && <ProfileData account={account} />}
-      {!account && (
-        <Form.Base onSubmit={formik.handleSubmit}>
-          {!isLogin && (
-            <Form.Input
-              placeholder="Username (optional)"
-              id="username"
-              type="username"
-              name="username"
-              autocomplete="username"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              onFocus={handleFocus}
-            />
-          )}
-          {!isLogin && formik.errors.username && formik.touched.username && (
-            <Form.FieldError>*{formik.errors.username}</Form.FieldError>
-          )}
-          <Form.Input
-            placeholder="Enter email address"
-            id="email"
-            type="email"
-            name="email"
-            autocomplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            onFocus={handleFocus}
-          />
-          {formik.errors.email && formik.touched.email && (
-            <Form.FieldError>*{formik.errors.email}</Form.FieldError>
-          )}
-          <Form.Input
-            placeholder="Password"
-            id="password"
-            type="password"
-            name="password"
-            autocomplete={isLogin ? "current-password" : "new-password"}
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            onFocus={handleFocus}
-          />
-          {formik.errors.password && formik.touched.password && (
-            <Form.FieldError>*{formik.errors.password}</Form.FieldError>
-          )}
-          {!isLogin && (
-            <Form.Input
-              placeholder="Confirm password"
-              id="passwordConfirmation"
-              type="password"
-              name="passwordConfirmation"
-              autocomplete="new-password"
-              value={formik.values.passwordConfirmation}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              onFocus={handleFocus}
-            />
-          )}
-          {!isLogin &&
-            formik.errors.passwordConfirmation &&
-            formik.touched.passwordConfirmation && (
-              <Form.FieldError>
-                *{formik.errors.passwordConfirmation}
-              </Form.FieldError>
-            )}
-          {authStatus === "failed" && authError && !activeField && (
-            <Form.FormError>
-              {authError}
-              {activeField}
-            </Form.FormError>
-          )}
-          {!isLogin && !recaptchaDisabled && (
-            <ReCAPTCHA
-              onChange={handleRecaptcha}
-              ref={recaptchaRef}
-              sitekey={sitekey}
-              theme="dark"
-              size="compact"
-              style={{ paddingTop: "1rem" }}
-            />
-          )}
-          {submitBtn}
-        </Form.Base>
+    <>
+      {!account && formType === "login" && (
+        <Login
+          formik={formik}
+          handleFocus={handleFocus}
+          formTypeHandler={formTypeHandler}
+          authStatus={authStatus}
+          authError={authError}
+          activeField={activeField}
+          isPage={isPage}
+        />
       )}
-    </Form>
+      {!account && formType === "register" && (
+        <Register
+          formik={formik}
+          handleFocus={handleFocus}
+          formTypeHandler={formTypeHandler}
+          authStatus={authStatus}
+          authError={authError}
+          activeField={activeField}
+          recaptchaKey={recaptchaKey}
+          setRecaptchaKey={setRecaptchaKey}
+          isPage={isPage}
+        />
+      )}
+      {account && <ProfileData account={account} handleLogout={handleLogout} />}
+      {!account && formType === "reset" && (
+        <PasswordReset
+          formik={formik}
+          handleFocus={handleFocus}
+          formTypeHandler={formTypeHandler}
+          activeField={activeField}
+          closeModal={closeSelf}
+          isPage={isPage}
+          // recaptchaKey={recaptchaKey}
+          // setRecaptchaKey={setRecaptchaKey}
+        />
+      )}
+      {!account && formType === "new-password" && (
+        <NewPassword
+          formik={formik}
+          handleFocus={handleFocus}
+          formTypeHandler={formTypeHandler}
+          activeField={activeField}
+          isPage={isPage}
+          // recaptchaKey={recaptchaKey}
+          // setRecaptchaKey={setRecaptchaKey}
+        />
+      )}
+    </>
   );
 }

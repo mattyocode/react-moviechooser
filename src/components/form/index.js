@@ -10,6 +10,7 @@ import {
   Link,
   Error,
   FormError,
+  FormSuccess,
   Input,
   Actions,
   ActionBtn,
@@ -60,6 +61,14 @@ Form.FormError = function FormFormError({ children, ...restProps }) {
     <FormError {...restProps}>
       <p>{children}</p>
     </FormError>
+  );
+};
+
+Form.FormSuccess = function FormFormSuccess({ children, ...restProps }) {
+  return (
+    <FormSuccess {...restProps}>
+      <p>{children}</p>
+    </FormSuccess>
   );
 };
 
