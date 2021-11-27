@@ -84,7 +84,7 @@ describe("<AuthForm /> tests", () => {
     render(
       <reactRedux.Provider store={store}>
         <MemoryRouter>
-          <AuthForm login={false} />
+          <AuthForm formTypeInitial={"register"} />
         </MemoryRouter>
       </reactRedux.Provider>
     );

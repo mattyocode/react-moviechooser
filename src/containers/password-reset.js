@@ -30,6 +30,7 @@ export function PasswordReset({
   };
 
   const handleRecaptcha = (key) => {
+    console.log("recaptcha key >>", key);
     setRecaptchaKey(key);
   };
 
@@ -39,6 +40,7 @@ export function PasswordReset({
       body: {
         email: formik.values.email,
         redirect_url: `${process.env.REACT_APP_DOMAIN_NAME}/auth/new-password`,
+        recaptcha_key: recaptchaKey,
       },
     });
   };
@@ -102,16 +104,21 @@ export function PasswordReset({
           </Form.Submit>
         </Form.Base>
       )}
-      {status === "updating" && (
+      {status === "pending" && (
         <div>
-          Loading!!!!!!
-          <Loading small />
+          <Loading
+            small
+            style={{
+              paddingTop: "2rem",
+              marginTop: "2rem",
+            }}
+          />
         </div>
       )}
       {status === "rejected" && (
-        <div>
+        <Form.FormError>
           <p>Error: {error}</p>
-        </div>
+        </Form.FormError>
       )}
       {status === "succeeded" && (
         <>

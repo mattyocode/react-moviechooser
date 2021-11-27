@@ -25,7 +25,7 @@ export function AuthForm({
   const history = useHistory();
   const succeedRef = useRef();
 
-  console.log("formTypeInitial in auth-form >>", formType);
+  console.log("Account >>", account);
 
   const formTypeHandler = (type) => {
     setFormType(type);
@@ -169,7 +169,9 @@ export function AuthForm({
           isPage={isPage}
         />
       )}
-      {account && <ProfileData account={account} handleLogout={handleLogout} />}
+      {account && authStatus === "idle" && (
+        <ProfileData account={account} handleLogout={handleLogout} />
+      )}
       {!account && formType === "reset" && (
         <PasswordReset
           formik={formik}
@@ -178,8 +180,8 @@ export function AuthForm({
           activeField={activeField}
           closeModal={closeSelf}
           isPage={isPage}
-          // recaptchaKey={recaptchaKey}
-          // setRecaptchaKey={setRecaptchaKey}
+          recaptchaKey={recaptchaKey}
+          setRecaptchaKey={setRecaptchaKey}
         />
       )}
       {!account && formType === "new-password" && (
@@ -189,8 +191,6 @@ export function AuthForm({
           formTypeHandler={formTypeHandler}
           activeField={activeField}
           isPage={isPage}
-          // recaptchaKey={recaptchaKey}
-          // setRecaptchaKey={setRecaptchaKey}
         />
       )}
     </>

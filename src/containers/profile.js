@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Profile } from "../components";
+import axios from "axios";
 import { fetcher } from "../utils/axios-refresh";
 import { useHttp } from "../hooks";
 import largeLogo from "../assets/png/logo_large.png";
@@ -33,9 +34,12 @@ export function ProfileData({ account, handleLogout }) {
 
   useEffect(() => {
     const userId = account?.uid;
-    console.log("profile-data useEffect", userId);
-    sendRequest(`/accounts/user/${userId}/`);
-    // return () => {}
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+    sendRequest(`/accounts/user/${userId}/`, { cancelToken: source.token });
+    return () => {
+      source.cancel("axios request cancelled");
+    };
   }, [account, sendRequest]);
 
   return (

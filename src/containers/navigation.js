@@ -28,12 +28,7 @@ export function NavbarContainer() {
     setAuthOpen(false);
   };
 
-  const openAuthHandler = (data) => {
-    console.log(
-      "location.pathname >>",
-      location.pathname,
-      location.pathname.includes("/auth/")
-    );
+  const openAuthHandler = () => {
     if (!location.pathname.includes("/auth/")) {
       history.replace(`${location.pathname}#auth`);
       setAuthOpen(true);
@@ -56,6 +51,7 @@ export function NavbarContainer() {
   useEffect(() => {
     if (location.hash && location.hash !== "#auth") {
       let elem = document.getElementById(location.hash.slice(1));
+      console.log("element >>", elem);
       if (elem) {
         elementScrollIntoView(
           document.querySelector(`#${location.hash.slice(1)}`),
@@ -65,7 +61,7 @@ export function NavbarContainer() {
         window.scrollTo({ top: 0, left: 0 });
       }
     }
-  }, [location.hash]);
+  }, [location]);
 
   useEffect(() => {
     if (location.hash && location.hash === "#auth") {
@@ -77,7 +73,7 @@ export function NavbarContainer() {
     <>
       {authOpen && (
         <Modal openState={authOpen} closeModal={closeAuthHandler}>
-          <AuthForm closeSelf={setAuthOpen} />
+          <AuthForm formTypeInitial={"login"} closeSelf={setAuthOpen} />
         </Modal>
       )}
       <Navbar>

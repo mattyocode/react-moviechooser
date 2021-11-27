@@ -6,8 +6,11 @@ import "@testing-library/jest-dom";
 
 import { MovieDetail } from "../../pages";
 
+const apiUrlRoot = process.env.REACT_APP_TEST_API;
+console.log("movie-detail apiUrlRoot >", apiUrlRoot);
+
 describe("<MovieDetail/> Surprise page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/api/movies/random`;
+  const apiUrl = `${apiUrlRoot}/api/movies/random`;
   beforeEach(() => {
     render(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
@@ -53,6 +56,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
 
 describe("<MovieDetail/> Movie ID page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/api/movies/123`;
+  console.log("movie detail >> ", apiUrl);
   beforeEach(() => {
     render(
       <MemoryRouter initialEntries={["/movies/123"]}>

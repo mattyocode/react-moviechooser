@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const apiURL = process.env.REACT_APP_TEST_API;
+console.log("apiURL >>", apiURL);
 
 export async function client(
   endpoint,
@@ -8,10 +9,10 @@ export async function client(
 ) {
   const config = {
     url: endpoint,
-    baseURL: apiURL, // possible issues with 'more movies' api call
-    method: body ? "POST" : "GET", // method (same)
-    data: body ? JSON.stringify(body) : undefined, // data?
-    cancelToken: cancelToken ? cancelToken : undefined, // cancelToken: source.token
+    baseURL: apiURL,
+    method: body ? "POST" : "GET",
+    data: body ? JSON.stringify(body) : undefined,
+    cancelToken: cancelToken ? cancelToken : undefined,
     headers: {
       Authorization: token ? `JWT ${token}` : undefined,
       "Content-Type": body ? "application/json" : undefined,

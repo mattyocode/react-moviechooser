@@ -5,7 +5,7 @@ import moviesData from "../fixtures/updatedMoviesData.json";
 
 const apiUrl = `${process.env.REACT_APP_TEST_API}`;
 
-// console.log("", apiUrl);
+console.log("server-handler apiUrl", apiUrl);
 
 const handlers = [
   rest.get(`${apiUrl}/api/genres/`, async (req, res, ctx) => {
