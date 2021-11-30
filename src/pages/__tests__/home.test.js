@@ -77,7 +77,7 @@ describe("<Home/> page tests", () => {
     );
 
     expect(
-      screen.getByText(/Choose from 1000s of acclaimed movies.i)
+      screen.getByText(/Choose from 1000s of acclaimed movies./i)
     ).toBeInTheDocument();
 
     let submitBtn = await screen.findByTestId(

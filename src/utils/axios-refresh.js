@@ -88,11 +88,58 @@ const refreshAuthHandler = async (failedRequest) => {
 
 createAuthRefreshInterceptor(axiosInstance, refreshAuthHandler);
 
-export function fetcher(url) {
-  console.log("fetcher url", url);
-  const data = axiosInstance.get(url).then((res) => res.data);
-  console.log("data ", data);
-  return data;
+export async function client(
+  url,
+  { body, token, cancelToken, headers: customHeaders, ...customConfig } = {}
+) {
+  const config = {
+    url: url,
+    baseURL: apiURL,
+    method: body ? "POST" : "GET",
+    data: body ? JSON.stringify(body) : undefined,
+    cancelToken: cancelToken ? cancelToken : undefined,
+    headers: {
+      Authorization: token ? `JWT ${token}` : undefined,
+      "Content-Type": body ? "application/json" : undefined,
+      ...customHeaders,
+    },
+
+    ...customConfig,
+  };
+  console.log("client url", url);
+  let data;
+  try {
+    let response;
+    response = await axiosInstance(config);
+    data = response.data;
+    if (response.status === 200 || response.status === 201) {
+      return data;
+    }
+
+    throw new Error(response.data);
+  } catch (err) {
+    return Promise.reject(
+      err.response.data
+        ? String(Object.values(err.response.data)[0])
+        : err.message
+    );
+  }
 }
+//   const data = axiosInstance.get(url, config).then((res) => res.data);
+//   console.log("data ", data);
+//   return data;
+// }
 
 export default axiosInstance;
+
+client.get = function (endpoint, customConfig = {}) {
+  return client(endpoint, { ...customConfig, method: "GET" });
+};
+
+client.post = function (endpoint, body, customConfig = {}) {
+  return client(endpoint, { ...customConfig, body });
+};
+
+client.patch = function (endpoint, body, customConfig = {}) {
+  return client(endpoint, { ...customConfig, method: "PATCH", body });
+};

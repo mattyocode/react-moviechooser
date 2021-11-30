@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { client } from "../utils/axios-client";
+import { client } from "../utils/axios-refresh";
 // import { fetchOptionsData } from "./query-actions";
 
 const initialOptionsState = {

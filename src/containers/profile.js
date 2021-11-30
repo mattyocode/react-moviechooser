@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Profile } from "../components";
 import axios from "axios";
-import { fetcher } from "../utils/axios-refresh";
+import { client } from "../utils/axios-refresh";
 import { useHttp } from "../hooks";
 import largeLogo from "../assets/png/logo_large.png";
 
@@ -21,7 +21,7 @@ export function ProfileData({ account, handleLogout }) {
     "November",
     "December",
   ];
-  const { sendRequest, status, error, data: profileData } = useHttp(fetcher);
+  const { sendRequest, status, error, data: profileData } = useHttp(client);
 
   const toggleShowProfile = () => {
     setShowProfile(!showProfile);

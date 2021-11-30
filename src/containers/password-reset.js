@@ -115,11 +115,7 @@ export function PasswordReset({
           />
         </div>
       )}
-      {status === "rejected" && (
-        <Form.FormError>
-          <p>Error: {error}</p>
-        </Form.FormError>
-      )}
+      {status === "rejected" && <Form.FormError>Error: {error}</Form.FormError>}
       {status === "succeeded" && (
         <>
           <Form.FormSuccess style={{ padding: "1rem 0" }}>
