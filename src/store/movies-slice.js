@@ -30,6 +30,14 @@ export const addMovies = createAsyncThunk(
   }
 );
 
+export const fetchSingleMovie = createAsyncThunk(
+  "movies/fetchSingleMovie",
+  async (movieId) => {
+    const response = await client.get(`api/movies/${movieId}`);
+    return response;
+  }
+);
+
 const moviesSlice = createSlice({
   name: "movies",
   initialState: initialMoviesState,
@@ -70,6 +78,17 @@ const moviesSlice = createSlice({
       state.status = "succeeded";
     },
     [addMovies.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    },
+    [fetchSingleMovie.pending]: (state, action) => {
+      state.status = "updating";
+    },
+    [fetchSingleMovie.fulfilled]: (state, action) => {
+      state.movies = [action.payload];
+      state.status = "succeeded";
+    },
+    [fetchSingleMovie.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
     },

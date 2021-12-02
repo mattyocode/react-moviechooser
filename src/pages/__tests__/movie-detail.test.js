@@ -98,7 +98,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
       })
     );
-    render(
+    reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>
         <Route path="/movies/:movieId">
           <MovieDetail />

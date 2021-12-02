@@ -1,51 +1,33 @@
 import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
-import { client } from "../utils/axios-client";
-import { useHttp } from "../hooks";
+import { fetchSingleMovie } from "../store/movies-slice";
 
 export default function MovieDetail() {
-  const { sendRequest, status, error, data: movieData } = useHttp(client);
+  const movie = useSelector((state) => state.movies.movies)[0];
+  const moviesStatus = useSelector((state) => state.movies.status);
+  const moviesError = useSelector((state) => state.movies.error);
+
   const location = useLocation();
   const locationRef = useRef(null);
   const params = useParams();
+  const dispatch = useDispatch();
 
   let route = "";
   if (params.movieId === "surprise") {
-    route = "api/movies/random/";
+    route = "random";
   } else {
-    route = `api/movies/${params.movieId}`;
-  }
-
-  let movie;
-  console.log("movieData >>", movieData);
-  console.log("status >>", status);
-  if (status === "pending") {
-    movie = <Loading />;
-  }
-
-  if (status === "succeeded") {
-    movie = <CardContainer movie={movieData} expandInitially={true} />;
-  }
-
-  if (status === "rejected") {
-    movie = <p>Error: {error} </p>;
+    route = `${params.movieId}`;
   }
 
   useEffect(() => {
     if (locationRef !== location.key) {
-      const CancelToken = axios.CancelToken;
-      const source = CancelToken.source();
-      locationRef.current = location.key;
-      sendRequest(route, { cancelToken: source.token });
-
-      return () => {
-        source.cancel("axios request cancelled");
-      };
+      dispatch(fetchSingleMovie(route));
     }
-  }, [route, sendRequest, locationRef, location]);
+  }, [dispatch, route, location, locationRef]);
 
   return (
     <>
@@ -58,7 +40,11 @@ export default function MovieDetail() {
           <Headline.Title>Check this out!</Headline.Title>
         </Headline>
       )}
-      {movie}
+      {moviesStatus === "updating" && <Loading />}
+      {moviesStatus === "succeeded" && (
+        <CardContainer movie={movie} expandInitially={true} />
+      )}
+      {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
     </>
   );
 }
