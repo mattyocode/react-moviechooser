@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import { MdShare, MdOndemandVideo, MdLibraryAdd } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import {
+  MdShare,
+  MdOndemandVideo,
+  MdBookmark,
+  MdBookmarkBorder,
+} from "react-icons/md";
 
 import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
+import { addNewListItem, deleteListItem } from "../store/list-slice";
+import { setMovieOnList } from "../store/movies-slice";
 
-export function CardContainer({ movie, expandInitially = false }) {
+export function CardContainer({
+  movie,
+  expandInitially = false,
+  isListItem = false,
+}) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
+
+  const dispatch = useDispatch();
 
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
@@ -29,6 +43,27 @@ export function CardContainer({ movie, expandInitially = false }) {
     setShareOpen(true);
   };
 
+  const addToListHandler = () => {
+    console.log("movie slug in card >>", movie.slug);
+    dispatch(addNewListItem(movie.slug));
+    dispatch(
+      setMovieOnList({
+        movieSlug: movie.slug,
+        onList: true,
+      })
+    );
+  };
+
+  const removeFromListHandler = () => {
+    dispatch(deleteListItem(movie.slug));
+    dispatch(
+      setMovieOnList({
+        movieSlug: movie.slug,
+        onList: false,
+      })
+    );
+  };
+
   return (
     <>
       {ondemandOpen && ondemandData && (
@@ -44,6 +79,7 @@ export function CardContainer({ movie, expandInitially = false }) {
       {movie && (
         <Card expandState={expandInitially}>
           <Card.Content>
+            {isListItem && null}
             <Card.Sidebar>
               <Card.AvgRating>
                 {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
@@ -97,7 +133,11 @@ export function CardContainer({ movie, expandInitially = false }) {
                 <MdShare />
               </Card.Action>
               <Card.Action label="Save">
-                <MdLibraryAdd />
+                {movie.on_list || isListItem ? (
+                  <MdBookmark onClick={removeFromListHandler} />
+                ) : (
+                  <MdBookmarkBorder onClick={addToListHandler} />
+                )}
               </Card.Action>
             </Card.Footer>
           </Card.Content>

@@ -20,6 +20,8 @@ export default function MovieDetail() {
   }
 
   let movie;
+  console.log("movieData >>", movieData);
+  console.log("status >>", status);
   if (status === "pending") {
     movie = <Loading />;
   }
@@ -49,7 +51,7 @@ export default function MovieDetail() {
     <>
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
-          <Headline.Title>Random has chosen...</Headline.Title>
+          <Headline.Title>Random has chosen</Headline.Title>
         </Headline>
       ) : (
         <Headline data-testid={`movie-detail-${params.movieId}`}>

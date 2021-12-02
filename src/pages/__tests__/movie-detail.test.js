@@ -1,9 +1,15 @@
 import React from "react";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
-
+import { reduxTestRender } from "../../mocks/test-utils";
 import { MovieDetail } from "../../pages";
 
 const apiUrlRoot = process.env.REACT_APP_TEST_API;
@@ -12,7 +18,7 @@ console.log("movie-detail apiUrlRoot >", apiUrlRoot);
 describe("<MovieDetail/> Surprise page tests", () => {
   const apiUrl = `${apiUrlRoot}/api/movies/random`;
   beforeEach(() => {
-    render(
+    reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
         <Route path="/movies/:movieId">
           <MovieDetail />
@@ -30,6 +36,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
   });
 
   it("shows movie card once loaded", async () => {
+    await waitForElementToBeRemoved(() =>
+      screen.getByTestId("loading-spinner")
+    );
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
     expect(await screen.findByTestId("card")).toBeInTheDocument();
   });
@@ -41,7 +50,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
       })
     );
-    render(
+    reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
         <Route path="/movies/:movieId">
           <MovieDetail />
@@ -58,7 +67,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/api/movies/123`;
   console.log("movie detail >> ", apiUrl);
   beforeEach(() => {
-    render(
+    reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>
         <Route path="/movies/:movieId">
           <MovieDetail />

@@ -112,7 +112,7 @@ export async function client(
     let response;
     response = await axiosInstance(config);
     data = response.data;
-    if (response.status === 200 || response.status === 201) {
+    if (response.statusText === "OK") {
       return data;
     }
 
@@ -125,10 +125,6 @@ export async function client(
     );
   }
 }
-//   const data = axiosInstance.get(url, config).then((res) => res.data);
-//   console.log("data ", data);
-//   return data;
-// }
 
 export default axiosInstance;
 
@@ -142,4 +138,8 @@ client.post = function (endpoint, body, customConfig = {}) {
 
 client.patch = function (endpoint, body, customConfig = {}) {
   return client(endpoint, { ...customConfig, method: "PATCH", body });
+};
+
+client.delete = function (endpoint, body, customConfig = {}) {
+  return client(endpoint, { ...customConfig, method: "DELETE" });
 };

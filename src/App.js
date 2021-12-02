@@ -4,7 +4,7 @@ import { CookieConsentContainer } from "./containers/cookie-consent";
 import { getCookieConsentValue } from "react-cookie-consent";
 import TagManager from "react-gtm-module";
 import ProtectedRoute from "./routes/protected-route";
-import { AuthPage, Home, MovieDetail, Movies } from "./pages";
+import { AuthPage, Home, List, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
 
@@ -50,8 +50,7 @@ export default function App() {
             <AuthPage />
           </Route>
           <ProtectedRoute path="/user/lists">
-            <h1>Lists page!</h1>
-            <h1>Lists page!</h1>
+            <List />
           </ProtectedRoute>
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>

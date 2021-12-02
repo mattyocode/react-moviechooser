@@ -19,6 +19,7 @@ import authReducer from "./auth-slice";
 import optionsReducer from "./query-slice";
 import uiReducer from "./ui-slice";
 import moviesReducer from "./movies-slice";
+import listReducer from "./list-slice";
 
 // const serializableMiddleware = createSerializableStateInvariantMiddleware({
 //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -42,6 +43,7 @@ const store = configureStore({
   reducer: {
     options: optionsReducer,
     ui: uiReducer,
+    list: listReducer,
     movies: moviesReducer,
     persistedReducer,
   },

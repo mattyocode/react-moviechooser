@@ -37,6 +37,15 @@ const moviesSlice = createSlice({
     setMovieQuery(state, action) {
       state.queryParams = action.payload;
     },
+    setMovieOnList(state, action) {
+      const { movieSlug, onList } = action.payload;
+      const existingMovie = state.movies.find(
+        (movie) => movie.slug === movieSlug
+      );
+      if (existingMovie) {
+        existingMovie.on_list = onList;
+      }
+    },
   },
   extraReducers: {
     [fetchMovies.pending]: (state, action) => {
@@ -67,5 +76,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMovieQuery } = moviesSlice.actions;
+export const { setMovieQuery, setMovieOnList } = moviesSlice.actions;
 export default moviesSlice.reducer;
