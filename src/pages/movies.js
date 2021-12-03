@@ -65,6 +65,7 @@ export default function Movies() {
             movies.map((movie, idx) => {
               return (
                 <motion.div
+                  key={movie.slug}
                   initial={{
                     opacity: 0,
                     x: -100,
@@ -72,8 +73,9 @@ export default function Movies() {
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.1, delay: (idx % 30) * 0.2 }}
+                  style={{ margin: "0 10px" }}
                 >
-                  <CardContainer key={movie.slug} movie={movie} />
+                  <CardContainer movie={movie} />
                 </motion.div>
               );
             })}

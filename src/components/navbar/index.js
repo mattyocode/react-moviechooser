@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { NavLink as ReactRouterLink } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import {
@@ -14,6 +15,7 @@ import {
   NavBarActionBtn,
   NavLinkBackdrop,
 } from "./styles/navigation";
+import useWindowSize from "../../hooks/use-window-size";
 
 export default function Navbar({ children, ...restProps }) {
   return (
@@ -63,28 +65,66 @@ Navbar.Links = function NavBarLinks({
   children,
   ...restProps
 }) {
-  const linksContainerRef = useRef();
-  const linksListRef = useRef();
+  const { width } = useWindowSize();
+  if (width > 799) {
+    showLinks = true;
+  }
 
-  useEffect(() => {
-    const linksHeight = linksListRef.current.getBoundingClientRect().height;
-    if (showLinks) {
-      linksContainerRef.current.style.height = `${linksHeight}px`;
-    } else {
-      linksContainerRef.current.style.height = "0";
-    }
-  }, [showLinks]);
+  const backdropVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: { duration: 1, delay: 0.5 },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: 1, delay: 0.5 },
+    },
+  };
+
+  const linksContainerVariants = {
+    hidden: {
+      opacity: 0,
+      x: "50vw",
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3, delay: 0.1 },
+    },
+    exit: {
+      opacity: 0,
+      x: "100vw",
+      transition: { duration: 0.3, delay: 0 },
+    },
+  };
 
   return (
-    <>
-      <NavLinkBackdrop
-        onClick={closefn}
-        className={!showLinks && "remove"}
-      ></NavLinkBackdrop>
-      <LinksContainer ref={linksContainerRef} {...restProps}>
-        <LinksList ref={linksListRef}>{children}</LinksList>
-      </LinksContainer>
-    </>
+    <AnimatePresence>
+      {showLinks && (
+        <>
+          <NavLinkBackdrop
+            onClick={closefn}
+            className={!showLinks && "remove"}
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          ></NavLinkBackdrop>
+          <LinksContainer
+            variants={linksContainerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            {...restProps}
+          >
+            <LinksList>{children}</LinksList>
+          </LinksContainer>
+        </>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect } from "react";
 import {
-  Router,
   Redirect,
   Route,
   Switch,
@@ -43,7 +42,6 @@ export default function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      {/* <Router history={history}> */}
       <NavbarContainer />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.key}>
@@ -66,7 +64,6 @@ export default function App() {
         </Switch>
       </AnimatePresence>
       <CookieConsentContainer />
-      {/* </Router> */}
     </Suspense>
   );
 }

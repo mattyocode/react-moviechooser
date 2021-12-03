@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   position: relative;
   border-radius: 5px;
   background: rgba(34, 34, 34, 0.5);
@@ -214,6 +214,7 @@ export const Header = styled.header`
 
   h2 {
     font-size: 1.2rem;
+    /* padding-right: 1.5rem; */
   }
 
   p {

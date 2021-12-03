@@ -1,7 +1,9 @@
 import styled, { css, keyframes } from "styled-components/macro";
+import { motion } from "framer-motion";
 import { NavLink as ReactRouterLink } from "react-router-dom";
 
 export const Nav = styled.nav`
+  z-index: 100;
   @media screen and (min-width: 800px) {
     position: fixed;
     top: 0;
@@ -28,6 +30,7 @@ export const NavHeader = styled.div`
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
   background-color: black;
+  z-index: 110;
 
   @media screen and (min-width: 800px) {
     padding: 0 1rem;
@@ -36,6 +39,7 @@ export const NavHeader = styled.div`
 `;
 
 export const Logo = styled.img`
+  z-index: 120 !important;
   height: 40px;
 `;
 
@@ -64,6 +68,7 @@ export const Icon = styled.div`
   top: 0px;
   height: 100%;
   width: 100%;
+  z-index: 110;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,6 +88,7 @@ export const Button = styled.button`
   border-color: transparent;
   transition: all 0.3s linear;
   cursor: pointer;
+  z-index: 100;
 
   &:hover {
     color: grey;
@@ -93,11 +99,11 @@ export const Button = styled.button`
   }
 `;
 
-export const LinksContainer = styled.div`
+export const LinksContainer = styled(motion.div)`
   position: absolute;
   right: 0;
   display: block;
-  height: 0;
+  /* height: 0; */
   overflow: hidden;
   transition: all 0.3s linear;
   min-width: 50%;
@@ -210,6 +216,7 @@ export const NavLinkBackdrop = styled.div`
   width: 100%;
   height: 100vh;
   z-index: 80;
+  backdrop-filter: blur(3px);
 
   &.remove {
     display: none;

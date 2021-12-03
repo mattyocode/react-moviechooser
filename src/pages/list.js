@@ -74,6 +74,7 @@ export default function List() {
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.2, delay: idx * 0.1 }}
+                  style={{ margin: "0 10px" }}
                 >
                   <CardContainer
                     key={item.movie.slug}
@@ -99,6 +100,7 @@ export default function List() {
               const { added, updated, watched } = item;
               return (
                 <motion.div
+                  key={item.movie.slug}
                   initial={{
                     opacity: 0,
                     x: -100,
@@ -106,9 +108,9 @@ export default function List() {
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.2, delay: idx * 0.3 }}
+                  style={{ margin: "0 10px" }}
                 >
                   <CardContainer
-                    key={item.movie.slug}
                     movie={item.movie}
                     listData={{ added, updated, watched }}
                   />
