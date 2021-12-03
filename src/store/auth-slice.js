@@ -68,7 +68,6 @@ const authSlice = createSlice({
     [handleAuth.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
-      console.log(current(state));
     },
   },
 });

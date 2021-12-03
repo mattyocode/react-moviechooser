@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
 export const Container = styled.div`
@@ -82,17 +83,11 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   border-radius: 5px 0 0 0;
-  /* transition: height 0.75s cubic-bezier(0.5, 0, 0.1, 1); */
-  transition: height 0.5s ease-in-out;
-  /* transition-delay: 50ms; */
-
   height: 11rem;
 
   &.closed {
     height: 100%;
-
     border-radius: 5px 0 0 5px;
-    transition: height 0.75s ease-in-out;
   }
 
   @media screen and (min-width: 375px) {
@@ -101,9 +96,6 @@ export const Image = styled.img`
   @media screen and (min-width: 425px) {
     height: 16rem;
   }
-  /* @media screen and (min-width: 768px) {
-    height: 16rem;
-  } */
 `;
 
 export const AllRatings = styled.div`
@@ -113,14 +105,12 @@ export const AllRatings = styled.div`
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
-  /* height: auto; */
   transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
 
   &.closed {
     display: none;
     padding: 0;
     margin: 0;
-    /* height: 0; */
     transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
   }
 
@@ -243,10 +233,6 @@ export const Header = styled.header`
     }
 
     @media screen and (min-width: 450px) {
-      /* .content-wrapper {
-        padding-bottom: 1.5rem;
-      } */
-
       p {
         font-size: 0.8rem;
       }
@@ -268,7 +254,6 @@ export const FurtherInfo = styled.div`
   -webkit-transition: height 0.8s;
   -moz-transition: height 0.8s;
   transition: height 0.8s;
-  /* transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1); */
 
   &.closed {
     height: 0;
@@ -276,7 +261,6 @@ export const FurtherInfo = styled.div`
     overflow: hidden;
     padding: 0;
     margin: 0;
-    /* transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1); */
   }
 `;
 
@@ -356,7 +340,7 @@ export const Actions = styled.div`
   display: flex;
 `;
 
-export const Action = styled.button`
+export const Action = styled(motion.button)`
   display: inline-block;
   border: none;
   text-decoration: none;
@@ -364,6 +348,24 @@ export const Action = styled.button`
   cursor: pointer;
   font-size: 1.4rem;
   padding: 0.25rem 0.7rem;
+
+  &:hover {
+    background-color: #0f3030;
+    box-shadow: 0 0 10px 5px #0f3030;
+  }
+`;
+
+export const FixedAction = styled(motion.button)`
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border: none;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 0.25rem 0.7rem;
+  color: #000;
 
   &:hover {
     background-color: #0f3030;
@@ -396,7 +398,7 @@ export const MoreBtnWrapper = styled.div`
   padding: 1rem 1rem 3rem 1rem;
 `;
 
-export const MoreBtn = styled.button`
+export const MoreBtn = styled(motion.button)`
   max-width: 25rem;
   margin: 0 auto;
   width: 8rem;

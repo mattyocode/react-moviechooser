@@ -8,6 +8,7 @@
     "axios-auth-refresh": "^3.2.1",
     "firebase": "^8.7.1",
     "formik": "^2.2.9",
+    "framer-motion": "^4.1.17",
     "fuse.js": "^6.4.6",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",

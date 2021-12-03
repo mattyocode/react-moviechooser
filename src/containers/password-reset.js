@@ -30,7 +30,6 @@ export function PasswordReset({
   };
 
   const handleRecaptcha = (key) => {
-    console.log("recaptcha key >>", key);
     setRecaptchaKey(key);
   };
 
@@ -52,9 +51,6 @@ export function PasswordReset({
       closeModal();
     }
   };
-
-  console.log("data >>>", data);
-  console.log("status >>>", status);
 
   return (
     <Form>

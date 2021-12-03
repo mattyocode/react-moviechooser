@@ -77,15 +77,27 @@ Form.Input = function FormInput({ children, ...restProps }) {
 };
 
 Form.Link = function FormLink({ children, ...restProps }) {
-  return <Link {...restProps}>{children}</Link>;
+  return (
+    <Link whileHover={{ scale: 1.1 }} {...restProps}>
+      {children}
+    </Link>
+  );
 };
 
 Form.Submit = function FormSubmit({ children, ...restProps }) {
-  return <SubmitBtn {...restProps}>{children}</SubmitBtn>;
+  return (
+    <SubmitBtn whileHover={{ scale: 1.1 }} {...restProps}>
+      {children}
+    </SubmitBtn>
+  );
 };
 
 Form.ActionBtn = function FormActionBtn({ children, ...restProps }) {
-  return <ActionBtn {...restProps}>{children}</ActionBtn>;
+  return (
+    <ActionBtn whileHover={{ scale: 1.1 }} {...restProps}>
+      {children}
+    </ActionBtn>
+  );
 };
 
 Form.Actions = function FormActions({ children, ...restProps }) {

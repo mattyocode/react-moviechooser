@@ -45,9 +45,6 @@ export function NewPassword({
     history.push("/");
   };
 
-  console.log("data >>>", data);
-  console.log("status >>>", status);
-
   return (
     <Form>
       <Form.Header>

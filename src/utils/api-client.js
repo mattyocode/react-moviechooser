@@ -24,7 +24,6 @@ export async function client(
     if (fullUrl === true) {
       response = await fetch(`${endpoint}`, config);
     } else {
-      console.log("config >>>", config);
       response = await fetch(`${apiURL}/${endpoint}`, config);
     }
 

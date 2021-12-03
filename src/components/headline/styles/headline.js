@@ -14,4 +14,41 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1``;
 
-export const Subhead = styled.h3``;
+export const Subhead = styled.h3`
+  text-align: center;
+`;
+
+export const DecoratedSubhead = styled.h3`
+  overflow: hidden;
+  text-align: center;
+
+  & > span {
+    position: relative;
+    display: inline-block;
+  }
+
+  & > span:before,
+  & > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    border-bottom: #aaa 2px solid;
+    width: 25vw;
+    margin: 0 20px;
+  }
+
+  & > span:before {
+    right: 100%;
+  }
+
+  & > span:after {
+    left: 100%;
+  }
+
+  @media screen and (min-width: 450px) {
+    & > span:before,
+    & > span:after {
+      width: 10vw;
+    }
+  }
+`;

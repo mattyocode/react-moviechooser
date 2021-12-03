@@ -14,9 +14,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (config) => {
   const token = store.getState().persistedReducer.auth.token;
-  const authStore = store.getState().persistedReducer.auth;
-  console.log("authStore request interceptor", authStore);
-  console.log("axios-refresh persist reducer token", token);
+  // const authStore = store.getState().persistedReducer.auth;
+
   if (token) {
     config.headers.Authorization = "JWT " + token;
     console.debug(
@@ -51,7 +50,6 @@ axiosInstance.interceptors.response.use(
 
 const refreshAuthHandler = async (failedRequest) => {
   const refreshToken = store.getState().persistedReducer.auth.refreshToken;
-  console.log("refreshAuthHandler refreshToken", refreshToken);
   if (refreshToken) {
     return axios
       .post(
@@ -65,7 +63,6 @@ const refreshAuthHandler = async (failedRequest) => {
       )
       .then((resp) => {
         const { access, refresh } = resp.data;
-        console.log("then statement refreshAuthHandler", resp.data);
         failedRequest.response.config.headers.Authorization = "JWT " + access;
         if (access && refresh) {
           store.dispatch(
@@ -95,7 +92,7 @@ export async function client(
   const config = {
     url: url,
     baseURL: apiURL,
-    method: body ? "POST" : "GET",
+    // method: body ? "POST" : "GET",
     data: body ? JSON.stringify(body) : undefined,
     cancelToken: cancelToken ? cancelToken : undefined,
     headers: {
@@ -106,7 +103,6 @@ export async function client(
 
     ...customConfig,
   };
-  console.log("client url", url);
   let data;
   try {
     let response;
@@ -133,7 +129,7 @@ client.get = function (endpoint, customConfig = {}) {
 };
 
 client.post = function (endpoint, body, customConfig = {}) {
-  return client(endpoint, { ...customConfig, body });
+  return client(endpoint, { ...customConfig, method: "POST", body });
 };
 
 client.patch = function (endpoint, body, customConfig = {}) {

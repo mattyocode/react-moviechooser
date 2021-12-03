@@ -5,18 +5,21 @@ import {
   MdOndemandVideo,
   MdBookmark,
   MdBookmarkBorder,
+  MdRemoveRedEye,
 } from "react-icons/md";
+import { motion } from "framer-motion";
 
 import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
 import { addNewListItem, deleteListItem } from "../store/list-slice";
 import { setMovieOnList } from "../store/movies-slice";
+import { updateListItem } from "../store/list-slice";
 
 export function CardContainer({
   movie,
   expandInitially = false,
-  isListItem = false,
+  listData = null,
 }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
@@ -44,7 +47,6 @@ export function CardContainer({
   };
 
   const addToListHandler = () => {
-    console.log("movie slug in card >>", movie.slug);
     dispatch(addNewListItem(movie.slug));
     dispatch(
       setMovieOnList({
@@ -64,6 +66,16 @@ export function CardContainer({
     );
   };
 
+  const toggleMovieWatchedHanlder = () => {
+    const watchedState = !listData.watched;
+    dispatch(
+      updateListItem({
+        movieSlug: movie.slug,
+        updatedFieldData: { watched: watchedState },
+      })
+    );
+  };
+
   return (
     <>
       {ondemandOpen && ondemandData && (
@@ -77,9 +89,20 @@ export function CardContainer({
         </Modal>
       )}
       {movie && (
-        <Card expandState={expandInitially}>
+        <Card expandState={expandInitially} as={motion.div} layout="position">
           <Card.Content>
-            {isListItem && null}
+            {listData && (
+              <Card.FixedAction
+                label="Watch"
+                as={motion.button}
+                whileHover={{ scale: 1.1 }}
+              >
+                <MdRemoveRedEye
+                  fill={listData.watched ? "#fff" : "#666"}
+                  onClick={toggleMovieWatchedHanlder}
+                />
+              </Card.FixedAction>
+            )}
             <Card.Sidebar>
               <Card.AvgRating>
                 {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
@@ -132,8 +155,8 @@ export function CardContainer({
               >
                 <MdShare />
               </Card.Action>
-              <Card.Action label="Save">
-                {movie.on_list || isListItem ? (
+              <Card.Action label="Add to list">
+                {movie.on_list || listData ? (
                   <MdBookmark onClick={removeFromListHandler} />
                 ) : (
                   <MdBookmarkBorder onClick={addToListHandler} />

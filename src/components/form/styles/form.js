@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
@@ -52,7 +53,7 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-export const Link = styled.button`
+export const Link = styled(motion.button)`
   background: none;
   color: inherit;
   border: none;
@@ -127,7 +128,7 @@ export const Input = styled.input`
   }
 `;
 
-export const SubmitBtn = styled.button`
+export const SubmitBtn = styled(motion.button)`
   max-width: 25rem;
   margin: 20px auto;
   width: 8rem;
@@ -160,7 +161,7 @@ export const Actions = styled.div`
   margin: 1rem;
 `;
 
-export const ActionBtn = styled.button`
+export const ActionBtn = styled(motion.button)`
   background: none;
   color: inherit;
   font: inherit;

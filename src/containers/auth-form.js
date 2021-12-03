@@ -25,15 +25,12 @@ export function AuthForm({
   const history = useHistory();
   const succeedRef = useRef();
 
-  console.log("Account >>", account);
-
   const formTypeHandler = (type) => {
     setFormType(type);
     if (isPage) {
       const url = `/auth/${type}`;
       history.push(url);
     }
-    console.log("form type >>", type);
     dispatch(clearStatus());
   };
 

@@ -10,8 +10,6 @@ export default function AuthPage({ children, ...restProps }) {
   const history = useHistory();
   const params = useParams();
 
-  console.log("params in auth >> ", params.params);
-
   let formTypeInitial;
   if (params.params === "register") {
     formTypeInitial = "register";
@@ -24,7 +22,6 @@ export default function AuthPage({ children, ...restProps }) {
   } else {
     history.push("/");
   }
-  console.log("formTypeInitial", formTypeInitial);
 
   return (
     <Modal.OverlayOnly {...restProps}>

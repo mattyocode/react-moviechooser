@@ -1,7 +1,6 @@
 import React from "react";
 import {
   cleanup,
-  render,
   screen,
   waitFor,
   waitForElementToBeRemoved,
@@ -13,7 +12,6 @@ import { reduxTestRender } from "../../mocks/test-utils";
 import { MovieDetail } from "../../pages";
 
 const apiUrlRoot = process.env.REACT_APP_TEST_API;
-console.log("movie-detail apiUrlRoot >", apiUrlRoot);
 
 describe("<MovieDetail/> Surprise page tests", () => {
   const apiUrl = `${apiUrlRoot}/api/movies/random`;
@@ -65,7 +63,6 @@ describe("<MovieDetail/> Surprise page tests", () => {
 
 describe("<MovieDetail/> Movie ID page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/api/movies/123`;
-  console.log("movie detail >> ", apiUrl);
   beforeEach(() => {
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>

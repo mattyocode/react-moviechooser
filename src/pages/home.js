@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { About, Headline, Loading, Footer } from "../components";
 import { ChoiceFormContainer } from "../containers/choice-form";
@@ -8,6 +9,20 @@ import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 import homepageData from "../fixtures/homepage.json";
 import largeLogo from "../assets/png/logo_large.png";
+
+const containerVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { delay: 0.25, duration: 0.5 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: "easeInOut" },
+  },
+};
 
 export default function Home() {
   const genres = useSelector((state) => state.options.options);
@@ -46,8 +61,19 @@ export default function Home() {
   }
 
   return (
-    <>
-      <Headline data-testid="home">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <Headline
+        as={motion.div}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.25, duration: 0.75 }}
+        data-testid="home"
+      >
         <Headline.Title>
           <span>Stop deciding,</span> <span>start watching</span>
         </Headline.Title>
@@ -56,46 +82,48 @@ export default function Home() {
           <br />
           Filter by genre, release decade, and runtime.
           <br />
-          Click through to streaming services. Share on social.
+          Click through to streaming services.
         </Headline.Subhead>
       </Headline>
       {choiceForm}
       {optionsStatus === "succeeded" && (
-        <About src={largeLogo} id="about">
-          <h2>About MOVIECHOOSER</h2>
-          <br />
-          <p>
-            Tired of spending so much time figuring out <i>what</i> to watch
-            that you give up and put on a TV show you could recite from memory?
-            Then say hello to MOVIECHOOSER.
-          </p>
-          <br />
-          <p>
-            MOVIECHOOSER is 1000s of stand-out movies all a few clicks away –
-            from classics and critics' favourites to box office hits and hidden
-            gems.
-          </p>
-          <br />
-          <p>
-            Search based on the fundamental things that define a film: what it's
-            about (genre), when it was made (release decade), and how long it is
-            (runtime). Then browse the results and start watching.
-          </p>
-          <br />
-          <p>
-            Or, if you want to let fate decide, click{" "}
-            <a href="/movies/surprise/">'Surprise Me'</a> for a totally random
-            movie choice from the collection. Click through to play movie on
-            streaming services, where available (UK-only for now).
-          </p>
-          <br />
-          <p>
-            Life's too short for bad movies. <br />
-            Chooser better with MOVIECHOOSER.
-          </p>
-        </About>
+        <>
+          <About src={largeLogo} id="about">
+            <h2>About MOVIECHOOSER</h2>
+            <br />
+            <p>
+              Tired of spending so much time figuring out <i>what</i> to watch
+              that you give up and put on a TV show you could recite from
+              memory? Then say hello to MOVIECHOOSER.
+            </p>
+            <br />
+            <p>
+              MOVIECHOOSER is 1000s of stand-out movies all a few clicks away –
+              from classics and critics' favourites to box office hits and
+              hidden gems.
+            </p>
+            <br />
+            <p>
+              Search based on the fundamental things that define a film: what
+              it's about (genre), when it was made (release decade), and how
+              long it is (runtime). Then browse the results and start watching.
+            </p>
+            <br />
+            <p>
+              Or, if you want to let fate decide, click{" "}
+              <a href="/movies/surprise/">'Surprise Me'</a> for a totally random
+              movie choice from the collection. Click through to play movie on
+              streaming services, where available (UK-only for now).
+            </p>
+            <br />
+            <p>
+              Life's too short for bad movies. <br />
+              Chooser better with MOVIECHOOSER.
+            </p>
+          </About>
+          <Footer />
+        </>
       )}
-      <Footer />
-    </>
+    </motion.div>
   );
 }

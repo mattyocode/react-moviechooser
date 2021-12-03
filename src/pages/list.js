@@ -1,11 +1,26 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card } from "../components";
 import { addListItems, fetchListItems } from "../store/list-slice";
 
-export default function Movies() {
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { delay: 0.25, duration: 0.5 },
+  },
+  exit: {
+    x: "-100vw",
+    transition: { ease: "easeInOut" },
+  },
+};
+
+export default function List() {
   const list_items = useSelector((state) => state.list.list_items);
   const listStatus = useSelector((state) => state.list.status);
   const listError = useSelector((state) => state.list.error);
@@ -14,9 +29,10 @@ export default function Movies() {
 
   const dispatch = useDispatch();
 
-  console.log("list_items in list >", list_items);
-
   const moreItems = itemCount > 0 && list_items.length < itemCount;
+
+  const unwatchedItems = list_items.filter((item) => !item.watched);
+  const watchedItems = list_items.filter((item) => item.watched);
 
   const addListItemsHandler = () => {
     dispatch(addListItems(nextPage));
@@ -31,23 +47,81 @@ export default function Movies() {
   }, [dispatch]);
 
   return (
-    <>
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <Headline data-testid="watch-list">
         <Headline.Title>Watch List</Headline.Title>
       </Headline>
-      <Card.Group>
-        {list_items &&
-          list_items.length > 0 &&
-          list_items.map((item) => {
-            return (
-              <CardContainer
-                key={item.movie.slug}
-                movie={item.movie}
-                isListItem={true}
-              />
-            );
-          })}
-      </Card.Group>
+      <AnimateSharedLayout>
+        <Headline.DecoratedSubhead>
+          <span>Unwatched</span>
+        </Headline.DecoratedSubhead>
+        <Card.Group>
+          {unwatchedItems &&
+            unwatchedItems.length > 0 &&
+            unwatchedItems.map((item, idx) => {
+              const { added, watched } = item;
+              return (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: -100,
+                    y: -20,
+                  }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.2, delay: idx * 0.1 }}
+                >
+                  <CardContainer
+                    key={item.movie.slug}
+                    movie={item.movie}
+                    listData={{ added, watched }}
+                  />
+                </motion.div>
+              );
+            })}
+          {unwatchedItems.length < 1 && (
+            <Headline.Subhead style={{ color: "#555" }}>
+              No unwatched movies on your list.
+            </Headline.Subhead>
+          )}
+        </Card.Group>
+        <Headline.DecoratedSubhead>
+          <span>Watched</span>
+        </Headline.DecoratedSubhead>
+        <Card.Group>
+          {watchedItems &&
+            watchedItems.length > 0 &&
+            watchedItems.map((item, idx) => {
+              const { added, updated, watched } = item;
+              return (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: -100,
+                    y: -20,
+                  }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.2, delay: idx * 0.3 }}
+                >
+                  <CardContainer
+                    key={item.movie.slug}
+                    movie={item.movie}
+                    listData={{ added, updated, watched }}
+                  />
+                </motion.div>
+              );
+            })}
+          {watchedItems.length < 1 && (
+            <Headline.Subhead style={{ color: "#555" }}>
+              No watched movies on your list.
+            </Headline.Subhead>
+          )}
+        </Card.Group>
+      </AnimateSharedLayout>
       {listStatus === "loading" && (
         <div>
           <Loading />
@@ -67,6 +141,6 @@ export default function Movies() {
         )}
         {listStatus === "updating" && <Loading small />}
       </Card.MoreBtnWrapper>
-    </>
+    </motion.div>
   );
 }

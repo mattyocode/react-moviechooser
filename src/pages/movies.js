@@ -1,10 +1,26 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card } from "../components";
 import { addMovies } from "../store/movies-slice";
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { delay: 0.1, duration: 0.25 },
+  },
+  exit: {
+    x: "-100vw",
+    opacity: 0,
+    transition: { ease: "easeInOut" },
+  },
+};
 
 export default function Movies() {
   const movies = useSelector((state) => state.movies.movies);
@@ -34,16 +50,35 @@ export default function Movies() {
   }, []);
 
   return (
-    <>
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
       </Headline>
-      <Card.Group>
-        {movies &&
-          movies.map((movie, idx) => {
-            return <CardContainer key={movie.slug} movie={movie} />;
-          })}
-      </Card.Group>
+      <AnimateSharedLayout>
+        <Card.Group>
+          {movies &&
+            movies.map((movie, idx) => {
+              return (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: -100,
+                    y: -20,
+                  }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.1, delay: (idx % 30) * 0.2 }}
+                >
+                  <CardContainer key={movie.slug} movie={movie} />
+                </motion.div>
+              );
+            })}
+        </Card.Group>
+      </AnimateSharedLayout>
       {moviesStatus === "loading" && (
         <div>
           <Loading />
@@ -63,6 +98,6 @@ export default function Movies() {
         )}
         {moviesStatus === "updating" && <Loading small />}
       </Card.MoreBtnWrapper>
-    </>
+    </motion.div>
   );
 }

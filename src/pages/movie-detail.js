@@ -1,10 +1,25 @@
 import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
 import { fetchSingleMovie } from "../store/movies-slice";
+
+const containerVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { delay: 0.25, duration: 0.5 },
+  },
+  exit: {
+    x: "-100vw",
+    transition: { ease: "easeInOut" },
+  },
+};
 
 export default function MovieDetail() {
   const movie = useSelector((state) => state.movies.movies)[0];
@@ -30,7 +45,12 @@ export default function MovieDetail() {
   }, [dispatch, route, location, locationRef]);
 
   return (
-    <>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
           <Headline.Title>Random has chosen</Headline.Title>
@@ -45,6 +65,6 @@ export default function MovieDetail() {
         <CardContainer movie={movie} expandInitially={true} />
       )}
       {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
-    </>
+    </motion.div>
   );
 }

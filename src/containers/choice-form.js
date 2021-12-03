@@ -1,6 +1,7 @@
 import React from "react";
 import { ChoiceForm, RangeSlider, Checkboxes } from "../components";
 import { useSlider, useCheckbox } from "../hooks";
+import { motion } from "framer-motion";
 
 export function ChoiceFormContainer({
   genreList,
@@ -124,8 +125,11 @@ export function ChoiceFormContainer({
         </ChoiceForm.Panel>
         <ChoiceForm.Panel>
           <ChoiceForm.Submit>
-            {/* <ChoiceForm.SubmitBtn>Choose One</ChoiceForm.SubmitBtn> */}
-            <ChoiceForm.SubmitBtn data-testid="all-matches-btn">
+            <ChoiceForm.SubmitBtn
+              data-testid="all-matches-btn"
+              as={motion.button}
+              whileHover={{ scale: 1.1 }}
+            >
               Get Movies
             </ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>

@@ -50,16 +50,17 @@ export function NavbarContainer() {
 
   useEffect(() => {
     if (location.hash && location.hash !== "#auth") {
-      let elem = document.getElementById(location.hash.slice(1));
-      console.log("element >>", elem);
-      if (elem) {
-        elementScrollIntoView(
-          document.querySelector(`#${location.hash.slice(1)}`),
-          { behavior: "smooth", block: "center", inline: "center" }
-        );
-      } else {
-        window.scrollTo({ top: 0, left: 0 });
-      }
+      setTimeout(() => {
+        let elem = document.getElementById(location.hash.slice(1));
+        if (elem) {
+          elementScrollIntoView(
+            document.querySelector(`#${location.hash.slice(1)}`),
+            { behavior: "smooth", block: "center", inline: "center" }
+          );
+        } else {
+          window.scrollTo({ top: 0, left: 0 });
+        }
+      }, 1000);
     }
   }, [location]);
 

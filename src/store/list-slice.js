@@ -35,6 +35,17 @@ export const addNewListItem = createAsyncThunk(
   }
 );
 
+export const updateListItem = createAsyncThunk(
+  "list/updateListItem",
+  async ({ movieSlug, updatedFieldData }) => {
+    const response = await client.patch(
+      `/list/${movieSlug}/`,
+      updatedFieldData
+    );
+    return response;
+  }
+);
+
 export const deleteListItem = createAsyncThunk(
   "list/deleteListItem",
   async (movieSlug) => {
@@ -77,7 +88,6 @@ const listSlice = createSlice({
       state.status = "updating";
     },
     [addNewListItem.fulfilled]: (state, action) => {
-      console.log("action.payload in fulfilled", action.payload);
       if (action.payload) {
         state.list_items.push(action.payload);
       }
@@ -92,16 +102,29 @@ const listSlice = createSlice({
     },
     [deleteListItem.fulfilled]: (state, action) => {
       const { deleted } = action.payload;
-      console.log("deleted >>", action);
-      console.log("deleted >>", deleted);
       const updatedItems = state.list_items.filter(
         (item) => item.uid !== deleted
       );
-      console.log("updatedItems >>", updatedItems);
       state.list_items = updatedItems;
       state.status = "succeeded";
     },
     [deleteListItem.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    },
+    [updateListItem.pending]: (state, action) => {
+      state.status = "updating";
+    },
+    [updateListItem.fulfilled]: (state, action) => {
+      let existingItem = state.list_items.find(
+        (item) => item.uid === action.payload.uid
+      );
+      if (existingItem) {
+        existingItem.watched = action.payload.watched;
+      }
+      state.status = "succeeded";
+    },
+    [updateListItem.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
     },

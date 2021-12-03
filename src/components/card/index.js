@@ -20,6 +20,7 @@ import {
   Footer,
   Actions,
   Action,
+  FixedAction,
   Icon,
   MoreBtn,
   MoreBtnWrapper,
@@ -143,7 +144,6 @@ Card.Header = function CardHeader({
   return (
     <>
       <Header {...restProps}>
-        {/* <h2>{title}</h2> */}
         {expand ? (
           <h2>{title}</h2>
         ) : (
@@ -235,9 +235,17 @@ Card.Footer = function CardFooter({ show = true, children, ...restProps }) {
 
 Card.Action = function CardAction({ label, children, ...restProps }) {
   return (
-    <Action {...restProps}>
+    <Action whileHover={{ scale: 1.1 }} {...restProps}>
       <Icon>{children}</Icon>
     </Action>
+  );
+};
+
+Card.FixedAction = function CardFixedAction({ label, children, ...restProps }) {
+  return (
+    <FixedAction whileHover={{ scale: 1.1 }} {...restProps}>
+      <Icon>{children}</Icon>
+    </FixedAction>
   );
 };
 
@@ -246,5 +254,9 @@ Card.MoreBtnWrapper = function CardMoreBtnWrapper({ children, ...restProps }) {
 };
 
 Card.MoreBtn = function CardMoreButton({ children, ...restProps }) {
-  return <MoreBtn {...restProps}>{children}</MoreBtn>;
+  return (
+    <MoreBtn whileHover={{ scale: 1.1 }} {...restProps}>
+      {children}
+    </MoreBtn>
+  );
 };
