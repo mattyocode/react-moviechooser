@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 
 import { OndemandContainer } from "../ondemand";
 
-import testMoviesData from "../../fixtures/moviesDataFromStore.json";
+import testMoviesData from "../../mocks/test-data/testMoviesData.json";
 
 describe("<OndemandContainer/> tests", () => {
   it("renders <OndemandContainer/> with movie data", () => {

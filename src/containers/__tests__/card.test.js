@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import * as reactRedux from "react-redux";
 import { CardContainer } from "../../containers/card";
 import store from "../../store/index";
-import testMoviesData from "../../fixtures/updatedMoviesData.json";
+import testMoviesData from "../../mocks/test-data/testMoviesData.json";
 
 describe("<CardContainer/> tests", () => {
   const singleMovie = testMoviesData[0];

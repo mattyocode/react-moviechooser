@@ -4,7 +4,7 @@ import { toHaveStyle } from "@testing-library/jest-dom";
 import { ChoiceFormContainer } from "../choice-form";
 
 import homepageData from "../../fixtures/homepage.json";
-import testGenreData from "../../fixtures/testGenreData.json";
+import testGenreData from "../../mocks/test-data/testGenreData.json";
 
 describe("<ChoiceFormContainer/>", () => {
   const genreData = testGenreData;

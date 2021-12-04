@@ -20,6 +20,7 @@ const containerVariants = {
   },
   exit: {
     opacity: 0,
+    x: "-100vw",
     transition: { ease: "easeInOut" },
   },
 };

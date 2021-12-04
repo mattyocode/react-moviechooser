@@ -107,6 +107,7 @@ export async function client(
   try {
     let response;
     response = await axiosInstance(config);
+    console.log("response >", response);
     data = response.data;
     if (response.statusText === "OK") {
       return data;
