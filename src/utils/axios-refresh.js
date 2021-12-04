@@ -14,8 +14,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (config) => {
   const token = store.getState().auth.auth.token;
-  console.log("token >>>", token);
-  // const authStore = store.getState().persistedReducer.auth;
 
   if (token) {
     config.headers.Authorization = "JWT " + token;

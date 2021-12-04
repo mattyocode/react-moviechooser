@@ -30,7 +30,6 @@ export default function List() {
   const dispatch = useDispatch();
 
   const moreItems = itemCount > 0 && list_items.length < itemCount;
-  console.log("list items >>", list_items);
 
   const unwatchedItems = list_items.filter((item) => !item.watched);
   const watchedItems = list_items.filter((item) => item.watched);
