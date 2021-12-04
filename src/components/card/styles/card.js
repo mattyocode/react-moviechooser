@@ -16,11 +16,15 @@ export const Container = styled(motion.div)`
   }
 
   &.closed {
-    max-height: 17rem;
+    max-height: 16.5rem;
   }
 
   @media screen and (min-width: 1200px) {
     display: flex;
+
+    &.closed {
+      height: 17rem;
+    }
   }
 `;
 
