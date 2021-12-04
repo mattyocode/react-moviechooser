@@ -109,7 +109,7 @@ export async function client(
     response = await axiosInstance(config);
     console.log("response >", response);
     data = response.data;
-    if (response.statusText === "OK") {
+    if (response.status === 200 || response.status === 201) {
       return data;
     }
 
