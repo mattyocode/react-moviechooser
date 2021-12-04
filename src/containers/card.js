@@ -31,6 +31,9 @@ export function CardContainer({
 
   const dispatch = useDispatch();
 
+  const is_auth = user && user.account;
+  const on_list = movie.on_list || listData;
+
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
     setOndemandData({});
@@ -179,15 +182,15 @@ export function CardContainer({
                 <MdShare />
               </Card.Action>
               <Card.Action label="Add to list">
-                {(user && user.account && movie.on_list) ||
-                  (listData && <MdBookmark onClick={removeFromListHandler} />)}
-                {user && user.account && !movie.on_list && (
+                {is_auth && on_list && (
+                  <MdBookmark onClick={removeFromListHandler} />
+                )}
+                {is_auth && !on_list && (
                   <MdBookmarkBorder onClick={addToListHandler} />
                 )}
-                {!user ||
-                  (!user.account && (
-                    <MdBookmarkBorder fill="#555" onClick={openAuthHandler} />
-                  ))}
+                {!is_auth && (
+                  <MdBookmarkBorder fill="#555" onClick={openAuthHandler} />
+                )}
               </Card.Action>
             </Card.Footer>
           </Card.Content>

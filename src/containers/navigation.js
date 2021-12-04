@@ -30,7 +30,7 @@ export function NavbarContainer() {
 
   const openAuthHandler = () => {
     if (!location.pathname.includes("/auth/")) {
-      history.replace(`${location.pathname}#auth`);
+      // history.replace(`${location.pathname}#auth`);
       setAuthOpen(true);
     } else {
       history.push("/auth/login");

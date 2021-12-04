@@ -122,7 +122,7 @@ export function Register({
             sitekey={sitekey}
             theme="dark"
             size="compact"
-            style={{ paddingTop: "1rem" }}
+            style={{ paddingTop: "1rem", maxWidth: "100vw" }}
           />
         )}
         <Form.Submit type="submit" disabled={submitBtnDisabled}>
