@@ -45,7 +45,7 @@ const store = configureStore({
     ui: uiReducer,
     list: listReducer,
     movies: moviesReducer,
-    persistedReducer,
+    auth: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

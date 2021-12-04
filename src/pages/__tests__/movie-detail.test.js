@@ -13,15 +13,25 @@ import { MovieDetail } from "../../pages";
 
 const apiUrlRoot = process.env.REACT_APP_TEST_API;
 
+const unauthorizedInitialAuthState = {
+  token: null,
+  refreshToken: null,
+  account: null,
+  status: "idle",
+  error: null,
+};
+
 describe("<MovieDetail/> Surprise page tests", () => {
   const apiUrl = `${apiUrlRoot}/api/movies/random`;
+
   beforeEach(() => {
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
         <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
-      </MemoryRouter>
+      </MemoryRouter>,
+      { preloadedState: { auth: unauthorizedInitialAuthState } }
     );
   });
 
@@ -53,7 +63,8 @@ describe("<MovieDetail/> Surprise page tests", () => {
         <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
-      </MemoryRouter>
+      </MemoryRouter>,
+      { preloadedState: { auth: unauthorizedInitialAuthState } }
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
@@ -69,7 +80,8 @@ describe("<MovieDetail/> Movie ID page tests", () => {
         <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
-      </MemoryRouter>
+      </MemoryRouter>,
+      { preloadedState: { auth: unauthorizedInitialAuthState } }
     );
   });
 
@@ -100,7 +112,8 @@ describe("<MovieDetail/> Movie ID page tests", () => {
         <Route path="/movies/:movieId">
           <MovieDetail />
         </Route>
-      </MemoryRouter>
+      </MemoryRouter>,
+      { preloadedState: { auth: unauthorizedInitialAuthState } }
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();

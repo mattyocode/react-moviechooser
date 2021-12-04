@@ -1,446 +1,443 @@
-{"count": 5, "next": null, "previous": null, "results": [
-	{"list": {
-    "list_items": [
-      {
-        "_list": {
-          "name": "watch-list"
-        },
-        "movie": {
-          "slug": "ZFNQFjsU-my-left-foot-the-story-",
-          "title": "My Left Foot: The Story of Christy Brown",
-          "released": "1990-03-30",
-          "runtime": 103,
-          "writer": "Shane Connaughton, Jim Sheridan, Christy Brown",
-          "plot": 'Christy Brown, born with cerebral palsy, learns to paint and write with his only controllable limb - his left foot.',
-          "country": 'Ireland, United Kingdom',
-          "poster_url": 'https://m.media-amazon.com/images/M/MV5BYjdkNzA4MzYtZThhOS00ZDgzLTlmMDItNmY1ZjI5YjkzZTE1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
-          "actors": [
-            {
-              "id": 876,
-              "name": 'Daniel Day-Lewis'
-            },
-            {
-              "id": 2610,
-              "name": 'Brenda Fricker'
-            },
-            {
-              "id": 2611,
-              "name": 'Alison Whelan'
-            }
-          ],
-          "director": [
-            {
-              id: 529,
-              name: 'Jim Sheridan'
-            }
-          ],
-          genre: [
-            {
-              id: 4,
-              name: 'Biography'
-            },
-            {
-              id: 5,
-              name: 'Drama'
-            }
-          ],
-          ondemand: [
-            {
-              id: 2776,
-              service: 'iTunes',
-              url: 'https://itunes.apple.com/gb/movie/my-left-foot/id635876857'
-            },
-            {
-              id: 2777,
-              service: 'Amazon Instant Video',
-              url: 'https://watch.amazon.co.uk/detail?asin=B00FAJC914&tag=utellycom00-21'
-            }
-          ],
-          reviews: [
-            {
-              id: 3081,
-              source: 'imdb',
-              score: 79
-            },
-            {
-              id: 3082,
-              source: 'rotten_toms',
-              score: 98
-            },
-            {
-              id: 3083,
-              source: 'metacritic',
-              score: 97
-            }
-          ],
-          avg_rating: 91.33333333333333
-        },
-        watched: false,
-        added: '2021-12-03T16:12:37.744557Z',
-        updated: '2021-12-03T16:12:37.744593Z',
-        uid: 'a79e290a-c9a4-4ab5-92f5-4d26f62451e9'
+{
+  "count": 5,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "_list": {
+        "name": "watch-list"
       },
-      {
-        _list: {
-          name: 'watch-list'
-        },
-        movie: {
-          slug: 'sULzOUzg-il-conformista',
-          title: 'Il conformista',
-          released: '1971-03-21',
-          runtime: 113,
-          writer: 'Alberto Moravia, Bernardo Bertolucci, Lee Kresel',
-          plot: 'A weak-willed Italian man becomes a fascist flunky who goes abroad to arrange the assassination of his old teacher, now a political dissident.',
-          country: 'Italy, France, West Germany',
-          poster_url: 'https://m.media-amazon.com/images/M/MV5BODFlYzU4YTItN2EwYi00ODI3LTkwNTQtMDdkNjM3YjMyMTgyXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg',
-          actors: [
-            {
-              id: 2146,
-              name: 'Jean-Louis Trintignant'
-            },
-            {
-              id: 2454,
-              name: 'Stefania Sandrelli'
-            },
-            {
-              id: 2455,
-              name: 'Gastone Moschin'
-            }
-          ],
-          director: [
-            {
-              id: 614,
-              name: 'Bernardo Bertolucci'
-            }
-          ],
-          genre: [
-            {
-              id: 5,
-              name: 'Drama'
-            }
-          ],
-          ondemand: [],
-          reviews: [
-            {
-              id: 2890,
-              source: 'imdb',
-              score: 80
-            },
-            {
-              id: 2891,
-              source: 'rotten_toms',
-              score: 98
-            },
-            {
-              id: 2892,
-              source: 'metacritic',
-              score: 100
-            }
-          ],
-          avg_rating: 92.66666666666667
-        },
-        watched: false,
-        added: '2021-12-03T14:21:17.357469Z',
-        updated: '2021-12-03T16:06:42.644154Z',
-        uid: '039d708e-06c2-4b2f-9aa2-10f498ed7e29'
+      "movie": {
+        "slug": "ZFNQFjsU-my-left-foot-the-story-",
+        "title": "My Left Foot: The Story of Christy Brown",
+        "released": "1990-03-30",
+        "runtime": 103,
+        "writer": "Shane Connaughton, Jim Sheridan, Christy Brown",
+        "plot": "Christy Brown, born with cerebral palsy, learns to paint and write with his only controllable limb - his left foot.",
+        "country": "Ireland, United Kingdom",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BYjdkNzA4MzYtZThhOS00ZDgzLTlmMDItNmY1ZjI5YjkzZTE1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+        "actors": [
+          {
+            "id": 876,
+            "name": "Daniel Day-Lewis"
+          },
+          {
+            "id": 2610,
+            "name": "Brenda Fricker"
+          },
+          {
+            "id": 2611,
+            "name": "Alison Whelan"
+          }
+        ],
+        "director": [
+          {
+            "id": 529,
+            "name": "Jim Sheridan"
+          }
+        ],
+        "genre": [
+          {
+            "id": 4,
+            "name": "Biography"
+          },
+          {
+            "id": 5,
+            "name": "Drama"
+          }
+        ],
+        "ondemand": [
+          {
+            "id": 2776,
+            "service": "iTunes",
+            "url": "https://itunes.apple.com/gb/movie/my-left-foot/id635876857"
+          },
+          {
+            "id": 2777,
+            "service": "Amazon Instant Video",
+            "url": "https://watch.amazon.co.uk/detail?asin=B00FAJC914&tag=utellycom00-21"
+          }
+        ],
+        "reviews": [
+          {
+            "id": 3081,
+            "source": "imdb",
+            "score": 79
+          },
+          {
+            "id": 3082,
+            "source": "rotten_toms",
+            "score": 98
+          },
+          {
+            "id": 3083,
+            "source": "metacritic",
+            "score": 97
+          }
+        ],
+        "avg_rating": 91.33333333333333
       },
-      {
-        _list: {
-          name: 'watch-list'
-        },
-        movie: {
-          slug: 'Cej4OJva-trainwreck',
-          title: 'Trainwreck',
-          released: '2015-07-17',
-          runtime: 125,
-          writer: 'Amy Schumer',
-          plot: 'Having thought that monogamy was never possible, a commitment-phobic career woman may have to face her fears when she meets a good guy.',
-          country: 'USA, Japan',
-          poster_url: 'https://m.media-amazon.com/images/M/MV5BMTQ4MjgwNTMyOV5BMl5BanBnXkFtZTgwMTc1MjI0NDE@._V1_SX300.jpg',
-          actors: [
-            {
-              id: 6810,
-              name: 'Colin Quinn'
-            },
-            {
-              id: 6811,
-              name: 'Devin Fabry'
-            },
-            {
-              id: 6812,
-              name: 'Carla Oudin'
-            },
-            {
-              id: 6813,
-              name: 'Amy Schumer'
-            }
-          ],
-          director: [
-            {
-              id: 1073,
-              name: 'Judd Apatow'
-            }
-          ],
-          genre: [
-            {
-              id: 5,
-              name: 'Drama'
-            },
-            {
-              id: 10,
-              name: 'Comedy'
-            },
-            {
-              id: 13,
-              name: 'Romance'
-            }
-          ],
-          ondemand: [
-            {
-              id: 5655,
-              service: 'iTunes',
-              url: 'https://itunes.apple.com/gb/movie/trainwreck/id999061457?ct=app_tv'
-            },
-            {
-              id: 5656,
-              service: 'Google Play',
-              url: 'https://play.google.com/store/movies/details/Trainwreck?gl=GB&hl=en&id=exzzoha61hQ.P'
-            },
-            {
-              id: 5657,
-              service: 'Amazon Prime Video',
-              url: 'https://watch.amazon.co.uk/detail?asin=B018WJ69VO&tag=utellycom00-21'
-            },
-            {
-              id: 5658,
-              service: 'Amazon Instant Video',
-              url: 'https://watch.amazon.co.uk/detail?asin=B018WJ6B3A&tag=utellycom00-21'
-            }
-          ],
-          reviews: [
-            {
-              id: 7528,
-              source: 'imdb',
-              score: 62
-            },
-            {
-              id: 7529,
-              source: 'rotten_toms',
-              score: 84
-            },
-            {
-              id: 7530,
-              source: 'metacritic',
-              score: 75
-            }
-          ],
-          avg_rating: 73.66666666666667
-        },
-        watched: false,
-        added: '2021-12-02T15:05:58.317722Z',
-        updated: '2021-12-03T16:06:44.577741Z',
-        uid: '09203f74-61be-4ded-8050-24d30bc9ec59'
+      "watched": false,
+      "added": "2021-12-03T16:12:37.744557Z",
+      "updated": "2021-12-03T16:12:37.744593Z",
+      "uid": "a79e290a-c9a4-4ab5-92f5-4d26f62451e9"
+    },
+    {
+      "_list": {
+        "name": "watch-list"
       },
-      {
-        _list: {
-          name: 'watch-list'
-        },
-        movie: {
-          slug: 'q9io1I1B-cinderella',
-          title: 'Cinderella',
-          released: '1950-03-04',
-          runtime: 74,
-          writer: 'Charles Perrault (from the original classic by), Bill Peet (story), Erdman Penner (story), Ted Sears (story), Winston Hibler (story), Homer Brightman (story), Harry Reeves (story), Ken Anderson (story), Joe Rinaldi (story)',
-          plot: 'When Cinderella\'s cruel stepmother prevents her from attending the Royal Ball, she gets some unexpected help from the lovable mice Gus and Jaq, and from her Fairy Godmother.',
-          country: 'USA',
-          poster_url: 'https://m.media-amazon.com/images/M/MV5BMWE3NzMxZTYtZTUyYi00ZTMzLTg2MzEtZjg0NGM3ZDJjZDg2XkEyXkFqcGdeQXVyNDE5MTU2MDE@._V1_SX300.jpg',
-          actors: [
-            {
-              id: 4114,
-              name: 'Eleanor Audley'
-            },
-            {
-              id: 4173,
-              name: 'Ilene Woods'
-            },
-            {
-              id: 4174,
-              name: 'Verna Felton'
-            },
-            {
-              id: 4175,
-              name: 'Claire Du Brey'
-            }
-          ],
-          director: [
-            {
-              id: 129,
-              name: 'Wilfred Jackson'
-            },
-            {
-              id: 872,
-              name: 'Clyde Geronimi'
-            },
-            {
-              id: 1068,
-              name: 'Hamilton Luske'
-            }
-          ],
-          genre: [
-            {
-              id: 13,
-              name: 'Romance'
-            },
-            {
-              id: 14,
-              name: 'Family'
-            },
-            {
-              id: 15,
-              name: 'Fantasy'
-            },
-            {
-              id: 16,
-              name: 'Animation'
-            },
-            {
-              id: 18,
-              name: 'Musical'
-            }
-          ],
-          ondemand: [
-            {
-              id: 4232,
-              service: 'iTunes',
-              url: 'https://itunes.apple.com/gb/movie/cinderella/id189134612'
-            },
-            {
-              id: 4233,
-              service: 'Google Play',
-              url: 'https://play.google.com/store/movies/details/Cinderella?gl=GB&hl=en&id=kf-4Y3Yg6S0'
-            },
-            {
-              id: 4234,
-              service: 'Amazon Instant Video',
-              url: 'https://watch.amazon.co.uk/detail?asin=B00FYNF1N4&tag=utellycom00-21'
-            },
-            {
-              id: 4235,
-              service: 'Disney+',
-              url: 'https://www.disneyplus.com/movies/cinderella/VJPw3bEy9iHj'
-            }
-          ],
-          reviews: [
-            {
-              id: 5022,
-              source: 'imdb',
-              score: 73
-            },
-            {
-              id: 5023,
-              source: 'rotten_toms',
-              score: 97
-            },
-            {
-              id: 5024,
-              source: 'metacritic',
-              score: 85
-            }
-          ],
-          avg_rating: 85
-        },
-        watched: true,
-        added: '2021-12-02T15:04:43.430908Z',
-        updated: '2021-12-03T15:29:20.825136Z',
-        uid: '151f2bee-57e7-405c-ab1c-6fefc8f9c3d5'
+      "movie": {
+        "slug": "sULzOUzg-il-conformista",
+        "title": "Il conformista",
+        "released": "1971-03-21",
+        "runtime": 113,
+        "writer": "Alberto Moravia, Bernardo Bertolucci, Lee Kresel",
+        "plot": "A weak-willed Italian man becomes a fascist flunky who goes abroad to arrange the assassination of his old teacher, now a political dissident.",
+        "country": "Italy, France, West Germany",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BODFlYzU4YTItN2EwYi00ODI3LTkwNTQtMDdkNjM3YjMyMTgyXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg",
+        "actors": [
+          {
+            "id": 2146,
+            "name": "Jean-Louis Trintignant"
+          },
+          {
+            "id": 2454,
+            "name": "Stefania Sandrelli"
+          },
+          {
+            "id": 2455,
+            "name": "Gastone Moschin"
+          }
+        ],
+        "director": [
+          {
+            "id": 614,
+            "name": "Bernardo Bertolucci"
+          }
+        ],
+        "genre": [
+          {
+            "id": 5,
+            "name": "Drama"
+          }
+        ],
+        "ondemand": [],
+        "reviews": [
+          {
+            "id": 2890,
+            "source": "imdb",
+            "score": 80
+          },
+          {
+            "id": 2891,
+            "source": "rotten_toms",
+            "score": 98
+          },
+          {
+            "id": 2892,
+            "source": "metacritic",
+            "score": 100
+          }
+        ],
+        "avg_rating": 92.66666666666667
       },
-      {
-        _list: {
-          name: 'watch-list'
-        },
-        movie: {
-          slug: '7c2H0UdP-thunder-road',
-          title: 'Thunder Road',
-          released: '2018-10-30',
-          runtime: 92,
-          writer: 'Jim Cummings',
-          plot: 'A police officer faces a personal meltdown following a divorce and the death of his mother.',
-          country: 'USA',
-          poster_url: 'https://m.media-amazon.com/images/M/MV5BMjYyNGUzMDAtNzUwNC00OWY5LWIxZGQtZjJlYWU1ODY5YjYxXkEyXkFqcGdeQXVyMjk1NzAxNg@@._V1_SX300.jpg',
-          actors: [
-            {
-              id: 1476,
-              name: 'Jim Cummings'
-            },
-            {
-              id: 5678,
-              name: 'Kendal Farr'
-            },
-            {
-              id: 5679,
-              name: 'Nican Robinson'
-            },
-            {
-              id: 5680,
-              name: 'Jocelyn Deboer'
-            }
-          ],
-          director: [
-            {
-              id: 1562,
-              name: 'Jim Cummings'
-            }
-          ],
-          genre: [
-            {
-              id: 5,
-              name: 'Drama'
-            },
-            {
-              id: 10,
-              name: 'Comedy'
-            }
-          ],
-          ondemand: [
-            {
-              id: 4846,
-              service: 'iTunes',
-              url: 'https://itunes.apple.com/gb/movie/thunder-road/id1456627547?ct=app_tv'
-            },
-            {
-              id: 4847,
-              service: 'Google Play',
-              url: 'https://play.google.com/store/movies/details/Thunder_Road?gl=GB&hl=en&id=XU4Z0DXuyvE'
-            },
-            {
-              id: 4848,
-              service: 'Amazon Instant Video',
-              url: 'https://watch.amazon.co.uk/detail?asin=B07VCNLVSP&tag=utellycom00-21'
-            }
-          ],
-          reviews: [
-            {
-              id: 6111,
-              source: 'imdb',
-              score: 71
-            },
-            {
-              id: 6112,
-              source: 'metacritic',
-              score: 79
-            }
-          ],
-          avg_rating: 75
-        },
-        watched: true,
-        added: '2021-12-02T14:04:28.113421Z',
-        updated: '2021-12-03T15:33:38.151290Z',
-        uid: '545d2700-f43f-4ed9-b918-a20caaaf4a19'
-      }
-    ],
-    status: 'succeeded',
-    error: null,
-    totalCount: 5,
-    nextPageUrl: null
-  },
-]}
+      "watched": true,
+      "added": "2021-12-03T14:21:17.357469Z",
+      "updated": "2021-12-04T14:03:45.206090Z",
+      "uid": "039d708e-06c2-4b2f-9aa2-10f498ed7e29"
+    },
+    {
+      "_list": {
+        "name": "watch-list"
+      },
+      "movie": {
+        "slug": "Cej4OJva-trainwreck",
+        "title": "Trainwreck",
+        "released": "2015-07-17",
+        "runtime": 125,
+        "writer": "Amy Schumer",
+        "plot": "Having thought that monogamy was never possible, a commitment-phobic career woman may have to face her fears when she meets a good guy.",
+        "country": "USA, Japan",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BMTQ4MjgwNTMyOV5BMl5BanBnXkFtZTgwMTc1MjI0NDE@._V1_SX300.jpg",
+        "actors": [
+          {
+            "id": 6810,
+            "name": "Colin Quinn"
+          },
+          {
+            "id": 6811,
+            "name": "Devin Fabry"
+          },
+          {
+            "id": 6812,
+            "name": "Carla Oudin"
+          },
+          {
+            "id": 6813,
+            "name": "Amy Schumer"
+          }
+        ],
+        "director": [
+          {
+            "id": 1073,
+            "name": "Judd Apatow"
+          }
+        ],
+        "genre": [
+          {
+            "id": 5,
+            "name": "Drama"
+          },
+          {
+            "id": 10,
+            "name": "Comedy"
+          },
+          {
+            "id": 13,
+            "name": "Romance"
+          }
+        ],
+        "ondemand": [
+          {
+            "id": 5655,
+            "service": "iTunes",
+            "url": "https://itunes.apple.com/gb/movie/trainwreck/id999061457?ct=app_tv"
+          },
+          {
+            "id": 5656,
+            "service": "Google Play",
+            "url": "https://play.google.com/store/movies/details/Trainwreck?gl=GB&hl=en&id=exzzoha61hQ.P"
+          },
+          {
+            "id": 5657,
+            "service": "Amazon Prime Video",
+            "url": "https://watch.amazon.co.uk/detail?asin=B018WJ69VO&tag=utellycom00-21"
+          },
+          {
+            "id": 5658,
+            "service": "Amazon Instant Video",
+            "url": "https://watch.amazon.co.uk/detail?asin=B018WJ6B3A&tag=utellycom00-21"
+          }
+        ],
+        "reviews": [
+          {
+            "id": 7528,
+            "source": "imdb",
+            "score": 62
+          },
+          {
+            "id": 7529,
+            "source": "rotten_toms",
+            "score": 84
+          },
+          {
+            "id": 7530,
+            "source": "metacritic",
+            "score": 75
+          }
+        ],
+        "avg_rating": 73.66666666666667
+      },
+      "watched": false,
+      "added": "2021-12-02T15:05:58.317722Z",
+      "updated": "2021-12-03T16:06:44.577741Z",
+      "uid": "09203f74-61be-4ded-8050-24d30bc9ec59"
+    },
+    {
+      "_list": {
+        "name": "watch-list"
+      },
+      "movie": {
+        "slug": "q9io1I1B-cinderella",
+        "title": "Cinderella",
+        "released": "1950-03-04",
+        "runtime": 74,
+        "writer": "Charles Perrault (from the original classic by), Bill Peet (story), Erdman Penner (story), Ted Sears (story), Winston Hibler (story), Homer Brightman (story), Harry Reeves (story), Ken Anderson (story), Joe Rinaldi (story)",
+        "plot": "When Cinderella's cruel stepmother prevents her from attending the Royal Ball, she gets some unexpected help from the lovable mice Gus and Jaq, and from her Fairy Godmother.",
+        "country": "USA",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BMWE3NzMxZTYtZTUyYi00ZTMzLTg2MzEtZjg0NGM3ZDJjZDg2XkEyXkFqcGdeQXVyNDE5MTU2MDE@._V1_SX300.jpg",
+        "actors": [
+          {
+            "id": 4114,
+            "name": "Eleanor Audley"
+          },
+          {
+            "id": 4173,
+            "name": "Ilene Woods"
+          },
+          {
+            "id": 4174,
+            "name": "Verna Felton"
+          },
+          {
+            "id": 4175,
+            "name": "Claire Du Brey"
+          }
+        ],
+        "director": [
+          {
+            "id": 129,
+            "name": "Wilfred Jackson"
+          },
+          {
+            "id": 872,
+            "name": "Clyde Geronimi"
+          },
+          {
+            "id": 1068,
+            "name": "Hamilton Luske"
+          }
+        ],
+        "genre": [
+          {
+            "id": 13,
+            "name": "Romance"
+          },
+          {
+            "id": 14,
+            "name": "Family"
+          },
+          {
+            "id": 15,
+            "name": "Fantasy"
+          },
+          {
+            "id": 16,
+            "name": "Animation"
+          },
+          {
+            "id": 18,
+            "name": "Musical"
+          }
+        ],
+        "ondemand": [
+          {
+            "id": 4232,
+            "service": "iTunes",
+            "url": "https://itunes.apple.com/gb/movie/cinderella/id189134612"
+          },
+          {
+            "id": 4233,
+            "service": "Google Play",
+            "url": "https://play.google.com/store/movies/details/Cinderella?gl=GB&hl=en&id=kf-4Y3Yg6S0"
+          },
+          {
+            "id": 4234,
+            "service": "Amazon Instant Video",
+            "url": "https://watch.amazon.co.uk/detail?asin=B00FYNF1N4&tag=utellycom00-21"
+          },
+          {
+            "id": 4235,
+            "service": "Disney+",
+            "url": "https://www.disneyplus.com/movies/cinderella/VJPw3bEy9iHj"
+          }
+        ],
+        "reviews": [
+          {
+            "id": 5022,
+            "source": "imdb",
+            "score": 73
+          },
+          {
+            "id": 5023,
+            "source": "rotten_toms",
+            "score": 97
+          },
+          {
+            "id": 5024,
+            "source": "metacritic",
+            "score": 85
+          }
+        ],
+        "avg_rating": 85.0
+      },
+      "watched": true,
+      "added": "2021-12-02T15:04:43.430908Z",
+      "updated": "2021-12-03T15:29:20.825136Z",
+      "uid": "151f2bee-57e7-405c-ab1c-6fefc8f9c3d5"
+    },
+    {
+      "_list": {
+        "name": "watch-list"
+      },
+      "movie": {
+        "slug": "7c2H0UdP-thunder-road",
+        "title": "Thunder Road",
+        "released": "2018-10-30",
+        "runtime": 92,
+        "writer": "Jim Cummings",
+        "plot": "A police officer faces a personal meltdown following a divorce and the death of his mother.",
+        "country": "USA",
+        "poster_url": "https://m.media-amazon.com/images/M/MV5BMjYyNGUzMDAtNzUwNC00OWY5LWIxZGQtZjJlYWU1ODY5YjYxXkEyXkFqcGdeQXVyMjk1NzAxNg@@._V1_SX300.jpg",
+        "actors": [
+          {
+            "id": 1476,
+            "name": "Jim Cummings"
+          },
+          {
+            "id": 5678,
+            "name": "Kendal Farr"
+          },
+          {
+            "id": 5679,
+            "name": "Nican Robinson"
+          },
+          {
+            "id": 5680,
+            "name": "Jocelyn Deboer"
+          }
+        ],
+        "director": [
+          {
+            "id": 1562,
+            "name": "Jim Cummings"
+          }
+        ],
+        "genre": [
+          {
+            "id": 5,
+            "name": "Drama"
+          },
+          {
+            "id": 10,
+            "name": "Comedy"
+          }
+        ],
+        "ondemand": [
+          {
+            "id": 4846,
+            "service": "iTunes",
+            "url": "https://itunes.apple.com/gb/movie/thunder-road/id1456627547?ct=app_tv"
+          },
+          {
+            "id": 4847,
+            "service": "Google Play",
+            "url": "https://play.google.com/store/movies/details/Thunder_Road?gl=GB&hl=en&id=XU4Z0DXuyvE"
+          },
+          {
+            "id": 4848,
+            "service": "Amazon Instant Video",
+            "url": "https://watch.amazon.co.uk/detail?asin=B07VCNLVSP&tag=utellycom00-21"
+          }
+        ],
+        "reviews": [
+          {
+            "id": 6111,
+            "source": "imdb",
+            "score": 71
+          },
+          {
+            "id": 6112,
+            "source": "metacritic",
+            "score": 79
+          }
+        ],
+        "avg_rating": 75.0
+      },
+      "watched": true,
+      "added": "2021-12-02T14:04:28.113421Z",
+      "updated": "2021-12-03T15:33:38.151290Z",
+      "uid": "545d2700-f43f-4ed9-b918-a20caaaf4a19"
+    }
+  ]
+}

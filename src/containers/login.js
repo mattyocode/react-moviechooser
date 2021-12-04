@@ -10,6 +10,7 @@ export function Login({
   authError,
   activeField,
   isPage,
+  subhead = null,
 }) {
   const submitBtnDisabled =
     formik.errors.email || !formik.touched.email || formik.errors.password;
@@ -29,6 +30,7 @@ export function Login({
           Sign In
         </Form.Title>
       </Form.Header>
+      {subhead && <Form.Text>{subhead}</Form.Text>}
       <Form.Text>
         No account?{" "}
         <Form.Link onClick={() => changeFormType("register")}>

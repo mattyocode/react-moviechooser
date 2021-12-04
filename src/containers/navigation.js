@@ -13,7 +13,7 @@ export function NavbarContainer() {
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
   const history = useHistory();
-  const user = useSelector((state) => state.persistedReducer.auth);
+  const user = useSelector((state) => state.auth.auth);
 
   let loggedInGreeting;
   if (user.account) {

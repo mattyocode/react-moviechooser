@@ -13,7 +13,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
-  const token = store.getState().persistedReducer.auth.token;
+  const token = store.getState().auth.auth.token;
+  console.log("token >>>", token);
   // const authStore = store.getState().persistedReducer.auth;
 
   if (token) {
@@ -49,7 +50,7 @@ axiosInstance.interceptors.response.use(
 );
 
 const refreshAuthHandler = async (failedRequest) => {
-  const refreshToken = store.getState().persistedReducer.auth.refreshToken;
+  const refreshToken = store.getState().auth.auth.refreshToken;
   if (refreshToken) {
     return axios
       .post(
@@ -107,7 +108,6 @@ export async function client(
   try {
     let response;
     response = await axiosInstance(config);
-    console.log("response >", response);
     data = response.data;
     if (response.status === 200 || response.status === 201) {
       return data;

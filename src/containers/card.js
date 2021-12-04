@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   MdShare,
   MdOndemandVideo,
@@ -10,6 +10,7 @@ import {
 import { motion } from "framer-motion";
 
 import { Card, Modal } from "../components";
+import { AuthForm } from "./auth-form";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
 import { addNewListItem, deleteListItem } from "../store/list-slice";
@@ -25,6 +26,8 @@ export function CardContainer({
   const [ondemandData, setOndemandData] = useState({});
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
+  const [authOpen, setAuthOpen] = useState(false);
+  const user = useSelector((state) => state.auth.auth);
 
   const dispatch = useDispatch();
 
@@ -46,24 +49,37 @@ export function CardContainer({
     setShareOpen(true);
   };
 
-  const addToListHandler = () => {
-    dispatch(addNewListItem(movie.slug));
-    dispatch(
-      setMovieOnList({
-        movieSlug: movie.slug,
-        onList: true,
-      })
-    );
+  const closeAuthHandler = () => {
+    setAuthOpen(false);
+  };
+  const openAuthHandler = (data) => {
+    setAuthOpen(true);
   };
 
+  const addToListHandler = () => {
+    if (user.account) {
+      dispatch(addNewListItem(movie.slug));
+      dispatch(
+        setMovieOnList({
+          movieSlug: movie.slug,
+          onList: true,
+        })
+      );
+    }
+  };
+
+  const launchSignIn = () => {};
+
   const removeFromListHandler = () => {
-    dispatch(deleteListItem(movie.slug));
-    dispatch(
-      setMovieOnList({
-        movieSlug: movie.slug,
-        onList: false,
-      })
-    );
+    if (user.account) {
+      dispatch(deleteListItem(movie.slug));
+      dispatch(
+        setMovieOnList({
+          movieSlug: movie.slug,
+          onList: false,
+        })
+      );
+    }
   };
 
   const toggleMovieWatchedHanlder = () => {
@@ -86,6 +102,15 @@ export function CardContainer({
       {shareOpen && shareData && (
         <Modal openState={shareOpen} closeModal={closeShareHandler}>
           <ShareContainer data={shareData} />
+        </Modal>
+      )}
+      {authOpen && (
+        <Modal openState={authOpen} closeModal={closeAuthHandler}>
+          <AuthForm
+            formTypeInitial={"login"}
+            subhead={"Login to add movies to list."}
+            closeSelf={setAuthOpen}
+          />
         </Modal>
       )}
       {movie && (
@@ -156,11 +181,15 @@ export function CardContainer({
                 <MdShare />
               </Card.Action>
               <Card.Action label="Add to list">
-                {movie.on_list || listData ? (
-                  <MdBookmark onClick={removeFromListHandler} />
-                ) : (
+                {(user && user.account && movie.on_list) ||
+                  (listData && <MdBookmark onClick={removeFromListHandler} />)}
+                {user && user.account && !movie.on_list && (
                   <MdBookmarkBorder onClick={addToListHandler} />
                 )}
+                {!user ||
+                  (!user.account && (
+                    <MdBookmarkBorder fill="#555" onClick={openAuthHandler} />
+                  ))}
               </Card.Action>
             </Card.Footer>
           </Card.Content>

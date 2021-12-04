@@ -14,13 +14,14 @@ export function AuthForm({
   formTypeInitial = "login",
   isPage = false,
   closeSelf,
+  subhead = null,
 }) {
   const [formType, setFormType] = useState(formTypeInitial);
   const [activeField, setActiveField] = useState(false);
   const [recaptchaKey, setRecaptchaKey] = useState();
-  const account = useSelector((state) => state.persistedReducer.auth.account);
-  const authStatus = useSelector((state) => state.persistedReducer.auth.status);
-  const authError = useSelector((state) => state.persistedReducer.auth.error);
+  const account = useSelector((state) => state.auth.auth.account);
+  const authStatus = useSelector((state) => state.auth.auth.status);
+  const authError = useSelector((state) => state.auth.auth.error);
   const dispatch = useDispatch();
   const history = useHistory();
   const succeedRef = useRef();
@@ -151,6 +152,7 @@ export function AuthForm({
           authError={authError}
           activeField={activeField}
           isPage={isPage}
+          subhead={subhead}
         />
       )}
       {!account && formType === "register" && (
