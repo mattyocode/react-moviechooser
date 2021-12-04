@@ -68,8 +68,6 @@ export function CardContainer({
     }
   };
 
-  const launchSignIn = () => {};
-
   const removeFromListHandler = () => {
     if (user.account) {
       dispatch(deleteListItem(movie.slug));

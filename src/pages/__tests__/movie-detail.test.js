@@ -31,7 +31,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: unauthorizedInitialAuthState } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
   });
 
@@ -64,7 +64,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: unauthorizedInitialAuthState } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: unauthorizedInitialAuthState } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
   });
 
@@ -113,7 +113,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: unauthorizedInitialAuthState } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
