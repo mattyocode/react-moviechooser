@@ -1,15 +1,23 @@
 import React, { Suspense, useEffect } from "react";
-import { Router, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import { Home, MovieDetail, Movies } from "./pages";
-import { Loading } from "./components";
-import { NavbarContainer } from "./containers/navigation";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { CookieConsentContainer } from "./containers/cookie-consent";
-
 import { getCookieConsentValue } from "react-cookie-consent";
 import TagManager from "react-gtm-module";
+import { AnimatePresence } from "framer-motion";
+import ProtectedRoute from "./routes/protected-route";
+import { AuthPage, Home, List, MovieDetail, Movies } from "./pages";
+import { Loading } from "./components";
+import { NavbarContainer } from "./containers/navigation";
 
 export default function App() {
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     const tagManagerArgs = {
@@ -34,9 +42,9 @@ export default function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Router history={history}>
-        <NavbarContainer />
-        <Switch>
+      <NavbarContainer />
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.key}>
           <Route path="/" exact>
             <Home />
           </Route>
@@ -46,10 +54,16 @@ export default function App() {
           <Route path="/movies/:movieId">
             <MovieDetail />
           </Route>
-          <Route render={() => <Redirect to="/" />} />
+          <Route path="/auth/:params">
+            <AuthPage />
+          </Route>
+          <ProtectedRoute path="/user/lists">
+            <List />
+          </ProtectedRoute>
+          <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
-        <CookieConsentContainer />
-      </Router>
+      </AnimatePresence>
+      <CookieConsentContainer />
     </Suspense>
   );
 }

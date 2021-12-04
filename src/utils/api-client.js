@@ -10,7 +10,7 @@ export async function client(
     body: body ? JSON.stringify(body) : undefined,
     signal: signal ? signal : undefined,
     headers: {
-      Authorization: token ? `Bearer ${token}` : undefined,
+      Authorization: token ? `JWT ${token}` : undefined,
       "Content-Type": body ? "application/json" : undefined,
       ...customHeaders,
     },

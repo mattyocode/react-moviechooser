@@ -6,8 +6,6 @@ export default function useCheckbox(options = []) {
   );
   const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
 
-  // console.log("use-checkbox");
-
   const checkboxChangeHandler = useCallback(
     (position) => {
       const updatedCheckedState = isChecked.map((item, index) =>
@@ -39,7 +37,6 @@ export default function useCheckbox(options = []) {
   }, [isChecked]);
 
   useEffect(() => {
-    // console.log("use-checkbox useEffect");
     setIsChecked(new Array(options.length).fill(false));
   }, [options]);
 

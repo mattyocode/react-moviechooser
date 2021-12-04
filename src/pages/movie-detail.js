@@ -1,61 +1,70 @@
 import React, { useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 import { Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
-import { client } from "../utils/api-client";
-import { useHttp } from "../hooks";
+import { fetchSingleMovie } from "../store/movies-slice";
+
+const containerVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { delay: 0.25, duration: 0.5 },
+  },
+  exit: {
+    x: "-100vw",
+    transition: { ease: "easeInOut" },
+  },
+};
 
 export default function MovieDetail() {
-  const { sendRequest, status, error, data: movieData } = useHttp(client);
+  const movie = useSelector((state) => state.movies.movies)[0];
+  const moviesStatus = useSelector((state) => state.movies.status);
+  const moviesError = useSelector((state) => state.movies.error);
+
   const location = useLocation();
   const locationRef = useRef(null);
   const params = useParams();
+  const dispatch = useDispatch();
 
   let route = "";
   if (params.movieId === "surprise") {
-    route = "movies/random/";
+    route = "random";
   } else {
-    route = `movies/${params.movieId}`;
-  }
-
-  let movie;
-  if (status === "pending") {
-    movie = <Loading />;
-  }
-
-  if (status === "succeeded") {
-    movie = <CardContainer movie={movieData} expandInitially={true} />;
-  }
-
-  if (status === "rejected") {
-    movie = <p>Error: {error} </p>;
+    route = `${params.movieId}`;
   }
 
   useEffect(() => {
     if (locationRef !== location.key) {
-      const abortController = new AbortController();
-      locationRef.current = location.key;
-      sendRequest(route, { signal: abortController.signal });
-
-      return () => {
-        abortController.abort();
-      };
+      dispatch(fetchSingleMovie(route));
     }
-  }, [route, sendRequest, locationRef, location]);
+  }, [dispatch, route, location, locationRef]);
 
   return (
-    <>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       {`${params.movieId}` === "surprise" ? (
         <Headline data-testid="surprise">
-          <Headline.Title>Random has chosen...</Headline.Title>
+          <Headline.Title>Random has chosen</Headline.Title>
         </Headline>
       ) : (
         <Headline data-testid={`movie-detail-${params.movieId}`}>
           <Headline.Title>Check this out!</Headline.Title>
         </Headline>
       )}
-      {movie}
-    </>
+      {moviesStatus === "updating" && <Loading />}
+      {moviesStatus === "succeeded" && (
+        <CardContainer movie={movie} expandInitially={true} />
+      )}
+      {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
+    </motion.div>
   );
 }

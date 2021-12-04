@@ -15,18 +15,17 @@ export const linksData = [
   },
   {
     id: 2,
-    url: "/",
+    url: "/user/lists",
     text: "My List",
     highlight: false,
     activeClass: "none",
-    addClass: "grey",
+    // addClass: "grey",
   },
-  {
-    id: 3,
-    url: "/",
-    text: "Sign In",
-    highlight: true,
-    activeClass: "none",
-    addClass: "grey",
-  },
+  // {
+  //   id: 3,
+  //   url: "/user/login",
+  //   text: "Sign In",
+  //   highlight: true,
+  //   activeClass: "active",
+  // },
 ];

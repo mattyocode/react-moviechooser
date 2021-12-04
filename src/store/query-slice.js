@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { client } from "../utils/api-client";
+import { client } from "../utils/axios-refresh";
 // import { fetchOptionsData } from "./query-actions";
 
 const initialOptionsState = {
@@ -11,7 +11,7 @@ const initialOptionsState = {
 export const fetchOptions = createAsyncThunk(
   "options/fetchOptions",
   async () => {
-    const response = await client.get("genres/");
+    const response = await client.get("api/genres/");
     return response;
   }
 );

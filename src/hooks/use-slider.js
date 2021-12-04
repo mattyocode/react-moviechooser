@@ -37,8 +37,6 @@ export default function useSlider(
     allSelected: false,
   });
 
-  // console.log("use-slider");
-
   const setMin = (value) => {
     dispatch({ type: "SET-MIN", value: value });
   };
@@ -84,8 +82,6 @@ export default function useSlider(
   }, [state.minValue, state.maxValue, state.rangeLabels]);
 
   useEffect(() => {
-    // console.log("use-slider useEffect");
-
     setMin(stepsArray.indexOf(defaultMin));
     setMax(stepsArray.indexOf(defaultMax));
     setLabels(stepsArray);

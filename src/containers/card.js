@@ -1,15 +1,32 @@
 import React, { useState } from "react";
-import { MdShare, MdOndemandVideo, MdLibraryAdd } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import {
+  MdShare,
+  MdOndemandVideo,
+  MdBookmark,
+  MdBookmarkBorder,
+  MdRemoveRedEye,
+} from "react-icons/md";
+import { motion } from "framer-motion";
 
 import { Card, Modal } from "../components";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
+import { addNewListItem, deleteListItem } from "../store/list-slice";
+import { setMovieOnList } from "../store/movies-slice";
+import { updateListItem } from "../store/list-slice";
 
-export function CardContainer({ movie, expandInitially = false }) {
+export function CardContainer({
+  movie,
+  expandInitially = false,
+  listData = null,
+}) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
+
+  const dispatch = useDispatch();
 
   const closeOndemandHandler = () => {
     setOndemandOpen(false);
@@ -29,6 +46,36 @@ export function CardContainer({ movie, expandInitially = false }) {
     setShareOpen(true);
   };
 
+  const addToListHandler = () => {
+    dispatch(addNewListItem(movie.slug));
+    dispatch(
+      setMovieOnList({
+        movieSlug: movie.slug,
+        onList: true,
+      })
+    );
+  };
+
+  const removeFromListHandler = () => {
+    dispatch(deleteListItem(movie.slug));
+    dispatch(
+      setMovieOnList({
+        movieSlug: movie.slug,
+        onList: false,
+      })
+    );
+  };
+
+  const toggleMovieWatchedHanlder = () => {
+    const watchedState = !listData.watched;
+    dispatch(
+      updateListItem({
+        movieSlug: movie.slug,
+        updatedFieldData: { watched: watchedState },
+      })
+    );
+  };
+
   return (
     <>
       {ondemandOpen && ondemandData && (
@@ -42,8 +89,20 @@ export function CardContainer({ movie, expandInitially = false }) {
         </Modal>
       )}
       {movie && (
-        <Card expandState={expandInitially}>
+        <Card expandState={expandInitially} as={motion.div} layout="position">
           <Card.Content>
+            {listData && (
+              <Card.FixedAction
+                label="Watch"
+                as={motion.button}
+                whileHover={{ scale: 1.1 }}
+              >
+                <MdRemoveRedEye
+                  fill={listData.watched ? "#fff" : "#666"}
+                  onClick={toggleMovieWatchedHanlder}
+                />
+              </Card.FixedAction>
+            )}
             <Card.Sidebar>
               <Card.AvgRating>
                 {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
@@ -96,8 +155,12 @@ export function CardContainer({ movie, expandInitially = false }) {
               >
                 <MdShare />
               </Card.Action>
-              <Card.Action label="Save">
-                <MdLibraryAdd />
+              <Card.Action label="Add to list">
+                {movie.on_list || listData ? (
+                  <MdBookmark onClick={removeFromListHandler} />
+                ) : (
+                  <MdBookmarkBorder onClick={addToListHandler} />
+                )}
               </Card.Action>
             </Card.Footer>
           </Card.Content>

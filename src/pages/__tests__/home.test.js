@@ -15,7 +15,7 @@ import { Home } from "../../pages";
 import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/genres/`;
+  const apiUrl = `${process.env.REACT_APP_TEST_API}/api/genres/`;
 
   beforeEach(() => {
     render(
@@ -77,7 +77,7 @@ describe("<Home/> page tests", () => {
     );
 
     expect(
-      screen.getByText(/browse the results and start watching/i)
+      screen.getByText(/Choose from 1000s of acclaimed movies./i)
     ).toBeInTheDocument();
 
     let submitBtn = await screen.findByTestId(

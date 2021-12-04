@@ -10,3 +10,5 @@ export { default as Modal } from "./modal";
 export { default as About } from "./about";
 export { default as Footer } from "./footer";
 export { default as Cookies } from "./cookie-consent";
+export { default as Form } from "./form";
+export { default as Profile } from "./profile";
