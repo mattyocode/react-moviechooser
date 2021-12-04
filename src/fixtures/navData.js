@@ -5,6 +5,7 @@ export const linksData = [
     text: "About",
     highlight: false,
     activeClass: "none",
+    authRequired: false,
   },
   {
     id: 1,
@@ -12,6 +13,7 @@ export const linksData = [
     text: "Surprise Me",
     highlight: false,
     activeClass: "active",
+    authRequired: false,
   },
   {
     id: 2,
@@ -19,13 +21,6 @@ export const linksData = [
     text: "My List",
     highlight: false,
     activeClass: "none",
-    // addClass: "grey",
+    authRequired: true,
   },
-  // {
-  //   id: 3,
-  //   url: "/user/login",
-  //   text: "Sign In",
-  //   highlight: true,
-  //   activeClass: "active",
-  // },
 ];

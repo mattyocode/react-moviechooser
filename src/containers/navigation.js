@@ -88,17 +88,20 @@ export function NavbarContainer() {
           closefn={closeLinks}
         >
           {linksData.map((link) => {
-            return (
-              <li key={link.id} onClick={toggleLinks}>
-                <Navbar.NavbarLink
-                  to={link.url}
-                  text={link.text}
-                  activeClassName={link.activeClass}
-                  highlight={link.highlight}
-                  addClass={link.addClass}
-                />
-              </li>
-            );
+            if (!link.authRequired || user.account) {
+              return (
+                <li key={link.id} onClick={toggleLinks}>
+                  <Navbar.NavbarLink
+                    to={link.url}
+                    text={link.text}
+                    activeClassName={link.activeClass}
+                    highlight={link.highlight}
+                  />
+                </li>
+              );
+            } else {
+              return null;
+            }
           })}
           {!user.account ? (
             <li>

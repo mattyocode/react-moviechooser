@@ -68,8 +68,8 @@ export default function Movies() {
                   key={movie.slug}
                   initial={{
                     opacity: 0,
-                    x: -100,
-                    y: -20,
+                    x: 100,
+                    y: -30,
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.1, delay: (idx % 30) * 0.2 }}

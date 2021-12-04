@@ -30,6 +30,7 @@ export default function List() {
   const dispatch = useDispatch();
 
   const moreItems = itemCount > 0 && list_items.length < itemCount;
+  console.log("list items >>", list_items);
 
   const unwatchedItems = list_items.filter((item) => !item.watched);
   const watchedItems = list_items.filter((item) => item.watched);
@@ -67,17 +68,17 @@ export default function List() {
               const { added, watched } = item;
               return (
                 <motion.div
+                  key={item.movie.slug}
                   initial={{
                     opacity: 0,
-                    x: -100,
-                    y: -20,
+                    x: 100,
+                    y: -30,
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.2, delay: idx * 0.1 }}
+                  transition={{ duration: 0.2, delay: idx * 0.2 }}
                   style={{ margin: "0 10px" }}
                 >
                   <CardContainer
-                    key={item.movie.slug}
                     movie={item.movie}
                     listData={{ added, watched }}
                   />
@@ -103,8 +104,8 @@ export default function List() {
                   key={item.movie.slug}
                   initial={{
                     opacity: 0,
-                    x: -100,
-                    y: -20,
+                    x: 100,
+                    y: -30,
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.2, delay: idx * 0.3 }}

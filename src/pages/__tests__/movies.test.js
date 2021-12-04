@@ -5,7 +5,7 @@ import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../mocks/test-utils";
-import storeMovies from "../../fixtures/updatedMoviesData.json";
+import storeMovies from "../../mocks/test-data/testMoviesData.json";
 import { Movies } from "..";
 
 describe("<Movies/> page tests", () => {
