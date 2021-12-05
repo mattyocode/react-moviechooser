@@ -77,11 +77,7 @@ Form.Input = function FormInput({ children, ...restProps }) {
 };
 
 Form.Link = function FormLink({ children, ...restProps }) {
-  return (
-    <Link whileHover={{ scale: 1.1 }} {...restProps}>
-      {children}
-    </Link>
-  );
+  return <Link {...restProps}>{children}</Link>;
 };
 
 Form.Submit = function FormSubmit({ children, ...restProps }) {
