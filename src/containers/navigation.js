@@ -70,6 +70,8 @@ export function NavbarContainer() {
     }
   }, [location.hash]);
 
+  console.log("navigation runs");
+
   return (
     <>
       {authOpen && (

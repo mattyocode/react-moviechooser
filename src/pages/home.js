@@ -25,7 +25,7 @@ const containerVariants = {
   },
 };
 
-export default function Home() {
+export function Home() {
   const genres = useSelector((state) => state.options.options);
   const optionsStatus = useSelector((state) => state.options.status);
   const optionsError = useSelector((state) => state.options.error);
@@ -33,8 +33,10 @@ export default function Home() {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchOptions());
-  }, [dispatch]);
+    if (Object.keys(genres).length === 0) {
+      dispatch(fetchOptions());
+    }
+  }, [dispatch, genres]);
 
   const getQueryResults = (selectionObj) => {
     dispatch(setMovieQuery(selectionObj));
@@ -60,6 +62,8 @@ export default function Home() {
   if (optionsStatus === "failed") {
     choiceForm = <p>Error: {optionsError}</p>;
   }
+
+  console.log("choice form optionStatus >>", optionsStatus);
 
   return (
     <motion.div
@@ -128,3 +132,5 @@ export default function Home() {
     </motion.div>
   );
 }
+
+export const MemoizedHome = React.memo(Home);

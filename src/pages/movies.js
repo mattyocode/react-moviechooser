@@ -72,7 +72,7 @@ export default function Movies() {
                     y: -30,
                   }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.1, delay: (idx % 30) * 0.2 }}
+                  transition={{ duration: 0.1, delay: (idx % 30) * 0.1 }}
                   style={{ margin: "0 10px" }}
                 >
                   <CardContainer movie={movie} />

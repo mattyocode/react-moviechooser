@@ -44,7 +44,7 @@ export default function App() {
     <Suspense fallback={<Loading />}>
       <NavbarContainer />
       <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.key}>
+        <Switch location={location} key={location}>
           <Route path="/" exact>
             <Home />
           </Route>
