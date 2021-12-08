@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 import * as reactRedux from "react-redux";
+import { reduxTestRender } from "../../mocks/test-utils";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
@@ -16,14 +17,17 @@ import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_TEST_API}/api/genres/`;
-
+  const initialOptionsState = {
+    options: {},
+    status: "idle",
+    error: null,
+  };
   beforeEach(() => {
-    render(
-      <reactRedux.Provider store={store}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </reactRedux.Provider>
+    reduxTestRender(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+      { preloadedState: { options: initialOptionsState } }
     );
   });
   it("renders <Home/>", async () => {
@@ -43,13 +47,13 @@ describe("<Home/> page tests", () => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
       })
     );
+    console.log(">>>>", apiUrl);
 
-    render(
-      <reactRedux.Provider store={store}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </reactRedux.Provider>
+    reduxTestRender(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>,
+      { preloadedState: { options: initialOptionsState } }
     );
 
     await waitFor(() => {
@@ -63,17 +67,17 @@ describe("<Home/> page tests", () => {
 
   it("submit handler redirects to movies page after calling fetchMovies", async () => {
     cleanup();
-    render(
-      <reactRedux.Provider store={store}>
-        <MemoryRouter initialEntries={["/"]}>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/movies">
-            <p>Movie results page.</p>
-          </Route>
-        </MemoryRouter>
-      </reactRedux.Provider>
+
+    reduxTestRender(
+      <MemoryRouter initialEntries={["/"]}>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/movies">
+          <p>Movie results page.</p>
+        </Route>
+      </MemoryRouter>,
+      { preloadedState: { options: initialOptionsState } }
     );
 
     expect(
@@ -88,6 +92,6 @@ describe("<Home/> page tests", () => {
 
     fireEvent.click(submitBtn);
 
-    expect(screen.getByText(/Movie results page/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Movie results page/i)).toBeInTheDocument();
   });
 });
