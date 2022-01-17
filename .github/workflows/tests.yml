@@ -14,9 +14,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REACT_APP_RECAPTCHA_SITE_KEY: ${{ REACT_APP_RECAPTCHA_SITE_KEY }}
-      REACT_APP_API: ${{ REACT_APP_API }}
-      REACT_APP_DOMAIN_NAME: ${{ REACT_APP_DOMAIN_NAME }}
+      REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+      REACT_APP_API: ${{ secrets.REACT_APP_API }}
+      REACT_APP_DOMAIN_NAME: ${{ secrets.REACT_APP_DOMAIN_NAME }}
 
     strategy:
       matrix:
