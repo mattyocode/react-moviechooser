@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+      REACT_APP_RECAPTCHA_SITE_KEY: ${{ REACT_APP_RECAPTCHA_SITE_KEY }}
+      REACT_APP_API: ${{ REACT_APP_API }}
+      REACT_APP_DOMAIN_NAME: ${{ REACT_APP_DOMAIN_NAME }}
+
     steps:
       - uses: actions/checkout@v2
       - name: Cache modules
