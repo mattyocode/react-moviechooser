@@ -7,16 +7,17 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
-import * as reactRedux from "react-redux";
+// import * as reactRedux from "react-redux";
 import { reduxTestRender } from "../../mocks/test-utils";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { Home } from "../../pages";
-import store from "../../store/index";
+// import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_API}/api/genres/`;
+  console.log(">>>>>>", apiUrl);
   const initialOptionsState = {
     options: {},
     status: "idle",

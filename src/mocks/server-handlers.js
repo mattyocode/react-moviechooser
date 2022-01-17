@@ -5,7 +5,7 @@ import moviesData from "../mocks/test-data/testMoviesData.json";
 
 const apiUrl = `${process.env.REACT_APP_API}`;
 
-// console.log("server-handler apiUrl", apiUrl);
+console.log("server-handler apiUrl", apiUrl);
 
 const handlers = [
   rest.get(`${apiUrl}/api/genres/`, async (req, res, ctx) => {

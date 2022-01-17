@@ -50,6 +50,10 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+          REACT_APP_RECAPTCHA_SITE_KEY: ${{ env.REACT_APP_RECAPTCHA_SITE_KEY }}
+          REACT_APP_API: ${{ env.REACT_APP_API }}
+          REACT_APP_DOMAIN_NAME: ${{ env.REACT_APP_DOMAIN_NAME }}
 
       - name: Set bucket name
         run: |
