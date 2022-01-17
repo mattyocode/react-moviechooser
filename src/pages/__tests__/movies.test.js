@@ -9,7 +9,7 @@ import storeMovies from "../../mocks/test-data/testMoviesData.json";
 import { Movies } from "..";
 
 describe("<Movies/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/movies`;
+  const apiUrl = `${process.env.REACT_APP_API}/movies`;
   const testQueryParams = {
     genre: [],
     decade: {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.REACT_APP_TEST_API;
+const apiURL = process.env.REACT_APP_API;
 
 export async function client(
   endpoint,

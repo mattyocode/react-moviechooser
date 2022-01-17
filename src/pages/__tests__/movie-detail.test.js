@@ -11,7 +11,7 @@ import "@testing-library/jest-dom";
 import { reduxTestRender } from "../../mocks/test-utils";
 import { MovieDetail } from "../../pages";
 
-const apiUrlRoot = process.env.REACT_APP_TEST_API;
+const apiUrlRoot = process.env.REACT_APP_API;
 
 const unauthorizedInitialAuthState = {
   token: null,
@@ -73,7 +73,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
 });
 
 describe("<MovieDetail/> Movie ID page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_TEST_API}/api/movies/123`;
+  const apiUrl = `${process.env.REACT_APP_API}/api/movies/123`;
   beforeEach(() => {
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>

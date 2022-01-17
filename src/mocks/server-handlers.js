@@ -3,7 +3,7 @@ import { rest } from "msw";
 import testGenreData from "../mocks/test-data/testGenreData.json";
 import moviesData from "../mocks/test-data/testMoviesData.json";
 
-const apiUrl = `${process.env.REACT_APP_TEST_API}`;
+const apiUrl = `${process.env.REACT_APP_API}`;
 
 // console.log("server-handler apiUrl", apiUrl);
 
