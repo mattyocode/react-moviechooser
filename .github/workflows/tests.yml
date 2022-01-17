@@ -31,6 +31,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Set react env variables
+        run: |
+          echo REACT_APP_RECAPTCHA_SITE_KEY="${{ env.REACT_APP_RECAPTCHA_SITE_KEY }}" >> .env
+          echo REACT_APP_API="${{ env.REACT_APP_API }}" >> .env
+          echo REACT_APP_DOMAIN_NAME="${{ env.REACT_APP_DOMAIN_NAME }}" >> .env
+
       - name: Run tests
         run: yarn test
 
