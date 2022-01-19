@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 // import * as reactRedux from "react-redux";
 import { reduxTestRender } from "../../mocks/test-utils";
@@ -17,7 +11,6 @@ import { Home } from "../../pages";
 
 describe("<Home/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_API}/api/genres/`;
-  console.log(">>>>>>", apiUrl);
   const initialOptionsState = {
     options: {},
     status: "idle",
@@ -48,7 +41,6 @@ describe("<Home/> page tests", () => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
       })
     );
-    console.log(">>>>", apiUrl);
 
     reduxTestRender(
       <MemoryRouter>

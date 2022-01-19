@@ -25,6 +25,7 @@ describe("<Movies/> page tests", () => {
   afterAll(() => {
     jest.clearAllMocks();
   });
+
   it("renders Movie page with queryParams and movies in Redux state", async () => {
     const initialState = {
       queryParams: testQueryParams,
@@ -37,21 +38,6 @@ describe("<Movies/> page tests", () => {
     expect(screen.getByTestId("movies")).toBeTruthy();
     expect(await screen.findByText(/Jurassic Park/i)).toBeTruthy();
   });
-
-  // it("calls server for movies if queryParams but no movies in state", async () => {
-  //   cleanup();
-  //   const initialState = {
-  //     queryParams: testQueryParams,
-  //     movies: [],
-  //     status: "idle",
-  //     error: null,
-  //   };
-
-  //   reduxTestRender(<Movies />, { preloadedState: { movies: initialState } });
-  //   screen.debug();
-  //   expect(screen.getByTestId("movies")).toBeTruthy();
-  //   expect(await screen.findByText(/jurassic park/i)).toBeTruthy();
-  // });
 
   it("shows error on 404 response to GET request", async () => {
     cleanup();

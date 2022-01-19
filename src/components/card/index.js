@@ -35,11 +35,7 @@ export default function Card({ children, expandState = false, ...restProps }) {
 
   return (
     <CardExpandContext.Provider value={{ expand, setExpand }}>
-      <Container
-        data-testid="card"
-        className={expand ? "open" : "closed"}
-        {...restProps}
-      >
+      <Container className={expand ? "open" : "closed"} {...restProps}>
         {children}
       </Container>
     </CardExpandContext.Provider>
@@ -52,7 +48,7 @@ Card.Group = function CardGroup({ children, ...restProps }) {
 
 Card.Content = function CardContent({ children, ...restProps }) {
   return (
-    <Content data-testid="content" {...restProps}>
+    <Content data-testid="card-content" {...restProps}>
       {children}
     </Content>
   );

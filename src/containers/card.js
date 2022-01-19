@@ -115,7 +115,12 @@ export function CardContainer({
         </Modal>
       )}
       {movie && (
-        <Card expandState={expandInitially} as={motion.div} layout="position">
+        <Card
+          data-testid={`${movie.title}-card`}
+          expandState={expandInitially}
+          as={motion.div}
+          layout="position"
+        >
           <Card.Content>
             {listData && (
               <Card.FixedAction

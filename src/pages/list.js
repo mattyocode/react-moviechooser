@@ -46,6 +46,8 @@ export default function List() {
     dispatch(fetchListItems());
   }, [dispatch]);
 
+  console.log("items >>", list_items);
+
   return (
     <motion.div
       variants={pageVariants}

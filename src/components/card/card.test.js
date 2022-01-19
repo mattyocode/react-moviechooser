@@ -43,7 +43,7 @@ describe("<Card />", () => {
     );
     // screen.debug();
 
-    expect(screen.getByTestId("card")).toBeTruthy();
+    expect(screen.getByTestId("card-content")).toBeTruthy();
     expect(screen.getByText(/revenge of the test/i)).toBeInTheDocument();
     expect(screen.getByText(/1992/i)).toBeInTheDocument();
     expect(screen.getByText(/1h 50m/i)).toBeInTheDocument();
