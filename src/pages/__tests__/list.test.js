@@ -1,11 +1,12 @@
 import React from "react";
-import { cleanup, screen, render, waitFor } from "@testing-library/react";
+import { cleanup, screen, render, waitFor, act } from "@testing-library/react";
 import * as reactRedux from "react-redux";
-import { MemoryRouter, Route } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
+import { toHaveStyle } from "@testing-library/jest-dom";
 
-// import { reduxTestRender } from "../../mocks/test-utils";
+import { reduxTestRender } from "../../mocks/test-utils";
 import store from "../../store/index";
 import emptyListData from "../../mocks/test-data/testEmptyListData.json";
 import listData from "../../mocks/test-data/testListData.json";
@@ -13,9 +14,22 @@ import { List } from "..";
 
 describe("<List/> page tests", () => {
   const apiUrl = `${process.env.REACT_APP_API}/list/`;
+
+  const authorizedInitialAuthState = {
+    token: "testtoken",
+    refreshToken: "test-refresh-token",
+    account: { name: "test-user", email: "test@email.com" },
+    status: "idle",
+    error: null,
+  };
+
   window.scrollTo = jest.fn();
   afterAll(() => {
     jest.clearAllMocks();
+  });
+
+  beforeEach(() => {
+    cleanup();
   });
 
   it("renders List page with no items added to list", async () => {
@@ -34,11 +48,6 @@ describe("<List/> page tests", () => {
   });
 
   it("renders List page with test items", async () => {
-    server.use(
-      rest.get(`${apiUrl}`, async (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(listData));
-      })
-    );
     render(
       <reactRedux.Provider store={store}>
         <List />
@@ -50,4 +59,111 @@ describe("<List/> page tests", () => {
       });
     });
   });
+
+  it("removes item from list on click to bookmark", async () => {
+    let testListData = listData;
+    server.use(
+      rest.get(`${apiUrl}`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json(testListData));
+      }),
+      rest.delete(`${apiUrl}:movieSlug/`, async (req, res, ctx) => {
+        const { movieSlug } = req.params;
+        testListData = testListData.results.filter(
+          (result) => result.movie.slug !== movieSlug
+        );
+        return res(
+          ctx.status(200),
+          ctx.json({ deleted: `test-item-uid-${movieSlug}` })
+        );
+      })
+    );
+    reduxTestRender(<List />, {
+      preloadedState: { auth: { auth: authorizedInitialAuthState } },
+    });
+
+    const firstItem = listData.results[0].movie;
+
+    const bookmarkButton = await screen.findByTestId(
+      `${firstItem.title}-remove`
+    );
+
+    act(() => {
+      userEvent.click(bookmarkButton);
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId(`${firstItem.title}-card`)
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it("toggle list item unwatched/watched on click", async () => {
+    reduxTestRender(<List />, {
+      preloadedState: { auth: { auth: authorizedInitialAuthState } },
+    });
+    const unwatchedItem = listData.results[0].movie;
+
+    let unwatchedItemWatchedButton = await screen.findByTestId(
+      `${unwatchedItem.title}-watchedBtn`
+    );
+
+    expect(unwatchedItemWatchedButton.getAttribute("fill")).toBe("#666");
+    expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
+
+    act(() => {
+      userEvent.click(unwatchedItemWatchedButton);
+    });
+
+    await waitFor(() => {
+      expect(
+        screen
+          .getByTestId(`${unwatchedItem.title}-watchedBtn`)
+          .getAttribute("fill")
+      ).toBe("#fff");
+      expect(screen.queryByText(/no watched movies on your list/i)).toBeFalsy();
+    });
+
+    unwatchedItemWatchedButton = await screen.findByTestId(
+      `${unwatchedItem.title}-watchedBtn`
+    );
+
+    act(() => {
+      userEvent.click(unwatchedItemWatchedButton);
+    });
+
+    await waitFor(() => {
+      expect(
+        screen
+          .getByTestId(`${unwatchedItem.title}-watchedBtn`)
+          .getAttribute("fill")
+      ).toBe("#666");
+      expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
+    });
+  });
+
+  // it("set watched list item to unwatched on click", async () => {
+  //   reduxTestRender(<List />, {
+  //     preloadedState: { auth: { auth: authorizedInitialAuthState } },
+  //   });
+  //   const watchedItem = listData.results[1].movie;
+
+  //   let watchedItemWatchedButton = await screen.findByTestId(
+  //     `${watchedItem.title}-watchedBtn`
+  //   );
+
+  //   expect(watchedItemWatchedButton.getAttribute("fill")).toBe("#fff");
+
+  //   act(() => {
+  //     userEvent.click(watchedItemWatchedButton);
+  //   });
+
+  //   await waitFor(() => {
+  //     expect(
+  //       screen
+  //         .getByTestId(`${watchedItem.title}-watchedBtn`)
+  //         .getAttribute("fill")
+  //     ).toBe("#666");
+  //   });
+  // });
 });

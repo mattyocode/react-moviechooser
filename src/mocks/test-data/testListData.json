@@ -80,7 +80,7 @@
       "watched": false,
       "added": "2021-12-03T16:12:37.744557Z",
       "updated": "2021-12-03T16:12:37.744593Z",
-      "uid": "a79e290a-c9a4-4ab5-92f5-4d26f62451e9"
+      "uid": "test-item-uid-ZFNQFjsU-my-left-foot-the-story-"
     },
     {
       "_list": {
@@ -141,10 +141,10 @@
         ],
         "avg_rating": 92.66666666666667
       },
-      "watched": true,
+      "watched": false,
       "added": "2021-12-03T14:21:17.357469Z",
       "updated": "2021-12-04T14:03:45.206090Z",
-      "uid": "039d708e-06c2-4b2f-9aa2-10f498ed7e29"
+      "uid": "test-item-uid-sULzOUzg-il-conformista"
     },
     {
       "_list": {
@@ -241,7 +241,7 @@
       "watched": false,
       "added": "2021-12-02T15:05:58.317722Z",
       "updated": "2021-12-03T16:06:44.577741Z",
-      "uid": "09203f74-61be-4ded-8050-24d30bc9ec59"
+      "uid": "test-item-uid-Cej4OJva-trainwreck"
     },
     {
       "_list": {
@@ -351,10 +351,10 @@
         ],
         "avg_rating": 85.0
       },
-      "watched": true,
+      "watched": false,
       "added": "2021-12-02T15:04:43.430908Z",
       "updated": "2021-12-03T15:29:20.825136Z",
-      "uid": "151f2bee-57e7-405c-ab1c-6fefc8f9c3d5"
+      "uid": "test-item-uid-q9io1I1B-cinderella"
     },
     {
       "_list": {
@@ -434,10 +434,10 @@
         ],
         "avg_rating": 75.0
       },
-      "watched": true,
+      "watched": false,
       "added": "2021-12-02T14:04:28.113421Z",
       "updated": "2021-12-03T15:33:38.151290Z",
-      "uid": "545d2700-f43f-4ed9-b918-a20caaaf4a19"
+      "uid": "test-item-uid-7c2H0UdP-thunder-road"
     }
   ]
 }

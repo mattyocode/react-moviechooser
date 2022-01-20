@@ -30,18 +30,19 @@ const handlers = [
   rest.post(`${apiUrl}/list/`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(listItemData));
   }),
-  rest.patch(`${apiUrl}/list/`, async (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        ...listItemData,
-        watched: true,
-      })
-    );
+  rest.patch(`${apiUrl}/list/:movieSlug`, async (req, res, ctx) => {
+    const { movieSlug } = req.params;
+    let listItem = listData.results.filter((result) => {
+      return result.movie.slug === movieSlug;
+    });
+    const watchedStatus = listItem[0].watched;
+    console.log("watched status", watchedStatus);
+    listItem[0]["watched"] = !watchedStatus;
+    console.log("msw listItem", listItem);
+    return res(ctx.status(200), ctx.json(listItem[0]));
   }),
-  rest.delete(`${apiUrl}/list/`, async (req, res, ctx) => {
-    const { listId } = req.body();
-    return res(ctx.status(200), ctx.json({ deleted: listId }));
+  rest.delete(`${apiUrl}/list/:movieSlug`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ deleted: "test-item-id-123456" }));
   }),
 ];
 

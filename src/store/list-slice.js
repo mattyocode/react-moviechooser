@@ -13,7 +13,6 @@ export const fetchListItems = createAsyncThunk(
   "list/fetchListItems",
   async () => {
     const response = await client.get(`/list/`);
-    console.log("list-slice response > ", response);
     return response;
   }
 );

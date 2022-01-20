@@ -35,7 +35,11 @@ export default function Card({ children, expandState = false, ...restProps }) {
 
   return (
     <CardExpandContext.Provider value={{ expand, setExpand }}>
-      <Container className={expand ? "open" : "closed"} {...restProps}>
+      <Container
+        data-testid="card"
+        className={expand ? "open" : "closed"}
+        {...restProps}
+      >
         {children}
       </Container>
     </CardExpandContext.Provider>

@@ -83,7 +83,7 @@ export function CardContainer({
     }
   };
 
-  const toggleMovieWatchedHanlder = () => {
+  const toggleMovieWatchedHandler = () => {
     const watchedState = !listData.watched;
     dispatch(
       updateListItem({
@@ -124,13 +124,14 @@ export function CardContainer({
           <Card.Content>
             {listData && (
               <Card.FixedAction
-                label="Watch"
+                label="Watched"
                 as={motion.button}
                 whileHover={{ scale: 1.1 }}
               >
                 <MdRemoveRedEye
+                  data-testid={`${movie.title}-watchedBtn`}
                   fill={listData.watched ? "#fff" : "#666"}
-                  onClick={toggleMovieWatchedHanlder}
+                  onClick={toggleMovieWatchedHandler}
                 />
               </Card.FixedAction>
             )}
@@ -188,13 +189,23 @@ export function CardContainer({
               </Card.Action>
               <Card.Action label="Add to list">
                 {is_auth && on_list && (
-                  <MdBookmark onClick={removeFromListHandler} />
+                  <MdBookmark
+                    data-testid={`${movie.title}-remove`}
+                    onClick={removeFromListHandler}
+                  />
                 )}
                 {is_auth && !on_list && (
-                  <MdBookmarkBorder onClick={addToListHandler} />
+                  <MdBookmarkBorder
+                    data-testid={`${movie.title}-add`}
+                    onClick={addToListHandler}
+                  />
                 )}
                 {!is_auth && (
-                  <MdBookmarkBorder fill="#555" onClick={openAuthHandler} />
+                  <MdBookmarkBorder
+                    data-testid={`${movie.title}-unauthed`}
+                    fill="#555"
+                    onClick={openAuthHandler}
+                  />
                 )}
               </Card.Action>
             </Card.Footer>
