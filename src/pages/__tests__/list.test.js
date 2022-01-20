@@ -15,7 +15,7 @@ describe("<List/> page tests", () => {
   const authorizedInitialAuthState = {
     token: "testtoken",
     refreshToken: "test-refresh-token",
-    account: { name: "test-user", email: "test@email.com" },
+    account: { username: "test-user", email: "test@email.com" },
     status: "idle",
     error: null,
   };
@@ -134,29 +134,4 @@ describe("<List/> page tests", () => {
       expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
     });
   });
-
-  // it("set watched list item to unwatched on click", async () => {
-  //   reduxTestRender(<List />, {
-  //     preloadedState: { auth: { auth: authorizedInitialAuthState } },
-  //   });
-  //   const watchedItem = listData.results[1].movie;
-
-  //   let watchedItemWatchedButton = await screen.findByTestId(
-  //     `${watchedItem.title}-watchedBtn`
-  //   );
-
-  //   expect(watchedItemWatchedButton.getAttribute("fill")).toBe("#fff");
-
-  //   act(() => {
-  //     userEvent.click(watchedItemWatchedButton);
-  //   });
-
-  //   await waitFor(() => {
-  //     expect(
-  //       screen
-  //         .getByTestId(`${watchedItem.title}-watchedBtn`)
-  //         .getAttribute("fill")
-  //     ).toBe("#666");
-  //   });
-  // });
 });

@@ -78,7 +78,8 @@ const refreshAuthHandler = async (failedRequest) => {
         }
       });
   } else {
-    console.log("REDIRECT TO LOGIN");
+    store.dispatch(setLogout());
+    // console.log("REDIRECT TO LOGIN");
   }
 };
 
@@ -91,7 +92,6 @@ export async function client(
   const config = {
     url: url,
     baseURL: apiURL,
-    // method: body ? "POST" : "GET",
     data: body ? JSON.stringify(body) : undefined,
     cancelToken: cancelToken ? cancelToken : undefined,
     headers: {

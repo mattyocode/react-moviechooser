@@ -12,6 +12,8 @@ import { CardContainer } from "../../containers/card";
 import store from "../../store/index";
 import testMoviesData from "../../mocks/test-data/testMoviesData.json";
 
+const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
+
 describe("<CardContainer/> tests", () => {
   const singleMovie = testMoviesData[0];
   beforeEach(() => {
@@ -61,9 +63,6 @@ describe("<CardContainer/> tests", () => {
 
   it("launches share modal on click", async () => {
     const shareBtn = screen.getByTestId(/parasite-share/i);
-
-    const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
-
     SHARE_LIST.forEach((share) =>
       expect(screen.queryByText(share)).toBeFalsy()
     );
@@ -80,8 +79,6 @@ describe("<CardContainer/> tests", () => {
   });
 
   it("closes share modal on click", async () => {
-    const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
-
     const shareBtn = screen.getByTestId(/parasite-share/i);
     act(() => {
       fireEvent.click(shareBtn);

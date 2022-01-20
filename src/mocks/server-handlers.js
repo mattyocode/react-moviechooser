@@ -7,8 +7,6 @@ import listAddItemData from "../mocks/test-data/testListAddData.json";
 
 const apiUrl = `${process.env.REACT_APP_API}`;
 
-console.log("server-handler apiUrl", apiUrl);
-
 const handlers = [
   rest.get(`${apiUrl}/api/genres/`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(testGenreData));
