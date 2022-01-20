@@ -1,0 +1,59 @@
+[
+  {
+    "_list": { "name": "watch-list" },
+    "movie": {
+      "slug": "AkAFhXi3-parasite",
+      "title": "Parasite",
+      "released": "2019-11-08",
+      "runtime": 132,
+      "writer": "Bong Joon Ho (story by), Bong Joon Ho (screenplay by), Han Jin-won (screenplay by)",
+      "plot": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+      "country": "South Korea",
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+      "actors": [
+        { "id": 1051, "name": "Song Kang-Ho" },
+        { "id": 1052, "name": "Lee Sun-Kyun" },
+        { "id": 1053, "name": "Cho Yeo-Jeong" },
+        { "id": 1054, "name": "Choi Woo-Sik" }
+      ],
+      "director": [{ "id": 57, "name": "Bong Joon Ho" }],
+      "genre": [
+        { "id": 3, "name": "Thriller" },
+        { "id": 5, "name": "Drama" },
+        { "id": 10, "name": "Comedy" }
+      ],
+      "ondemand": [
+        {
+          "id": 1132,
+          "service": "iTunes",
+          "url": "https://itunes.apple.com/gb/movie/parasite/id1498500635"
+        },
+        {
+          "id": 1133,
+          "service": "Google Play",
+          "url": "https://play.google.com/store/movies/details/Parasite?gl=GB&hl=en&id=tDkBK1vV_Co.P"
+        },
+        {
+          "id": 1134,
+          "service": "Amazon Prime Video",
+          "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
+        },
+        {
+          "id": 1135,
+          "service": "Amazon Instant Video",
+          "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
+        }
+      ],
+      "reviews": [
+        { "id": 1242, "source": "imdb", "score": 86 },
+        { "id": 1243, "source": "rotten_toms", "score": 98 },
+        { "id": 1244, "source": "metacritic", "score": 96 }
+      ],
+      "avg_rating": 93.33333333333333
+    },
+    "watched": false,
+    "added": "2022-01-20T18:13:14.083107Z",
+    "updated": "2022-01-20T18:13:14.083130Z",
+    "uid": "test-item-uid-AkAFhXi3-parasite"
+  }
+]

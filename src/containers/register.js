@@ -36,7 +36,7 @@ export function Register({
   const submitBtnDisabled = recaptchaDisabled || !recaptchaKey;
 
   return (
-    <Form>
+    <Form data-testid="register-form">
       <Form.Header>
         {!isPage && <Form.Logo to={"/"} src={largeLogo} />}
         <Form.Title>

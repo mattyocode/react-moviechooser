@@ -1,26 +1,29 @@
 import React from "react";
-import { cleanup, screen } from "@testing-library/react";
+import { act, cleanup, screen } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 import { server, rest } from "../../mocks/server";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../mocks/test-utils";
-import storeMovies from "../../mocks/test-data/testMoviesData.json";
+import testMoviesData from "../../mocks/test-data/testMoviesData.json";
+import { NavbarContainer } from "../../containers/navigation";
 import { Movies } from "..";
 
+const apiUrl = `${process.env.REACT_APP_API}/movies`;
+const testQueryParams = {
+  genre: [],
+  decade: {
+    min: "70s",
+    max: "20s",
+  },
+  runtime: {
+    min: "75m",
+    max: "2h",
+  },
+};
+
 describe("<Movies/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_API}/movies`;
-  const testQueryParams = {
-    genre: [],
-    decade: {
-      min: "70s",
-      max: "20s",
-    },
-    runtime: {
-      min: "75m",
-      max: "2h",
-    },
-  };
   window.scrollTo = jest.fn();
   afterAll(() => {
     jest.clearAllMocks();
@@ -29,7 +32,7 @@ describe("<Movies/> page tests", () => {
   it("renders Movie page with queryParams and movies in Redux state", async () => {
     const initialState = {
       queryParams: testQueryParams,
-      movies: storeMovies,
+      movies: testMoviesData,
       status: "succeeded",
       error: null,
     };
@@ -73,7 +76,7 @@ describe("<Movies/> page tests", () => {
   it("redirects to homepage with no queryParams in Redux state", async () => {
     const initialState = {
       queryParams: undefined,
-      movies: storeMovies,
+      movies: testMoviesData,
       status: "idle",
       error: null,
     };
@@ -90,5 +93,78 @@ describe("<Movies/> page tests", () => {
       { preloadedState: { movies: initialState } }
     );
     expect(await screen.findByText(/homepage/i)).toBeTruthy();
+  });
+});
+
+describe("add to list tests", () => {
+  const authorizedInitialAuthState = {
+    token: "testtoken",
+    refreshToken: "test-refresh-token",
+    account: { name: "test-user", email: "test@email.com" },
+    status: "idle",
+    error: null,
+  };
+  const unauthorizedInitialAuthState = {
+    token: null,
+    refreshToken: null,
+    account: null,
+    status: "idle",
+    error: null,
+  };
+  const initialMoviesState = {
+    queryParams: testQueryParams,
+    movies: testMoviesData,
+    status: "idle",
+    error: null,
+    totalCount: 4,
+    nextPageUrl: null,
+  };
+
+  window.scrollTo = jest.fn();
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  it("adds movie to list on bookmark click (if logged in)", async () => {
+    reduxTestRender(<Movies />, {
+      preloadedState: {
+        auth: { auth: authorizedInitialAuthState },
+        movies: initialMoviesState,
+      },
+    });
+
+    const bookmarkAddButton = screen.getByTestId(/parasite-add/i);
+    expect(bookmarkAddButton).toBeTruthy();
+
+    act(() => {
+      userEvent.click(bookmarkAddButton);
+    });
+
+    expect(await screen.findByTestId(/parasite-remove/i)).toBeTruthy();
+    expect(screen.queryByTestId(/parasite-add/i)).toBeFalsy();
+  });
+
+  it("shows auth modal on bookmark click (if not logged in)", async () => {
+    reduxTestRender(
+      <MemoryRouter>
+        <NavbarContainer />
+        <Movies />
+      </MemoryRouter>,
+      {
+        preloadedState: {
+          auth: { auth: unauthorizedInitialAuthState },
+          movies: initialMoviesState,
+        },
+      }
+    );
+
+    const bookmarkAddButton = screen.getByTestId(/parasite-unauthed/i);
+    expect(bookmarkAddButton).toBeTruthy();
+
+    act(() => {
+      userEvent.click(bookmarkAddButton);
+    });
+
+    expect(await screen.findByTestId(/login-form/i)).toBeTruthy();
   });
 });

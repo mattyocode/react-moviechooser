@@ -1,13 +1,10 @@
 import React from "react";
-import { cleanup, screen, render, waitFor, act } from "@testing-library/react";
-import * as reactRedux from "react-redux";
+import { cleanup, screen, waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
-import { toHaveStyle } from "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../mocks/test-utils";
-import store from "../../store/index";
 import emptyListData from "../../mocks/test-data/testEmptyListData.json";
 import listData from "../../mocks/test-data/testListData.json";
 import { List } from "..";
@@ -38,21 +35,17 @@ describe("<List/> page tests", () => {
         return res(ctx.status(200), ctx.json(emptyListData));
       })
     );
-    render(
-      <reactRedux.Provider store={store}>
-        <List />
-      </reactRedux.Provider>
-    );
+    reduxTestRender(<List />, {
+      preloadedState: { auth: { auth: authorizedInitialAuthState } },
+    });
     expect(screen.getByText(/no unwatched movies on your list/i)).toBeTruthy();
     expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
   });
 
   it("renders List page with test items", async () => {
-    render(
-      <reactRedux.Provider store={store}>
-        <List />
-      </reactRedux.Provider>
-    );
+    reduxTestRender(<List />, {
+      preloadedState: { auth: { auth: authorizedInitialAuthState } },
+    });
     await waitFor(() => {
       listData.results.forEach((item) => {
         expect(screen.getByTestId(`${item.movie.title}-card`)).toBeTruthy();

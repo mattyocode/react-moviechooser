@@ -20,7 +20,7 @@ export function Login({
   };
 
   return (
-    <Form>
+    <Form data-testid="login-form">
       <Form.Header>
         {!isPage && <Form.Logo to={"/"} src={largeLogo} />}
         <Form.Title>

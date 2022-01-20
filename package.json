@@ -2,6 +2,15 @@
   "name": "moviechooser",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://api1.moviechooser.co.uk",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --coverage",
+    "test:watch": "react-scripts test --coverage  --watchAll",
+    "eject": "react-scripts eject",
+    "lint:css": "stylelint './src/**/*.js'"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.24.0",
@@ -33,29 +42,32 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
-  "proxy": "https://api1.moviechooser.co.uk",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage",
-    "test:watch": "react-scripts test --coverage  --watchAll",
-    "eject": "react-scripts eject",
-    "lint:css": "stylelint './src/**/*.js'"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "babel-plugin-styled-components": "^1.13.2",
+    "dom-testing-library": "^5.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "msw": "^0.34.0",
+    "react-test-renderer": "^17.0.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
+    "whatwg-fetch": "^3.6.2"
   },
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js",
       "!<rootDir>/src/App.js",
       "!<rootDir>/src/helpers/routes.js",
-      "!<rootDir>/src/lib/firebase.js",
-      "!<rootDir>/src/lib/firebase.prod.js",
       "!<rootDir>/src/index.js",
-      "!<rootDir>/src/seed.js",
+      "!<rootDir>/src/mocks/*.js",
       "!<rootDir>/src/utils/index.js",
       "!<rootDir>/src/pages/index.js",
       "!<rootDir>/src/global-styles.js",
       "!<rootDir>/src/components/index.js",
-      "!<rootDir>/src/firebase.prod.js",
       "!<rootDir>/src/context/*.js",
       "!<rootDir>/src/fixtures/*.js"
     ]
@@ -72,21 +84,6 @@
     "html",
     "text"
   ],
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "babel-plugin-styled-components": "^1.13.2",
-    "dom-testing-library": "^5.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "msw": "^0.34.0",
-    "react-test-renderer": "^17.0.2",
-    "stylelint": "^13.13.1",
-    "stylelint-config-recommended": "^5.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0",
-    "whatwg-fetch": "^3.6.2"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",

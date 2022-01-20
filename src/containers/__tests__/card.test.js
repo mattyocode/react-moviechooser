@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as reactRedux from "react-redux";
 import { CardContainer } from "../../containers/card";
@@ -16,20 +22,20 @@ describe("<CardContainer/> tests", () => {
     );
   });
   it("renders <CardContainer/> with single movie", () => {
-    expect(screen.getByText(/parasite/i)).toBeInTheDocument();
+    expect(screen.getByText(/parasite/i)).toBeTruthy();
   });
 
   it("launches ondemand modal on click", () => {
     const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
 
     singleMovie.ondemand.forEach((o) =>
-      expect(screen.queryByText(o.service)).not.toBeInTheDocument()
+      expect(screen.queryByText(o.service)).toBeFalsy()
     );
 
     fireEvent.click(ondemandBtn);
 
     singleMovie.ondemand.forEach((o) =>
-      expect(screen.getByText(o.service)).toBeInTheDocument()
+      expect(screen.getByText(o.service)).toBeTruthy()
     );
   });
 
@@ -39,7 +45,7 @@ describe("<CardContainer/> tests", () => {
 
     await waitFor(() => {
       singleMovie.ondemand.forEach((o) =>
-        expect(screen.getByText(o.service)).toBeInTheDocument()
+        expect(screen.getByText(o.service)).toBeTruthy()
       );
     });
 
@@ -48,7 +54,51 @@ describe("<CardContainer/> tests", () => {
 
     await waitFor(() => {
       singleMovie.ondemand.forEach((o) =>
-        expect(screen.queryByText(o.service)).not.toBeInTheDocument()
+        expect(screen.queryByText(o.service)).toBeFalsy()
+      );
+    });
+  });
+
+  it("launches share modal on click", async () => {
+    const shareBtn = screen.getByTestId(/parasite-share/i);
+
+    const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
+
+    SHARE_LIST.forEach((share) =>
+      expect(screen.queryByText(share)).toBeFalsy()
+    );
+
+    act(() => {
+      fireEvent.click(shareBtn);
+    });
+
+    await waitFor(() => {
+      SHARE_LIST.forEach((share) =>
+        expect(screen.getByText(share)).toBeTruthy()
+      );
+    });
+  });
+
+  it("closes share modal on click", async () => {
+    const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
+
+    const shareBtn = screen.getByTestId(/parasite-share/i);
+    act(() => {
+      fireEvent.click(shareBtn);
+    });
+
+    await waitFor(() => {
+      SHARE_LIST.forEach((share) =>
+        expect(screen.queryByText(share)).toBeTruthy()
+      );
+    });
+
+    const backdrop = screen.getByTestId("modal-backdrop");
+    fireEvent.click(backdrop);
+
+    await waitFor(() => {
+      SHARE_LIST.forEach((share) =>
+        expect(screen.queryByText(share)).toBeFalsy()
       );
     });
   });

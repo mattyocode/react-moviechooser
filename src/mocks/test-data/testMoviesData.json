@@ -47,7 +47,8 @@
       { "id": 1243, "source": "rotten_toms", "score": 98 },
       { "id": 1244, "source": "metacritic", "score": 96 }
     ],
-    "avg_rating": 93.33333333333333
+    "avg_rating": 93.33333333333333,
+    "on_list": false
   },
   {
     "slug": "cY8NxQlj-jurassic-park",
@@ -93,7 +94,8 @@
       { "id": 870, "source": "rotten_toms", "score": 92 },
       { "id": 871, "source": "metacritic", "score": 68 }
     ],
-    "avg_rating": 80.33333333333333
+    "avg_rating": 80.33333333333333,
+    "on_list": false
   },
   {
     "slug": "JLxRvHVI-le-charme-discret-de-la",
@@ -117,7 +119,8 @@
       { "id": 3113, "source": "rotten_toms", "score": 98 },
       { "id": 3114, "source": "metacritic", "score": 93 }
     ],
-    "avg_rating": 90.0
+    "avg_rating": 90.0,
+    "on_list": false
   },
   {
     "slug": "fPcPlCpd-finding-nemo",
@@ -174,6 +177,7 @@
       { "id": 2538, "source": "rotten_toms", "score": 99 },
       { "id": 2539, "source": "metacritic", "score": 90 }
     ],
-    "avg_rating": 90.0
+    "avg_rating": 90.0,
+    "on_list": false
   }
 ]
