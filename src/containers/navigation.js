@@ -22,11 +22,6 @@ export function NavbarContainer({ linksData }) {
     }`;
   }
 
-  const closeAuthHandler = () => {
-    history.replace(`${location.pathname}`);
-    setAuthOpen(false);
-  };
-
   const openAuthHandler = () => {
     if (!location.pathname.includes("/auth/")) {
       // history.replace(`${location.pathname}#auth`);
@@ -36,9 +31,15 @@ export function NavbarContainer({ linksData }) {
     }
   };
 
+  const closeAuthHandler = () => {
+    history.replace(`${location.pathname}`);
+    setAuthOpen(false);
+  };
+
   const toggleLinks = () => {
     setShowLinks(!showLinks);
   };
+
   const closeLinks = () => {
     setShowLinks(false);
   };

@@ -17,32 +17,15 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   if (token) {
     config.headers.Authorization = "JWT " + token;
-    // console.debug(
-    //   "[Request]",
-    //   config.baseURL + config.url,
-    //   JSON.stringify(token)
-    // );
   }
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   (res) => {
-    // console.debug(
-    //   "[Response]",
-    //   res.config.baseURL + res.config.url,
-    //   res.status,
-    //   res.data
-    // );
     return Promise.resolve(res);
   },
   (err) => {
-    // console.debug(
-    //   "[Response]",
-    //   err.config.baseURL + err.config.url,
-    //   err.response.status,
-    //   err.response.data
-    // );
     return Promise.reject(err);
   }
 );
@@ -79,7 +62,6 @@ const refreshAuthHandler = async (failedRequest) => {
       });
   } else {
     store.dispatch(setLogout());
-    // console.log("REDIRECT TO LOGIN");
   }
 };
 
