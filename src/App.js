@@ -15,6 +15,8 @@ import { AuthPage, Home, List, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
 import { NavbarContainer } from "./containers/navigation";
 
+import { linksData } from "./fixtures/navData";
+
 export default function App() {
   const history = useHistory();
   const location = useLocation();
@@ -42,7 +44,7 @@ export default function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <NavbarContainer />
+      <NavbarContainer linksData={linksData} />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location}>
           <Route path="/" exact>

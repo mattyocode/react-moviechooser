@@ -63,8 +63,6 @@ export function Home() {
     choiceForm = <p>Error: {optionsError}</p>;
   }
 
-  console.log("choice form optionStatus >>", optionsStatus);
-
   return (
     <motion.div
       variants={containerVariants}

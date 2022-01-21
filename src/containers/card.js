@@ -83,7 +83,7 @@ export function CardContainer({
     }
   };
 
-  const toggleMovieWatchedHanlder = () => {
+  const toggleMovieWatchedHandler = () => {
     const watchedState = !listData.watched;
     dispatch(
       updateListItem({
@@ -115,17 +115,24 @@ export function CardContainer({
         </Modal>
       )}
       {movie && (
-        <Card expandState={expandInitially} as={motion.div} layout="position">
+        <Card
+          data-testid={`${movie.title}-card`}
+          expandState={expandInitially}
+          as={motion.div}
+          layout="position"
+        >
           <Card.Content>
             {listData && (
               <Card.FixedAction
-                label="Watch"
+                label="Watched"
                 as={motion.button}
                 whileHover={{ scale: 1.1 }}
               >
                 <MdRemoveRedEye
+                  data-testid={`${movie.title}-watchedBtn`}
                   fill={listData.watched ? "#fff" : "#666"}
-                  onClick={toggleMovieWatchedHanlder}
+                  onClick={toggleMovieWatchedHandler}
+                  title="Watched?"
                 />
               </Card.FixedAction>
             )}
@@ -165,7 +172,7 @@ export function CardContainer({
                     })
                   }
                 >
-                  <MdOndemandVideo />
+                  <MdOndemandVideo title="Stream movie" />
                 </Card.Action>
               )}
               <Card.Action
@@ -179,17 +186,30 @@ export function CardContainer({
                   })
                 }
               >
-                <MdShare />
+                <MdShare title="Share movie page" />
               </Card.Action>
               <Card.Action label="Add to list">
                 {is_auth && on_list && (
-                  <MdBookmark onClick={removeFromListHandler} />
+                  <MdBookmark
+                    data-testid={`${movie.title}-remove`}
+                    onClick={removeFromListHandler}
+                    title="Remove from list"
+                  />
                 )}
                 {is_auth && !on_list && (
-                  <MdBookmarkBorder onClick={addToListHandler} />
+                  <MdBookmarkBorder
+                    data-testid={`${movie.title}-add`}
+                    onClick={addToListHandler}
+                    title="Add to list"
+                  />
                 )}
                 {!is_auth && (
-                  <MdBookmarkBorder fill="#555" onClick={openAuthHandler} />
+                  <MdBookmarkBorder
+                    data-testid={`${movie.title}-unauthed`}
+                    fill="#555"
+                    onClick={openAuthHandler}
+                    title="Login to add to list"
+                  />
                 )}
               </Card.Action>
             </Card.Footer>

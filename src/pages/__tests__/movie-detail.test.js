@@ -48,7 +48,6 @@ describe("<MovieDetail/> Surprise page tests", () => {
       screen.getByTestId("loading-spinner")
     );
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
-    expect(await screen.findByTestId("card")).toBeInTheDocument();
   });
 
   it("shows error on error", async () => {
@@ -95,7 +94,6 @@ describe("<MovieDetail/> Movie ID page tests", () => {
 
   it("shows movie card once loaded", async () => {
     await waitFor(() => {
-      expect(screen.getByTestId("card")).toBeInTheDocument();
       expect(screen.getByText(/finding nemo/i)).toBeInTheDocument();
     });
   });

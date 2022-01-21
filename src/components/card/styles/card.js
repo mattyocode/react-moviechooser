@@ -45,14 +45,12 @@ export const Group = styled.div`
 
 export const Content = styled.article`
   display: flex;
-  /* padding-bottom: 2.5rem; */
 `;
 
 export const Sidebar = styled.section`
   flex: 1 1 40%;
   min-width: 40%;
   max-width: 40%;
-  /* margin-bottom: 0.25rem; */
 `;
 
 export const AvgRating = styled.div`
@@ -218,7 +216,6 @@ export const Header = styled.header`
 
   h2 {
     font-size: 1.2rem;
-    /* padding-right: 1.5rem; */
   }
 
   p {

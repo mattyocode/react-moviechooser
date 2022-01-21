@@ -116,6 +116,7 @@ export const Input = styled.input`
   background: transparent;
   border-bottom: 2px solid #51c7d6;
   color: #eee;
+  font-size: 16px;
   font-weight: bold;
   height: 50px;
   line-height: 50px;

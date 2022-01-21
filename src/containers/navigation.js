@@ -5,10 +5,9 @@ import { AuthForm } from "./auth-form";
 import { useSelector } from "react-redux";
 
 import { elementScrollIntoView } from "seamless-scroll-polyfill";
-import { linksData } from "../fixtures/navData";
 import mainLogo from "../assets/png/logo.png";
 
-export function NavbarContainer() {
+export function NavbarContainer({ linksData }) {
   const [showLinks, setShowLinks] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
@@ -23,11 +22,6 @@ export function NavbarContainer() {
     }`;
   }
 
-  const closeAuthHandler = () => {
-    history.replace(`${location.pathname}`);
-    setAuthOpen(false);
-  };
-
   const openAuthHandler = () => {
     if (!location.pathname.includes("/auth/")) {
       // history.replace(`${location.pathname}#auth`);
@@ -37,9 +31,15 @@ export function NavbarContainer() {
     }
   };
 
+  const closeAuthHandler = () => {
+    history.replace(`${location.pathname}`);
+    setAuthOpen(false);
+  };
+
   const toggleLinks = () => {
     setShowLinks(!showLinks);
   };
+
   const closeLinks = () => {
     setShowLinks(false);
   };
@@ -70,8 +70,6 @@ export function NavbarContainer() {
     }
   }, [location.hash]);
 
-  console.log("navigation runs");
-
   return (
     <>
       {authOpen && (
@@ -84,51 +82,49 @@ export function NavbarContainer() {
           <Navbar.Logo to="/" src={mainLogo} alt="Movie Chooser" />
           <Navbar.ToggleBtn isOpen={showLinks} togglefn={toggleLinks} />
         </Navbar.Header>
-        <Navbar.Links
-          linksData={linksData}
-          showLinks={showLinks}
-          closefn={closeLinks}
-        >
-          {linksData.map((link) => {
-            if (!link.authRequired || user.account) {
-              return (
-                <li key={link.id} onClick={toggleLinks}>
-                  <Navbar.NavbarLink
-                    to={link.url}
-                    text={link.text}
-                    activeClassName={link.activeClass}
-                    highlight={link.highlight}
-                  />
-                </li>
-              );
-            } else {
-              return null;
-            }
-          })}
-          {!user.account ? (
-            <li>
-              <Navbar.NavbarBtn
-                id={0}
-                actionFn={openAuthHandler}
-                activeClassName={"active"}
-                highlight={true}
-              >
-                Sign In
-              </Navbar.NavbarBtn>
-            </li>
-          ) : (
-            <li>
-              <Navbar.NavbarBtn
-                id={10}
-                actionFn={handleLogout}
-                activeClassName={"active"}
-                highlight={false}
-              >
-                {loggedInGreeting}
-              </Navbar.NavbarBtn>
-            </li>
-          )}
-        </Navbar.Links>
+        {linksData && (
+          <Navbar.Links showLinks={showLinks} closefn={closeLinks}>
+            {linksData.map((link) => {
+              if (!link.authRequired || user.account) {
+                return (
+                  <li key={link.id} onClick={toggleLinks}>
+                    <Navbar.NavbarLink
+                      to={link.url}
+                      text={link.text}
+                      activeClassName={link.activeClass}
+                      highlight={link.highlight}
+                    />
+                  </li>
+                );
+              } else {
+                return null;
+              }
+            })}
+            {!user.account ? (
+              <li>
+                <Navbar.NavbarBtn
+                  id={0}
+                  actionFn={openAuthHandler}
+                  activeClassName={"active"}
+                  highlight={true}
+                >
+                  Sign In
+                </Navbar.NavbarBtn>
+              </li>
+            ) : (
+              <li>
+                <Navbar.NavbarBtn
+                  id={10}
+                  actionFn={handleLogout}
+                  activeClassName={"active"}
+                  highlight={false}
+                >
+                  {loggedInGreeting}
+                </Navbar.NavbarBtn>
+              </li>
+            )}
+          </Navbar.Links>
+        )}
       </Navbar>
     </>
   );

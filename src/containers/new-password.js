@@ -5,13 +5,7 @@ import largeLogo from "../assets/png/logo_large.png";
 import { useHttp } from "../hooks";
 import { client } from "../utils/axios-client";
 
-export function NewPassword({
-  formik,
-  handleFocus,
-  formTypeHandler,
-  activeField,
-  isPage,
-}) {
+export function NewPassword({ formik, handleFocus, formTypeHandler, isPage }) {
   const { sendRequest, status, error, data } = useHttp(client);
   const history = useHistory();
   const location = useLocation();

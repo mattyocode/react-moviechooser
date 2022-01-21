@@ -42,9 +42,6 @@ const authSlice = createSlice({
       state.status = "idle";
       state.error = null;
     },
-    // setAccount(state, action) {
-    //   state.account = action.payload;
-    // },
     setLogout(state) {
       state.account = null;
       state.refreshToken = null;

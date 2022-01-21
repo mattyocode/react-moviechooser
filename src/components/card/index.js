@@ -52,7 +52,7 @@ Card.Group = function CardGroup({ children, ...restProps }) {
 
 Card.Content = function CardContent({ children, ...restProps }) {
   return (
-    <Content data-testid="content" {...restProps}>
+    <Content data-testid="card-content" {...restProps}>
       {children}
     </Content>
   );

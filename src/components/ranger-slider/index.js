@@ -135,7 +135,6 @@ export default function RangeSlider({
     </>
   );
 
-  // refactor to use curried functions ?
   const handleThumbMinChange = (event) => {
     const value = Number(event.target.value);
     if (value > maxValue) {
