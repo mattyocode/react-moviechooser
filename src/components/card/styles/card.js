@@ -55,22 +55,21 @@ export const Sidebar = styled.section`
 
 export const AvgRating = styled.div`
   position: absolute;
-  top: 0px;
-  left: 5px;
+  top: 5px;
+  right: 5px;
   z-index: 10;
   width: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  img {
-    height: 3rem;
-    width: 3rem;
-  }
+  height: 1.2rem;
+  width: 2rem;
+  background: var(--clr-neon);
+  border-radius: 5px;
 
   p {
     position: absolute;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: black;
     z-index: 15;
