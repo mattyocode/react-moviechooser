@@ -1,29 +1,29 @@
-import React, { useState, useContext, createContext } from "react";
-import { MdExpandMore, MdExpandLess } from "react-icons/md";
+import React, { createContext, useContext, useState } from "react";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
 
 import {
-  Container,
-  Group,
-  Content,
-  Sidebar,
-  AvgRating,
-  Image,
+  Action,
+  Actions,
   AllRatings,
-  RatingLogo,
-  StarRating,
-  MainContent,
-  Header,
-  Plot,
+  AvgRating,
+  Container,
+  Content,
+  FixedAction,
+  Footer,
   FurtherInfo,
   Genres,
-  Footer,
-  Actions,
-  Action,
-  FixedAction,
+  Group,
+  Header,
   Icon,
+  Image,
+  MainContent,
   MoreBtn,
   MoreBtnWrapper,
+  Plot,
+  RatingLogo,
+  Sidebar,
+  StarRating,
 } from "./styles/card";
 
 import * as IconAssets from "../../assets";
@@ -71,7 +71,6 @@ Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
   return (
     <AvgRating {...restProps}>
       <p>{children}</p>
-      <img src={IconAssets.Star} alt="average rating star" />
     </AvgRating>
   );
 };

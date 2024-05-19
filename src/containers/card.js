@@ -1,21 +1,20 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {
-  MdShare,
-  MdOndemandVideo,
   MdBookmark,
   MdBookmarkBorder,
+  MdOndemandVideo,
   MdRemoveRedEye,
+  MdShare,
 } from "react-icons/md";
-import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Card, Modal } from "../components";
+import { addNewListItem, deleteListItem, updateListItem } from "../store/list-slice";
+import { setMovieOnList } from "../store/movies-slice";
 import { AuthForm } from "./auth-form";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
-import { addNewListItem, deleteListItem } from "../store/list-slice";
-import { setMovieOnList } from "../store/movies-slice";
-import { updateListItem } from "../store/list-slice";
 
 export function CardContainer({
   movie,
