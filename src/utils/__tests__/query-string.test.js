@@ -4,7 +4,7 @@ describe("queryString tests", () => {
   it("creates query string from genre array", () => {
     const genreInput = { genre: [5, 4] };
     const output = queryString(genreInput);
-    expect(output).toEqual("g=5&g=4");
+    expect(output).toEqual("g=5,4");
   });
 
   it("creates query string from runtime obj", () => {
@@ -26,6 +26,6 @@ describe("queryString tests", () => {
       decade: { min: "1970", max: "cur" },
     };
     const output = queryString(decadeInput);
-    expect(output).toEqual("g=5&g=4&rmin=75&rmax=120&dmin=1970&dmax=cur");
+    expect(output).toEqual("g=5,4&rmin=75&rmax=120&dmin=1970&dmax=cur");
   });
 });
