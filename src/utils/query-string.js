@@ -4,12 +4,14 @@ export default function queryString(queryParams) {
   let queryString = [];
 
   if (genre && genre.length > 0) {
-    let genreStr = genre
-      .reduce((acc, cur) => {
-        acc.push(`g=${cur}`);
-        return acc;
-      }, [])
-      .join("&");
+    let genreStr =
+      "g=" +
+      genre
+        .reduce((acc, cur) => {
+          acc.push(cur);
+          return acc;
+        }, [])
+        .join(",");
     queryString.push(genreStr);
   }
 
