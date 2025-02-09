@@ -1,4 +1,7 @@
 import React, { Suspense, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import { getCookieConsentValue } from "react-cookie-consent";
+import TagManager from "react-gtm-module";
 import {
   Redirect,
   Route,
@@ -6,10 +9,8 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
+
 import { CookieConsentContainer } from "./containers/cookie-consent";
-import { getCookieConsentValue } from "react-cookie-consent";
-import TagManager from "react-gtm-module";
-import { AnimatePresence } from "framer-motion";
 import ProtectedRoute from "./routes/protected-route";
 import { AuthPage, Home, List, MovieDetail, Movies } from "./pages";
 import { Loading } from "./components";
@@ -41,6 +42,22 @@ export default function App() {
       }
     });
   }, [history]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
+    script.onload = () => {
+      if (window.kofiWidgetOverlay) {
+        window.kofiWidgetOverlay.draw('mattyo', {
+          type: 'floating-chat',
+          'floating-chat.donateButton.text': 'Support me',
+          'floating-chat.donateButton.background-color': '#00b9fe',
+          'floating-chat.donateButton.text-color': '#fff',
+        });
+      }
+    };
+    document.body.appendChild(script);
+  }, []);
 
   return (
     <Suspense fallback={<Loading />}>
