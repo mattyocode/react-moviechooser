@@ -10,6 +10,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Loading } from "./components";
+import KofiWidget from "./components/ko-fi/KofiWidget";
 import { CookieConsentContainer } from "./containers/cookie-consent";
 import { NavbarContainer } from "./containers/navigation";
 import { AuthPage, Home, List, MovieDetail, Movies } from "./pages";
@@ -66,6 +67,7 @@ export default function App() {
         </Switch>
       </AnimatePresence>
       <CookieConsentContainer />
+      <KofiWidget />
     </Suspense>
   );
 }
