@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card } from "../components";
@@ -15,8 +15,8 @@ const pageVariants = {
     transition: { delay: 0.25, duration: 0.5 },
   },
   exit: {
-    x: "-100vw",
-    transition: { ease: "easeInOut" },
+    opacity: 0,
+    transition: { duration: 0.15 },
   },
 };
 
@@ -28,6 +28,7 @@ export default function List() {
   const itemCount = useSelector((state) => state.list.totalCount);
 
   const dispatch = useDispatch();
+  const reduceMotion = useReducedMotion();
 
   const moreItems = itemCount > 0 && list_items.length < itemCount;
 
@@ -68,13 +69,9 @@ export default function List() {
               return (
                 <motion.div
                   key={item.movie.slug}
-                  initial={{
-                    opacity: 0,
-                    x: 100,
-                    y: -30,
-                  }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.2, delay: idx * 0.2 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: Math.min(idx, 10) * 0.03 }}
                   style={{ margin: "0 10px" }}
                 >
                   <CardContainer
@@ -101,13 +98,9 @@ export default function List() {
               return (
                 <motion.div
                   key={item.movie.slug}
-                  initial={{
-                    opacity: 0,
-                    x: 100,
-                    y: -30,
-                  }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.2, delay: idx * 0.3 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: Math.min(idx, 10) * 0.03 }}
                   style={{ margin: "0 10px" }}
                 >
                   <CardContainer

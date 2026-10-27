@@ -5,8 +5,6 @@ export const Options = styled.ul`
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-height: 9.5rem;
-  overflow-y: auto;
 `;
 
 export const Label = styled.label`
@@ -41,8 +39,20 @@ export const Label = styled.label`
   }
 `;
 
+// Visually hidden but still focusable, so the genres can be toggled from the keyboard.
 export const Input = styled.input.attrs({ type: "checkbox" })`
-  display: none;
-  cursor: pointer;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+
+  &:focus-visible + label {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 `;

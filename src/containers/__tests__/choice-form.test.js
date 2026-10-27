@@ -67,6 +67,35 @@ describe("<ChoiceFormContainer/>", () => {
     expect(allBtn).toHaveStyle("color: #aaa");
   });
 
+  it("shows any-genre hint until a genre is chosen", () => {
+    expect(screen.getByTestId("genre-hint")).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByTestId("genre-checkbox")[0]);
+
+    expect(screen.queryByTestId("genre-hint")).not.toBeInTheDocument();
+  });
+
+  it("genre all button label reflects what it will do", () => {
+    const allBtn = screen.getByTestId("genre-all-btn");
+    expect(allBtn).toHaveTextContent("Select all");
+
+    fireEvent.click(allBtn);
+    expect(allBtn).toHaveTextContent("Clear");
+  });
+
+  it("slider all buttons switch between any and reset", () => {
+    const decadeBtn = screen.getByTestId("decade-all-btn");
+    expect(decadeBtn).toHaveTextContent("Any decade");
+
+    fireEvent.click(decadeBtn);
+    expect(decadeBtn).toHaveTextContent("Reset");
+  });
+
+  it("genre checkboxes stay keyboard focusable", () => {
+    const input = screen.getByRole("checkbox", { name: genreData[0].name });
+    expect(input).not.toHaveStyle("display: none");
+  });
+
   it("displays Decade panel", () => {
     expect(screen.getByText("Runtime")).toBeTruthy();
   });

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card } from "../components";
@@ -16,9 +16,8 @@ const pageVariants = {
     transition: { delay: 0.1, duration: 0.25 },
   },
   exit: {
-    x: "-100vw",
     opacity: 0,
-    transition: { ease: "easeInOut" },
+    transition: { duration: 0.15 },
   },
 };
 
@@ -32,6 +31,7 @@ export default function Movies() {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const reduceMotion = useReducedMotion();
 
   const moreMovies = movies.length < moviesCount;
 
@@ -66,13 +66,13 @@ export default function Movies() {
               return (
                 <motion.div
                   key={movie.slug}
-                  initial={{
-                    opacity: 0,
-                    x: 100,
-                    y: -30,
+                  initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  // Short, capped stagger so later cards in a page don't keep the user waiting.
+                  transition={{
+                    duration: 0.25,
+                    delay: Math.min(idx % 30, 10) * 0.03,
                   }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.1, delay: (idx % 30) * 0.1 }}
                   style={{ margin: "0 10px" }}
                 >
                   <CardContainer movie={movie} />
@@ -86,6 +86,15 @@ export default function Movies() {
           <Loading />
         </div>
       )}
+      {moviesStatus === "succeeded" && movies.length === 0 && (
+        <Card.Empty data-testid="no-results">
+          <h2>No movies match those filters</h2>
+          <p>Try fewer genres, or widen the decade or runtime range.</p>
+          <Card.MoreBtn onClick={() => history.push("/")}>
+            Change filters
+          </Card.MoreBtn>
+        </Card.Empty>
+      )}
       {moviesStatus === "failed" && (
         <div>
           <p>Error: {moviesError}</p>
@@ -93,10 +102,10 @@ export default function Movies() {
       )}
       <Card.MoreBtnWrapper>
         {moreMovies && moviesStatus === "succeeded" && (
-          <Card.MoreBtn onClick={addMoviesHandler}>More</Card.MoreBtn>
+          <Card.MoreBtn onClick={addMoviesHandler}>Show more</Card.MoreBtn>
         )}
-        {!moreMovies && moviesStatus === "succeeded" && (
-          <p>No more movies to load.</p>
+        {!moreMovies && moviesStatus === "succeeded" && movies.length > 0 && (
+          <p>That's all {movies.length} matches.</p>
         )}
         {moviesStatus === "updating" && <Loading small />}
       </Card.MoreBtnWrapper>

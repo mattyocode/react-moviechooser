@@ -27,6 +27,21 @@ export const Panel = styled.div`
   }
 `;
 
+// On small screens the submit button follows the user down the form.
+export const SubmitPanel = styled(Panel)`
+  padding: 1rem;
+
+  @media screen and (max-width: 800px) {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background: rgba(10, 25, 30, 0.85);
+    backdrop-filter: blur(8px);
+  }
+`;
+
 export const Error = styled(Panel)`
   & p {
     color: red;
@@ -40,13 +55,19 @@ export const Heading = styled.div`
 
 export const Title = styled.h2``;
 
+export const Hint = styled.p`
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+`;
+
 export const AllButton = styled.button`
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   border: none;
   background-color: transparent;
-  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   color: ${(props) => (props.highlighted ? "var(--clr-neon)" : "#aaa")};
   font-size: 0.8rem;
   text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
@@ -134,8 +155,7 @@ export const SubmitBtn = styled.button`
   font-size: 1rem;
   font-weight: bold;
 
-  @media screen and (max-width: 400px) {
-    font-size: 0.8rem;
-    width: 7rem;
+  @media screen and (max-width: 800px) {
+    width: 100%;
   }
 `;

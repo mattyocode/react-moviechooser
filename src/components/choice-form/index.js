@@ -5,6 +5,8 @@ import {
   Error,
   Base,
   Panel,
+  SubmitPanel,
+  Hint,
   Heading,
   AllButton,
   SubmitWrapper,
@@ -29,6 +31,17 @@ ChoiceForm.Base = function ChoiceFormBase({ children, ...restProps }) {
 
 ChoiceForm.Panel = function ChoiceFormPanel({ children, ...restProps }) {
   return <Panel {...restProps}>{children}</Panel>;
+};
+
+ChoiceForm.SubmitPanel = function ChoiceFormSubmitPanel({
+  children,
+  ...restProps
+}) {
+  return <SubmitPanel {...restProps}>{children}</SubmitPanel>;
+};
+
+ChoiceForm.Hint = function ChoiceFormHint({ children, ...restProps }) {
+  return <Hint {...restProps}>{children}</Hint>;
 };
 
 ChoiceForm.Heading = function ChoiceFormHeading({ children, ...restProps }) {

@@ -42,6 +42,20 @@ describe("<Movies/> page tests", () => {
     expect(await screen.findByText(/Jurassic Park/i)).toBeTruthy();
   });
 
+  it("shows an empty state when no movies match", () => {
+    const initialState = {
+      queryParams: testQueryParams,
+      movies: [],
+      totalCount: 0,
+      status: "succeeded",
+      error: null,
+    };
+
+    reduxTestRender(<Movies />, { preloadedState: { movies: initialState } });
+    expect(screen.getByTestId("no-results")).toBeInTheDocument();
+    expect(screen.queryByText(/that's all/i)).not.toBeInTheDocument();
+  });
+
   it("shows error on 404 response to GET request", async () => {
     cleanup();
     server.use(
