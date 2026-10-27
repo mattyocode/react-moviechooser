@@ -1,9 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
-export default function useCheckbox(options = []) {
-  const [isChecked, setIsChecked] = useState(
-    new Array(options.length).fill(false)
-  );
+// initialIds: option ids to start checked, e.g. when restoring a previous search.
+export default function useCheckbox(options = [], initialIds = []) {
+  const initialIdsRef = useRef(initialIds);
+  const initialState = (opts) =>
+    opts.map((option) => initialIdsRef.current.includes(option.id));
+
+  const [isChecked, setIsChecked] = useState(() => initialState(options));
   const [allBtnHighlighted, setAllBtnHighlighted] = useState(true);
 
   const checkboxChangeHandler = useCallback(
@@ -37,7 +40,8 @@ export default function useCheckbox(options = []) {
   }, [isChecked]);
 
   useEffect(() => {
-    setIsChecked(new Array(options.length).fill(false));
+    setIsChecked(initialState(options));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   return {

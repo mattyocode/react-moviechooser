@@ -8,6 +8,12 @@ function Broken() {
   throw new Error("boom");
 }
 
+// React re-throws caught render errors to window in development; keep them
+// out of the test output.
+const swallow = (event) => event.preventDefault();
+beforeAll(() => window.addEventListener("error", swallow));
+afterAll(() => window.removeEventListener("error", swallow));
+
 describe("<ErrorBoundary/>", () => {
   it("renders children when nothing throws", () => {
     render(

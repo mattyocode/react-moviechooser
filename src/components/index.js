@@ -13,3 +13,6 @@ export { default as Cookies } from "./cookie-consent";
 export { default as Form } from "./form";
 export { default as Profile } from "./profile";
 export { default as ErrorBoundary } from "./error-boundary";
+export { default as PosterCard } from "./poster-card";
+export { default as FilterSummary } from "./filter-summary";
+export { default as Backdrop } from "./backdrop";

@@ -4,6 +4,7 @@ export const Container = styled.div`
   max-width: 780px;
   margin: 0 auto;
   padding: var(--space-4);
+  scroll-margin-top: 5rem;
 
   @media screen and (min-width: 800px) {
     padding-top: var(--space-6);
@@ -126,6 +127,14 @@ export const SubmitBtn = styled.button`
   font: 700 1.25rem var(--font-display);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+
+  &:disabled {
+    background-image: none;
+    background-color: hsl(0 0% 100% / 0.08);
+    box-shadow: none;
+    color: var(--clr-text-dim);
+    cursor: not-allowed;
+  }
 
   @media screen and (max-width: 800px) {
     width: 100%;

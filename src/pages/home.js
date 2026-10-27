@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { About, Headline, Loading, Footer } from "../components";
@@ -28,14 +28,24 @@ export function Home() {
   const genres = useSelector((state) => state.options.options);
   const optionsStatus = useSelector((state) => state.options.status);
   const optionsError = useSelector((state) => state.options.error);
+  const movieQuery = useSelector((state) => state.movies.queryParams);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (Object.keys(genres).length === 0) {
       dispatch(fetchOptions());
     }
   }, [dispatch, genres]);
+
+  // "Edit filters" on the results page links to /#filters.
+  useEffect(() => {
+    if (optionsStatus === "succeeded" && location.hash === "#filters") {
+      const filters = document.getElementById("filters");
+      if (filters) filters.scrollIntoView({ block: "start" });
+    }
+  }, [optionsStatus, location.hash]);
 
   const getQueryResults = (selectionObj) => {
     dispatch(setMovieQuery(selectionObj));
@@ -52,6 +62,7 @@ export function Home() {
         runtimeData={homepageData.runtime}
         decadeData={homepageData.decade}
         onSubmitHandler={getQueryResults}
+        initialQuery={movieQuery}
       />
     );
   }

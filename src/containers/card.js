@@ -9,8 +9,12 @@ import {
 } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Card, Modal } from "../components";
-import { addNewListItem, deleteListItem, updateListItem } from "../store/list-slice";
+import { Card, Modal, PosterCard } from "../components";
+import {
+  addNewListItem,
+  deleteListItem,
+  updateListItem,
+} from "../store/list-slice";
 import { setMovieOnList } from "../store/movies-slice";
 import { AuthForm } from "./auth-form";
 import { OndemandContainer } from "./ondemand";
@@ -20,6 +24,8 @@ export function CardContainer({
   movie,
   expandInitially = false,
   listData = null,
+  variant = "full",
+  showWatchCta = false,
 }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
@@ -92,7 +98,45 @@ export function CardContainer({
     );
   };
 
-  return (
+  const hasOndemand = movie && movie.ondemand && movie.ondemand.length > 0;
+  const openOndemand = () =>
+    openOndemandHandler({
+      title: movie.title,
+      imgUrl: movie.ondemandImg,
+      linksData: movie.ondemand,
+    });
+  const openShare = () =>
+    openShareHandler({
+      title: movie.title,
+      posterUrl: movie.poster_url,
+      shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
+    });
+
+  // Handlers live on the buttons (not the icons) so they work from the keyboard.
+  let bookmark;
+  if (is_auth && on_list) {
+    bookmark = {
+      label: "Remove from list",
+      onClick: removeFromListHandler,
+      icon: <MdBookmark data-testid={`${movie.title}-remove`} />,
+    };
+  } else if (is_auth) {
+    bookmark = {
+      label: "Add to list",
+      onClick: addToListHandler,
+      icon: <MdBookmarkBorder data-testid={`${movie.title}-add`} />,
+    };
+  } else {
+    bookmark = {
+      label: "Sign in to add to list",
+      onClick: openAuthHandler,
+      icon: <MdBookmarkBorder data-testid={`${movie.title}-unauthed`} />,
+    };
+  }
+  const watchedLabel =
+    listData && listData.watched ? "Mark as unwatched" : "Mark as watched";
+
+  const modals = (
     <>
       {ondemandOpen && ondemandData && (
         <Modal openState={ondemandOpen} closeModal={closeOndemandHandler}>
@@ -113,6 +157,74 @@ export function CardContainer({
           />
         </Modal>
       )}
+    </>
+  );
+
+  if (movie && variant === "poster") {
+    return (
+      <>
+        {modals}
+        <PosterCard data-testid={`${movie.title}-card`}>
+          <PosterCard.Poster
+            to={`/movies/${movie.slug}`}
+            src={movie.poster_url}
+            title={movie.title}
+            rating={movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
+            plot={movie.plot}
+          />
+          <PosterCard.Body>
+            <PosterCard.Title>{movie.title}</PosterCard.Title>
+            <PosterCard.Meta
+              released={movie.released}
+              runtime={movie.runtime}
+            />
+            <PosterCard.Actions>
+              {hasOndemand && (
+                <PosterCard.Action
+                  data-testid={`${movie.title}-ondemand`}
+                  label="Where to watch"
+                  onClick={openOndemand}
+                >
+                  <MdOndemandVideo />
+                </PosterCard.Action>
+              )}
+              <PosterCard.Action
+                data-testid={`${movie.title}-share`}
+                label="Share"
+                onClick={openShare}
+              >
+                <MdShare />
+              </PosterCard.Action>
+              <PosterCard.Action
+                label={bookmark.label}
+                onClick={bookmark.onClick}
+              >
+                {bookmark.icon}
+              </PosterCard.Action>
+              {listData && (
+                <PosterCard.Action
+                  label={watchedLabel}
+                  aria-pressed={listData.watched}
+                  onClick={toggleMovieWatchedHandler}
+                >
+                  <MdRemoveRedEye
+                    data-testid={`${movie.title}-watchedBtn`}
+                    style={{
+                      color: listData.watched ? "var(--clr-neon)" : undefined,
+                    }}
+                  />
+                </PosterCard.Action>
+              )}
+            </PosterCard.Actions>
+          </PosterCard.Body>
+        </PosterCard>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {modals}
       {movie && (
         <Card
           data-testid={`${movie.title}-card`}
@@ -124,13 +236,15 @@ export function CardContainer({
             {listData && (
               <Card.FixedAction
                 label="Watched"
+                aria-label={watchedLabel}
+                aria-pressed={listData.watched}
                 as={motion.button}
                 whileHover={{ scale: 1.1 }}
+                onClick={toggleMovieWatchedHandler}
               >
                 <MdRemoveRedEye
                   data-testid={`${movie.title}-watchedBtn`}
                   fill={listData.watched ? "#fff" : "#666"}
-                  onClick={toggleMovieWatchedHandler}
                   title="Watched?"
                 />
               </Card.FixedAction>
@@ -159,17 +273,12 @@ export function CardContainer({
               <Card.Genres genres={movie.genre} />
             </Card.Main>
             <Card.Footer show={!expandInitially}>
-              {movie.ondemand && movie.ondemand.length > 0 && (
+              {hasOndemand && (
                 <Card.Action
                   data-testid={`${movie.title}-ondemand`}
                   label="Watch"
-                  onClick={() =>
-                    openOndemandHandler({
-                      title: movie.title,
-                      imgUrl: movie.ondemandImg,
-                      linksData: movie.ondemand,
-                    })
-                  }
+                  aria-label="Where to watch"
+                  onClick={openOndemand}
                 >
                   <MdOndemandVideo title="Stream movie" />
                 </Card.Action>
@@ -177,43 +286,33 @@ export function CardContainer({
               <Card.Action
                 data-testid={`${movie.title}-share`}
                 label="Share"
-                onClick={() =>
-                  openShareHandler({
-                    title: movie.title,
-                    posterUrl: movie.poster_url,
-                    shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
-                  })
-                }
+                aria-label="Share"
+                onClick={openShare}
               >
                 <MdShare title="Share movie page" />
               </Card.Action>
-              <Card.Action label="Add to list">
-                {is_auth && on_list && (
-                  <MdBookmark
-                    data-testid={`${movie.title}-remove`}
-                    onClick={removeFromListHandler}
-                    title="Remove from list"
-                  />
-                )}
-                {is_auth && !on_list && (
-                  <MdBookmarkBorder
-                    data-testid={`${movie.title}-add`}
-                    onClick={addToListHandler}
-                    title="Add to list"
-                  />
-                )}
-                {!is_auth && (
-                  <MdBookmarkBorder
-                    data-testid={`${movie.title}-unauthed`}
-                    fill="#555"
-                    onClick={openAuthHandler}
-                    title="Login to add to list"
-                  />
-                )}
+              <Card.Action
+                label="Add to list"
+                aria-label={bookmark.label}
+                title={bookmark.label}
+                onClick={bookmark.onClick}
+              >
+                {bookmark.icon}
               </Card.Action>
             </Card.Footer>
           </Card.Content>
         </Card>
+      )}
+      {movie && showWatchCta && (
+        <Card.MoreBtnWrapper>
+          {hasOndemand ? (
+            <Card.MoreBtn data-testid="watch-cta" onClick={openOndemand}>
+              Where to watch
+            </Card.MoreBtn>
+          ) : (
+            <Card.Note>Not streaming in the UK right now</Card.Note>
+          )}
+        </Card.MoreBtnWrapper>
       )}
     </>
   );

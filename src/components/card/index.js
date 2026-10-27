@@ -9,6 +9,7 @@ import {
   AvgRating,
   Container,
   Content,
+  Detail,
   FixedAction,
   Footer,
   FurtherInfo,
@@ -21,6 +22,7 @@ import {
   MoreBtn,
   MoreBtnWrapper,
   Empty,
+  Note,
   Plot,
   RatingLogo,
   Sidebar,
@@ -49,6 +51,10 @@ export default function Card({ children, expandState = false, ...restProps }) {
 
 Card.Group = function CardGroup({ children, ...restProps }) {
   return <Group {...restProps}>{children}</Group>;
+};
+
+Card.Detail = function CardDetail({ children, ...restProps }) {
+  return <Detail {...restProps}>{children}</Detail>;
 };
 
 Card.Content = function CardContent({ children, ...restProps }) {
@@ -247,6 +253,10 @@ Card.FixedAction = function CardFixedAction({ label, children, ...restProps }) {
       <Icon>{children}</Icon>
     </FixedAction>
   );
+};
+
+Card.Note = function CardNote({ children, ...restProps }) {
+  return <Note {...restProps}>{children}</Note>;
 };
 
 Card.Empty = function CardEmpty({ children, ...restProps }) {

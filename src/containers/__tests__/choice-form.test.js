@@ -329,3 +329,60 @@ describe("<ChoiceFormContainer/>", () => {
     });
   });
 });
+
+describe("<ChoiceFormContainer/> live count and restored search", () => {
+  const genreData = testGenreData;
+
+  it("labels the submit button with the live match count", async () => {
+    render(
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={homepageData.runtime}
+        decadeData={homepageData.decade}
+        onSubmitHandler={() => {}}
+      />
+    );
+    expect(await screen.findByText("Show 12 movies")).toBeInTheDocument();
+  });
+
+  it("disables submit and explains when nothing matches", async () => {
+    const onSubmit = vi.fn();
+    render(
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={homepageData.runtime}
+        decadeData={homepageData.decade}
+        onSubmitHandler={onSubmit}
+      />
+    );
+    fireEvent.click(screen.getAllByTestId("genre-checkbox")[0]);
+
+    expect(await screen.findByText("No matches")).toBeInTheDocument();
+    expect(screen.getByTestId("no-matches-hint")).toBeInTheDocument();
+    expect(screen.getByTestId("all-matches-btn")).toBeDisabled();
+  });
+
+  it("restores a previous search", () => {
+    render(
+      <ChoiceFormContainer
+        genreList={genreData}
+        runtimeData={homepageData.runtime}
+        decadeData={homepageData.decade}
+        onSubmitHandler={() => {}}
+        initialQuery={{
+          genre: [genreData[1].id],
+          decade: { min: "1990", max: "2000" },
+          runtime: { min: "90", max: "120" },
+        }}
+      />
+    );
+    expect(
+      screen.getByRole("checkbox", { name: genreData[1].name })
+    ).toBeChecked();
+    expect(
+      screen.getByRole("checkbox", { name: genreData[0].name })
+    ).not.toBeChecked();
+    expect(screen.getByText("1990s")).toBeInTheDocument();
+    expect(screen.getByText("1h 30m")).toBeInTheDocument();
+  });
+});

@@ -181,4 +181,63 @@ describe("add to list tests", () => {
 
     expect(await screen.findByTestId(/login-form/i)).toBeTruthy();
   });
+
+  it("summarises the search and links back to edit it", async () => {
+    const initialState = {
+      queryParams: {
+        genre: [5, 8],
+        decade: { min: "1970", max: "2020" },
+        runtime: { min: "75", max: "120" },
+      },
+      movies: testMoviesData,
+      totalCount: 4,
+      status: "succeeded",
+      error: null,
+    };
+    const genres = [
+      { id: 5, name: "Drama" },
+      { id: 8, name: "Crime" },
+    ];
+
+    reduxTestRender(
+      <MemoryRouter initialEntries={["/movies"]}>
+        <Route path="/" exact>
+          <p>Homepage</p>
+        </Route>
+        <Route path="/movies">
+          <Movies />
+        </Route>
+      </MemoryRouter>,
+      {
+        preloadedState: {
+          movies: initialState,
+          options: { options: genres, status: "succeeded", error: null },
+        },
+      }
+    );
+
+    expect(screen.getByText("Drama, Crime")).toBeInTheDocument();
+    expect(screen.getByText("1970s – Current")).toBeInTheDocument();
+    expect(screen.getByText("75m – 2h")).toBeInTheDocument();
+    expect(screen.getByTestId("results-count")).toHaveTextContent("4 movies");
+
+    userEvent.click(screen.getByTestId("edit-filters-btn"));
+    expect(await screen.findByText(/homepage/i)).toBeInTheDocument();
+  });
+
+  it("shows results as poster cards linking to each movie", () => {
+    const initialState = {
+      queryParams: testQueryParams,
+      movies: testMoviesData,
+      totalCount: 4,
+      status: "succeeded",
+      error: null,
+    };
+
+    reduxTestRender(<Movies />, { preloadedState: { movies: initialState } });
+
+    expect(
+      screen.getByRole("link", { name: /parasite – details/i })
+    ).toHaveAttribute("href", `/movies/${testMoviesData[0].slug}`);
+  });
 });

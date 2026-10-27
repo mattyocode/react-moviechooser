@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 
 import authReducer from "../store/auth-slice";
 import moviesReducer from "../store/movies-slice";
@@ -25,7 +26,12 @@ function reduxTestRender(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>;
+    // Tests that need specific routes nest their own MemoryRouter inside this one.
+    return (
+      <Provider store={store}>
+        <MemoryRouter>{children}</MemoryRouter>
+      </Provider>
+    );
   }
   return render(ui, { wrapper: Wrapper, ...renderOptions });
 }

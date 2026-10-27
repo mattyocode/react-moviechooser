@@ -101,7 +101,10 @@ describe("<List/> page tests", () => {
       `${unwatchedItem.title}-watchedBtn`
     );
 
-    expect(unwatchedItemWatchedButton.getAttribute("fill")).toBe("#666");
+    expect(unwatchedItemWatchedButton.closest("button")).toHaveAttribute(
+      "aria-pressed",
+      "false"
+    );
     expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
 
     act(() => {
@@ -112,8 +115,8 @@ describe("<List/> page tests", () => {
       expect(
         screen
           .getByTestId(`${unwatchedItem.title}-watchedBtn`)
-          .getAttribute("fill")
-      ).toBe("#fff");
+          .closest("button")
+      ).toHaveAttribute("aria-pressed", "true");
       expect(screen.queryByText(/no watched movies on your list/i)).toBeFalsy();
     });
 
@@ -129,8 +132,8 @@ describe("<List/> page tests", () => {
       expect(
         screen
           .getByTestId(`${unwatchedItem.title}-watchedBtn`)
-          .getAttribute("fill")
-      ).toBe("#666");
+          .closest("button")
+      ).toHaveAttribute("aria-pressed", "false");
       expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
     });
   });

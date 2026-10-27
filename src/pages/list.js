@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
-import { Headline, Loading, Card } from "../components";
+import { Headline, Loading, Card, PosterCard } from "../components";
 import { addListItems, fetchListItems } from "../store/list-slice";
 
 const pageVariants = {
@@ -61,7 +61,7 @@ export default function List() {
         <Headline.DecoratedSubhead>
           <span>Unwatched</span>
         </Headline.DecoratedSubhead>
-        <Card.Group>
+        <PosterCard.Grid>
           {unwatchedItems &&
             unwatchedItems.length > 0 &&
             unwatchedItems.map((item, idx) => {
@@ -71,26 +71,29 @@ export default function List() {
                   key={item.movie.slug}
                   initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: Math.min(idx, 10) * 0.03 }}
-                  style={{ margin: "0 10px" }}
+                  transition={{
+                    duration: 0.25,
+                    delay: Math.min(idx, 10) * 0.03,
+                  }}
                 >
                   <CardContainer
                     movie={item.movie}
                     listData={{ added, watched }}
+                    variant="poster"
                   />
                 </motion.div>
               );
             })}
           {unwatchedItems.length < 1 && (
-            <Headline.Subhead style={{ color: "#555" }}>
+            <Headline.Subhead style={{ gridColumn: "1 / -1" }}>
               No unwatched movies on your list.
             </Headline.Subhead>
           )}
-        </Card.Group>
+        </PosterCard.Grid>
         <Headline.DecoratedSubhead>
           <span>Watched</span>
         </Headline.DecoratedSubhead>
-        <Card.Group>
+        <PosterCard.Grid>
           {watchedItems &&
             watchedItems.length > 0 &&
             watchedItems.map((item, idx) => {
@@ -100,22 +103,25 @@ export default function List() {
                   key={item.movie.slug}
                   initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: Math.min(idx, 10) * 0.03 }}
-                  style={{ margin: "0 10px" }}
+                  transition={{
+                    duration: 0.25,
+                    delay: Math.min(idx, 10) * 0.03,
+                  }}
                 >
                   <CardContainer
                     movie={item.movie}
                     listData={{ added, updated, watched }}
+                    variant="poster"
                   />
                 </motion.div>
               );
             })}
           {watchedItems.length < 1 && (
-            <Headline.Subhead style={{ color: "#555" }}>
+            <Headline.Subhead style={{ gridColumn: "1 / -1" }}>
               No watched movies on your list.
             </Headline.Subhead>
           )}
-        </Card.Group>
+        </PosterCard.Grid>
       </AnimateSharedLayout>
       {listStatus === "loading" && (
         <div>

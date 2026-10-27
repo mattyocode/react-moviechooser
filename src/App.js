@@ -18,6 +18,12 @@ import ProtectedRoute from "./routes/protected-route";
 
 import { linksData } from "./fixtures/navData";
 
+// Pages manage their own scroll position (e.g. results restore it on Back), so
+// stop the browser restoring a stale one after the page has rendered.
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
 export default function App() {
   const history = useHistory();
   const location = useLocation();

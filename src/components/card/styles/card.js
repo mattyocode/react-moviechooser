@@ -47,6 +47,13 @@ export const Group = styled.div`
   }
 `;
 
+// Single-card layout (detail page): stacks the card and its call to action.
+export const Detail = styled.div`
+  max-width: 940px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+`;
+
 export const Content = styled.article`
   display: flex;
 `;
@@ -391,6 +398,11 @@ export const Text = styled.p`
   @media screen and (min-width: 450px) {
     font-size: 0.6rem;
   }
+`;
+
+export const Note = styled.p`
+  color: var(--clr-text-muted);
+  text-align: center;
 `;
 
 export const Empty = styled.div`
