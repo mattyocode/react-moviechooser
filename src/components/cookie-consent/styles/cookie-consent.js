@@ -52,8 +52,7 @@ export const BannerText = styled.div`
     outline: none;
     border: none;
     text-decoration: underline;
-    font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue", "Helvetica",
-      sans-serif;
+    font-family: var(--font-body);
     cursor: pointer;
   }
 

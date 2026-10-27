@@ -64,7 +64,7 @@ describe("<ChoiceFormContainer/>", () => {
     const allBtn = screen.getByTestId("genre-all-btn");
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: #aaa");
+    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
   });
 
   it("shows any-genre hint until a genre is chosen", () => {
@@ -178,7 +178,7 @@ describe("<ChoiceFormContainer/>", () => {
     const allBtn = screen.getByTestId("decade-all-btn");
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: #aaa");
+    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
   });
 
   it("displays Runtime panel", () => {
@@ -259,7 +259,7 @@ describe("<ChoiceFormContainer/>", () => {
     const allBtn = screen.getByTestId("runtime-all-btn");
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: #aaa");
+    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
   });
 
   it("renders submit buttons", () => {

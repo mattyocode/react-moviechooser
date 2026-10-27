@@ -29,7 +29,7 @@ export const SliderTrack = styled.div`
   border-radius: 3px;
   height: 5px;
   position: absolute;
-  background-color: #222;
+  background-color: hsl(0 0% 100% / 0.1);
   width: 100%;
   z-index: 1;
 `;
@@ -39,6 +39,7 @@ export const SliderRange = styled.div`
   height: 5px;
   position: absolute;
   background-color: var(--clr-neon);
+  box-shadow: var(--glow-neon);
   z-index: 2;
 `;
 
@@ -61,10 +62,13 @@ const Thumb = styled.input`
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
     background-image: radial-gradient(
-      rgba(81, 199, 214, 1) 0%,
-      rgba(81, 199, 214, 1) 45%,
-      rgba(81, 199, 214, 0) 45%
+      var(--clr-text) 0%,
+      var(--clr-text) 22%,
+      var(--clr-neon) 24%,
+      var(--clr-neon) 45%,
+      transparent 47%
     );
+    filter: drop-shadow(0 0 4px hsl(187 62% 58% / 0.7));
     border: 0 !important;
     border-radius: 50%;
     cursor: pointer;
@@ -82,10 +86,13 @@ const Thumb = styled.input`
 
   &::-moz-range-thumb {
     background-image: radial-gradient(
-      rgba(81, 199, 214, 1) 0%,
-      rgba(81, 199, 214, 1) 45%,
-      rgba(81, 199, 214, 0) 45%
+      var(--clr-text) 0%,
+      var(--clr-text) 22%,
+      var(--clr-neon) 24%,
+      var(--clr-neon) 45%,
+      transparent 47%
     );
+    filter: drop-shadow(0 0 4px hsl(187 62% 58% / 0.7));
     border-radius: 50%;
     border: 0 !important;
     cursor: pointer;
@@ -121,14 +128,15 @@ export const SliderValWrapper = styled.div`
 `;
 
 export const SliderVal = styled.output`
-  color: #dee2e6;
   font-size: 1rem;
+  font-weight: 600;
   position: relative;
   display: inline-block;
-  background: #222;
+  background: var(--clr-neon-faint);
+  border: 1px solid var(--clr-neon-soft);
   color: var(--clr-neon);
-  padding: 4px 10px;
-  border-radius: 5px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
 
   @media screen and (max-width: 800px) {
     font-size: 1rem;
@@ -144,8 +152,8 @@ export const SliderMaxVal = styled(SliderVal)`
 `;
 
 export const SliderValSplit = styled.div`
-  background-color: white;
-  height: 3px;
+  background-color: var(--clr-text-dim);
+  height: 2px;
   width: 12px;
   margin: auto 5px;
 `;
@@ -182,9 +190,10 @@ export const RangeLabels = styled.div`
 export const RangeLabel = styled.div`
   height: 5px;
   width: 5px;
-  background-color: gray;
+  background-color: var(--clr-text-dim);
   border-radius: 50%;
-  color: ${(props) => (props.highlight ? "var(--clr-neon)" : "#ddd")};
+  color: ${(props) =>
+    props.highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
   cursor: pointer;
 
   &::after {
@@ -192,7 +201,8 @@ export const RangeLabel = styled.div`
     top: 25px;
     font-size: ${(props) => (props.highlight ? "15px" : "14px")};
     content: "${(props) => (props.labelText ? props.labelText : "")}";
-    color: ${(props) => (props.highlight ? "var(--clr-neon)" : "#ddd")};
+    color: ${(props) =>
+      props.highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
     transform: translateX(-35%);
     transition: font-size 0.3s;
     transition: color 0.3s;

@@ -73,9 +73,7 @@ describe("<Home/> page tests", () => {
       { preloadedState: { options: initialOptionsState } }
     );
 
-    expect(
-      screen.getByText(/Choose from 1000s of acclaimed movies./i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/1000s of acclaimed movies./i)).toBeInTheDocument();
 
     let submitBtn = await screen.findByTestId(
       "all-matches-btn",

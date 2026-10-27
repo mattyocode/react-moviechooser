@@ -77,14 +77,14 @@ export function Home() {
         data-testid="home"
       >
         <Headline.Title>
-          <span>Stop deciding,</span> <span>start watching</span>
+          <span>Stop deciding,</span>{" "}
+          <span>
+            start <Headline.Accent>watching</Headline.Accent>
+          </span>
         </Headline.Title>
         <Headline.Subhead>
-          Choose from 1000s of acclaimed movies.
-          <br />
-          Filter by genre, release decade, and runtime.
-          <br />
-          Click through to streaming services.
+          1000s of acclaimed movies. Filter by genre, decade and runtime, then
+          click through to stream.
         </Headline.Subhead>
       </Headline>
       {choiceForm}
