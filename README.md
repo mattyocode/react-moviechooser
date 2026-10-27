@@ -4,13 +4,14 @@ A web app that allows users to input genre(s), runtime range, and release decade
 
 ## Tech stack
 
-- React (Hooks and compound components)
+- React 18 (Hooks and compound components)
+- Vite
 - Redux
 - Styled Components
 - Framer Motion
 - Formik
 - Axios
-- Jest
+- Vitest
 - React Testing Library
 - Mock Service Worker (for mock API calls in testing)
 - Github Actions (CI/CD)
@@ -21,6 +22,8 @@ App is available at [moviechooser.co.uk](https://moviechooser.co.uk) and is host
 
 ## How to install
 
+Requires Node 22 and Yarn (v1).
+
 1. Clone from Github
 
    ```bash
@@ -30,7 +33,7 @@ App is available at [moviechooser.co.uk](https://moviechooser.co.uk) and is host
 
 2. Add environment variables
 
-   Create `.env` file in the root directory that includes the required variables (as listed in the .env.example file).
+   Create `.env` file in the root directory that includes the required variables (as listed in the .env.example file). Variables are prefixed `VITE_` (`VITE_API`, `VITE_RECAPTCHA_SITE_KEY`, `VITE_DOMAIN_NAME`).
 
 3. Install dependencies
 
@@ -38,11 +41,11 @@ App is available at [moviechooser.co.uk](https://moviechooser.co.uk) and is host
 
 4. Run tests
 
-   Run `yarn test` see results of unit tests.
+   Run `yarn test` to see results of unit tests and coverage (`yarn test:watch` to re-run on change).
 
 5. Start app locally
 
-   Run `yarn start` to launch the app on localhost:3000
+   Run `yarn start` to launch the app on localhost:3000. Use `yarn build` to create a production build in `build/` and `yarn preview` to serve it locally.
 
 ## User experience
 

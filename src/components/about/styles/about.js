@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 
 export const AboutWrapper = styled.div`
   margin: 0 auto;

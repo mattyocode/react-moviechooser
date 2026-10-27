@@ -10,7 +10,7 @@ import testMoviesData from "../../mocks/test-data/testMoviesData.json";
 import { NavbarContainer } from "../../containers/navigation";
 import { Movies } from "..";
 
-const apiUrl = `${process.env.REACT_APP_API}/movies`;
+const apiUrl = `${import.meta.env.VITE_API}/movies`;
 const testQueryParams = {
   genre: [],
   decade: {
@@ -24,9 +24,9 @@ const testQueryParams = {
 };
 
 describe("<Movies/> page tests", () => {
-  window.scrollTo = jest.fn();
+  window.scrollTo = vi.fn();
   afterAll(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("renders Movie page with queryParams and movies in Redux state", async () => {
@@ -120,9 +120,9 @@ describe("add to list tests", () => {
     nextPageUrl: null,
   };
 
-  window.scrollTo = jest.fn();
+  window.scrollTo = vi.fn();
   afterAll(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("adds movie to list on bookmark click (if logged in)", async () => {

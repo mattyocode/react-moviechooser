@@ -10,7 +10,7 @@ import { Home } from "../../pages";
 // import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_API}/api/genres/`;
+  const apiUrl = `${import.meta.env.VITE_API}/api/genres/`;
   const initialOptionsState = {
     options: {},
     status: "idle",

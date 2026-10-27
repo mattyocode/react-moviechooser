@@ -12,28 +12,21 @@ jobs:
       AWS_S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache modules
-        uses: actions/cache@v1
-        id: yarn-cache
+      - uses: actions/checkout@v4
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
         with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+          node-version: 22.x
+          cache: yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Run tests
         run: yarn test
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v5
 
       - name: Build
         run: yarn build

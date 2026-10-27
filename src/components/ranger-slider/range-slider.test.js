@@ -76,8 +76,8 @@ describe("<RangeSlider/>", () => {
   });
 
   it("clicking label calls updateMin and updateMax with label value", () => {
-    const updateMinFn = jest.fn();
-    const updateMaxFn = jest.fn();
+    const updateMinFn = vi.fn();
+    const updateMaxFn = vi.fn();
 
     render(
       <RangeSlider
@@ -125,8 +125,8 @@ describe("<RangeSlider/>", () => {
   });
 
   it("reflects slider changes in min and max values", () => {
-    const updateMinFn = jest.fn();
-    const updateMaxFn = jest.fn();
+    const updateMinFn = vi.fn();
+    const updateMaxFn = vi.fn();
     render(
       <RangeSlider
         stepValues={testArray}
@@ -154,8 +154,8 @@ describe("<RangeSlider/>", () => {
   });
 
   it("swaps min and max if min value is higher than max", () => {
-    const updateMinFn = jest.fn();
-    const updateMaxFn = jest.fn();
+    const updateMinFn = vi.fn();
+    const updateMaxFn = vi.fn();
     render(
       <RangeSlider
         stepValues={testArray}
@@ -178,8 +178,8 @@ describe("<RangeSlider/>", () => {
   });
 
   it("swaps min and max if max value is higher than min", () => {
-    const updateMinFn = jest.fn();
-    const updateMaxFn = jest.fn();
+    const updateMinFn = vi.fn();
+    const updateMaxFn = vi.fn();
     render(
       <RangeSlider
         stepValues={testArray}

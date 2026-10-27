@@ -18,7 +18,7 @@ export function PasswordReset({
   const { sendRequest, status, error, data } = useHttp(client);
   const history = useHistory();
   const recaptchaRef = useRef();
-  const sitekey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+  const sitekey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   const recaptchaDisabled =
     formik.errors.email || formik.values.email.length < 4;
@@ -38,7 +38,7 @@ export function PasswordReset({
     sendRequest(`/auth/request-reset-email/`, {
       body: {
         email: formik.values.email,
-        redirect_url: `${process.env.REACT_APP_DOMAIN_NAME}/auth/new-password`,
+        redirect_url: `${import.meta.env.VITE_DOMAIN_NAME}/auth/new-password`,
         recaptcha_key: recaptchaKey,
       },
     });

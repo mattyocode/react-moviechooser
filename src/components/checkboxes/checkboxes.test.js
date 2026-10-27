@@ -18,7 +18,7 @@ describe("<Checkboxes />", () => {
   });
 
   it("clicking checkbox calls changeHandler with index value", () => {
-    const mockChangeHandler = jest.fn();
+    const mockChangeHandler = vi.fn();
     render(
       <Checkboxes
         section="test"
@@ -45,7 +45,7 @@ describe("<Checkboxes />", () => {
     const checkboxOne = screen.getAllByTestId("test-checkbox")[0];
     const checkboxTwo = screen.getAllByTestId("test-checkbox")[1];
 
-    expect(checkboxOne).toHaveStyle("background-color: transparent");
+    expect(checkboxOne).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
     expect(checkboxTwo).toHaveStyle("background-color: var(--clr-neon)");
   });
 });

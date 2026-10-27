@@ -10,7 +10,7 @@ import listData from "../../mocks/test-data/testListData.json";
 import { List } from "..";
 
 describe("<List/> page tests", () => {
-  const apiUrl = `${process.env.REACT_APP_API}/list/`;
+  const apiUrl = `${import.meta.env.VITE_API}/list/`;
 
   const authorizedInitialAuthState = {
     token: "testtoken",
@@ -20,9 +20,9 @@ describe("<List/> page tests", () => {
     error: null,
   };
 
-  window.scrollTo = jest.fn();
+  window.scrollTo = vi.fn();
   afterAll(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   beforeEach(() => {
