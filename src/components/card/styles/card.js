@@ -389,6 +389,18 @@ export const Text = styled.p`
   }
 `;
 
+export const Empty = styled.div`
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  p {
+    color: #aaa;
+    margin: 0.75rem 0 1.5rem 0;
+  }
+`;
+
 export const MoreBtnWrapper = styled.div`
   max-width: 350px;
   height: 3rem;

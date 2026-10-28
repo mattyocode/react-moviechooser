@@ -62,12 +62,16 @@ export default function useSlider(
         });
         setMin(0);
         setMax(state.rangeLabels.length - 1);
-      } else {
+      } else if (state.prevMin !== null && state.prevMax !== null) {
         setMin(state.prevMin);
         setMax(state.prevMax);
+      } else {
+        // Range was widened by dragging, so there's no previous selection to restore.
+        setMin(stepsArray.indexOf(defaultMin));
+        setMax(stepsArray.indexOf(defaultMax));
       }
     },
-    [state]
+    [state, stepsArray, defaultMin, defaultMax]
   );
 
   useEffect(() => {

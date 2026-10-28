@@ -68,9 +68,14 @@ export function ChoiceFormContainer({
               onClick={genreAllBtnHandler}
               highlighted={genreAllBtnHighlighted}
             >
-              Select All
+              {genreAllBtnHighlighted ? "Select all" : "Clear"}
             </ChoiceForm.AllButton>
             <h2>Genre</h2>
+            {!genreIsChecked.includes(true) && (
+              <ChoiceForm.Hint data-testid="genre-hint">
+                No genre selected means any genre
+              </ChoiceForm.Hint>
+            )}
           </ChoiceForm.Heading>
           <Checkboxes
             section="genre"
@@ -87,7 +92,7 @@ export function ChoiceFormContainer({
               onClick={decadeAllBtnHandler}
               highlighted={!decadeState.allSelected}
             >
-              Select All
+              {decadeState.allSelected ? "Reset" : "Any decade"}
             </ChoiceForm.AllButton>
             <h2>Released</h2>
           </ChoiceForm.Heading>
@@ -109,7 +114,7 @@ export function ChoiceFormContainer({
               onClick={runtimeAllBtnHandler}
               highlighted={!runtimeState.allSelected}
             >
-              Select All
+              {runtimeState.allSelected ? "Reset" : "Any length"}
             </ChoiceForm.AllButton>
             <h2>Runtime</h2>
           </ChoiceForm.Heading>
@@ -123,7 +128,7 @@ export function ChoiceFormContainer({
             dataTestId="runtime"
           />
         </ChoiceForm.Panel>
-        <ChoiceForm.Panel>
+        <ChoiceForm.SubmitPanel>
           <ChoiceForm.Submit>
             <ChoiceForm.SubmitBtn
               data-testid="all-matches-btn"
@@ -133,7 +138,7 @@ export function ChoiceFormContainer({
               Get Movies
             </ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>
-        </ChoiceForm.Panel>
+        </ChoiceForm.SubmitPanel>
       </ChoiceForm.Base>
     </ChoiceForm>
   );

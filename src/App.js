@@ -9,7 +9,7 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
-import { Loading } from "./components";
+import { ErrorBoundary, Loading } from "./components";
 import KofiWidget from "./components/ko-fi/KofiWidget";
 import { CookieConsentContainer } from "./containers/cookie-consent";
 import { NavbarContainer } from "./containers/navigation";
@@ -46,26 +46,28 @@ export default function App() {
   return (
     <Suspense fallback={<Loading />}>
       <NavbarContainer linksData={linksData} />
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location}>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/movies" exact>
-            <Movies />
-          </Route>
-          <Route path="/movies/:movieId">
-            <MovieDetail />
-          </Route>
-          <Route path="/auth/:params">
-            <AuthPage />
-          </Route>
-          <ProtectedRoute path="/user/lists">
-            <List />
-          </ProtectedRoute>
-          <Route path="*" render={() => <Redirect to="/" />} />
-        </Switch>
-      </AnimatePresence>
+      <ErrorBoundary resetKey={location.pathname}>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location}>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/movies" exact>
+              <Movies />
+            </Route>
+            <Route path="/movies/:movieId">
+              <MovieDetail />
+            </Route>
+            <Route path="/auth/:params">
+              <AuthPage />
+            </Route>
+            <ProtectedRoute path="/user/lists">
+              <List />
+            </ProtectedRoute>
+            <Route path="*" render={() => <Redirect to="/" />} />
+          </Switch>
+        </AnimatePresence>
+      </ErrorBoundary>
       <CookieConsentContainer />
       <KofiWidget />
     </Suspense>

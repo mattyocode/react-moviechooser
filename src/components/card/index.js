@@ -20,6 +20,7 @@ import {
   MainContent,
   MoreBtn,
   MoreBtnWrapper,
+  Empty,
   Plot,
   RatingLogo,
   Sidebar,
@@ -246,6 +247,10 @@ Card.FixedAction = function CardFixedAction({ label, children, ...restProps }) {
       <Icon>{children}</Icon>
     </FixedAction>
   );
+};
+
+Card.Empty = function CardEmpty({ children, ...restProps }) {
+  return <Empty {...restProps}>{children}</Empty>;
 };
 
 Card.MoreBtnWrapper = function CardMoreBtnWrapper({ children, ...restProps }) {

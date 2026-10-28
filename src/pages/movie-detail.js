@@ -3,7 +3,7 @@ import { useParams, useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
-import { Headline, Loading } from "../components";
+import { Card, Headline, Loading } from "../components";
 import { CardContainer } from "../containers/card";
 import { fetchSingleMovie } from "../store/movies-slice";
 
@@ -16,8 +16,8 @@ const containerVariants = {
     transition: { delay: 0.25, duration: 0.5 },
   },
   exit: {
-    x: "-100vw",
-    transition: { ease: "easeInOut" },
+    opacity: 0,
+    transition: { duration: 0.15 },
   },
 };
 
@@ -31,8 +31,10 @@ export default function MovieDetail() {
   const params = useParams();
   const dispatch = useDispatch();
 
+  const isSurprise = params.movieId === "surprise";
+
   let route = "";
-  if (params.movieId === "surprise") {
+  if (isSurprise) {
     route = "random";
   } else {
     route = `${params.movieId}`;
@@ -51,7 +53,7 @@ export default function MovieDetail() {
       animate="visible"
       exit="exit"
     >
-      {`${params.movieId}` === "surprise" ? (
+      {isSurprise ? (
         <Headline data-testid="surprise">
           <Headline.Title>Random has chosen</Headline.Title>
         </Headline>
@@ -63,6 +65,16 @@ export default function MovieDetail() {
       {moviesStatus === "updating" && <Loading />}
       {moviesStatus === "succeeded" && (
         <CardContainer movie={movie} expandInitially={true} />
+      )}
+      {isSurprise && moviesStatus === "succeeded" && (
+        <Card.MoreBtnWrapper>
+          <Card.MoreBtn
+            data-testid="spin-again-btn"
+            onClick={() => dispatch(fetchSingleMovie("random"))}
+          >
+            Spin again
+          </Card.MoreBtn>
+        </Card.MoreBtnWrapper>
       )}
       {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
     </motion.div>

@@ -50,6 +50,12 @@ describe("<MovieDetail/> Surprise page tests", () => {
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
   });
 
+  it("offers to spin again once a movie is shown", async () => {
+    expect(await screen.findByTestId("spin-again-btn")).toHaveTextContent(
+      /spin again/i
+    );
+  });
+
   it("shows error on error", async () => {
     cleanup();
     server.use(
