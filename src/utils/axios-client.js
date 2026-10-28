@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.REACT_APP_API;
+const apiURL = import.meta.env.VITE_API;
 
 export async function client(
   endpoint,

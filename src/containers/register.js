@@ -15,7 +15,7 @@ export function Register({
   isPage,
 }) {
   const recaptchaRef = useRef();
-  const sitekey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+  const sitekey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   const handleRecaptcha = (key) => {
     setRecaptchaKey(key);

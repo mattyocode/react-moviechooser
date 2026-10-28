@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components/macro";
+import styled, { css, keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import { NavLink as ReactRouterLink } from "react-router-dom";
 

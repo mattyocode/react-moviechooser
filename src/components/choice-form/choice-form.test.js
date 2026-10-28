@@ -35,7 +35,7 @@ describe("<ChoiceForm/>", () => {
   });
 
   it("submit btn calls submit fn", () => {
-    const mockOnClick = jest.fn();
+    const mockOnClick = vi.fn();
     render(
       <ChoiceForm.Submit>
         <ChoiceForm.SubmitBtn name="submit1" onClick={mockOnClick}>

@@ -107,7 +107,6 @@ describe("<AuthForm /> tests", () => {
 });
 
 // it("accepts sign in values on click", async () => {
-//   jest.mock();
 //   render(
 //     <MemoryRouter>
 //       <AuthForm />

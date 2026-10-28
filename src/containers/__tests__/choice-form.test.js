@@ -32,16 +32,16 @@ describe("<ChoiceFormContainer/>", () => {
   it("renders with genre checkboxes all unchecked", () => {
     const checkboxes = screen.getAllByTestId("genre-checkbox");
 
-    expect(checkboxes[0]).toHaveStyle("background-color: transparent");
+    expect(checkboxes[0]).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
     expect(checkboxes[checkboxes.length - 1]).toHaveStyle(
-      "background-color: transparent"
+      "background-color: rgba(0, 0, 0, 0)"
     );
   });
 
   it("can check genre checkbox", () => {
     const checkbox = screen.getAllByTestId("genre-checkbox")[0];
 
-    expect(checkbox).toHaveStyle("background-color: transparent");
+    expect(checkbox).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
 
     fireEvent.click(checkbox);
 
@@ -51,7 +51,7 @@ describe("<ChoiceFormContainer/>", () => {
   it("genre all button selects all", () => {
     const checkbox = screen.getAllByTestId("genre-checkbox")[0];
 
-    expect(checkbox).toHaveStyle("background-color: transparent");
+    expect(checkbox).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
 
     const allBtn = screen.getByTestId("genre-all-btn");
 
@@ -239,7 +239,7 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("Submit btn returns default form values if no selections made", () => {
     cleanup();
-    const mockOnSubmit = jest.fn();
+    const mockOnSubmit = vi.fn();
     render(
       <ChoiceFormContainer
         genreList={genreData}
@@ -261,7 +261,7 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("Submit btn returns selected values", () => {
     cleanup();
-    const mockOnSubmit = jest.fn();
+    const mockOnSubmit = vi.fn();
     render(
       <ChoiceFormContainer
         genreList={genreData}
