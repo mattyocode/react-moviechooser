@@ -89,7 +89,7 @@ export default function MovieDetail() {
         <>
           <Backdrop src={movie.poster_url} />
           <Card.Detail>
-            <CardContainer movie={movie} expandInitially={true} showWatchCta />
+            <CardContainer movie={movie} showWatchCta />
           </Card.Detail>
         </>
       )}

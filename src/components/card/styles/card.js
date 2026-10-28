@@ -12,23 +12,10 @@ export const Container = styled(motion.div)`
   width: 100%;
   margin: 1rem auto;
   max-width: 430px;
-  cursor: pointer;
   overflow: hidden;
-
-  &.open {
-    max-height: auto;
-  }
-
-  &.closed {
-    max-height: 16.5rem;
-  }
 
   @media screen and (min-width: 1200px) {
     display: flex;
-
-    &.closed {
-      height: 17rem;
-    }
   }
 `;
 
@@ -97,10 +84,6 @@ export const Image = styled.img`
   width: 100%;
   height: 11rem;
 
-  &.closed {
-    height: 100%;
-  }
-
   @media screen and (min-width: 375px) {
     height: 13rem;
   }
@@ -116,14 +99,6 @@ export const AllRatings = styled.div`
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
-  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
-
-  &.closed {
-    display: none;
-    padding: 0;
-    margin: 0;
-    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
-  }
 
   ul {
     display: flex;
@@ -261,20 +236,7 @@ export const Plot = styled.p`
   margin: 0.3rem 0 !important;
 `;
 
-export const FurtherInfo = styled.div`
-  height: auto;
-  -webkit-transition: height 0.8s;
-  -moz-transition: height 0.8s;
-  transition: height 0.8s;
-
-  &.closed {
-    height: 0;
-    display: none;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-  }
-`;
+export const FurtherInfo = styled.div``;
 
 export const Genres = styled.div`
   max-width: 100%;
@@ -343,7 +305,7 @@ export const Footer = styled.div`
   width: 100%;
   margin: 0 auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0.25rem 0.5rem;
   font-size: 2rem;
 `;

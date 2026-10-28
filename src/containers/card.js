@@ -22,7 +22,6 @@ import { ShareContainer } from "./share";
 
 export function CardContainer({
   movie,
-  expandInitially = false,
   listData = null,
   variant = "full",
   showWatchCta = false,
@@ -228,7 +227,6 @@ export function CardContainer({
       {movie && (
         <Card
           data-testid={`${movie.title}-card`}
-          expandState={expandInitially}
           as={motion.div}
           layout="position"
         >
@@ -272,7 +270,7 @@ export function CardContainer({
               />
               <Card.Genres genres={movie.genre} />
             </Card.Main>
-            <Card.Footer show={!expandInitially}>
+            <Card.Footer>
               {hasOndemand && (
                 <Card.Action
                   data-testid={`${movie.title}-ondemand`}
