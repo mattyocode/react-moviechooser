@@ -10,9 +10,7 @@ import {
   Detail,
   FixedAction,
   Footer,
-  FurtherInfo,
   Genres,
-  Group,
   Header,
   Icon,
   Image,
@@ -36,10 +34,6 @@ export default function Card({ children, ...restProps }) {
     </Container>
   );
 }
-
-Card.Group = function CardGroup({ children, ...restProps }) {
-  return <Group {...restProps}>{children}</Group>;
-};
 
 Card.Detail = function CardDetail({ children, ...restProps }) {
   return <Detail {...restProps}>{children}</Detail>;
@@ -133,7 +127,7 @@ Card.FurtherInfo = function CardFurtherInfo({
   ...restProps
 }) {
   return (
-    <FurtherInfo {...restProps}>
+    <div {...restProps}>
       <p>
         <b>Starring: </b>
         {starring}
@@ -143,7 +137,7 @@ Card.FurtherInfo = function CardFurtherInfo({
         {director}
       </p>
       <p>{country}</p>
-    </FurtherInfo>
+    </div>
   );
 };
 
@@ -169,7 +163,7 @@ Card.Footer = function CardFooter({ children, ...restProps }) {
   );
 };
 
-Card.Action = function CardAction({ label, children, ...restProps }) {
+Card.Action = function CardAction({ children, ...restProps }) {
   return (
     <Action whileHover={{ scale: 1.1 }} {...restProps}>
       <Icon>{children}</Icon>
@@ -177,7 +171,7 @@ Card.Action = function CardAction({ label, children, ...restProps }) {
   );
 };
 
-Card.FixedAction = function CardFixedAction({ label, children, ...restProps }) {
+Card.FixedAction = function CardFixedAction({ children, ...restProps }) {
   return (
     <FixedAction whileHover={{ scale: 1.1 }} {...restProps}>
       <Icon>{children}</Icon>

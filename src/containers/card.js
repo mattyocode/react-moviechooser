@@ -233,7 +233,6 @@ export function CardContainer({
           <Card.Content>
             {listData && (
               <Card.FixedAction
-                label="Watched"
                 aria-label={watchedLabel}
                 aria-pressed={listData.watched}
                 as={motion.button}
@@ -274,7 +273,6 @@ export function CardContainer({
               {hasOndemand && (
                 <Card.Action
                   data-testid={`${movie.title}-ondemand`}
-                  label="Watch"
                   aria-label="Where to watch"
                   onClick={openOndemand}
                 >
@@ -283,14 +281,12 @@ export function CardContainer({
               )}
               <Card.Action
                 data-testid={`${movie.title}-share`}
-                label="Share"
                 aria-label="Share"
                 onClick={openShare}
               >
                 <MdShare title="Share movie page" />
               </Card.Action>
               <Card.Action
-                label="Add to list"
                 aria-label={bookmark.label}
                 title={bookmark.label}
                 onClick={bookmark.onClick}

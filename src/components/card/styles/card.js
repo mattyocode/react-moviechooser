@@ -19,21 +19,6 @@ export const Container = styled(motion.div)`
   }
 `;
 
-export const Group = styled.div`
-  margin: 2rem auto;
-  padding: 0 1rem;
-  max-width: 940px;
-
-  @media screen and (min-width: 1200px) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  @media screen and (min-width: 2000px) {
-    max-width: 1440px;
-  }
-`;
-
 // Single-card layout (detail page): stacks the card and its call to action.
 export const Detail = styled.div`
   max-width: 940px;
@@ -235,8 +220,6 @@ export const Header = styled.header`
 export const Plot = styled.p`
   margin: 0.3rem 0 !important;
 `;
-
-export const FurtherInfo = styled.div``;
 
 export const Genres = styled.div`
   max-width: 100%;
