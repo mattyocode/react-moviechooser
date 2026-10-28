@@ -4,6 +4,7 @@ import {
   Container,
   Error,
   Base,
+  Filters,
   Panel,
   SubmitPanel,
   Hint,
@@ -27,6 +28,10 @@ ChoiceForm.Error = function ChoiceFormError({ children, ...restProps }) {
 
 ChoiceForm.Base = function ChoiceFormBase({ children, ...restProps }) {
   return <Base {...restProps}>{children}</Base>;
+};
+
+ChoiceForm.Filters = function ChoiceFormFilters({ children, ...restProps }) {
+  return <Filters {...restProps}>{children}</Filters>;
 };
 
 ChoiceForm.Panel = function ChoiceFormPanel({ children, ...restProps }) {

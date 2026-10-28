@@ -64,7 +64,9 @@ export default function MovieDetail() {
       )}
       {moviesStatus === "updating" && <Loading />}
       {moviesStatus === "succeeded" && (
-        <CardContainer movie={movie} expandInitially={true} />
+        <Card.Group>
+          <CardContainer movie={movie} expandInitially={true} />
+        </Card.Group>
       )}
       {isSurprise && moviesStatus === "succeeded" && (
         <Card.MoreBtnWrapper>

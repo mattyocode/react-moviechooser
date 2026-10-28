@@ -12,10 +12,25 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Title = styled.h1``;
+export const Title = styled.h1`
+  text-transform: uppercase;
+`;
+
+// Neon-lit word in a headline, using the CTA gradient as the fill.
+export const Accent = styled.span`
+  background-image: var(--gradient-cta);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 0.25em hsl(187 62% 58% / 0.45));
+`;
 
 export const Subhead = styled.h3`
   text-align: center;
+  max-width: 34rem;
+  color: var(--clr-text-muted);
+  font-weight: 400;
+  line-height: 1.5;
 `;
 
 export const DecoratedSubhead = styled.h3`
@@ -32,7 +47,7 @@ export const DecoratedSubhead = styled.h3`
     content: "";
     position: absolute;
     top: 50%;
-    border-bottom: #aaa 2px solid;
+    border-bottom: var(--clr-border) 2px solid;
     width: 25vw;
     margin: 0 20px;
   }

@@ -3,46 +3,63 @@ import styled from "styled-components";
 export const Container = styled.div`
   max-width: 780px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--space-4);
 
   @media screen and (min-width: 800px) {
-    padding-top: 1.5rem;
+    padding-top: var(--space-6);
   }
 `;
 
 export const Base = styled.form``;
 
-export const Panel = styled.div`
+// One frosted card holding every filter section.
+export const Filters = styled.div`
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  background: var(--clr-surface);
+  backdrop-filter: var(--blur-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+`;
+
+export const Panel = styled.section`
   position: relative;
-  border-radius: 5px;
-  background: rgba(34, 34, 34, 0.5);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   width: 100%;
-  padding: 2rem 1rem;
-  margin: 20px 0;
+  padding: var(--space-6) var(--space-4) var(--space-4);
   text-align: center;
 
-  &:first-child {
-    margin-top: 0 !important;
+  & + & {
+    border-top: 1px solid var(--clr-border);
+  }
+
+  @media screen and (min-width: 800px) {
+    padding: var(--space-8) var(--space-8) var(--space-6);
   }
 `;
 
 // On small screens the submit button follows the user down the form.
-export const SubmitPanel = styled(Panel)`
-  padding: 1rem;
+export const SubmitPanel = styled.div`
+  padding: var(--space-6) 0 var(--space-4);
+  text-align: center;
 
   @media screen and (max-width: 800px) {
     position: sticky;
     bottom: 0;
     z-index: 20;
-    margin-bottom: 0;
-    border-radius: 5px 5px 0 0;
-    background: rgba(10, 25, 30, 0.85);
-    backdrop-filter: blur(8px);
+    margin: var(--space-4) calc(-1 * var(--space-4)) 0;
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--clr-border);
+    background: hsl(200 35% 6% / 0.8);
+    backdrop-filter: var(--blur-panel);
+    -webkit-backdrop-filter: var(--blur-panel);
   }
 `;
 
 export const Error = styled(Panel)`
+  border-radius: var(--radius-lg);
+  background: var(--clr-surface);
+
   & p {
     color: red;
   }
@@ -50,88 +67,44 @@ export const Error = styled(Panel)`
 
 export const Heading = styled.div`
   position: relative;
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--space-3);
 `;
 
 export const Title = styled.h2``;
 
 export const Hint = styled.p`
-  color: #aaa;
+  color: var(--clr-text-dim);
   font-size: 0.85rem;
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
 `;
 
 export const AllButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  border: none;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid
+    ${(props) =>
+      props.highlighted ? "var(--clr-neon-soft)" : "var(--clr-border)"};
+  border-radius: var(--radius-pill);
   background-color: transparent;
-  padding-right: 0.5rem;
-  color: ${(props) => (props.highlighted ? "var(--clr-neon)" : "#aaa")};
-  font-size: 0.8rem;
-  text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.1em currentColor;
+  color: ${(props) =>
+    props.highlighted ? "var(--clr-neon)" : "var(--clr-text-muted)"};
+  font: 500 0.8rem var(--font-body);
   cursor: pointer;
-  text-decoration: underline;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: all 0.2s;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+
+  &:hover {
+    background-color: var(--clr-neon-faint);
+    border-color: var(--clr-neon);
+  }
 
   @media screen and (max-width: 800px) {
     font-size: 0.75rem;
   }
 `;
-
-// export const Options = styled.ul`
-//   list-style: none;
-//   display: inline-flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   max-height: 9.5rem;
-//   overflow-y: auto;
-// `;
-
-// export const Label = styled.label`
-//   display: inline-block;
-//   border-radius: 25px;
-//   white-space: nowrap;
-//   margin: 0.4rem 0.25rem;
-//   padding: 5px 10px 5px 10px;
-//   border-radius: 10px;
-//   box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
-//   cursor: pointer;
-
-//   @media screen and (max-width: 400px) {
-//     font-size: 0.75rem;
-//     margin: 0.3rem 0.25rem;
-//   }
-
-//   color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
-//   background-color: ${(props) =>
-//     props.checked ? "var(--clr-neon)" : "transparent"};
-//   border: ${(props) =>
-//     props.checked ? "2px solid #1bdbf8" : "2px solid var(--clr-neon)"};
-//   transition: all 0.2s;
-
-//   -webkit-touch-callout: none;
-//   -webkit-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
-//   -webkit-tap-highlight-color: transparent;
-//   transition: all 0.2s;
-//   }
-// `;
-
-// export const Input = styled.input.attrs({ type: "checkbox" })`
-//   display: none;
-//   cursor: pointer;
-//   }
-// `;
 
 export const SubmitWrapper = styled.div`
   max-width: 350px;
@@ -141,19 +114,18 @@ export const SubmitWrapper = styled.div`
 `;
 
 export const SubmitBtn = styled.button`
-  max-width: 25rem;
   margin: 0 auto;
-  width: 8rem;
-  height: 3rem;
-  border-radius: 5px;
+  width: 14rem;
+  height: 3.25rem;
+  border-radius: var(--radius-pill);
   border-style: hidden;
-  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
+  background-image: var(--gradient-cta);
+  box-shadow: 0 0 1.5rem hsl(170 60% 55% / 0.35);
   cursor: pointer;
-  text-align: center;
-  justify-content: center;
-  color: #111;
-  font-size: 1rem;
-  font-weight: bold;
+  color: var(--clr-on-neon);
+  font: 700 1.25rem var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 
   @media screen and (max-width: 800px) {
     width: 100%;

@@ -57,7 +57,8 @@ const authSlice = createSlice({
     },
     [handleAuth.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      state.token = action.payload.access;
+      // Login returns "access"; register returns "token".
+      state.token = action.payload.access ?? action.payload.token;
       state.refreshToken = action.payload.refresh;
       state.account = action.payload.user;
       state.error = null;

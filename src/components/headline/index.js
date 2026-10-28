@@ -1,6 +1,12 @@
 import React from "react";
 
-import { Wrapper, Title, Subhead, DecoratedSubhead } from "./styles/headline";
+import {
+  Wrapper,
+  Title,
+  Accent,
+  Subhead,
+  DecoratedSubhead,
+} from "./styles/headline";
 
 export default function Headline({ children, ...restProps }) {
   return (
@@ -12,6 +18,10 @@ export default function Headline({ children, ...restProps }) {
 
 Headline.Title = function PageTitle({ children, ...restProps }) {
   return <Title {...restProps}>{children}</Title>;
+};
+
+Headline.Accent = function PageAccent({ children, ...restProps }) {
+  return <Accent {...restProps}>{children}</Accent>;
 };
 
 Headline.Subhead = function PageSubhead({ children, ...restProps }) {

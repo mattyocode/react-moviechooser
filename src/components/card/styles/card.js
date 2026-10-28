@@ -3,8 +3,12 @@ import styled from "styled-components";
 
 export const Container = styled(motion.div)`
   position: relative;
-  border-radius: 5px;
-  background: rgba(34, 34, 34, 0.5);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  background: var(--clr-surface);
+  backdrop-filter: var(--blur-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+  box-shadow: var(--shadow-panel);
   width: 100%;
   margin: 1rem auto;
   max-width: 430px;
@@ -62,16 +66,17 @@ export const AvgRating = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 1.2rem;
-  width: 2rem;
+  height: 1.3rem;
+  width: 2.4rem;
   background: var(--clr-neon);
-  border-radius: 5px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--glow-neon);
 
   p {
     position: absolute;
     font-size: 0.8rem;
     font-weight: bold;
-    color: black;
+    color: var(--clr-on-neon);
     z-index: 15;
     margin: auto;
   }
@@ -83,12 +88,10 @@ export const Image = styled.img`
   left: 0px;
   object-fit: cover;
   width: 100%;
-  border-radius: 5px 0 0 0;
   height: 11rem;
 
   &.closed {
     height: 100%;
-    border-radius: 5px 0 0 5px;
   }
 
   @media screen and (min-width: 375px) {
@@ -193,8 +196,9 @@ export const MainContent = styled.section`
   margin-bottom: 2.5rem;
 
   p {
-    font-family: Arial, Helvetica, sans-serif;
+    color: var(--clr-text-muted);
     font-size: 0.65rem;
+    line-height: 1.45;
     margin: 0.75rem 0;
   }
 
@@ -291,11 +295,11 @@ export const Genres = styled.div`
     flex: 0 0 auto;
     font-size: 0.6rem;
     margin: 0 0.1rem;
-    padding: 0 0.25rem;
-    color: #222;
-    background-color: var(--clr-neon);
-    border: 2px solid var(--clr-neon);
-    border-radius: 10px;
+    padding: 0.05rem 0.5rem;
+    color: var(--clr-neon);
+    background-color: var(--clr-neon-faint);
+    border: 1px solid var(--clr-neon-soft);
+    border-radius: var(--radius-pill);
     display: inline-block;
   }
 
@@ -351,8 +355,8 @@ export const Action = styled(motion.button)`
   padding: 0.25rem 0.7rem;
 
   &:hover {
-    background-color: #0f3030;
-    box-shadow: 0 0 10px 5px #0f3030;
+    background-color: var(--clr-hover);
+    box-shadow: 0 0 10px 5px var(--clr-hover);
   }
 `;
 
@@ -369,8 +373,8 @@ export const FixedAction = styled(motion.button)`
   color: #000;
 
   &:hover {
-    background-color: #0f3030;
-    box-shadow: 0 0 10px 5px #0f3030;
+    background-color: var(--clr-hover);
+    box-shadow: 0 0 10px 5px var(--clr-hover);
   }
 `;
 
@@ -396,7 +400,7 @@ export const Empty = styled.div`
   text-align: center;
 
   p {
-    color: #aaa;
+    color: var(--clr-text-muted);
     margin: 0.75rem 0 1.5rem 0;
   }
 `;
@@ -414,21 +418,18 @@ export const MoreBtnWrapper = styled.div`
 export const MoreBtn = styled(motion.button)`
   max-width: 25rem;
   margin: 0 auto;
-  width: 8rem;
+  min-width: 10rem;
   height: 3rem;
-  border-radius: 5px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
   border-style: hidden;
-  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
-  box-shadow: inset 0 0 0.15em 0 var(--clr-neon), 0 0 0.15em 0 var(--clr-neon);
+  background-image: var(--gradient-cta);
+  box-shadow: 0 0 1.5rem hsl(170 60% 55% / 0.35);
   cursor: pointer;
   text-align: center;
   justify-content: center;
-  color: #111;
-  font-size: 1rem;
-  font-weight: bold;
-
-  @media screen and (max-width: 400px) {
-    font-size: 0.8rem;
-    width: 7rem;
-  }
+  color: var(--clr-on-neon);
+  font: 700 1.1rem var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 `;

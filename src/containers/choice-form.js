@@ -61,79 +61,82 @@ export function ChoiceFormContainer({
   return (
     <ChoiceForm>
       <ChoiceForm.Base onSubmit={formSubmitHandler}>
-        <ChoiceForm.Panel>
-          <ChoiceForm.Heading>
-            <ChoiceForm.AllButton
-              data-testid="genre-all-btn"
-              onClick={genreAllBtnHandler}
-              highlighted={genreAllBtnHighlighted}
-            >
-              {genreAllBtnHighlighted ? "Select all" : "Clear"}
-            </ChoiceForm.AllButton>
-            <h2>Genre</h2>
-            {!genreIsChecked.includes(true) && (
-              <ChoiceForm.Hint data-testid="genre-hint">
-                No genre selected means any genre
-              </ChoiceForm.Hint>
-            )}
-          </ChoiceForm.Heading>
-          <Checkboxes
-            section="genre"
-            valuesList={genreList}
-            isChecked={genreIsChecked}
-            changeHandler={genreCheckboxChangeHandler}
-          />
-        </ChoiceForm.Panel>
+        <ChoiceForm.Filters>
+          <ChoiceForm.Panel>
+            <ChoiceForm.Heading>
+              <ChoiceForm.AllButton
+                data-testid="genre-all-btn"
+                onClick={genreAllBtnHandler}
+                highlighted={genreAllBtnHighlighted}
+              >
+                {genreAllBtnHighlighted ? "Select all" : "Clear"}
+              </ChoiceForm.AllButton>
+              <h2>Genre</h2>
+              {!genreIsChecked.includes(true) && (
+                <ChoiceForm.Hint data-testid="genre-hint">
+                  No genre selected means any genre
+                </ChoiceForm.Hint>
+              )}
+            </ChoiceForm.Heading>
+            <Checkboxes
+              section="genre"
+              valuesList={genreList}
+              isChecked={genreIsChecked}
+              changeHandler={genreCheckboxChangeHandler}
+            />
+          </ChoiceForm.Panel>
 
-        <ChoiceForm.Panel>
-          <ChoiceForm.Heading>
-            <ChoiceForm.AllButton
-              data-testid="decade-all-btn"
-              onClick={decadeAllBtnHandler}
-              highlighted={!decadeState.allSelected}
-            >
-              {decadeState.allSelected ? "Reset" : "Any decade"}
-            </ChoiceForm.AllButton>
-            <h2>Released</h2>
-          </ChoiceForm.Heading>
-          <RangeSlider
-            minValue={decadeState.minValue}
-            maxValue={decadeState.maxValue}
-            updateMin={decadeSetMin}
-            updateMax={decadeSetMax}
-            stepValues={decadeState.rangeLabels}
-            labelValues={decadeData.optionsArrayFull}
-            dataTestId="decade"
-          />
-        </ChoiceForm.Panel>
+          <ChoiceForm.Panel>
+            <ChoiceForm.Heading>
+              <ChoiceForm.AllButton
+                data-testid="decade-all-btn"
+                onClick={decadeAllBtnHandler}
+                highlighted={!decadeState.allSelected}
+              >
+                {decadeState.allSelected ? "Reset" : "Any decade"}
+              </ChoiceForm.AllButton>
+              <h2>Released</h2>
+            </ChoiceForm.Heading>
+            <RangeSlider
+              minValue={decadeState.minValue}
+              maxValue={decadeState.maxValue}
+              updateMin={decadeSetMin}
+              updateMax={decadeSetMax}
+              stepValues={decadeState.rangeLabels}
+              labelValues={decadeData.optionsArrayFull}
+              dataTestId="decade"
+            />
+          </ChoiceForm.Panel>
 
-        <ChoiceForm.Panel>
-          <ChoiceForm.Heading>
-            <ChoiceForm.AllButton
-              data-testid="runtime-all-btn"
-              onClick={runtimeAllBtnHandler}
-              highlighted={!runtimeState.allSelected}
-            >
-              {runtimeState.allSelected ? "Reset" : "Any length"}
-            </ChoiceForm.AllButton>
-            <h2>Runtime</h2>
-          </ChoiceForm.Heading>
-          <RangeSlider
-            minValue={runtimeState.minValue}
-            maxValue={runtimeState.maxValue}
-            updateMin={runtimeSetMin}
-            updateMax={runtimeSetMax}
-            stepValues={runtimeState.rangeLabels}
-            labelValues={runtimeData.optionsArrayFull}
-            dataTestId="runtime"
-          />
-        </ChoiceForm.Panel>
+          <ChoiceForm.Panel>
+            <ChoiceForm.Heading>
+              <ChoiceForm.AllButton
+                data-testid="runtime-all-btn"
+                onClick={runtimeAllBtnHandler}
+                highlighted={!runtimeState.allSelected}
+              >
+                {runtimeState.allSelected ? "Reset" : "Any length"}
+              </ChoiceForm.AllButton>
+              <h2>Runtime</h2>
+            </ChoiceForm.Heading>
+            <RangeSlider
+              minValue={runtimeState.minValue}
+              maxValue={runtimeState.maxValue}
+              updateMin={runtimeSetMin}
+              updateMax={runtimeSetMax}
+              stepValues={runtimeState.rangeLabels}
+              labelValues={runtimeData.optionsArrayFull}
+              dataTestId="runtime"
+            />
+          </ChoiceForm.Panel>
+        </ChoiceForm.Filters>
         <ChoiceForm.SubmitPanel>
           <ChoiceForm.Submit>
             <ChoiceForm.SubmitBtn
               data-testid="all-matches-btn"
               as={motion.button}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.98 }}
             >
               Get Movies
             </ChoiceForm.SubmitBtn>

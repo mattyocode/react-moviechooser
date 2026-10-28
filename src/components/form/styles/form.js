@@ -61,7 +61,7 @@ export const Link = styled(motion.button)`
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  color: #51c7d6;
+  color: var(--clr-neon);
   text-decoration: none;
 
   &:hover {
@@ -105,7 +105,7 @@ export const FormSuccess = styled.div`
 
   p {
     font-size: 1rem;
-    color: #51c7d6;
+    color: var(--clr-neon);
     text-align: center;
   }
 `;
@@ -114,7 +114,7 @@ export const Input = styled.input`
   border: 0;
   outline: 0;
   background: transparent;
-  border-bottom: 2px solid #51c7d6;
+  border-bottom: 2px solid var(--clr-neon);
   color: #eee;
   font-size: 16px;
   font-weight: bold;
@@ -136,7 +136,7 @@ export const SubmitBtn = styled(motion.button)`
   height: 3rem;
   border-radius: 5px;
   border-style: hidden;
-  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
+  background-image: var(--gradient-cta);
   cursor: pointer;
   text-align: center;
   justify-content: center;

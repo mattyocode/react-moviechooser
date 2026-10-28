@@ -163,8 +163,8 @@ const baseNavLinkStyles = css`
         ? "1px solid var(--clr-neon)"
         : "1px solid rgba(0, 0, 0, 0)"};
 
-    background-color: #0f3030;
-    box-shadow: 0 0 8px 2px #0f3030;
+    background-color: var(--clr-hover);
+    box-shadow: 0 0 8px 2px var(--clr-hover);
   }
 
   &.active {

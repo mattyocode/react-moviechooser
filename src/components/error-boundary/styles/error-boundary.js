@@ -20,9 +20,9 @@ export const Text = styled.p`
 export const HomeLink = styled.a`
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  background-image: linear-gradient(90deg, #51c7d6, #59d7b3 50%, #e3dc44);
-  color: #111;
+  border-radius: var(--radius-pill);
+  background-image: var(--gradient-cta);
+  color: var(--clr-on-neon);
   font-weight: bold;
   text-decoration: none;
 `;

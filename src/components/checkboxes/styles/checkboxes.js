@@ -7,35 +7,41 @@ export const Options = styled.ul`
   justify-content: center;
 `;
 
+// Unselected chips are quiet; the neon glow is reserved for what's switched on.
 export const Label = styled.label`
   display: inline-block;
-  border-radius: 25px;
   white-space: nowrap;
-  margin: 0.4rem 0.25rem;
-  padding: 5px 10px 5px 10px;
-  border-radius: 10px;
-  box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
+  margin: var(--space-1);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+
+  color: ${(props) =>
+    props.checked ? "var(--clr-on-neon)" : "var(--clr-text-muted)"};
+  background-color: ${(props) =>
+    props.checked ? "var(--clr-neon)" : "transparent"};
+  border: 1px solid
+    ${(props) => (props.checked ? "var(--clr-neon)" : "var(--clr-neon-soft)")};
+  box-shadow: ${(props) =>
+    props.checked
+      ? "0 0 0.9rem hsl(187 62% 58% / 0.55), 0 0 0.2rem var(--clr-neon)"
+      : "none"};
+
+  &:hover {
+    color: ${(props) =>
+      props.checked ? "var(--clr-on-neon)" : "var(--clr-neon)"};
+    border-color: var(--clr-neon);
+  }
 
   @media screen and (max-width: 400px) {
     font-size: 0.85rem;
-    margin: 0.3rem 0.25rem;
-  }
-
-  color: ${(props) => (props.checked ? "#222" : "var(--clr-neon)")};
-  background-color: ${(props) =>
-    props.checked ? "var(--clr-neon)" : "transparent"};
-  border: ${(props) =>
-    props.checked ? "2px solid #1bdbf8" : "2px solid var(--clr-neon)"};
-  transition: all 0.2s;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all 0.2s;
+    padding: 0.35rem 0.75rem;
   }
 `;
 
@@ -52,7 +58,7 @@ export const Input = styled.input.attrs({ type: "checkbox" })`
   border: 0;
 
   &:focus-visible + label {
-    outline: 2px solid #fff;
+    outline: 2px solid var(--clr-text);
     outline-offset: 2px;
   }
 `;
