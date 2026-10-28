@@ -41,7 +41,6 @@ export default function useCheckbox(options = [], initialIds = []) {
 
   useEffect(() => {
     setIsChecked(initialState(options));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   return {
