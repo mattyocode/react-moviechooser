@@ -12,39 +12,18 @@ export const Container = styled(motion.div)`
   width: 100%;
   margin: 1rem auto;
   max-width: 430px;
-  cursor: pointer;
   overflow: hidden;
-
-  &.open {
-    max-height: auto;
-  }
-
-  &.closed {
-    max-height: 16.5rem;
-  }
 
   @media screen and (min-width: 1200px) {
     display: flex;
-
-    &.closed {
-      height: 17rem;
-    }
   }
 `;
 
-export const Group = styled.div`
+// Single-card layout (detail page): stacks the card and its call to action.
+export const Detail = styled.div`
+  max-width: 940px;
   margin: 2rem auto;
   padding: 0 1rem;
-  max-width: 940px;
-
-  @media screen and (min-width: 1200px) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  @media screen and (min-width: 2000px) {
-    max-width: 1440px;
-  }
 `;
 
 export const Content = styled.article`
@@ -90,10 +69,6 @@ export const Image = styled.img`
   width: 100%;
   height: 11rem;
 
-  &.closed {
-    height: 100%;
-  }
-
   @media screen and (min-width: 375px) {
     height: 13rem;
   }
@@ -109,14 +84,6 @@ export const AllRatings = styled.div`
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
   align-items: center;
-  transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
-
-  &.closed {
-    display: none;
-    padding: 0;
-    margin: 0;
-    transition: height 0.5s cubic-bezier(0.5, 0, 0.1, 1);
-  }
 
   ul {
     display: flex;
@@ -254,21 +221,6 @@ export const Plot = styled.p`
   margin: 0.3rem 0 !important;
 `;
 
-export const FurtherInfo = styled.div`
-  height: auto;
-  -webkit-transition: height 0.8s;
-  -moz-transition: height 0.8s;
-  transition: height 0.8s;
-
-  &.closed {
-    height: 0;
-    display: none;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-  }
-`;
-
 export const Genres = styled.div`
   max-width: 100%;
   overflow-x: auto;
@@ -336,7 +288,7 @@ export const Footer = styled.div`
   width: 100%;
   margin: 0 auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0.25rem 0.5rem;
   font-size: 2rem;
 `;
@@ -391,6 +343,11 @@ export const Text = styled.p`
   @media screen and (min-width: 450px) {
     font-size: 0.6rem;
   }
+`;
+
+export const Note = styled.p`
+  color: var(--clr-text-muted);
+  text-align: center;
 `;
 
 export const Empty = styled.div`

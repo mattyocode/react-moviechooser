@@ -32,6 +32,10 @@ export function ProfileData({ account, handleLogout }) {
     d = new Date(profileData.date_joined);
   }
 
+  const displayName =
+    account.username ||
+    (account.email && account.email.substr(0, account.email.indexOf("@")));
+
   useEffect(() => {
     const userId = account?.uid;
     const CancelToken = axios.CancelToken;
@@ -54,10 +58,9 @@ export function ProfileData({ account, handleLogout }) {
         </Form.Title>
       </Form.Header>
       <Form.Text>
-        {`${
-          account.username ||
-          (account.email && account.email.substr(0, account.email.indexOf("@")))
-        }, you're logged in` || "You're currently logged in."}
+        {displayName
+          ? `${displayName}, you're logged in`
+          : "You're currently logged in."}
       </Form.Text>
       <Form.Actions>
         <Form.ActionBtn

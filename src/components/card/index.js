@@ -1,6 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import { useMediaQuery } from "react-responsive";
+import React from "react";
 
 import {
   Action,
@@ -9,11 +7,10 @@ import {
   AvgRating,
   Container,
   Content,
+  Detail,
   FixedAction,
   Footer,
-  FurtherInfo,
   Genres,
-  Group,
   Header,
   Icon,
   Image,
@@ -21,6 +18,7 @@ import {
   MoreBtn,
   MoreBtnWrapper,
   Empty,
+  Note,
   Plot,
   RatingLogo,
   Sidebar,
@@ -29,26 +27,16 @@ import {
 
 import * as IconAssets from "../../assets";
 
-const CardExpandContext = createContext();
-
-export default function Card({ children, expandState = false, ...restProps }) {
-  const [expand, setExpand] = useState(expandState);
-
+export default function Card({ children, ...restProps }) {
   return (
-    <CardExpandContext.Provider value={{ expand, setExpand }}>
-      <Container
-        data-testid="card"
-        className={expand ? "open" : "closed"}
-        {...restProps}
-      >
-        {children}
-      </Container>
-    </CardExpandContext.Provider>
+    <Container data-testid="card" {...restProps}>
+      {children}
+    </Container>
   );
 }
 
-Card.Group = function CardGroup({ children, ...restProps }) {
-  return <Group {...restProps}>{children}</Group>;
+Card.Detail = function CardDetail({ children, ...restProps }) {
+  return <Detail {...restProps}>{children}</Detail>;
 };
 
 Card.Content = function CardContent({ children, ...restProps }) {
@@ -60,12 +48,7 @@ Card.Content = function CardContent({ children, ...restProps }) {
 };
 
 Card.Sidebar = function CardSidebar({ children, ...restProps }) {
-  const { setExpand } = useContext(CardExpandContext);
-  return (
-    <Sidebar onClick={() => setExpand((expand) => !expand)} {...restProps}>
-      {children}
-    </Sidebar>
-  );
+  return <Sidebar {...restProps}>{children}</Sidebar>;
 };
 
 Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
@@ -77,13 +60,10 @@ Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
 };
 
 Card.Image = function CardImage({ src, ...restProps }) {
-  const { expand } = useContext(CardExpandContext);
-  return <Image className={!expand && "closed"} src={src} {...restProps} />;
+  return <Image src={src} {...restProps} />;
 };
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
-  const { expand } = useContext(CardExpandContext);
-
   const getIcon = (name) => {
     let Icon = IconAssets[name];
     if (Icon) {
@@ -94,7 +74,7 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
   };
 
   return (
-    <AllRatings className={!expand && "closed"} {...restProps}>
+    <AllRatings {...restProps}>
       <ul>
         {ratings
           ? ratings.map((rating) => {
@@ -112,13 +92,8 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
 };
 
 Card.Main = function CardMain({ children, ...restProps }) {
-  const { setExpand } = useContext(CardExpandContext);
   return (
-    <MainContent
-      data-testid="card-main"
-      onClick={() => setExpand((expand) => !expand)}
-      {...restProps}
-    >
+    <MainContent data-testid="card-main" {...restProps}>
       {children}
     </MainContent>
   );
@@ -131,42 +106,16 @@ Card.Header = function CardHeader({
   plot,
   ...restProps
 }) {
-  const { expand } = useContext(CardExpandContext);
-  const isFullWidth = useMediaQuery({ query: "(min-width: 450px)" });
   const year = released ? released.slice(0, 4) : "";
-  const copyCondenser = (copy, maxLength, moreSuffix = false) => {
-    if (copy.length > maxLength) {
-      copy =
-        copy.slice(0, maxLength - 4) + " ... " + (moreSuffix ? "more" : "");
-    }
-    return copy;
-  };
   return (
     <>
       <Header {...restProps}>
-        {expand ? (
-          <h2>{title}</h2>
-        ) : (
-          <h2>
-            {isFullWidth
-              ? `${copyCondenser(title, 44)} `
-              : `${copyCondenser(title, 33)} `}
-          </h2>
-        )}
+        <h2>{title}</h2>
         <p>
           {year} | {runtime} mins
         </p>
       </Header>
-      {expand ? (
-        <Plot>{plot}</Plot>
-      ) : (
-        <Plot>
-          {isFullWidth
-            ? `${plot.slice(0, 150)}... `
-            : `${plot.slice(0, 75)}... `}
-          <b>more</b>
-        </Plot>
-      )}
+      <Plot>{plot}</Plot>
     </>
   );
 };
@@ -177,9 +126,8 @@ Card.FurtherInfo = function CardFurtherInfo({
   country,
   ...restProps
 }) {
-  const { expand } = useContext(CardExpandContext);
   return (
-    <FurtherInfo className={!expand && "closed"} {...restProps}>
+    <div {...restProps}>
       <p>
         <b>Starring: </b>
         {starring}
@@ -189,7 +137,7 @@ Card.FurtherInfo = function CardFurtherInfo({
         {director}
       </p>
       <p>{country}</p>
-    </FurtherInfo>
+    </div>
   );
 };
 
@@ -207,33 +155,15 @@ Card.Genres = function CardGenres({ genres, ...restProps }) {
   );
 };
 
-Card.Footer = function CardFooter({ show = true, children, ...restProps }) {
-  const { expand, setExpand } = useContext(CardExpandContext);
+Card.Footer = function CardFooter({ children, ...restProps }) {
   return (
     <Footer {...restProps}>
-      {!expand ? (
-        <MdExpandMore
-          fill="#666"
-          onClick={() => setExpand((expand) => !expand)}
-          style={
-            show ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
-          }
-        />
-      ) : (
-        <MdExpandLess
-          fill="#666"
-          onClick={() => setExpand((expand) => !expand)}
-          style={
-            show ? { opacity: "1" } : { opacity: "0", pointerEvents: "none" }
-          }
-        />
-      )}
       <Actions>{children}</Actions>
     </Footer>
   );
 };
 
-Card.Action = function CardAction({ label, children, ...restProps }) {
+Card.Action = function CardAction({ children, ...restProps }) {
   return (
     <Action whileHover={{ scale: 1.1 }} {...restProps}>
       <Icon>{children}</Icon>
@@ -241,12 +171,16 @@ Card.Action = function CardAction({ label, children, ...restProps }) {
   );
 };
 
-Card.FixedAction = function CardFixedAction({ label, children, ...restProps }) {
+Card.FixedAction = function CardFixedAction({ children, ...restProps }) {
   return (
     <FixedAction whileHover={{ scale: 1.1 }} {...restProps}>
       <Icon>{children}</Icon>
     </FixedAction>
   );
+};
+
+Card.Note = function CardNote({ children, ...restProps }) {
+  return <Note {...restProps}>{children}</Note>;
 };
 
 Card.Empty = function CardEmpty({ children, ...restProps }) {

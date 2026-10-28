@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-  cleanup,
-  waitFor,
-} from "@testing-library/react";
-import { toHaveStyle } from "@testing-library/jest-dom";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 
 import RangeSlider from "./index";
 

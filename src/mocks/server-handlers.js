@@ -13,6 +13,10 @@ const handlers = [
   rest.get(`${apiUrl}/api/movies/`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(moviesData));
   }),
+  rest.get(`${apiUrl}/api/movies/count/`, async (req, res, ctx) => {
+    const genres = req.url.searchParams.get("g");
+    return res(ctx.status(200), ctx.json({ count: genres ? 0 : 12 }));
+  }),
   rest.get(`${apiUrl}/api/movies/random`, async (req, res, ctx) => {
     const movieData = moviesData[0];
     return res(ctx.status(200), ctx.json(movieData));

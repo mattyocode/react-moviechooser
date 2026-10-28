@@ -1,11 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
-import { Headline, Loading, Card } from "../components";
+import {
+  Headline,
+  Loading,
+  Card,
+  FilterSummary,
+  PosterCard,
+} from "../components";
 import { addMovies } from "../store/movies-slice";
+import { describeQuery } from "../utils/filters";
+import homepageData from "../fixtures/homepage.json";
+
+const PAGE_SIZE = 30;
+
+// Where the user was in the results, so Back from a movie returns them there.
+let savedScrollY = 0;
 
 const pageVariants = {
   hidden: {
@@ -28,12 +41,19 @@ export default function Movies() {
   const moviesError = useSelector((state) => state.movies.error);
   const nextPage = useSelector((state) => state.movies.nextPageUrl);
   const moviesCount = useSelector((state) => state.movies.totalCount);
+  const genres = useSelector((state) => state.options.options);
 
   const dispatch = useDispatch();
   const history = useHistory();
   const reduceMotion = useReducedMotion();
 
   const moreMovies = movies.length < moviesCount;
+  const nextBatch = Math.min(PAGE_SIZE, moviesCount - movies.length);
+  const summary = describeQuery(
+    movieQuery,
+    Array.isArray(genres) ? genres : [],
+    homepageData
+  );
 
   useEffect(() => {
     if (!movieQuery) {
@@ -45,8 +65,31 @@ export default function Movies() {
     dispatch(addMovies(nextPage));
   };
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
+  // Layout effect so the listener is removed before the grid leaves the DOM;
+  // otherwise the page collapsing on exit would overwrite the saved position.
+  useLayoutEffect(() => {
+    const target = history && history.action === "POP" ? savedScrollY : 0;
+    let frame;
+    let tries = 0;
+    const trackScroll = () => {
+      savedScrollY = window.scrollY;
+    };
+    // The grid may not be tall enough on the first frame, so retry briefly;
+    // only start recording once restored, so clamped positions aren't saved.
+    const restore = () => {
+      window.scrollTo({ top: target, left: 0 });
+      if (Math.abs(window.scrollY - target) > 2 && tries++ < 30) {
+        frame = requestAnimationFrame(restore);
+      } else {
+        window.addEventListener("scroll", trackScroll, { passive: true });
+      }
+    };
+    restore();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", trackScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -58,9 +101,27 @@ export default function Movies() {
     >
       <Headline data-testid="movies">
         <Headline.Title>Results</Headline.Title>
+        {moviesStatus === "succeeded" && moviesCount > 0 && (
+          <Headline.Subhead data-testid="results-count">
+            {moviesCount} {moviesCount === 1 ? "movie" : "movies"}
+          </Headline.Subhead>
+        )}
       </Headline>
+      {summary && (
+        <FilterSummary>
+          <FilterSummary.Chips
+            labels={[summary.genre, summary.decade, summary.runtime]}
+          />
+          <FilterSummary.Edit
+            data-testid="edit-filters-btn"
+            onClick={() => history.push("/#filters")}
+          >
+            Edit filters
+          </FilterSummary.Edit>
+        </FilterSummary>
+      )}
       <AnimateSharedLayout>
-        <Card.Group>
+        <PosterCard.Grid>
           {movies &&
             movies.map((movie, idx) => {
               return (
@@ -73,13 +134,12 @@ export default function Movies() {
                     duration: 0.25,
                     delay: Math.min(idx % 30, 10) * 0.03,
                   }}
-                  style={{ margin: "0 10px" }}
                 >
-                  <CardContainer movie={movie} />
+                  <CardContainer movie={movie} variant="poster" />
                 </motion.div>
               );
             })}
-        </Card.Group>
+        </PosterCard.Grid>
       </AnimateSharedLayout>
       {moviesStatus === "loading" && (
         <div>
@@ -90,7 +150,7 @@ export default function Movies() {
         <Card.Empty data-testid="no-results">
           <h2>No movies match those filters</h2>
           <p>Try fewer genres, or widen the decade or runtime range.</p>
-          <Card.MoreBtn onClick={() => history.push("/")}>
+          <Card.MoreBtn onClick={() => history.push("/#filters")}>
             Change filters
           </Card.MoreBtn>
         </Card.Empty>
@@ -102,7 +162,9 @@ export default function Movies() {
       )}
       <Card.MoreBtnWrapper>
         {moreMovies && moviesStatus === "succeeded" && (
-          <Card.MoreBtn onClick={addMoviesHandler}>Show more</Card.MoreBtn>
+          <Card.MoreBtn onClick={addMoviesHandler}>
+            Show {nextBatch} more
+          </Card.MoreBtn>
         )}
         {!moreMovies && moviesStatus === "succeeded" && movies.length > 0 && (
           <p>That's all {movies.length} matches.</p>

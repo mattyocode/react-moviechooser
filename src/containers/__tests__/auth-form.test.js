@@ -12,7 +12,6 @@ import { MemoryRouter } from "react-router-dom";
 import { AuthForm } from "../auth-form";
 import store from "../../store/index";
 import * as reactRedux from "react-redux";
-import { server, rest } from "../../mocks/server";
 
 describe("<AuthForm /> tests", () => {
   beforeEach(() => {

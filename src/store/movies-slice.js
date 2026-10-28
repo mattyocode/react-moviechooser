@@ -9,6 +9,11 @@ const initialMoviesState = {
   error: null,
   totalCount: 0,
   nextPageUrl: null,
+  // The single movie on the detail/surprise page, kept apart from the
+  // results list so opening a movie doesn't wipe the user's results.
+  current: null,
+  currentStatus: "idle",
+  currentError: null,
 };
 
 export const fetchMovies = createAsyncThunk(
@@ -51,6 +56,9 @@ const moviesSlice = createSlice({
       if (existingMovie) {
         existingMovie.on_list = onList;
       }
+      if (state.current && state.current.slug === movieSlug) {
+        state.current.on_list = onList;
+      }
     },
   },
   extraReducers: {
@@ -80,15 +88,15 @@ const moviesSlice = createSlice({
       state.error = action.error.message;
     },
     [fetchSingleMovie.pending]: (state, action) => {
-      state.status = "updating";
+      state.currentStatus = "updating";
     },
     [fetchSingleMovie.fulfilled]: (state, action) => {
-      state.movies = [action.payload];
-      state.status = "succeeded";
+      state.current = action.payload;
+      state.currentStatus = "succeeded";
     },
     [fetchSingleMovie.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
+      state.currentStatus = "failed";
+      state.currentError = action.error.message;
     },
   },
 });

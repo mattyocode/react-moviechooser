@@ -13,6 +13,9 @@ import { MovieDetail } from "../../pages";
 
 const apiUrlRoot = import.meta.env.VITE_API;
 
+// jsdom doesn't implement scrolling; the page resets scroll on mount.
+window.scrollTo = vi.fn();
+
 const unauthorizedInitialAuthState = {
   token: null,
   refreshToken: null,
@@ -48,6 +51,13 @@ describe("<MovieDetail/> Surprise page tests", () => {
       screen.getByTestId("loading-spinner")
     );
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
+  });
+
+  it("offers a labelled where-to-watch button and a poster backdrop", async () => {
+    expect(await screen.findByTestId("watch-cta")).toHaveTextContent(
+      /where to watch/i
+    );
+    expect(screen.getByTestId("backdrop")).toBeInTheDocument();
   });
 
   it("offers to spin again once a movie is shown", async () => {

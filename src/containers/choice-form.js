@@ -1,20 +1,39 @@
 import React from "react";
 import { ChoiceForm, RangeSlider, Checkboxes } from "../components";
-import { useSlider, useCheckbox } from "../hooks";
+import { useSlider, useCheckbox, useResultCount } from "../hooks";
 import { motion } from "framer-motion";
+
+import { sliderDefaults } from "../utils/filters";
+import queryString from "../utils/query-string";
+
+const submitLabel = (count) => {
+  if (count === null) return "Get Movies";
+  if (count === 0) return "No matches";
+  return `Show ${count} ${count === 1 ? "movie" : "movies"}`;
+};
 
 export function ChoiceFormContainer({
   genreList,
   runtimeData,
   decadeData,
   onSubmitHandler,
+  initialQuery,
 }) {
+  const runtimeDefaults = sliderDefaults(
+    runtimeData,
+    initialQuery && initialQuery.runtime
+  );
+  const decadeDefaults = sliderDefaults(
+    decadeData,
+    initialQuery && initialQuery.decade
+  );
+
   const {
     isChecked: genreIsChecked,
     checkboxChangeHandler: genreCheckboxChangeHandler,
     allBtnHandler: genreAllBtnHandler,
     allBtnHighlighted: genreAllBtnHighlighted,
-  } = useCheckbox(genreList);
+  } = useCheckbox(genreList, (initialQuery && initialQuery.genre) || []);
 
   const {
     state: runtimeState,
@@ -23,8 +42,8 @@ export function ChoiceFormContainer({
     allBtnHandler: runtimeAllBtnHandler,
   } = useSlider(
     runtimeData.optionsArray,
-    runtimeData.defaultMin,
-    runtimeData.defaultMax
+    runtimeDefaults.min,
+    runtimeDefaults.max
   );
 
   const {
@@ -34,32 +53,36 @@ export function ChoiceFormContainer({
     allBtnHandler: decadeAllBtnHandler,
   } = useSlider(
     decadeData.optionsArray,
-    decadeData.defaultMin,
-    decadeData.defaultMax
+    decadeDefaults.min,
+    decadeDefaults.max
   );
+
+  const query = {
+    genre: genreIsChecked.reduce((acc, cur, idx) => {
+      if (cur === true && genreList[idx]) {
+        acc.push(genreList[idx].id);
+      }
+      return acc;
+    }, []),
+    runtime: {
+      min: runtimeData.queryArray[runtimeState.minValue],
+      max: runtimeData.queryArray[runtimeState.maxValue],
+    },
+    decade: {
+      min: decadeData.queryArray[decadeState.minValue],
+      max: decadeData.queryArray[decadeState.maxValue],
+    },
+  };
+  const resultCount = useResultCount(queryString(query));
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    onSubmitHandler({
-      genre: genreIsChecked.reduce((acc, cur, idx) => {
-        if (cur === true) {
-          acc.push(genreList[idx].id);
-        }
-        return acc;
-      }, []),
-      runtime: {
-        min: runtimeData.queryArray[runtimeState.minValue],
-        max: runtimeData.queryArray[runtimeState.maxValue],
-      },
-      decade: {
-        min: decadeData.queryArray[decadeState.minValue],
-        max: decadeData.queryArray[decadeState.maxValue],
-      },
-    });
+    if (resultCount === 0) return;
+    onSubmitHandler(query);
   };
 
   return (
-    <ChoiceForm>
+    <ChoiceForm id="filters">
       <ChoiceForm.Base onSubmit={formSubmitHandler}>
         <ChoiceForm.Filters>
           <ChoiceForm.Panel>
@@ -135,12 +158,19 @@ export function ChoiceFormContainer({
             <ChoiceForm.SubmitBtn
               data-testid="all-matches-btn"
               as={motion.button}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={resultCount === 0 ? undefined : { scale: 1.04 }}
+              whileTap={resultCount === 0 ? undefined : { scale: 0.98 }}
+              disabled={resultCount === 0}
+              aria-live="polite"
             >
-              Get Movies
+              {submitLabel(resultCount)}
             </ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>
+          {resultCount === 0 && (
+            <ChoiceForm.Hint data-testid="no-matches-hint">
+              Try fewer genres, or widen the decade or runtime range.
+            </ChoiceForm.Hint>
+          )}
         </ChoiceForm.SubmitPanel>
       </ChoiceForm.Base>
     </ChoiceForm>

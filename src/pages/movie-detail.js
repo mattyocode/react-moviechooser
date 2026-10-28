@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation, useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
-import { Card, Headline, Loading } from "../components";
+import {
+  Backdrop,
+  Card,
+  FilterSummary,
+  Headline,
+  Loading,
+} from "../components";
 import { CardContainer } from "../containers/card";
 import { fetchSingleMovie } from "../store/movies-slice";
 
@@ -22,11 +28,13 @@ const containerVariants = {
 };
 
 export default function MovieDetail() {
-  const movie = useSelector((state) => state.movies.movies)[0];
-  const moviesStatus = useSelector((state) => state.movies.status);
-  const moviesError = useSelector((state) => state.movies.error);
+  const movie = useSelector((state) => state.movies.current);
+  const moviesStatus = useSelector((state) => state.movies.currentStatus);
+  const moviesError = useSelector((state) => state.movies.currentError);
+  const hasResults = useSelector((state) => state.movies.movies.length > 0);
 
   const location = useLocation();
+  const history = useHistory();
   const locationRef = useRef(null);
   const params = useParams();
   const dispatch = useDispatch();
@@ -39,6 +47,10 @@ export default function MovieDetail() {
   } else {
     route = `${params.movieId}`;
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, [params.movieId]);
 
   useEffect(() => {
     if (locationRef !== location.key) {
@@ -62,11 +74,24 @@ export default function MovieDetail() {
           <Headline.Title>Check this out!</Headline.Title>
         </Headline>
       )}
+      {!isSurprise && hasResults && (
+        <FilterSummary>
+          <FilterSummary.Edit
+            data-testid="back-to-results-btn"
+            onClick={() => history.goBack()}
+          >
+            ← Back to results
+          </FilterSummary.Edit>
+        </FilterSummary>
+      )}
       {moviesStatus === "updating" && <Loading />}
-      {moviesStatus === "succeeded" && (
-        <Card.Group>
-          <CardContainer movie={movie} expandInitially={true} />
-        </Card.Group>
+      {moviesStatus === "succeeded" && movie && (
+        <>
+          <Backdrop src={movie.poster_url} />
+          <Card.Detail>
+            <CardContainer movie={movie} showWatchCta />
+          </Card.Detail>
+        </>
       )}
       {isSurprise && moviesStatus === "succeeded" && (
         <Card.MoreBtnWrapper>
