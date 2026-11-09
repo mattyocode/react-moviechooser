@@ -385,6 +385,18 @@ describe("<ChoiceFormContainer/> text search", () => {
     );
   });
 
+  it("makes the search button the form's default button", () => {
+    renderForm();
+
+    // Browsers send Enter to the first submit button in the form; untyped
+    // buttons count. jsdom and user-event don't model this, so check it here.
+    const form = box().closest("form");
+    const defaultButton = form.querySelector(
+      'button:not([type]), button[type="submit"], input[type="submit"]'
+    );
+    expect(defaultButton).toBe(screen.getByTestId("all-matches-btn"));
+  });
+
   it("submits the text and filters when Enter is pressed", () => {
     const onSubmit = renderForm();
 
