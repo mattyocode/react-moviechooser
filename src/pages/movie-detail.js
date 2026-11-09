@@ -9,6 +9,7 @@ import {
   FilterSummary,
   Headline,
   Loading,
+  PlotAttribution,
   PosterCard,
   SimilarMovies,
 } from "../components";
@@ -134,6 +135,7 @@ export default function MovieDetail() {
               />
             ))}
           </PosterCard.Grid>
+          <PlotAttribution movies={[movie, ...similar]} />
         </SimilarMovies>
       )}
       {moviesStatus === "failed" && <p>Error: {moviesError} </p>}

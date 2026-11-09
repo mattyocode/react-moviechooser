@@ -86,7 +86,8 @@
     ],
     "avg_rating": 80.33333333333333,
     "on_list": false,
-    "similarity": 0.74
+    "similarity": 0.74,
+    "plot_source_url": "https://en.wikipedia.org/wiki/Jurassic_Park?oldid=1000"
   },
   {
     "slug": "JLxRvHVI-le-charme-discret-de-la",
@@ -143,7 +144,8 @@
     ],
     "avg_rating": 90.0,
     "on_list": false,
-    "similarity": 0.71
+    "similarity": 0.71,
+    "plot_source_url": null
   },
   {
     "slug": "fPcPlCpd-finding-nemo",
@@ -238,6 +240,7 @@
     ],
     "avg_rating": 90.0,
     "on_list": false,
-    "similarity": 0.69
+    "similarity": 0.69,
+    "plot_source_url": "https://en.wikipedia.org/wiki/Finding_Nemo?oldid=1000"
   }
 ]

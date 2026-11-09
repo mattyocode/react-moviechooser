@@ -304,4 +304,35 @@ describe("<MovieDetail/> more like this", () => {
       await within(section).findByTestId(`${title}-remove`)
     ).toBeInTheDocument();
   });
+
+  it("credits the movie and its similar movies' articles under the row", async () => {
+    renderPage("/movies/123");
+
+    const attribution = within(await row()).getByTestId("plot-attribution");
+    const current = testMoviesData[3];
+    const expected = [current, ...testSimilarData].filter(
+      (m) => m.plot_source_url
+    );
+    const hrefs = within(attribution)
+      .getAllByRole("link", { hidden: true })
+      .map((link) => link.getAttribute("href"))
+      .filter((href) => href.includes("wikipedia"));
+    expect(hrefs).toEqual([...new Set(expected.map((m) => m.plot_source_url))]);
+    expect(hrefs[0]).toBe(current.plot_source_url);
+  });
+
+  it("shows no attribution when nothing has a Wikipedia source", async () => {
+    server.use(
+      rest.get(`${apiUrlRoot}/api/movies/123`, (req, res, ctx) =>
+        res(ctx.json({ ...testMoviesData[3], plot_source_url: null }))
+      ),
+      rest.get(similarUrl, (req, res, ctx) =>
+        res(ctx.json([{ ...movie("plain", "Plain"), plot_source_url: null }]))
+      )
+    );
+    renderPage("/movies/123");
+
+    expect(await row()).toBeInTheDocument();
+    expect(screen.queryByTestId("plot-attribution")).toBeNull();
+  });
 });
