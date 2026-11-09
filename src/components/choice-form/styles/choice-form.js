@@ -79,6 +79,58 @@ export const Hint = styled.p`
   margin-top: var(--space-1);
 `;
 
+export const TextLabel = styled.label`
+  display: block;
+  margin-bottom: var(--space-3);
+  font: 700 1.5rem var(--font-display);
+  letter-spacing: 0.02em;
+`;
+
+export const TextInput = styled.input`
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-pill);
+  background-color: hsl(0 0% 100% / 0.04);
+  color: inherit;
+  font: 400 1rem var(--font-body);
+
+  &::placeholder {
+    color: var(--clr-text-dim);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--clr-neon);
+    box-shadow: 0 0 0 3px var(--clr-neon-faint);
+  }
+`;
+
+export const Chips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+`;
+
+export const Chip = styled.button`
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--clr-neon-soft);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  color: var(--clr-neon);
+  font: 500 0.85rem var(--font-body);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    background-color: var(--clr-neon-faint);
+    border-color: var(--clr-neon);
+  }
+`;
+
 export const AllButton = styled.button`
   position: absolute;
   top: 0;

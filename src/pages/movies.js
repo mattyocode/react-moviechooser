@@ -13,6 +13,7 @@ import {
 } from "../components";
 import { addMovies } from "../store/movies-slice";
 import { describeQuery } from "../utils/filters";
+import { matchLabel } from "../utils/match";
 import homepageData from "../fixtures/homepage.json";
 
 const PAGE_SIZE = 30;
@@ -54,6 +55,17 @@ export default function Movies() {
     Array.isArray(genres) ? genres : [],
     homepageData
   );
+  const text = summary ? summary.text : "";
+  // A text search with nothing narrowing it shows just the text, and invites
+  // the user to add filters.
+  const textOnly = text !== "" && summary.isDefaultFilters;
+  const filterLabels = summary
+    ? [summary.genre, summary.decade, summary.runtime]
+    : [];
+  const summaryLabels = [
+    ...(text ? [text] : []),
+    ...(textOnly ? [] : filterLabels),
+  ];
 
   useEffect(() => {
     if (!movieQuery) {
@@ -104,19 +116,18 @@ export default function Movies() {
         {moviesStatus === "succeeded" && moviesCount > 0 && (
           <Headline.Subhead data-testid="results-count">
             {moviesCount} {moviesCount === 1 ? "movie" : "movies"}
+            {text && ` for "${text}"`}
           </Headline.Subhead>
         )}
       </Headline>
       {summary && (
         <FilterSummary>
-          <FilterSummary.Chips
-            labels={[summary.genre, summary.decade, summary.runtime]}
-          />
+          <FilterSummary.Chips labels={summaryLabels} />
           <FilterSummary.Edit
             data-testid="edit-filters-btn"
             onClick={() => history.push("/#filters")}
           >
-            Edit filters
+            {textOnly ? "+ Add filters" : "Edit filters"}
           </FilterSummary.Edit>
         </FilterSummary>
       )}
@@ -135,7 +146,11 @@ export default function Movies() {
                     delay: Math.min(idx % 30, 10) * 0.03,
                   }}
                 >
-                  <CardContainer movie={movie} variant="poster" />
+                  <CardContainer
+                    movie={movie}
+                    variant="poster"
+                    match={matchLabel(idx, movie.similarity)}
+                  />
                 </motion.div>
               );
             })}
@@ -148,7 +163,11 @@ export default function Movies() {
       )}
       {moviesStatus === "succeeded" && movies.length === 0 && (
         <Card.Empty data-testid="no-results">
-          <h2>No movies match those filters</h2>
+          <h2>
+            {text
+              ? `Nothing matches "${text}" with these filters`
+              : "No movies match those filters"}
+          </h2>
           <p>Try fewer genres, or widen the decade or runtime range.</p>
           <Card.MoreBtn onClick={() => history.push("/#filters")}>
             Change filters

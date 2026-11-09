@@ -28,4 +28,18 @@ describe("queryString tests", () => {
     const output = queryString(decadeInput);
     expect(output).toEqual("g=5,4&rmin=75&rmax=120&dmin=1970&dmax=cur");
   });
+
+  it("adds trimmed, encoded text after the filters", () => {
+    const output = queryString({ text: "  fish & chips  ", genre: [5] });
+    expect(output).toEqual("g=5&q=fish%20%26%20chips");
+  });
+
+  it("encodes apostrophes safely", () => {
+    expect(queryString({ text: "i'm hungry" })).toEqual("q=i'm%20hungry");
+  });
+
+  it("leaves out blank text", () => {
+    expect(queryString({ text: "   ", genre: [5] })).toEqual("g=5");
+    expect(queryString({ text: "" })).toEqual("");
+  });
 });

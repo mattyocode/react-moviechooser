@@ -49,4 +49,14 @@ describe("<PosterCard/>", () => {
     );
     expect(screen.getByRole("button", { name: "Share" })).toBeInTheDocument();
   });
+
+  it("shows a match label when given one", () => {
+    renderPoster({ src: "poster.jpg", match: "Top match" });
+    expect(screen.getByTestId("match-label")).toHaveTextContent("Top match");
+  });
+
+  it("shows no match label by default", () => {
+    renderPoster({ src: "poster.jpg" });
+    expect(screen.queryByTestId("match-label")).toBeNull();
+  });
 });

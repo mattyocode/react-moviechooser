@@ -30,7 +30,7 @@
       "2010",
       "2020"
     ],
-    "defaultMin": "70s",
+    "defaultMin": "Pre-60s",
     "defaultMax": "20s"
   },
   "runtime": {
@@ -45,7 +45,7 @@
       "Long"
     ],
     "queryArray": ["<75", "75", "90", "105", "120", "150", ">150"],
-    "defaultMin": "75m",
-    "defaultMax": "2h"
+    "defaultMin": "Short",
+    "defaultMax": "Long"
   }
 }

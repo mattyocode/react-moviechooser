@@ -7,6 +7,7 @@ import {
   Poster,
   Fallback,
   Rating,
+  Match,
   Overlay,
   Body,
   Title,
@@ -30,6 +31,7 @@ PosterCard.Poster = function PosterCardPoster({
   src,
   title,
   rating,
+  match,
   plot,
   ...restProps
 }) {
@@ -47,6 +49,9 @@ PosterCard.Poster = function PosterCardPoster({
         />
       )}
       {rating ? <Rating title="Average critic score">{rating}</Rating> : null}
+      {match ? (
+        <Match data-testid="match-label">{match}</Match>
+      ) : null}
       {plot ? (
         <Overlay aria-hidden="true">
           <p>{plot}</p>

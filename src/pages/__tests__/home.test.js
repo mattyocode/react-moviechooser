@@ -6,7 +6,8 @@ import { reduxTestRender } from "../../mocks/test-utils";
 import { server, rest } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
-import { Home } from "../../pages";
+import { Home, Movies } from "../../pages";
+import textSearchData from "../../mocks/test-data/testTextSearchData.json";
 // import store from "../../store/index";
 
 describe("<Home/> page tests", () => {
@@ -29,8 +30,8 @@ describe("<Home/> page tests", () => {
       expect(screen.getByText("Sci-Fi")).toBeTruthy();
       expect(screen.getByText("Horror")).toBeTruthy();
       expect(screen.getByText("Adventure")).toBeTruthy();
-      expect(screen.getByText("1970s")).toBeTruthy();
-      expect(screen.getByText("75m")).toBeTruthy();
+      expect(screen.getByText("Pre-1960s")).toBeTruthy();
+      expect(screen.getByText("Short")).toBeTruthy();
     });
   });
 
@@ -84,5 +85,56 @@ describe("<Home/> page tests", () => {
     fireEvent.click(submitBtn);
 
     expect(await screen.findByText(/Movie results page/i)).toBeInTheDocument();
+  });
+
+  it("a text search reaches the results page with labelled posters", async () => {
+    cleanup();
+    window.scrollTo = vi.fn();
+    const requests = [];
+    server.use(
+      rest.get(`${import.meta.env.VITE_API}/api/movies/`, (req, res, ctx) => {
+        requests.push(req.url.searchParams);
+        return res(ctx.json(textSearchData));
+      }),
+      // The default count mock says 0 for any genre, which blocks submit.
+      rest.get(`${import.meta.env.VITE_API}/api/movies/count/`, (req, res, ctx) =>
+        res(ctx.json({ count: 40 }))
+      )
+    );
+
+    reduxTestRender(
+      <MemoryRouter initialEntries={["/"]}>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/movies">
+          <Movies />
+        </Route>
+      </MemoryRouter>,
+      { preloadedState: { options: initialOptionsState } }
+    );
+
+    const box = await screen.findByRole(
+      "searchbox",
+      { name: "Describe what you're in the mood for" },
+      { timeout: 3000 }
+    );
+    fireEvent.click(screen.getByText("Horror"));
+    fireEvent.change(box, { target: { value: "i'm hungry" } });
+    // Wait for the live count, so submit isn't racing it.
+    await screen.findByText("Show top 30");
+    fireEvent.click(screen.getByTestId("all-matches-btn"));
+
+    expect(await screen.findByTestId("Parasite-card")).toBeInTheDocument();
+    expect(screen.getAllByTestId("match-label")).toHaveLength(3);
+    expect(screen.getByTestId("results-count")).toHaveTextContent(
+      'for "i\'m hungry"'
+    );
+
+    expect(requests).toHaveLength(1);
+    expect(requests[0].get("q")).toBe("i'm hungry");
+    expect(requests[0].get("g")).toBe("11");
+    expect(requests[0].get("dmin")).toBe("pre");
+    expect(requests[0].get("rmax")).toBe(">150");
   });
 });

@@ -74,6 +74,10 @@ const moviesSlice = createSlice({
     [fetchMovies.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
+      // Don't leave the previous search's posters under the new query.
+      state.movies = [];
+      state.totalCount = 0;
+      state.nextPageUrl = null;
     },
     [addMovies.pending]: (state, action) => {
       state.status = "updating";

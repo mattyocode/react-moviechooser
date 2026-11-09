@@ -1,5 +1,6 @@
 import React from "react";
-import { act, cleanup, screen } from "@testing-library/react";
+import { act, cleanup, screen, within } from "@testing-library/react";
+import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter, Route } from "react-router-dom";
 import { server, rest } from "../../mocks/server";
 import userEvent from "@testing-library/user-event";
@@ -7,6 +8,13 @@ import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../mocks/test-utils";
 import testMoviesData from "../../mocks/test-data/testMoviesData.json";
+import testTextSearchData from "../../mocks/test-data/testTextSearchData.json";
+import testGenreData from "../../mocks/test-data/testGenreData.json";
+import moviesReducer, {
+  fetchMovies,
+  setMovieQuery,
+} from "../../store/movies-slice";
+import optionsReducer from "../../store/query-slice";
 import { NavbarContainer } from "../../containers/navigation";
 import { Movies } from "..";
 
@@ -239,5 +247,178 @@ describe("add to list tests", () => {
     expect(
       screen.getByRole("link", { name: /parasite – details/i })
     ).toHaveAttribute("href", `/movies/${testMoviesData[0].slug}`);
+  });
+});
+
+describe("<Movies/> text search results", () => {
+  const moviesUrl = `${import.meta.env.VITE_API}/api/movies/`;
+  const fullRange = {
+    decade: { min: "pre", max: "2020" },
+    runtime: { min: "<75", max: ">150" },
+  };
+  const textQuery = (text, extra = {}) => ({
+    text,
+    genre: [],
+    ...fullRange,
+    ...extra,
+  });
+  const optionsState = {
+    options: testGenreData,
+    status: "succeeded",
+    error: null,
+  };
+
+  window.scrollTo = vi.fn();
+
+  const renderResults = (movies) =>
+    reduxTestRender(<Movies />, {
+      preloadedState: { options: optionsState, movies },
+    });
+
+  // Runs a real fetch through MSW, as the home page does on submit.
+  const renderAfterFetch = async (query) => {
+    const store = configureStore({
+      reducer: { movies: moviesReducer, options: optionsReducer },
+      preloadedState: { options: optionsState },
+    });
+    store.dispatch(setMovieQuery(query));
+    reduxTestRender(<Movies />, { store });
+    await act(async () => {
+      await store.dispatch(fetchMovies(query));
+    });
+    return store;
+  };
+
+  it("labels the first three text results 'Top match'", () => {
+    renderResults({
+      queryParams: textQuery("i'm hungry"),
+      movies: testTextSearchData.results,
+      totalCount: testTextSearchData.count,
+      status: "succeeded",
+      error: null,
+    });
+
+    const labels = screen.getAllByTestId("match-label");
+    expect(labels).toHaveLength(3);
+    labels.forEach((label) => expect(label).toHaveTextContent("Top match"));
+    expect(
+      within(screen.getByTestId("Parasite-card")).getByTestId("match-label")
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("Finding Nemo-card")).queryByTestId(
+        "match-label"
+      )
+    ).toBeNull();
+  });
+
+  it("shows no match labels on a filter-only search", () => {
+    renderResults({
+      queryParams: testQueryParams,
+      movies: testMoviesData,
+      totalCount: testMoviesData.length,
+      status: "succeeded",
+      error: null,
+    });
+
+    expect(screen.queryAllByTestId("match-label")).toHaveLength(0);
+  });
+
+  it("summarises a text-only search with '+ Add filters'", () => {
+    renderResults({
+      queryParams: textQuery("i'm hungry"),
+      movies: testTextSearchData.results,
+      totalCount: testTextSearchData.count,
+      status: "succeeded",
+      error: null,
+    });
+
+    expect(screen.getByTestId("results-count")).toHaveTextContent(
+      '6 movies for "i\'m hungry"'
+    );
+    const chips = within(screen.getByLabelText("Current filters"));
+    expect(chips.getByText("i'm hungry")).toBeInTheDocument();
+    expect(chips.queryByText("Any genre")).toBeNull();
+    expect(screen.getByTestId("edit-filters-btn")).toHaveTextContent(
+      "+ Add filters"
+    );
+  });
+
+  it("summarises text with filters using the filter chips", () => {
+    renderResults({
+      queryParams: textQuery("heist", { genre: [5] }),
+      movies: testTextSearchData.results,
+      totalCount: testTextSearchData.count,
+      status: "succeeded",
+      error: null,
+    });
+
+    const chips = within(screen.getByLabelText("Current filters"));
+    expect(chips.getByText("heist")).toBeInTheDocument();
+    expect(chips.getByText("Drama")).toBeInTheDocument();
+    expect(screen.getByTestId("edit-filters-btn")).toHaveTextContent(
+      "Edit filters"
+    );
+  });
+
+  it("names the text in the empty state", async () => {
+    server.use(
+      rest.get(moviesUrl, (req, res, ctx) =>
+        res(ctx.json({ count: 0, next: null, previous: null, results: [] }))
+      )
+    );
+
+    await renderAfterFetch(textQuery("heist", { genre: [5] }));
+
+    const empty = screen.getByTestId("no-results");
+    expect(empty).toHaveTextContent('Nothing matches "heist" with these filters');
+    expect(empty).toHaveTextContent(/widen the decade or runtime/);
+    expect(
+      within(empty).getByRole("button", { name: "Change filters" })
+    ).toBeInTheDocument();
+  });
+
+  it("shows the API's message and no posters when search is unavailable", async () => {
+    server.use(
+      rest.get(moviesUrl, (req, res, ctx) =>
+        res(
+          ctx.status(503),
+          ctx.json({ detail: "Search is unavailable right now." })
+        )
+      )
+    );
+
+    await renderAfterFetch(textQuery("heist"));
+
+    expect(
+      await screen.findByText(/Search is unavailable right now/)
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId(/-card$/)).toBeNull();
+  });
+
+  it("clears earlier posters when a new search fails", async () => {
+    server.use(
+      rest.get(moviesUrl, (req, res, ctx) =>
+        res(ctx.status(503), ctx.json({ detail: "Search is unavailable right now." }))
+      )
+    );
+    const store = configureStore({
+      reducer: { movies: moviesReducer, options: optionsReducer },
+      preloadedState: {
+        options: optionsState,
+        movies: {
+          queryParams: testQueryParams,
+          movies: testMoviesData,
+          totalCount: testMoviesData.length,
+          status: "succeeded",
+          error: null,
+        },
+      },
+    });
+
+    await act(async () => {
+      await store.dispatch(fetchMovies(textQuery("heist")));
+    });
+
+    expect(store.getState().movies.movies).toEqual([]);
   });
 });

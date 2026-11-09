@@ -7,10 +7,14 @@ const genres = [
 ];
 
 describe("sliderDefaults", () => {
-  it("uses standard defaults without a saved range", () => {
+  it("uses the full range without a saved range", () => {
     expect(sliderDefaults(homepageData.decade)).toEqual({
-      min: "70s",
+      min: "Pre-60s",
       max: "20s",
+    });
+    expect(sliderDefaults(homepageData.runtime)).toEqual({
+      min: "Short",
+      max: "Long",
     });
   });
 
@@ -23,7 +27,7 @@ describe("sliderDefaults", () => {
   it("falls back for unrecognised values", () => {
     expect(
       sliderDefaults(homepageData.decade, { min: "1880", max: "2010" })
-    ).toEqual({ min: "70s", max: "10s" });
+    ).toEqual({ min: "Pre-60s", max: "10s" });
   });
 });
 
@@ -46,6 +50,8 @@ describe("describeQuery", () => {
       genre: "Crime, Mystery",
       decade: "1970s – Current",
       runtime: "75m – 2h",
+      text: "",
+      isDefaultFilters: false,
     });
   });
 
@@ -63,6 +69,8 @@ describe("describeQuery", () => {
       genre: "Any genre",
       decade: "Any decade",
       runtime: "Any length",
+      text: "",
+      isDefaultFilters: true,
     });
   });
 
@@ -73,5 +81,29 @@ describe("describeQuery", () => {
       homepageData
     );
     expect(summary.decade).toBe("1990s");
+  });
+
+  it("includes the trimmed text", () => {
+    const summary = describeQuery(
+      { text: "  i'm hungry ", genre: [] },
+      genres,
+      homepageData
+    );
+    expect(summary.text).toBe("i'm hungry");
+    expect(summary.isDefaultFilters).toBe(true);
+  });
+
+  it("is not default when any filter narrows the search", () => {
+    const narrowed = [
+      { genre: [8] },
+      { decade: { min: "1990", max: "2000" } },
+      { runtime: { min: "<75", max: "120" } },
+    ];
+    narrowed.forEach((query) => {
+      expect(
+        describeQuery({ text: "heist", ...query }, genres, homepageData)
+          .isDefaultFilters
+      ).toBe(false);
+    });
   });
 });

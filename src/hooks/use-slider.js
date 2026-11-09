@@ -30,8 +30,8 @@ export default function useSlider(
 ) {
   const [state, dispatch] = useReducer(sliderStateReducer, {
     rangeLabels: stepsArray,
-    minValue: stepsArray.indexOf(defaultMin) || null,
-    maxValue: stepsArray.indexOf(defaultMax) || null,
+    minValue: stepsArray.indexOf(defaultMin),
+    maxValue: stepsArray.indexOf(defaultMax),
     prevMin: null,
     prevMax: null,
     allSelected: false,

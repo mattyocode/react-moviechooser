@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChoiceForm, RangeSlider, Checkboxes } from "../components";
 import { useSlider, useCheckbox, useResultCount } from "../hooks";
 import { motion } from "framer-motion";
@@ -6,11 +6,31 @@ import { motion } from "framer-motion";
 import { sliderDefaults } from "../utils/filters";
 import queryString from "../utils/query-string";
 
-const submitLabel = (count) => {
-  if (count === null) return "Get Movies";
+// Matches the API: text search ranks at most this many, on one page.
+const TEXT_SEARCH_LIMIT = 30;
+const TEXT_SEARCH_MAX_CHARS = 120;
+
+// Queries whose words turn up in plots, so they work on raw text search.
+export const EXAMPLE_QUERIES = [
+  "I'm hungry",
+  "A twisty heist",
+  "Lost in space",
+  "Haunted house",
+];
+
+const submitLabel = (count, hasText) => {
+  if (count === null) return hasText ? "Find movies" : "Get Movies";
   if (count === 0) return "No matches";
+  if (hasText && count >= TEXT_SEARCH_LIMIT) {
+    return `Show top ${TEXT_SEARCH_LIMIT}`;
+  }
   return `Show ${count} ${count === 1 ? "movie" : "movies"}`;
 };
+
+// "Reset" only when the full range replaced a narrower one it can restore;
+// a slider that starts at the full range just reads as "Any …".
+const allButtonLabel = (sliderState, anyLabel) =>
+  sliderState.allSelected && sliderState.prevMin !== null ? "Reset" : anyLabel;
 
 export function ChoiceFormContainer({
   genreList,
@@ -57,7 +77,10 @@ export function ChoiceFormContainer({
     decadeDefaults.max
   );
 
-  const query = {
+  const [text, setText] = useState((initialQuery && initialQuery.text) || "");
+  const hasText = text.trim() !== "";
+
+  const filterQuery = {
     genre: genreIsChecked.reduce((acc, cur, idx) => {
       if (cur === true && genreList[idx]) {
         acc.push(genreList[idx].id);
@@ -73,18 +96,33 @@ export function ChoiceFormContainer({
       max: decadeData.queryArray[decadeState.maxValue],
     },
   };
-  const resultCount = useResultCount(queryString(query));
+  // The live count ignores the text: it's how many movies text search ranks.
+  const resultCount = useResultCount(queryString(filterQuery));
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (resultCount === 0) return;
-    onSubmitHandler(query);
+    onSubmitHandler({ ...filterQuery, text: text.trim() });
+  };
+
+  // Chips search straight away, even with zero matches: the results page's
+  // empty state explains it, where a dead click wouldn't.
+  const exampleClickHandler = (example) => {
+    setText(example);
+    onSubmitHandler({ ...filterQuery, text: example });
   };
 
   return (
     <ChoiceForm id="filters">
       <ChoiceForm.Base onSubmit={formSubmitHandler}>
         <ChoiceForm.Filters>
+          <ChoiceForm.TextSearch
+            value={text}
+            onChange={setText}
+            maxLength={TEXT_SEARCH_MAX_CHARS}
+            examples={EXAMPLE_QUERIES}
+            onExampleClick={exampleClickHandler}
+          />
           <ChoiceForm.Panel>
             <ChoiceForm.Heading>
               <ChoiceForm.AllButton
@@ -116,7 +154,7 @@ export function ChoiceFormContainer({
                 onClick={decadeAllBtnHandler}
                 highlighted={!decadeState.allSelected}
               >
-                {decadeState.allSelected ? "Reset" : "Any decade"}
+                {allButtonLabel(decadeState, "Any decade")}
               </ChoiceForm.AllButton>
               <h2>Released</h2>
             </ChoiceForm.Heading>
@@ -138,7 +176,7 @@ export function ChoiceFormContainer({
                 onClick={runtimeAllBtnHandler}
                 highlighted={!runtimeState.allSelected}
               >
-                {runtimeState.allSelected ? "Reset" : "Any length"}
+                {allButtonLabel(runtimeState, "Any length")}
               </ChoiceForm.AllButton>
               <h2>Runtime</h2>
             </ChoiceForm.Heading>
@@ -156,6 +194,7 @@ export function ChoiceFormContainer({
         <ChoiceForm.SubmitPanel>
           <ChoiceForm.Submit>
             <ChoiceForm.SubmitBtn
+              type="submit"
               data-testid="all-matches-btn"
               as={motion.button}
               whileHover={resultCount === 0 ? undefined : { scale: 1.04 }}
@@ -163,7 +202,7 @@ export function ChoiceFormContainer({
               disabled={resultCount === 0}
               aria-live="polite"
             >
-              {submitLabel(resultCount)}
+              {submitLabel(resultCount, hasText)}
             </ChoiceForm.SubmitBtn>
           </ChoiceForm.Submit>
           {resultCount === 0 && (

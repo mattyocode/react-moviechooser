@@ -25,6 +25,7 @@ export function CardContainer({
   listData = null,
   variant = "full",
   showWatchCta = false,
+  match = null,
 }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
   const [ondemandData, setOndemandData] = useState({});
@@ -169,6 +170,7 @@ export function CardContainer({
             src={movie.poster_url}
             title={movie.title}
             rating={movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
+            match={match}
             plot={movie.plot}
           />
           <PosterCard.Body>
