@@ -14,6 +14,11 @@ const initialMoviesState = {
   current: null,
   currentStatus: "idle",
   currentError: null,
+  // "More like this" for the current movie; similarFor is the slug asked for,
+  // so a late response for a movie the user has left can be dropped.
+  similar: [],
+  similarStatus: "idle",
+  similarFor: null,
 };
 
 export const fetchMovies = createAsyncThunk(
@@ -41,6 +46,14 @@ export const fetchSingleMovie = createAsyncThunk(
   }
 );
 
+export const fetchSimilarMovies = createAsyncThunk(
+  "movies/fetchSimilarMovies",
+  async (slug) => {
+    const response = await client.get(`api/movies/${slug}/similar/`);
+    return response;
+  }
+);
+
 const moviesSlice = createSlice({
   name: "movies",
   initialState: initialMoviesState,
@@ -59,6 +72,10 @@ const moviesSlice = createSlice({
       if (state.current && state.current.slug === movieSlug) {
         state.current.on_list = onList;
       }
+      // Tests can preload a movies state without similar.
+      (state.similar || []).forEach((movie) => {
+        if (movie.slug === movieSlug) movie.on_list = onList;
+      });
     },
   },
   extraReducers: {
@@ -101,6 +118,21 @@ const moviesSlice = createSlice({
     [fetchSingleMovie.rejected]: (state, action) => {
       state.currentStatus = "failed";
       state.currentError = action.error.message;
+    },
+    [fetchSimilarMovies.pending]: (state, action) => {
+      state.similarFor = action.meta.arg;
+      state.similar = [];
+      state.similarStatus = "loading";
+    },
+    [fetchSimilarMovies.fulfilled]: (state, action) => {
+      if (action.meta.arg !== state.similarFor) return;
+      state.similar = action.payload;
+      state.similarStatus = "succeeded";
+    },
+    [fetchSimilarMovies.rejected]: (state, action) => {
+      if (action.meta.arg !== state.similarFor) return;
+      state.similar = [];
+      state.similarStatus = "failed";
     },
   },
 });
