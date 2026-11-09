@@ -12,10 +12,10 @@ const TEXT_SEARCH_MAX_CHARS = 120;
 
 // Queries whose words turn up in plots, so they work on raw text search.
 export const EXAMPLE_QUERIES = [
-  "I'm hungry",
   "A twisty heist",
   "Lost in space",
   "Haunted house",
+  "I'm hungry",
 ];
 
 const submitLabel = (count, hasText) => {
