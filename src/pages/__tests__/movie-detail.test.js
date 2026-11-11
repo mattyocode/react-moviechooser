@@ -62,9 +62,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
     expect(
       await screen.findByTestId(`${testMoviesData[0].title}-ondemand`)
     ).toHaveAttribute("aria-label", "Where to watch");
-    expect(
-      screen.queryByRole("button", { name: /^where to watch$/i, hidden: false })
-    ).toBe(screen.getByTestId(`${testMoviesData[0].title}-ondemand`));
+    // The old button had visible text; the icons only have an aria-label.
+    expect(screen.queryByText(/^where to watch$/i)).toBeNull();
+    expect(screen.queryByTestId("watch-cta")).toBeNull();
     expect(screen.queryByTestId("not-streaming-note")).toBeNull();
   });
 
