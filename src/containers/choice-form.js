@@ -32,6 +32,9 @@ const submitLabel = (count, hasText) => {
 const allButtonLabel = (sliderState, anyLabel) =>
   sliderState.allSelected && sliderState.prevMin !== null ? "Reset" : anyLabel;
 
+const isNarrowed = (options, { min, max }) =>
+  min !== options[0] || max !== options[options.length - 1];
+
 export function ChoiceFormContainer({
   genreList,
   runtimeData,
@@ -76,6 +79,12 @@ export function ChoiceFormContainer({
     decadeDefaults.min,
     decadeDefaults.max
   );
+
+  // Open the fold when arriving with filters already set, so they aren't hidden.
+  const filtersStartNarrowed =
+    ((initialQuery && initialQuery.genre) || []).length > 0 ||
+    isNarrowed(runtimeData.optionsArray, runtimeDefaults) ||
+    isNarrowed(decadeData.optionsArray, decadeDefaults);
 
   const [text, setText] = useState((initialQuery && initialQuery.text) || "");
   const hasText = text.trim() !== "";
@@ -123,73 +132,75 @@ export function ChoiceFormContainer({
             examples={EXAMPLE_QUERIES}
             onExampleClick={exampleClickHandler}
           />
-          <ChoiceForm.Panel>
-            <ChoiceForm.Heading>
-              <ChoiceForm.AllButton
-                data-testid="genre-all-btn"
-                onClick={genreAllBtnHandler}
-                highlighted={genreAllBtnHighlighted}
-              >
-                {genreAllBtnHighlighted ? "Select all" : "Clear"}
-              </ChoiceForm.AllButton>
-              <h2>Genre</h2>
-              {!genreIsChecked.includes(true) && (
-                <ChoiceForm.Hint data-testid="genre-hint">
-                  No genre selected means any genre
-                </ChoiceForm.Hint>
-              )}
-            </ChoiceForm.Heading>
-            <Checkboxes
-              section="genre"
-              valuesList={genreList}
-              isChecked={genreIsChecked}
-              changeHandler={genreCheckboxChangeHandler}
-            />
-          </ChoiceForm.Panel>
+          <ChoiceForm.MoreFilters defaultOpen={filtersStartNarrowed}>
+            <ChoiceForm.Panel>
+              <ChoiceForm.Heading>
+                <ChoiceForm.AllButton
+                  data-testid="genre-all-btn"
+                  onClick={genreAllBtnHandler}
+                  highlighted={genreAllBtnHighlighted}
+                >
+                  {genreAllBtnHighlighted ? "Select all" : "Clear"}
+                </ChoiceForm.AllButton>
+                <h2>Genre</h2>
+                {!genreIsChecked.includes(true) && (
+                  <ChoiceForm.Hint data-testid="genre-hint">
+                    No genre selected means any genre
+                  </ChoiceForm.Hint>
+                )}
+              </ChoiceForm.Heading>
+              <Checkboxes
+                section="genre"
+                valuesList={genreList}
+                isChecked={genreIsChecked}
+                changeHandler={genreCheckboxChangeHandler}
+              />
+            </ChoiceForm.Panel>
 
-          <ChoiceForm.Panel>
-            <ChoiceForm.Heading>
-              <ChoiceForm.AllButton
-                data-testid="decade-all-btn"
-                onClick={decadeAllBtnHandler}
-                highlighted={!decadeState.allSelected}
-              >
-                {allButtonLabel(decadeState, "Any decade")}
-              </ChoiceForm.AllButton>
-              <h2>Released</h2>
-            </ChoiceForm.Heading>
-            <RangeSlider
-              minValue={decadeState.minValue}
-              maxValue={decadeState.maxValue}
-              updateMin={decadeSetMin}
-              updateMax={decadeSetMax}
-              stepValues={decadeState.rangeLabels}
-              labelValues={decadeData.optionsArrayFull}
-              dataTestId="decade"
-            />
-          </ChoiceForm.Panel>
+            <ChoiceForm.Panel>
+              <ChoiceForm.Heading>
+                <ChoiceForm.AllButton
+                  data-testid="decade-all-btn"
+                  onClick={decadeAllBtnHandler}
+                  highlighted={!decadeState.allSelected}
+                >
+                  {allButtonLabel(decadeState, "Any decade")}
+                </ChoiceForm.AllButton>
+                <h2>Released</h2>
+              </ChoiceForm.Heading>
+              <RangeSlider
+                minValue={decadeState.minValue}
+                maxValue={decadeState.maxValue}
+                updateMin={decadeSetMin}
+                updateMax={decadeSetMax}
+                stepValues={decadeState.rangeLabels}
+                labelValues={decadeData.optionsArrayFull}
+                dataTestId="decade"
+              />
+            </ChoiceForm.Panel>
 
-          <ChoiceForm.Panel>
-            <ChoiceForm.Heading>
-              <ChoiceForm.AllButton
-                data-testid="runtime-all-btn"
-                onClick={runtimeAllBtnHandler}
-                highlighted={!runtimeState.allSelected}
-              >
-                {allButtonLabel(runtimeState, "Any length")}
-              </ChoiceForm.AllButton>
-              <h2>Runtime</h2>
-            </ChoiceForm.Heading>
-            <RangeSlider
-              minValue={runtimeState.minValue}
-              maxValue={runtimeState.maxValue}
-              updateMin={runtimeSetMin}
-              updateMax={runtimeSetMax}
-              stepValues={runtimeState.rangeLabels}
-              labelValues={runtimeData.optionsArrayFull}
-              dataTestId="runtime"
-            />
-          </ChoiceForm.Panel>
+            <ChoiceForm.Panel>
+              <ChoiceForm.Heading>
+                <ChoiceForm.AllButton
+                  data-testid="runtime-all-btn"
+                  onClick={runtimeAllBtnHandler}
+                  highlighted={!runtimeState.allSelected}
+                >
+                  {allButtonLabel(runtimeState, "Any length")}
+                </ChoiceForm.AllButton>
+                <h2>Runtime</h2>
+              </ChoiceForm.Heading>
+              <RangeSlider
+                minValue={runtimeState.minValue}
+                maxValue={runtimeState.maxValue}
+                updateMin={runtimeSetMin}
+                updateMax={runtimeSetMax}
+                stepValues={runtimeState.rangeLabels}
+                labelValues={runtimeData.optionsArrayFull}
+                dataTestId="runtime"
+              />
+            </ChoiceForm.Panel>
+          </ChoiceForm.MoreFilters>
         </ChoiceForm.Filters>
         <ChoiceForm.SubmitPanel>
           <ChoiceForm.Submit>

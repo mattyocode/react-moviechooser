@@ -133,8 +133,8 @@ ChoiceForm.TextSearch = function ChoiceFormTextSearch({
         ))}
       </Chips>
       <Hint data-testid="text-search-hint">
-        Tap one to search now, or narrow it with genre, decade and runtime
-        below.
+        Tap one to search now, or narrow it by genre, decade and runtime under
+        More filters.
       </Hint>
     </Panel>
   );
