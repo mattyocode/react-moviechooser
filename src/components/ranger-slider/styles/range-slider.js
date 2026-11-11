@@ -128,7 +128,7 @@ export const SliderValWrapper = styled.div`
 `;
 
 export const SliderVal = styled.output`
-  font-size: 1rem;
+  font-size: var(--fs-base);
   font-weight: 600;
   position: relative;
   display: inline-block;
@@ -139,7 +139,7 @@ export const SliderVal = styled.output`
   border-radius: var(--radius-pill);
 
   @media screen and (max-width: 800px) {
-    font-size: 1rem;
+    font-size: var(--fs-base);
   }
 `;
 
@@ -160,7 +160,7 @@ export const SliderValSplit = styled.div`
 
 const Bubble = styled.output`
   position: absolute;
-  background: #222;
+  background: var(--clr-surface-solid);
   color: var(--clr-neon);
   padding: 4px 10px;
   border-radius: 5px;
@@ -171,7 +171,7 @@ const Bubble = styled.output`
     position: absolute;
     width: 2px;
     height: 2px;
-    background: #222;
+    background: var(--clr-surface-solid);
   }
 `;
 
@@ -199,16 +199,42 @@ export const RangeLabel = styled.div`
   &::after {
     position: absolute;
     top: 25px;
-    font-size: ${(props) => (props.highlight ? "15px" : "14px")};
+    font-size: ${(props) => (props.highlight ? "var(--fs-sm)" : "var(--fs-sm)")};
     content: "${(props) => (props.labelText ? props.labelText : "")}";
     color: ${(props) =>
       props.highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
     transform: translateX(-35%);
     transition: font-size 0.3s;
     transition: color 0.3s;
+  }
+
+  /* The end labels grow outwards, so the widest ("Pre-60s") can't run into
+     its neighbour at phone width. */
+  &:first-child::after {
+    transform: translateX(calc(-100% + 0.5rem));
+  }
+
+  &:last-child::after {
+    transform: translateX(-0.25rem);
+  }
+
+  /* Too narrow for every step's label: show just the selected ends (the
+     pills above spell out the range), anchored inwards from the track ends. */
+  @media screen and (max-width: 400px) {
+    &::after {
+      visibility: ${(props) => (props.highlight ? "visible" : "hidden")};
+    }
+
+    &:first-child::after {
+      transform: translateX(-0.25rem);
+    }
+
+    &:last-child::after {
+      transform: translateX(calc(-100% + 0.5rem));
+    }
 
     @media screen and (max-width: 400px) {
-      font-size: ${(props) => (props.highlight ? "12px" : "11px")};
+      font-size: ${(props) => (props.highlight ? "var(--fs-2xs)" : "var(--fs-2xs)")};
     }
   }
 `;

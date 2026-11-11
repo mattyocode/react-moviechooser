@@ -51,7 +51,7 @@ export const SubmitPanel = styled.div`
     margin: var(--space-4) calc(-1 * var(--space-4)) 0;
     padding: var(--space-3) var(--space-4);
     border-top: 1px solid var(--clr-border);
-    background: hsl(200 35% 6% / 0.8);
+    background: var(--clr-scrim);
     backdrop-filter: var(--blur-panel);
     -webkit-backdrop-filter: var(--blur-panel);
   }
@@ -62,7 +62,7 @@ export const Error = styled(Panel)`
   background: var(--clr-surface);
 
   & p {
-    color: red;
+    color: var(--clr-danger);
   }
 `;
 
@@ -75,15 +75,19 @@ export const Title = styled.h2``;
 
 export const Hint = styled.p`
   color: var(--clr-text-dim);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   margin-top: var(--space-1);
 `;
 
 export const TextLabel = styled.label`
   display: block;
   margin-bottom: var(--space-3);
-  font: 700 1.5rem var(--font-display);
+  font: 700 var(--fs-xl) / var(--lh-snug) var(--font-display);
   letter-spacing: 0.02em;
+
+  @media screen and (max-width: 480px) {
+    font-size: var(--fs-lg);
+  }
 `;
 
 export const TextInput = styled.input`
@@ -91,9 +95,9 @@ export const TextInput = styled.input`
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-pill);
-  background-color: hsl(0 0% 100% / 0.04);
+  background-color: var(--clr-field);
   color: inherit;
-  font: 400 1rem var(--font-body);
+  font: 400 var(--fs-base) var(--font-body);
 
   &::placeholder {
     color: var(--clr-text-dim);
@@ -120,7 +124,7 @@ export const Chip = styled.button`
   border-radius: var(--radius-pill);
   background-color: transparent;
   color: var(--clr-neon);
-  font: 500 0.85rem var(--font-body);
+  font: 500 var(--fs-sm) var(--font-body);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background-color 0.2s, border-color 0.2s;
@@ -143,7 +147,7 @@ export const AllButton = styled.button`
   background-color: transparent;
   color: ${(props) =>
     props.highlighted ? "var(--clr-neon)" : "var(--clr-text-muted)"};
-  font: 500 0.8rem var(--font-body);
+  font: 500 var(--fs-xs) var(--font-body);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -155,7 +159,7 @@ export const AllButton = styled.button`
   }
 
   @media screen and (max-width: 800px) {
-    font-size: 0.75rem;
+    font-size: var(--fs-2xs);
   }
 `;
 
@@ -173,16 +177,16 @@ export const SubmitBtn = styled.button`
   border-radius: var(--radius-pill);
   border-style: hidden;
   background-image: var(--gradient-cta);
-  box-shadow: 0 0 1.5rem hsl(170 60% 55% / 0.35);
+  box-shadow: var(--glow-cta);
   cursor: pointer;
   color: var(--clr-on-neon);
-  font: 700 1.25rem var(--font-display);
+  font: 700 var(--fs-lg) var(--font-display);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 
   &:disabled {
     background-image: none;
-    background-color: hsl(0 0% 100% / 0.08);
+    background-color: var(--clr-disabled);
     box-shadow: none;
     color: var(--clr-text-dim);
     cursor: not-allowed;

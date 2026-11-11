@@ -5,7 +5,7 @@ export const Details = styled.details`
   margin: var(--space-4) auto 0;
   padding: 0 var(--space-4);
   color: var(--clr-text-dim);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   text-align: center;
 
   & summary {

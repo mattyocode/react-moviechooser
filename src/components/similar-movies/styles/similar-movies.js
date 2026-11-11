@@ -7,7 +7,7 @@ export const Section = styled.section`
 
 export const Title = styled.h2`
   padding: 0 var(--space-4);
-  font: 700 1.5rem var(--font-display);
+  font: 700 var(--fs-xl) var(--font-display);
   letter-spacing: 0.02em;
   text-align: center;
 `;
