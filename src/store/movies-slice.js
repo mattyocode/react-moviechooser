@@ -49,8 +49,13 @@ export const fetchSingleMovie = createAsyncThunk(
 export const fetchSimilarMovies = createAsyncThunk(
   "movies/fetchSimilarMovies",
   async (slug) => {
-    const response = await client.get(`api/movies/${slug}/similar/`);
-    return response;
+    try {
+      return await client.get(`api/movies/${slug}/similar/`);
+    } catch (error) {
+      // The row just hides on failure, so this log is the only trace of it.
+      console.error(`Couldn't load similar movies for ${slug}:`, error);
+      throw error;
+    }
   }
 );
 

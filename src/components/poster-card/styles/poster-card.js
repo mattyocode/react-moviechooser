@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Grid = styled.div`
@@ -178,4 +178,43 @@ export const Action = styled.button`
       color: var(--clr-neon);
     }
   }
+`;
+
+const shimmer = keyframes`
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+`;
+
+// Placeholder blocks for a card that's still loading: a poster box and text
+// bars, with a slow sweep that stops for users who prefer reduced motion.
+export const SkeletonBlock = styled.div`
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+      90deg,
+      var(--clr-surface-raised) 25%,
+      var(--clr-hover) 50%,
+      var(--clr-surface-raised) 75%
+    )
+    0 0 / 200% 100%;
+  animation: ${shimmer} 1.4s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`;
+
+export const SkeletonPoster = styled(SkeletonBlock)`
+  aspect-ratio: 2 / 3;
+  border-radius: 0;
+`;
+
+export const SkeletonLine = styled(SkeletonBlock)`
+  width: ${(props) => props.width || "100%"};
+  height: 0.8rem;
+  margin-top: var(--space-2);
 `;

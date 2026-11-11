@@ -16,6 +16,9 @@ import {
 import { CardContainer } from "../containers/card";
 import { fetchSimilarMovies, fetchSingleMovie } from "../store/movies-slice";
 
+// The /similar/ endpoint's default limit, so the row doesn't jump on load.
+const SIMILAR_SKELETONS = 6;
+
 const containerVariants = {
   hidden: {
     opacity: 0,
@@ -121,7 +124,14 @@ export default function MovieDetail() {
         </Card.MoreBtnWrapper>
       )}
       {similarForThis && similarStatus === "loading" && (
-        <Loading small data-testid="similar-loading" />
+        <SimilarMovies data-testid="similar-loading" aria-busy="true">
+          <SimilarMovies.Title>More like this</SimilarMovies.Title>
+          <PosterCard.Grid>
+            {Array.from({ length: SIMILAR_SKELETONS }, (_, idx) => (
+              <PosterCard.Skeleton key={idx} />
+            ))}
+          </PosterCard.Grid>
+        </SimilarMovies>
       )}
       {similarForThis && similarStatus === "succeeded" && similar.length > 0 && (
         <SimilarMovies>

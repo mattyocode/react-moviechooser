@@ -231,7 +231,8 @@ describe("<MovieDetail/> more like this", () => {
     expect(screen.queryByText("More like this")).toBeNull();
   });
 
-  it("hides the row, with no error, when the request fails", async () => {
+  it("hides the row and logs it when the request fails", async () => {
+    const logError = vi.spyOn(console, "error").mockImplementation(() => {});
     server.use(
       rest.get(similarUrl, (req, res, ctx) =>
         res(ctx.status(500), ctx.json({ detail: "Server error" }))
@@ -245,9 +246,14 @@ describe("<MovieDetail/> more like this", () => {
     );
     expect(screen.queryByTestId("similar-movies")).toBeNull();
     expect(screen.queryByText(/error/i)).toBeNull();
+    expect(logError).toHaveBeenCalledWith(
+      `Couldn't load similar movies for ${testMoviesData[3].slug}:`,
+      "Server error"
+    );
+    logError.mockRestore();
   });
 
-  it("shows a loader while the row loads", async () => {
+  it("shows skeleton posters while the row loads, then the real cards", async () => {
     server.use(
       rest.get(similarUrl, (req, res, ctx) =>
         res(ctx.delay(200), ctx.json(testSimilarData))
@@ -255,9 +261,22 @@ describe("<MovieDetail/> more like this", () => {
     );
     renderPage("/movies/123");
 
-    expect(await screen.findByTestId("similar-loading")).toBeInTheDocument();
-    expect(await row()).toBeInTheDocument();
+    const loading = await screen.findByTestId("similar-loading");
+    expect(loading).toHaveAttribute("aria-busy", "true");
+    expect(
+      within(loading).getByRole("heading", { name: "More like this" })
+    ).toBeInTheDocument();
+    const skeletons = within(loading).getAllByTestId("poster-skeleton");
+    expect(skeletons).toHaveLength(6);
+    skeletons.forEach((skeleton) =>
+      expect(skeleton).toHaveAttribute("aria-hidden", "true")
+    );
+
+    expect(rowTitles(await row())).toEqual(
+      testSimilarData.map((m) => m.title)
+    );
     expect(screen.queryByTestId("similar-loading")).toBeNull();
+    expect(screen.queryAllByTestId("poster-skeleton")).toHaveLength(0);
   });
 
   it("opening a similar movie shows it and its own row", async () => {
