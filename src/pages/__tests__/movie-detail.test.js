@@ -57,11 +57,39 @@ describe("<MovieDetail/> Surprise page tests", () => {
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
   });
 
-  it("offers a labelled where-to-watch button and a poster backdrop", async () => {
-    expect(await screen.findByTestId("watch-cta")).toHaveTextContent(
-      /where to watch/i
+  it("shows a poster backdrop, with where to watch on the card's TV icon only", async () => {
+    expect(await screen.findByTestId("backdrop")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId(`${testMoviesData[0].title}-ondemand`)
+    ).toHaveAttribute("aria-label", "Where to watch");
+    expect(
+      screen.queryByRole("button", { name: /^where to watch$/i, hidden: false })
+    ).toBe(screen.getByTestId(`${testMoviesData[0].title}-ondemand`));
+    expect(screen.queryByTestId("not-streaming-note")).toBeNull();
+  });
+
+  it("says when a movie isn't streaming, since there's no TV icon", async () => {
+    cleanup();
+    server.use(
+      rest.get(`${apiUrl}`, (req, res, ctx) =>
+        res(ctx.json({ ...testMoviesData[0], ondemand: [] }))
+      )
     );
-    expect(screen.getByTestId("backdrop")).toBeInTheDocument();
+    reduxTestRender(
+      <MemoryRouter initialEntries={["/movies/surprise"]}>
+        <Route path="/movies/:movieId">
+          <MovieDetail />
+        </Route>
+      </MemoryRouter>,
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+    );
+
+    expect(await screen.findByTestId("not-streaming-note")).toHaveTextContent(
+      "Not streaming in the UK right now"
+    );
+    expect(
+      screen.queryByTestId(`${testMoviesData[0].title}-ondemand`)
+    ).toBeNull();
   });
 
   it("offers to spin again once a movie is shown", async () => {
