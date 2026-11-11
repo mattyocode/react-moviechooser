@@ -39,6 +39,56 @@ export const Panel = styled.section`
   }
 `;
 
+// Genre, decade and runtime fold away under the text search.
+export const MoreFilters = styled.details`
+  border-top: 1px solid var(--clr-border);
+
+  & > summary + ${Panel} {
+    border-top: 1px solid var(--clr-border);
+  }
+`;
+
+export const MoreFiltersToggle = styled.summary`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  list-style: none;
+  color: var(--clr-neon);
+  font: 600 var(--fs-base) var(--font-body);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::after {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform 0.2s;
+  }
+
+  details[open] > &::after {
+    transform: translateY(25%) rotate(-135deg);
+  }
+
+  &:hover {
+    background-color: var(--clr-neon-faint);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--clr-neon);
+    outline-offset: -2px;
+  }
+`;
+
 // On small screens the submit button follows the user down the form.
 export const SubmitPanel = styled.div`
   padding: var(--space-6) 0 var(--space-4);
