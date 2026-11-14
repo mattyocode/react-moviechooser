@@ -9,9 +9,11 @@ import {
   FilterSummary,
   Headline,
   Loading,
+  PosterCard,
+  SimilarMovies,
 } from "../components";
 import { CardContainer } from "../containers/card";
-import { fetchSingleMovie } from "../store/movies-slice";
+import { fetchSimilarMovies, fetchSingleMovie } from "../store/movies-slice";
 
 const containerVariants = {
   hidden: {
@@ -32,6 +34,9 @@ export default function MovieDetail() {
   const moviesStatus = useSelector((state) => state.movies.currentStatus);
   const moviesError = useSelector((state) => state.movies.currentError);
   const hasResults = useSelector((state) => state.movies.movies.length > 0);
+  const similar = useSelector((state) => state.movies.similar);
+  const similarStatus = useSelector((state) => state.movies.similarStatus);
+  const similarFor = useSelector((state) => state.movies.similarFor);
 
   const location = useLocation();
   const history = useHistory();
@@ -57,6 +62,17 @@ export default function MovieDetail() {
       dispatch(fetchSingleMovie(route));
     }
   }, [dispatch, route, location, locationRef]);
+
+  // Keyed on the loaded movie's slug, so the random page and "Spin again"
+  // get their own row too.
+  const loadedSlug = moviesStatus === "succeeded" && movie ? movie.slug : null;
+  useEffect(() => {
+    if (loadedSlug) {
+      dispatch(fetchSimilarMovies(loadedSlug));
+    }
+  }, [dispatch, loadedSlug]);
+  // Only this movie's row: never one left over from the previous movie.
+  const similarForThis = loadedSlug !== null && similarFor === loadedSlug;
 
   return (
     <motion.div
@@ -102,6 +118,23 @@ export default function MovieDetail() {
             Spin again
           </Card.MoreBtn>
         </Card.MoreBtnWrapper>
+      )}
+      {similarForThis && similarStatus === "loading" && (
+        <Loading small data-testid="similar-loading" />
+      )}
+      {similarForThis && similarStatus === "succeeded" && similar.length > 0 && (
+        <SimilarMovies>
+          <SimilarMovies.Title>More like this</SimilarMovies.Title>
+          <PosterCard.Grid>
+            {similar.map((similarMovie) => (
+              <CardContainer
+                key={similarMovie.slug}
+                movie={similarMovie}
+                variant="poster"
+              />
+            ))}
+          </PosterCard.Grid>
+        </SimilarMovies>
       )}
       {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
     </motion.div>

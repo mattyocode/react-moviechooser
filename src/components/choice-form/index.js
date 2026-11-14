@@ -10,6 +10,10 @@ import {
   Hint,
   Heading,
   AllButton,
+  TextLabel,
+  TextInput,
+  Chips,
+  Chip,
   SubmitWrapper,
   SubmitBtn,
 } from "./styles/choice-form";
@@ -57,7 +61,59 @@ ChoiceForm.AllButton = function ChoiceFormAllButton({
   children,
   ...restProps
 }) {
-  return <AllButton {...restProps}>{children}</AllButton>;
+  // type="button": an untyped button is a submit button, and as the form's
+  // first one it would take Enter in the text box instead of the search.
+  return (
+    <AllButton type="button" {...restProps}>
+      {children}
+    </AllButton>
+  );
+};
+
+// Free-text search: a box plus example queries that search as soon as they're
+// clicked. The hint tells users the filters below still narrow the search.
+ChoiceForm.TextSearch = function ChoiceFormTextSearch({
+  value,
+  onChange,
+  maxLength,
+  examples,
+  onExampleClick,
+  ...restProps
+}) {
+  return (
+    <Panel {...restProps}>
+      <TextLabel htmlFor="mood-text">
+        Describe what you're in the mood for
+      </TextLabel>
+      <TextInput
+        id="mood-text"
+        data-testid="mood-text"
+        type="search"
+        enterKeyHint="search"
+        autoComplete="off"
+        placeholder="e.g. a twisty heist with a great soundtrack"
+        value={value}
+        maxLength={maxLength}
+        onChange={(event) => onChange(event.target.value.slice(0, maxLength))}
+      />
+      <Chips>
+        {examples.map((example) => (
+          <Chip
+            key={example}
+            type="button"
+            data-testid="example-chip"
+            onClick={() => onExampleClick(example)}
+          >
+            {example}
+          </Chip>
+        ))}
+      </Chips>
+      <Hint data-testid="text-search-hint">
+        Tap one to search now, or narrow it with genre, decade and runtime
+        below.
+      </Hint>
+    </Panel>
+  );
 };
 
 ChoiceForm.Submit = function ChoiceFormSubmit({ children, ...restProps }) {

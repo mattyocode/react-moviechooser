@@ -110,6 +110,20 @@ export const Rating = styled.span`
   font-weight: 600;
 `;
 
+// Text search rank label, opposite the rating.
+export const Match = styled.span`
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--clr-neon);
+  border-radius: var(--radius-pill);
+  background: hsl(200 35% 6% / 0.8);
+  color: var(--clr-neon);
+  font-size: 0.75rem;
+  font-weight: 600;
+`;
+
 export const Body = styled.div`
   display: flex;
   flex: 1;

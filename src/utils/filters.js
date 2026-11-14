@@ -34,9 +34,18 @@ export function describeQuery(query, genres, homepageData) {
     return min === max ? min : `${min} – ${max}`;
   };
 
-  return {
+  const summary = {
     genre: genreNames.length > 0 ? genreNames.join(", ") : "Any genre",
     decade: describeRange(homepageData.decade, query.decade, "Any decade"),
     runtime: describeRange(homepageData.runtime, query.runtime, "Any length"),
+  };
+  return {
+    ...summary,
+    text: (query.text || "").trim(),
+    // Nothing narrows the search: a text search can offer "+ Add filters".
+    isDefaultFilters:
+      summary.genre === "Any genre" &&
+      summary.decade === "Any decade" &&
+      summary.runtime === "Any length",
   };
 }

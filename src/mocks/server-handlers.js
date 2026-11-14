@@ -1,6 +1,8 @@
 import { rest } from "msw";
 import testGenreData from "../mocks/test-data/testGenreData.json";
 import moviesData from "../mocks/test-data/testMoviesData.json";
+import textSearchData from "../mocks/test-data/testTextSearchData.json";
+import similarData from "../mocks/test-data/testSimilarData.json";
 import listData from "../mocks/test-data/testListData.json";
 import listAddItemData from "../mocks/test-data/testListAddData.json";
 
@@ -11,11 +13,18 @@ const handlers = [
     return res(ctx.status(200), ctx.json(testGenreData));
   }),
   rest.get(`${apiUrl}/api/movies/`, async (req, res, ctx) => {
+    // A text search returns the API's real paginated shape, with similarity.
+    if (req.url.searchParams.get("q")) {
+      return res(ctx.status(200), ctx.json(textSearchData));
+    }
     return res(ctx.status(200), ctx.json(moviesData));
   }),
   rest.get(`${apiUrl}/api/movies/count/`, async (req, res, ctx) => {
     const genres = req.url.searchParams.get("g");
     return res(ctx.status(200), ctx.json({ count: genres ? 0 : 12 }));
+  }),
+  rest.get(`${apiUrl}/api/movies/:slug/similar/`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(similarData));
   }),
   rest.get(`${apiUrl}/api/movies/random`, async (req, res, ctx) => {
     const movieData = moviesData[0];

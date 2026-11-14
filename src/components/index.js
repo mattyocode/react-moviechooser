@@ -16,3 +16,4 @@ export { default as ErrorBoundary } from "./error-boundary";
 export { default as PosterCard } from "./poster-card";
 export { default as FilterSummary } from "./filter-summary";
 export { default as Backdrop } from "./backdrop";
+export { default as SimilarMovies } from "./similar-movies";

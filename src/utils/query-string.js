@@ -1,5 +1,5 @@
 export default function queryString(queryParams) {
-  const { genre, runtime, decade } = { ...queryParams };
+  const { text, genre, runtime, decade } = { ...queryParams };
 
   let queryString = [];
 
@@ -21,6 +21,11 @@ export default function queryString(queryParams) {
 
   if (decade) {
     queryString.push(`dmin=${decade.min}&dmax=${decade.max}`);
+  }
+
+  const trimmedText = (text || "").trim();
+  if (trimmedText) {
+    queryString.push(`q=${encodeURIComponent(trimmedText)}`);
   }
 
   queryString = queryString.join("&");
