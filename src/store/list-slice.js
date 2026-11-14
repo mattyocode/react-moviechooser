@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../utils/axios-refresh";
+import relativeUrl from "../utils/relative-url";
 
 const initialListState = {
   list_items: [],
@@ -20,7 +21,7 @@ export const fetchListItems = createAsyncThunk(
 export const addListItems = createAsyncThunk(
   "list/addListItems",
   async (nextPageUrl) => {
-    const response = await client.get(`${nextPageUrl}`, {});
+    const response = await client.get(relativeUrl(nextPageUrl));
     return response;
   }
 );

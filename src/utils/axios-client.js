@@ -33,7 +33,7 @@ export async function client(
     throw new Error(response.data);
   } catch (err) {
     return Promise.reject(
-      err.response.data
+      err.response?.data
         ? String(Object.values(err.response.data)[0])
         : err.message
     );
