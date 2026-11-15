@@ -24,7 +24,9 @@ export function WatchContainer({ movie }) {
     storeCountry(code);
   };
 
-  const failed = Boolean(error) || (data && data.available === false);
+  // SWR keeps the last data when a revalidation fails, so a later error only
+  // counts as a failure when there's nothing loaded to show.
+  const failed = data ? data.available === false : Boolean(error);
   const cta = data && data.link && (
     <WatchOptions.Cta href={data.link}>Where to watch in {name}</WatchOptions.Cta>
   );

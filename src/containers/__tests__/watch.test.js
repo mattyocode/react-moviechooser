@@ -148,6 +148,33 @@ describe("<WatchContainer/>", () => {
     expect(screen.queryByRole("alert")).toBeNull();
   });
 
+  it("keeps showing loaded services if a later refresh fails", async () => {
+    let status = 200;
+    const seen = countWatchRequests(() => [
+      status,
+      status === 200 ? { ...watchData.providers, country: "GB" } : {},
+    ]);
+    // One SWRConfig throughout, so the cache survives closing the panel.
+    const config = { provider: () => new Map(), dedupingInterval: 0 };
+    const panel = (open) => (
+      <SWRConfig value={config}>
+        {open && <WatchContainer movie={movie} />}
+      </SWRConfig>
+    );
+    const { rerender } = render(panel(true));
+    await screen.findByText("Netflix");
+    rerender(panel(false));
+
+    // Reopening shows the stored data and refreshes it in the background.
+    status = 500;
+    rerender(panel(true));
+    expect(screen.getByText("Netflix")).toBeInTheDocument();
+    await waitFor(() => expect(seen).toHaveLength(2));
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(screen.getByText("Netflix")).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).toBeNull();
+  });
+
   it("starts from the browser's country", async () => {
     vi.spyOn(window.navigator, "language", "get").mockReturnValue("en-US");
     const seen = countWatchRequests();
