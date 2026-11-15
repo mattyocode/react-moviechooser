@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SWRConfig } from "swr";
 
+import { rest, server } from "../../mocks/server";
 import { countWatchRequests } from "../../mocks/watch-requests";
 import watchData from "../../mocks/test-data/testWatchData.json";
 import { COUNTRY_STORAGE_KEY } from "../../utils/watch-country";
@@ -146,6 +147,37 @@ describe("<WatchContainer/>", () => {
     userEvent.click(await screen.findByRole("button", { name: "Try again" }));
     expect(await screen.findByText("Netflix")).toBeInTheDocument();
     expect(screen.queryByRole("alert")).toBeNull();
+  });
+
+  it("shows the loading state while a retry is in flight", async () => {
+    let calls = 0;
+    let release;
+    const gate = new Promise((resolve) => {
+      release = resolve;
+    });
+    // The retry's response waits for release(), so the test can look at the
+    // panel while it's in flight.
+    const url = `${import.meta.env.VITE_API}/api/movies/:slug/watch/`;
+    server.use(
+      rest.get(url, async (req, res, ctx) => {
+        calls += 1;
+        if (calls === 1) {
+          return res(ctx.status(500), ctx.json({ detail: "boom" }));
+        }
+        await gate;
+        return res(ctx.json({ ...watchData.providers, country: "GB" }));
+      })
+    );
+    renderPanel();
+
+    userEvent.click(await screen.findByRole("button", { name: "Try again" }));
+    expect(await screen.findByTestId("loading-spinner")).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.queryByRole("button", { name: "Try again" })).toBeNull();
+
+    release();
+    expect(await screen.findByText("Netflix")).toBeInTheDocument();
+    expect(screen.queryByTestId("loading-spinner")).toBeNull();
   });
 
   it("keeps showing loaded services if a later refresh fails", async () => {

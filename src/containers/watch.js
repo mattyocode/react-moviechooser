@@ -13,7 +13,7 @@ import {
 // watch request happens on open, never while rendering a list of movies.
 export function WatchContainer({ movie }) {
   const [country, setCountry] = useState(initialCountry);
-  const { data, error, mutate } = useWatch(movie.slug, country);
+  const { data, error, isValidating, mutate } = useWatch(movie.slug, country);
   const { data: regions } = useRegions();
 
   const name = countryName(country);
@@ -32,7 +32,7 @@ export function WatchContainer({ movie }) {
   );
 
   let body;
-  if (failed) {
+  if (failed && !isValidating) {
     body = (
       <>
         <WatchOptions.Message role="alert">
@@ -42,7 +42,9 @@ export function WatchContainer({ movie }) {
         {cta}
       </>
     );
-  } else if (!data) {
+  } else if (!data || failed) {
+    // Still loading, or retrying after a failure: SWR keeps the error until a
+    // request succeeds, so it would otherwise stay up while the retry runs.
     body = <Loading small aria-label="Loading where to watch" />;
   } else if (data.providers.length === 0) {
     body = (
