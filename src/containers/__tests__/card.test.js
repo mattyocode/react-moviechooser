@@ -11,6 +11,9 @@ import * as reactRedux from "react-redux";
 import { CardContainer } from "../../containers/card";
 import store from "../../store/index";
 import testMoviesData from "../../mocks/test-data/testMoviesData.json";
+import { countWatchRequests } from "../../mocks/watch-requests";
+import { SWRConfig } from "swr";
+import { MemoryRouter } from "react-router-dom";
 
 const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
 
@@ -27,38 +30,24 @@ describe("<CardContainer/> tests", () => {
     expect(screen.getByText(/parasite/i)).toBeTruthy();
   });
 
-  it("launches ondemand modal on click", () => {
-    const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
+  it("opens the where-to-watch panel on click", async () => {
+    expect(screen.queryByText(/streaming data from/i)).toBeFalsy();
 
-    singleMovie.ondemand.forEach((o) =>
-      expect(screen.queryByText(o.service)).toBeFalsy()
-    );
+    fireEvent.click(screen.getByTestId(/parasite-watch/i));
 
-    fireEvent.click(ondemandBtn);
-
-    singleMovie.ondemand.forEach((o) =>
-      expect(screen.getByText(o.service)).toBeTruthy()
-    );
+    expect(await screen.findByText(/streaming data from/i)).toBeTruthy();
+    expect(screen.getByText("Netflix")).toBeTruthy();
   });
 
-  it("closes ondemand modal on click", async () => {
-    const ondemandBtn = screen.getByTestId(/parasite-ondemand/i);
-    fireEvent.click(ondemandBtn);
+  it("closes the where-to-watch panel on click", async () => {
+    fireEvent.click(screen.getByTestId(/parasite-watch/i));
+    await screen.findByText(/streaming data from/i);
 
-    await waitFor(() => {
-      singleMovie.ondemand.forEach((o) =>
-        expect(screen.getByText(o.service)).toBeTruthy()
-      );
-    });
+    fireEvent.click(screen.getByTestId("modal-backdrop"));
 
-    const backdrop = screen.getByTestId("modal-backdrop");
-    fireEvent.click(backdrop);
-
-    await waitFor(() => {
-      singleMovie.ondemand.forEach((o) =>
-        expect(screen.queryByText(o.service)).toBeFalsy()
-      );
-    });
+    await waitFor(() =>
+      expect(screen.queryByText(/streaming data from/i)).toBeFalsy()
+    );
   });
 
   it("launches share modal on click", async () => {
@@ -99,4 +88,52 @@ describe("<CardContainer/> tests", () => {
       );
     });
   });
+});
+
+describe("<CardContainer/> watch button", () => {
+  const mapped = testMoviesData.filter((m) => m.has_tmdb);
+
+  function renderCards(movies, variant) {
+    return render(
+      <reactRedux.Provider store={store}>
+        <MemoryRouter>
+          <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
+            {movies.map((m) => (
+              <CardContainer key={m.slug} movie={m} variant={variant} />
+            ))}
+          </SWRConfig>
+        </MemoryRouter>
+      </reactRedux.Provider>
+    );
+  }
+
+  it.each(["full", "poster"])(
+    "shows the button only for mapped movies (%s)",
+    (variant) => {
+      renderCards(
+        [
+          { ...testMoviesData[0], has_tmdb: true },
+          { ...testMoviesData[1], has_tmdb: false },
+        ],
+        variant
+      );
+      expect(screen.getByTestId(`${testMoviesData[0].title}-watch`)).toBeTruthy();
+      expect(screen.queryByTestId(`${testMoviesData[1].title}-watch`)).toBeNull();
+    }
+  );
+
+  it.each(["full", "poster"])(
+    "a page of mapped movies makes no watch requests until one is opened (%s)",
+    async (variant) => {
+      const seen = countWatchRequests();
+      renderCards(mapped, variant);
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      expect(seen).toHaveLength(0);
+
+      fireEvent.click(screen.getByTestId(`${mapped[0].title}-watch`));
+      await screen.findByText(/streaming data from/i);
+      expect(seen).toHaveLength(1);
+      expect(seen[0]).toContain(`/api/movies/${mapped[0].slug}/watch/`);
+    }
+  );
 });

@@ -109,7 +109,7 @@ export default function MovieDetail() {
         <>
           <Backdrop src={movie.poster_url} />
           <Card.Detail>
-            <CardContainer movie={movie} showStreamingNote />
+            <CardContainer movie={movie} />
           </Card.Detail>
         </>
       )}

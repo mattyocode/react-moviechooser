@@ -17,18 +17,16 @@ import {
 } from "../store/list-slice";
 import { setMovieOnList } from "../store/movies-slice";
 import { AuthForm } from "./auth-form";
-import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
+import { WatchContainer } from "./watch";
 
 export function CardContainer({
   movie,
   listData = null,
   variant = "full",
-  showStreamingNote = false,
   match = null,
 }) {
-  const [ondemandOpen, setOndemandOpen] = useState(false);
-  const [ondemandData, setOndemandData] = useState({});
+  const [watchOpen, setWatchOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareData, setShareData] = useState({});
   const [authOpen, setAuthOpen] = useState(false);
@@ -39,14 +37,8 @@ export function CardContainer({
   const is_auth = user && user.account;
   const on_list = movie.on_list || listData;
 
-  const closeOndemandHandler = () => {
-    setOndemandOpen(false);
-    setOndemandData({});
-  };
-  const openOndemandHandler = (data) => {
-    setOndemandData(data);
-    setOndemandOpen(true);
-  };
+  const closeWatchHandler = () => setWatchOpen(false);
+  const openWatch = () => setWatchOpen(true);
 
   const closeShareHandler = () => {
     setShareOpen(false);
@@ -98,13 +90,8 @@ export function CardContainer({
     );
   };
 
-  const hasOndemand = movie && movie.ondemand && movie.ondemand.length > 0;
-  const openOndemand = () =>
-    openOndemandHandler({
-      title: movie.title,
-      imgUrl: movie.ondemandImg,
-      linksData: movie.ondemand,
-    });
+  // The watch panel fetches only when opened, so lists make no TMDB calls.
+  const hasWatch = Boolean(movie && movie.has_tmdb);
   const openShare = () =>
     openShareHandler({
       title: movie.title,
@@ -138,9 +125,15 @@ export function CardContainer({
 
   const modals = (
     <>
-      {ondemandOpen && ondemandData && (
-        <Modal openState={ondemandOpen} closeModal={closeOndemandHandler}>
-          <OndemandContainer data={ondemandData} />
+      {watchOpen && (
+        <Modal openState={watchOpen} closeModal={closeWatchHandler}>
+          <WatchContainer
+            movie={{
+              title: movie.title,
+              slug: movie.slug,
+              poster_url: movie.poster_url,
+            }}
+          />
         </Modal>
       )}
       {shareOpen && shareData && (
@@ -180,11 +173,11 @@ export function CardContainer({
               runtime={movie.runtime}
             />
             <PosterCard.Actions>
-              {hasOndemand && (
+              {hasWatch && (
                 <PosterCard.Action
-                  data-testid={`${movie.title}-ondemand`}
+                  data-testid={`${movie.title}-watch`}
                   label="Where to watch"
-                  onClick={openOndemand}
+                  onClick={openWatch}
                 >
                   <MdOndemandVideo />
                 </PosterCard.Action>
@@ -272,11 +265,11 @@ export function CardContainer({
               <Card.Genres genres={movie.genre} />
             </Card.Main>
             <Card.Footer>
-              {hasOndemand && (
+              {hasWatch && (
                 <Card.Action
-                  data-testid={`${movie.title}-ondemand`}
+                  data-testid={`${movie.title}-watch`}
                   aria-label="Where to watch"
-                  onClick={openOndemand}
+                  onClick={openWatch}
                 >
                   <MdOndemandVideo title="Stream movie" />
                 </Card.Action>
@@ -298,14 +291,6 @@ export function CardContainer({
             </Card.Footer>
           </Card.Content>
         </Card>
-      )}
-      {/* The card's TV icon opens where to watch; without one, say why. */}
-      {movie && showStreamingNote && !hasOndemand && (
-        <Card.MoreBtnWrapper>
-          <Card.Note data-testid="not-streaming-note">
-            Not streaming in the UK right now
-          </Card.Note>
-        </Card.MoreBtnWrapper>
       )}
     </>
   );

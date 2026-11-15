@@ -336,11 +336,6 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-export const Note = styled.p`
-  color: var(--clr-text-muted);
-  text-align: center;
-`;
-
 export const Empty = styled.div`
   max-width: 420px;
   margin: 2rem auto;

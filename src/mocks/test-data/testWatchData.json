@@ -1,0 +1,61 @@
+{
+  "providers": {
+    "country": "GB",
+    "available": true,
+    "link": "https://www.themoviedb.org/movie/496243-parasite/watch?locale=GB",
+    "providers": [
+      {
+        "provider_id": 8,
+        "name": "Netflix",
+        "kind": "stream",
+        "logo": "https://image.tmdb.org/t/p/w92/netflix.jpg"
+      },
+      {
+        "provider_id": 1899,
+        "name": "Some Streamer",
+        "kind": "stream",
+        "logo": "https://image.tmdb.org/t/p/w92/streamer.jpg"
+      },
+      {
+        "provider_id": 2,
+        "name": "Apple TV",
+        "kind": "buy",
+        "logo": "https://image.tmdb.org/t/p/w92/apple.jpg"
+      }
+    ]
+  },
+  "empty": {
+    "country": "MN",
+    "available": true,
+    "link": "https://www.themoviedb.org/movie/496243/watch",
+    "providers": []
+  },
+  "unavailable": {
+    "country": "GB",
+    "available": false,
+    "link": "https://www.themoviedb.org/movie/496243/watch",
+    "providers": []
+  },
+  "regions": [
+    {
+      "code": "DE",
+      "name": "Germany"
+    },
+    {
+      "code": "JP",
+      "name": "Japan"
+    },
+    {
+      "code": "MN",
+      "name": "Mongolia"
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom"
+    },
+    {
+      "code": "US",
+      "name": "United States of America"
+    }
+  ]
+}

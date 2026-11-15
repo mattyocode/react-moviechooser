@@ -50,23 +50,6 @@
         "name": "Adventure"
       }
     ],
-    "ondemand": [
-      {
-        "id": 832,
-        "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/jurassic-park/id596645698"
-      },
-      {
-        "id": 833,
-        "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/Jurassic_Park?gl=GB&hl=en&id=7HnBs__n_cA"
-      },
-      {
-        "id": 834,
-        "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B07XDC35TQ&tag=utellycom00-21"
-      }
-    ],
     "reviews": [
       {
         "id": 869,
@@ -87,14 +70,15 @@
     "avg_rating": 80.33333333333333,
     "on_list": false,
     "similarity": 0.74,
-    "plot_source_url": "https://en.wikipedia.org/wiki/Jurassic_Park?oldid=1000"
+    "plot_source_url": "https://en.wikipedia.org/wiki/Jurassic_Park?oldid=1000",
+    "has_tmdb": true
   },
   {
     "slug": "JLxRvHVI-le-charme-discret-de-la",
     "title": "Le charme discret de la bourgeoisie",
     "released": "1972-10-22",
     "runtime": 102,
-    "writer": "Luis Bu\u00f1uel, Jean-Claude Carri\u00e8re",
+    "writer": "Luis Buñuel, Jean-Claude Carrière",
     "plot": "A surreal, virtually plotless series of dreams centered around six middle-class people and their consistently interrupted attempts to have a meal together.",
     "country": "France, Italy, Spain",
     "poster_url": "https://m.media-amazon.com/images/M/MV5BYzQ5NjJiYWQtYjAzMC00NGU0LWFlMDYtNGFiYjFlMWI1NWM0XkEyXkFqcGdeQXVyODQ0OTczOQ@@._V1_SX300.jpg",
@@ -115,7 +99,7 @@
     "director": [
       {
         "id": 540,
-        "name": "Luis Bu\u00f1uel"
+        "name": "Luis Buñuel"
       }
     ],
     "genre": [
@@ -124,7 +108,6 @@
         "name": "Comedy"
       }
     ],
-    "ondemand": [],
     "reviews": [
       {
         "id": 3112,
@@ -145,7 +128,8 @@
     "avg_rating": 90.0,
     "on_list": false,
     "similarity": 0.71,
-    "plot_source_url": null
+    "plot_source_url": null,
+    "has_tmdb": false
   },
   {
     "slug": "fPcPlCpd-finding-nemo",
@@ -194,33 +178,6 @@
         "name": "Animation"
       }
     ],
-    "ondemand": [
-      {
-        "id": 2348,
-        "service": "iTunes",
-        "url": "https://itunes.apple.com/gb/movie/finding-nemo/id255295077"
-      },
-      {
-        "id": 2349,
-        "service": "Google Play",
-        "url": "https://play.google.com/store/movies/details/Finding_Nemo?gl=GB&hl=en&id=uJi6vsD2-as"
-      },
-      {
-        "id": 2350,
-        "service": "Amazon Prime Video",
-        "url": "https://www.amazon.co.uk/Finding-Nemo-Alison-Janney/dp/B00H36BLVG/ref=sr_1_3?crid=1ZO4SDFKBGYE4&dchild=1&keywords=finding+nemo&qid=1624641061&sprefix=finding+ne%2caps%2c343&sr=8-3&tag=utellycom00-21"
-      },
-      {
-        "id": 2351,
-        "service": "Amazon Instant Video",
-        "url": "https://watch.amazon.co.uk/detail?asin=B07Y3ZVYDN&tag=utellycom00-21"
-      },
-      {
-        "id": 2352,
-        "service": "Disney+",
-        "url": "https://www.disneyplus.com/movies/finding-nemo/5Gpj2XqF7BV2"
-      }
-    ],
     "reviews": [
       {
         "id": 2537,
@@ -241,6 +198,7 @@
     "avg_rating": 90.0,
     "on_list": false,
     "similarity": 0.69,
-    "plot_source_url": "https://en.wikipedia.org/wiki/Finding_Nemo?oldid=1000"
+    "plot_source_url": "https://en.wikipedia.org/wiki/Finding_Nemo?oldid=1000",
+    "has_tmdb": true
   }
 ]

@@ -22,28 +22,7 @@
         { "id": 5, "name": "Drama" },
         { "id": 10, "name": "Comedy" }
       ],
-      "ondemand": [
-        {
-          "id": 1132,
-          "service": "iTunes",
-          "url": "https://itunes.apple.com/gb/movie/parasite/id1498500635"
-        },
-        {
-          "id": 1133,
-          "service": "Google Play",
-          "url": "https://play.google.com/store/movies/details/Parasite?gl=GB&hl=en&id=tDkBK1vV_Co.P"
-        },
-        {
-          "id": 1134,
-          "service": "Amazon Prime Video",
-          "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
-        },
-        {
-          "id": 1135,
-          "service": "Amazon Instant Video",
-          "url": "https://watch.amazon.co.uk/detail?asin=B085S58MXG&tag=utellycom00-21"
-        }
-      ],
+      "has_tmdb": true,
       "reviews": [
         { "id": 1242, "source": "imdb", "score": 86 },
         { "id": 1243, "source": "rotten_toms", "score": 98 },

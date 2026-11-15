@@ -9,6 +9,7 @@ import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 import homepageData from "../fixtures/homepage.json";
 import largeLogo from "../assets/png/logo_large.png";
+import tmdbLogo from "../assets/svg/tmdb.svg";
 
 const containerVariants = {
   hidden: {
@@ -125,13 +126,20 @@ export function Home() {
             <p>
               Or, if you want to let fate decide, click{" "}
               <a href="/movies/surprise/">'Surprise Me'</a> for a totally random
-              movie choice from the collection. Click through to play movie on
-              streaming services, where available (UK-only for now).
+              movie choice from the collection. Then see where it's streaming,
+              for rent or to buy in your country.
             </p>
             <br />
             <p>
               Life's too short for bad movies. <br />
               Chooser better with MOVIECHOOSER.
+            </p>
+            <br />
+            <About.AttributionLogo src={tmdbLogo} alt="TMDB" />
+            <p data-testid="tmdb-attribution">
+              Where-to-watch information comes from TMDB, with streaming data
+              from JustWatch. This product uses the TMDB API but is not
+              endorsed or certified by TMDB.
             </p>
           </About>
           <Footer />

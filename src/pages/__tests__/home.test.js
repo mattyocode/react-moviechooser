@@ -1,5 +1,11 @@
 import React from "react";
-import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 // import * as reactRedux from "react-redux";
 import { reduxTestRender } from "../../mocks/test-utils";
@@ -33,6 +39,15 @@ describe("<Home/> page tests", () => {
       expect(screen.getByText("Pre-1960s")).toBeTruthy();
       expect(screen.getByText("Short")).toBeTruthy();
     });
+  });
+
+  it("credits TMDB in the About section and drops the UK-only note", async () => {
+    const about = await screen.findByTestId("about");
+    expect(screen.getByTestId("tmdb-attribution")).toHaveTextContent(
+      "This product uses the TMDB API but is not endorsed or certified by TMDB."
+    );
+    expect(about).not.toHaveTextContent(/UK-only/i);
+    expect(within(about).getByRole("img", { name: "TMDB" })).toBeInTheDocument();
   });
 
   it("shows error on 404 response to GET request", async () => {
