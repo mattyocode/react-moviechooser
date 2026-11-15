@@ -48,6 +48,15 @@ describe("<WatchContainer/>", () => {
     expect(screen.queryByTestId("loading-spinner")).toBeNull();
   });
 
+  it("shows the poster uncropped, beside the options", async () => {
+    countWatchRequests();
+    const { container } = renderPanel();
+
+    await screen.findByRole("heading", { name: "Stream" });
+    const poster = container.querySelector(`img[src="${movie.poster_url}"]`);
+    expect(poster).toHaveClass("portrait");
+  });
+
   it("uses our icon for known services and TMDB's logo for others", async () => {
     countWatchRequests();
     renderPanel();

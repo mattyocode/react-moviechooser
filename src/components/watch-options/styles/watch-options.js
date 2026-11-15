@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
+  /* Shares a row with the poster, so it must be allowed to shrink. */
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -11,6 +14,7 @@ export const PickerLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
   font-size: var(--fs-sm);
   color: var(--clr-text-muted);
@@ -22,6 +26,7 @@ export const PickerLabel = styled.label`
     border: 1px solid var(--clr-border);
     border-radius: var(--radius-sm);
     padding: var(--space-1) var(--space-2);
+    min-width: 0;
     max-width: 14rem;
   }
 

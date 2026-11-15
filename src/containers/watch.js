@@ -61,7 +61,7 @@ export function WatchContainer({ movie }) {
   }
 
   return (
-    <CardActions>
+    <CardActions landscape={false}>
       <CardActions.Header keyword="Watch" title={movie.title}>
         <MdOndemandVideo />
       </CardActions.Header>
