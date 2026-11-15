@@ -25,18 +25,28 @@ describe("useWatch", () => {
   });
 
   it("requests one movie and country once", async () => {
-    const { rerender } = renderWithFreshCache(
-      <Probe slug="parasite" country="US" />
-    );
+    renderWithFreshCache(<Probe slug="parasite" country="US" />);
     expect(await screen.findByText("loaded US")).toBeInTheDocument();
-    rerender(
-      <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
-        <Probe slug="parasite" country="US" />
-      </SWRConfig>
-    );
-    await screen.findByText("loaded US");
     expect(seen).toHaveLength(1);
     expect(seen[0]).toMatch(/\/api\/movies\/parasite\/watch\/\?country=US$/);
+  });
+
+  it("shows stored data straight away when remounted", async () => {
+    // One SWRConfig throughout, as the app has, while the Probe comes and goes
+    // like the panel does when it's closed and reopened.
+    const config = { provider: () => new Map(), dedupingInterval: 0 };
+    const ui = (open) => (
+      <SWRConfig value={config}>
+        {open && <Probe slug="parasite" country="US" />}
+      </SWRConfig>
+    );
+    const { rerender } = render(ui(true));
+    await screen.findByText("loaded US");
+    rerender(ui(false));
+    expect(screen.queryByText("loaded US")).toBeNull();
+
+    rerender(ui(true));
+    expect(screen.getByText("loaded US")).toBeInTheDocument();
   });
 
   it("requests nothing without a slug", async () => {
