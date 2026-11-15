@@ -180,6 +180,19 @@ describe("<WatchContainer/>", () => {
     expect(screen.queryByTestId("loading-spinner")).toBeNull();
   });
 
+  it("shows the error again when a retry fails the same way", async () => {
+    const seen = countWatchRequests(() => [500, { detail: "boom" }]);
+    renderPanel();
+
+    userEvent.click(await screen.findByRole("button", { name: "Try again" }));
+    await waitFor(() => expect(seen).toHaveLength(2));
+    expect(
+      await screen.findByRole("button", { name: "Try again" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    expect(screen.queryByTestId("loading-spinner")).toBeNull();
+  });
+
   it("keeps showing loaded services if a later refresh fails", async () => {
     let status = 200;
     const seen = countWatchRequests(() => [

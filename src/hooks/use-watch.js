@@ -2,7 +2,14 @@ import useSWR from "swr";
 
 import { client } from "../utils/axios-client";
 
-const fetcher = (url) => client.get(url);
+// client() rejects with a string. SWR 1.x only ends a revalidation's
+// isValidating when the new error differs from the last one, so two failures
+// with the same text would leave the panel loading forever. A fresh Error per
+// failure is never equal to the previous one.
+const fetcher = (url) =>
+  client.get(url).catch((reason) => {
+    throw new Error(String(reason));
+  });
 
 const options = { revalidateOnFocus: false, shouldRetryOnError: false };
 
