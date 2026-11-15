@@ -91,7 +91,8 @@
       ],
       "avg_rating": 93.33333333333333,
       "on_list": false,
-      "similarity": 0.82
+      "similarity": 0.82,
+      "plot_source_url": "https://en.wikipedia.org/wiki/Parasite?oldid=1000"
     },
     {
       "slug": "cY8NxQlj-jurassic-park",
@@ -180,7 +181,8 @@
       ],
       "avg_rating": 80.33333333333333,
       "on_list": false,
-      "similarity": 0.78
+      "similarity": 0.78,
+      "plot_source_url": "https://en.wikipedia.org/wiki/Jurassic_Park?oldid=1000"
     },
     {
       "slug": "JLxRvHVI-le-charme-discret-de-la",
@@ -237,7 +239,8 @@
       ],
       "avg_rating": 90.0,
       "on_list": false,
-      "similarity": 0.7
+      "similarity": 0.7,
+      "plot_source_url": "https://en.wikipedia.org/wiki/Le_charme_discret_de_la_bourgeoisie?oldid=1000"
     },
     {
       "slug": "fPcPlCpd-finding-nemo",
@@ -332,7 +335,8 @@
       ],
       "avg_rating": 90.0,
       "on_list": false,
-      "similarity": 0.67
+      "similarity": 0.67,
+      "plot_source_url": "https://en.wikipedia.org/wiki/Finding_Nemo?oldid=1000"
     },
     {
       "slug": "AkAFhXi3-parasite-4",
@@ -422,7 +426,8 @@
       ],
       "avg_rating": 93.33333333333333,
       "on_list": false,
-      "similarity": 0.6
+      "similarity": 0.6,
+      "plot_source_url": null
     },
     {
       "slug": "cY8NxQlj-jurassic-park-5",
@@ -511,7 +516,8 @@
       ],
       "avg_rating": 80.33333333333333,
       "on_list": false,
-      "similarity": 0.55
+      "similarity": 0.55,
+      "plot_source_url": null
     }
   ]
 }

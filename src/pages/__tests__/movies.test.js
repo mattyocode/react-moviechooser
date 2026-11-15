@@ -421,4 +421,34 @@ describe("<Movies/> text search results", () => {
 
     expect(store.getState().movies.movies).toEqual([]);
   });
+
+  it("credits the shown movies' Wikipedia articles under text results", () => {
+    renderResults({
+      queryParams: textQuery("i'm hungry"),
+      movies: testTextSearchData.results,
+      totalCount: testTextSearchData.count,
+      status: "succeeded",
+      error: null,
+    });
+
+    const attribution = screen.getByTestId("plot-attribution");
+    const linked = testTextSearchData.results.filter((m) => m.plot_source_url);
+    linked.forEach((m) => {
+      expect(
+        within(attribution).getByRole("link", { name: m.title, hidden: true })
+      ).toHaveAttribute("href", m.plot_source_url);
+    });
+  });
+
+  it("shows no attribution on a filter-only search", () => {
+    renderResults({
+      queryParams: testQueryParams,
+      movies: testMoviesData,
+      totalCount: testMoviesData.length,
+      status: "succeeded",
+      error: null,
+    });
+
+    expect(screen.queryByTestId("plot-attribution")).toBeNull();
+  });
 });

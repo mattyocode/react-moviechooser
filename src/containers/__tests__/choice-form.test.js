@@ -27,6 +27,17 @@ describe("<ChoiceFormContainer/>", () => {
     expect(screen.getByTestId("choice-form")).toBeTruthy();
   });
 
+  it("tucks genre, decade and runtime into a closed 'More filters' fold", () => {
+    const fold = screen.getByTestId("more-filters");
+    expect(fold).not.toHaveAttribute("open");
+    expect(screen.getByTestId("more-filters-toggle")).toHaveTextContent(
+      "More filters"
+    );
+    ["genre-all-btn", "decade-all-btn", "runtime-all-btn"].forEach((id) =>
+      expect(fold).toContainElement(screen.getByTestId(id))
+    );
+  });
+
   it("displays genres", () => {
     genreData.forEach((g) => expect(screen.getByText(g.name)).toBeTruthy());
   });
@@ -493,5 +504,34 @@ describe("<ChoiceFormContainer/> text search", () => {
     renderForm({ initialQuery: { text: "lost in space", genre: [] } });
 
     expect(box().value).toBe("lost in space");
+  });
+});
+
+describe("<ChoiceFormContainer/> with a starting query", () => {
+  const renderWith = (initialQuery) =>
+    render(
+      <ChoiceFormContainer
+        genreList={testGenreData}
+        runtimeData={homepageData.runtime}
+        decadeData={homepageData.decade}
+        onSubmitHandler={() => {}}
+        initialQuery={initialQuery}
+      />
+    );
+
+  it("keeps 'More filters' closed when only text was searched", () => {
+    renderWith({ text: "heist", genre: [] });
+    expect(screen.getByTestId("more-filters")).not.toHaveAttribute("open");
+  });
+
+  it("opens 'More filters' when a genre is already chosen", () => {
+    renderWith({ genre: [testGenreData[0].id] });
+    expect(screen.getByTestId("more-filters")).toHaveAttribute("open");
+  });
+
+  it("opens 'More filters' when a range is already narrowed", () => {
+    const { queryArray } = homepageData.runtime;
+    renderWith({ runtime: { min: queryArray[1], max: queryArray[2] } });
+    expect(screen.getByTestId("more-filters")).toHaveAttribute("open");
   });
 });

@@ -25,7 +25,7 @@ export const Chip = styled.li`
   border-radius: var(--radius-pill);
   background: var(--clr-neon-faint);
   color: var(--clr-neon);
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   font-weight: 500;
 `;
 
@@ -35,7 +35,7 @@ export const EditButton = styled.button`
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--clr-text);
-  font: 500 0.9rem var(--font-body);
+  font: 500 var(--fs-sm) var(--font-body);
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
 
