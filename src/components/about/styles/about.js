@@ -16,3 +16,10 @@ export const LogoImg = styled.img`
   height: 8rem;
   padding: 1rem;
 `;
+
+// TMDB asks for its logo to be less prominent than the site's own.
+export const AttributionLogoImg = styled.img`
+  display: block;
+  height: 1rem;
+  margin: 0 auto 0.75rem;
+`;

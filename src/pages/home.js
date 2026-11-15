@@ -9,6 +9,7 @@ import { fetchOptions } from "../store/query-slice";
 import { fetchMovies, setMovieQuery } from "../store/movies-slice";
 import homepageData from "../fixtures/homepage.json";
 import largeLogo from "../assets/png/logo_large.png";
+import tmdbLogo from "../assets/svg/tmdb.svg";
 
 const containerVariants = {
   hidden: {
@@ -134,6 +135,7 @@ export function Home() {
               Chooser better with MOVIECHOOSER.
             </p>
             <br />
+            <About.AttributionLogo src={tmdbLogo} alt="TMDB" />
             <p data-testid="tmdb-attribution">
               Where-to-watch information comes from TMDB, with streaming data
               from JustWatch. This product uses the TMDB API but is not
