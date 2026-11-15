@@ -60,7 +60,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
   it("shows a poster backdrop, with where to watch on the card's TV icon only", async () => {
     expect(await screen.findByTestId("backdrop")).toBeInTheDocument();
     expect(
-      await screen.findByTestId(`${testMoviesData[0].title}-ondemand`)
+      await screen.findByTestId(`${testMoviesData[0].title}-watch`)
     ).toHaveAttribute("aria-label", "Where to watch");
     // The old button had visible text; the icons only have an aria-label.
     expect(screen.queryByText(/^where to watch$/i)).toBeNull();
@@ -68,11 +68,11 @@ describe("<MovieDetail/> Surprise page tests", () => {
     expect(screen.queryByTestId("not-streaming-note")).toBeNull();
   });
 
-  it("says when a movie isn't streaming, since there's no TV icon", async () => {
+  it("has no watch button or streaming note for an unmapped movie", async () => {
     cleanup();
     server.use(
       rest.get(`${apiUrl}`, (req, res, ctx) =>
-        res(ctx.json({ ...testMoviesData[0], ondemand: [] }))
+        res(ctx.json({ ...testMoviesData[0], has_tmdb: false }))
       )
     );
     reduxTestRender(
@@ -84,11 +84,12 @@ describe("<MovieDetail/> Surprise page tests", () => {
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
 
-    expect(await screen.findByTestId("not-streaming-note")).toHaveTextContent(
-      "Not streaming in the UK right now"
-    );
     expect(
-      screen.queryByTestId(`${testMoviesData[0].title}-ondemand`)
+      await screen.findByText(testMoviesData[0].title, { selector: "h1, h2, h3" })
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/not streaming/i)).toBeNull();
+    expect(
+      screen.queryByTestId(`${testMoviesData[0].title}-watch`)
     ).toBeNull();
   });
 

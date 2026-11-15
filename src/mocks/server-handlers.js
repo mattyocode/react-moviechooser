@@ -5,6 +5,7 @@ import textSearchData from "../mocks/test-data/testTextSearchData.json";
 import similarData from "../mocks/test-data/testSimilarData.json";
 import listData from "../mocks/test-data/testListData.json";
 import listAddItemData from "../mocks/test-data/testListAddData.json";
+import watchData from "../mocks/test-data/testWatchData.json";
 
 const apiUrl = `${import.meta.env.VITE_API}`;
 
@@ -22,6 +23,16 @@ const handlers = [
   rest.get(`${apiUrl}/api/movies/count/`, async (req, res, ctx) => {
     const genres = req.url.searchParams.get("g");
     return res(ctx.status(200), ctx.json({ count: genres ? 0 : 12 }));
+  }),
+  rest.get(`${apiUrl}/api/movies/:slug/watch/`, async (req, res, ctx) => {
+    const country = req.url.searchParams.get("country") || "GB";
+    return res(
+      ctx.status(200),
+      ctx.json({ ...watchData.providers, country })
+    );
+  }),
+  rest.get(`${apiUrl}/api/watch/regions/`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(watchData.regions));
   }),
   rest.get(`${apiUrl}/api/movies/:slug/similar/`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(similarData));

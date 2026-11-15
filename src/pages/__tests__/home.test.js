@@ -35,6 +35,14 @@ describe("<Home/> page tests", () => {
     });
   });
 
+  it("credits TMDB in the About section and drops the UK-only note", async () => {
+    const about = await screen.findByTestId("about");
+    expect(screen.getByTestId("tmdb-attribution")).toHaveTextContent(
+      "This product uses the TMDB API but is not endorsed or certified by TMDB."
+    );
+    expect(about).not.toHaveTextContent(/UK-only/i);
+  });
+
   it("shows error on 404 response to GET request", async () => {
     cleanup();
     server.use(

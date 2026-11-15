@@ -46,18 +46,6 @@
             "name": "Drama"
           }
         ],
-        "ondemand": [
-          {
-            "id": 2776,
-            "service": "iTunes",
-            "url": "https://itunes.apple.com/gb/movie/my-left-foot/id635876857"
-          },
-          {
-            "id": 2777,
-            "service": "Amazon Instant Video",
-            "url": "https://watch.amazon.co.uk/detail?asin=B00FAJC914&tag=utellycom00-21"
-          }
-        ],
         "reviews": [
           {
             "id": 3081,
@@ -75,7 +63,8 @@
             "score": 97
           }
         ],
-        "avg_rating": 91.33333333333333
+        "avg_rating": 91.33333333333333,
+        "has_tmdb": true
       },
       "watched": false,
       "added": "2021-12-03T16:12:37.744557Z",
@@ -121,7 +110,6 @@
             "name": "Drama"
           }
         ],
-        "ondemand": [],
         "reviews": [
           {
             "id": 2890,
@@ -139,7 +127,8 @@
             "score": 100
           }
         ],
-        "avg_rating": 92.66666666666667
+        "avg_rating": 92.66666666666667,
+        "has_tmdb": false
       },
       "watched": false,
       "added": "2021-12-03T14:21:17.357469Z",
@@ -197,28 +186,6 @@
             "name": "Romance"
           }
         ],
-        "ondemand": [
-          {
-            "id": 5655,
-            "service": "iTunes",
-            "url": "https://itunes.apple.com/gb/movie/trainwreck/id999061457?ct=app_tv"
-          },
-          {
-            "id": 5656,
-            "service": "Google Play",
-            "url": "https://play.google.com/store/movies/details/Trainwreck?gl=GB&hl=en&id=exzzoha61hQ.P"
-          },
-          {
-            "id": 5657,
-            "service": "Amazon Prime Video",
-            "url": "https://watch.amazon.co.uk/detail?asin=B018WJ69VO&tag=utellycom00-21"
-          },
-          {
-            "id": 5658,
-            "service": "Amazon Instant Video",
-            "url": "https://watch.amazon.co.uk/detail?asin=B018WJ6B3A&tag=utellycom00-21"
-          }
-        ],
         "reviews": [
           {
             "id": 7528,
@@ -236,7 +203,8 @@
             "score": 75
           }
         ],
-        "avg_rating": 73.66666666666667
+        "avg_rating": 73.66666666666667,
+        "has_tmdb": true
       },
       "watched": false,
       "added": "2021-12-02T15:05:58.317722Z",
@@ -310,28 +278,6 @@
             "name": "Musical"
           }
         ],
-        "ondemand": [
-          {
-            "id": 4232,
-            "service": "iTunes",
-            "url": "https://itunes.apple.com/gb/movie/cinderella/id189134612"
-          },
-          {
-            "id": 4233,
-            "service": "Google Play",
-            "url": "https://play.google.com/store/movies/details/Cinderella?gl=GB&hl=en&id=kf-4Y3Yg6S0"
-          },
-          {
-            "id": 4234,
-            "service": "Amazon Instant Video",
-            "url": "https://watch.amazon.co.uk/detail?asin=B00FYNF1N4&tag=utellycom00-21"
-          },
-          {
-            "id": 4235,
-            "service": "Disney+",
-            "url": "https://www.disneyplus.com/movies/cinderella/VJPw3bEy9iHj"
-          }
-        ],
         "reviews": [
           {
             "id": 5022,
@@ -349,7 +295,8 @@
             "score": 85
           }
         ],
-        "avg_rating": 85.0
+        "avg_rating": 85.0,
+        "has_tmdb": true
       },
       "watched": false,
       "added": "2021-12-02T15:04:43.430908Z",
@@ -403,23 +350,6 @@
             "name": "Comedy"
           }
         ],
-        "ondemand": [
-          {
-            "id": 4846,
-            "service": "iTunes",
-            "url": "https://itunes.apple.com/gb/movie/thunder-road/id1456627547?ct=app_tv"
-          },
-          {
-            "id": 4847,
-            "service": "Google Play",
-            "url": "https://play.google.com/store/movies/details/Thunder_Road?gl=GB&hl=en&id=XU4Z0DXuyvE"
-          },
-          {
-            "id": 4848,
-            "service": "Amazon Instant Video",
-            "url": "https://watch.amazon.co.uk/detail?asin=B07VCNLVSP&tag=utellycom00-21"
-          }
-        ],
         "reviews": [
           {
             "id": 6111,
@@ -432,7 +362,8 @@
             "score": 79
           }
         ],
-        "avg_rating": 75.0
+        "avg_rating": 75.0,
+        "has_tmdb": true
       },
       "watched": false,
       "added": "2021-12-02T14:04:28.113421Z",
