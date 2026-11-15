@@ -48,7 +48,7 @@ describe("<WatchContainer/>", () => {
     expect(screen.queryByTestId("loading-spinner")).toBeNull();
   });
 
-  it("shows the poster uncropped, beside the options", async () => {
+  it("shows the poster in portrait, beside the options", async () => {
     countWatchRequests();
     const { container } = renderPanel();
 
