@@ -36,22 +36,12 @@ export const PickerLabel = styled.label`
   }
 `;
 
-export const Group = styled.div`
-  & h3 {
-    font-family: var(--font-display);
-    font-size: var(--fs-md);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--clr-neon);
-    margin-bottom: var(--space-2);
-  }
-
-  & ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-  }
+export const ProviderList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
 `;
 
 export const Provider = styled.li`

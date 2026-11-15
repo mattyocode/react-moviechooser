@@ -4,19 +4,13 @@ import { PROVIDER_ICONS } from "../../assets/provider-icons";
 import {
   Credit,
   Cta,
-  Group,
   Message,
   PickerLabel,
   Provider,
+  ProviderList,
   Retry,
   Wrapper,
 } from "./styles/watch-options";
-
-const GROUPS = [
-  ["stream", "Stream"],
-  ["rent", "Rent"],
-  ["buy", "Buy"],
-];
 
 export default function WatchOptions({ children, ...restProps }) {
   return <Wrapper {...restProps}>{children}</Wrapper>;
@@ -41,28 +35,30 @@ WatchOptions.Picker = function WatchOptionsPicker({
   );
 };
 
-// Stream / Rent / Buy, in API order, leaving out empty groups.
+// One icon per service. The icons aren't links (TMDB gives no per-service
+// URLs), so splitting them by stream/rent/buy added nothing: the watch-page
+// button is where the viewer goes next. The API orders stream, rent, buy,
+// so keeping each service's first entry puts subscriptions first.
 WatchOptions.Providers = function WatchOptionsProviders({ providers }) {
-  return GROUPS.map(([kind, heading]) => {
-    const inGroup = providers.filter((p) => p.kind === kind);
-    if (inGroup.length === 0) return null;
-    return (
-      <Group key={kind}>
-        <h3>{heading}</h3>
-        <ul>
-          {inGroup.map((p) => {
-            const src = PROVIDER_ICONS[p.provider_id] || p.logo;
-            return (
-              <Provider key={`${kind}-${p.provider_id}`}>
-                {src && <img src={src} alt="" />}
-                <span>{p.name}</span>
-              </Provider>
-            );
-          })}
-        </ul>
-      </Group>
-    );
+  const seen = new Set();
+  const unique = providers.filter((p) => {
+    if (seen.has(p.provider_id)) return false;
+    seen.add(p.provider_id);
+    return true;
   });
+  return (
+    <ProviderList>
+      {unique.map((p) => {
+        const src = PROVIDER_ICONS[p.provider_id] || p.logo;
+        return (
+          <Provider key={p.provider_id}>
+            {src && <img src={src} alt="" />}
+            <span>{p.name}</span>
+          </Provider>
+        );
+      })}
+    </ProviderList>
+  );
 };
 
 WatchOptions.Message = function WatchOptionsMessage({ children, ...restProps }) {

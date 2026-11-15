@@ -32,28 +32,56 @@ describe("<WatchContainer/>", () => {
     vi.restoreAllMocks();
   });
 
-  it("shows a loading indicator, then services grouped by kind", async () => {
+  it("shows a loading indicator, then one list of services in API order", async () => {
     countWatchRequests();
     renderPanel();
 
     expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Stream" })).toBeNull();
+    expect(screen.queryByRole("list")).toBeNull();
 
-    const stream = (await screen.findByRole("heading", { name: "Stream" }))
-      .parentElement;
-    expect(within(stream).getByText("Netflix")).toBeInTheDocument();
-    expect(within(stream).getByText("Some Streamer")).toBeInTheDocument();
-    const buy = screen.getByRole("heading", { name: "Buy" }).parentElement;
-    expect(within(buy).getByText("Apple TV")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Rent" })).toBeNull();
+    const list = await screen.findByRole("list");
+    expect(
+      within(list)
+        .getAllByRole("listitem")
+        .map((li) => li.textContent)
+    ).toEqual(["Netflix", "Some Streamer", "Apple TV"]);
+    for (const heading of ["Stream", "Rent", "Buy"]) {
+      expect(screen.queryByRole("heading", { name: heading })).toBeNull();
+    }
     expect(screen.queryByTestId("loading-spinner")).toBeNull();
+  });
+
+  it("shows a service offered in more than one way only once", async () => {
+    server.use(
+      rest.get("*/api/movies/:slug/watch/", (req, res, ctx) =>
+        res(
+          ctx.json({
+            ...watchData.providers,
+            providers: [
+              { provider_id: 8, name: "Netflix", kind: "stream", logo: null },
+              { provider_id: 2, name: "Apple TV", kind: "rent", logo: null },
+              { provider_id: 2, name: "Apple TV", kind: "buy", logo: null },
+              { provider_id: 130, name: "Sky Store", kind: "buy", logo: null },
+            ],
+          })
+        )
+      )
+    );
+    renderPanel();
+
+    const list = await screen.findByRole("list");
+    expect(
+      within(list)
+        .getAllByRole("listitem")
+        .map((li) => li.textContent)
+    ).toEqual(["Netflix", "Apple TV", "Sky Store"]);
   });
 
   it("shows the poster in portrait, beside the options", async () => {
     countWatchRequests();
     const { container } = renderPanel();
 
-    await screen.findByRole("heading", { name: "Stream" });
+    await screen.findByRole("list");
     const poster = container.querySelector(`img[src="${movie.poster_url}"]`);
     expect(poster).toHaveClass("portrait");
   });
