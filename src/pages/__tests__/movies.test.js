@@ -452,3 +452,43 @@ describe("<Movies/> text search results", () => {
     expect(screen.queryByTestId("plot-attribution")).toBeNull();
   });
 });
+
+describe("show more", () => {
+  window.scrollTo = vi.fn();
+
+  it("loads the next page even when the API's next link names another host", async () => {
+    // In dev the proxy makes Django build next as http://localhost:8000/...,
+    // which the browser can't reach; only the path and query should be used.
+    server.use(
+      rest.get(`${import.meta.env.VITE_API}/api/movies/`, (req, res, ctx) =>
+        req.url.searchParams.get("page") === "2"
+          ? res(
+              ctx.json({
+                count: 4,
+                next: null,
+                previous: null,
+                results: testMoviesData.slice(2),
+              })
+            )
+          : res(ctx.status(500))
+      )
+    );
+    reduxTestRender(<Movies />, {
+      preloadedState: {
+        movies: {
+          queryParams: testQueryParams,
+          movies: testMoviesData.slice(0, 2),
+          status: "succeeded",
+          error: null,
+          totalCount: 4,
+          nextPageUrl: "http://localhost:8000/api/movies/?page=2",
+        },
+      },
+    });
+
+    userEvent.click(screen.getByRole("button", { name: /show 2 more/i }));
+
+    expect(await screen.findByText(/finding nemo/i)).toBeInTheDocument();
+    expect(screen.getByText(/that's all 4 matches/i)).toBeInTheDocument();
+  });
+});

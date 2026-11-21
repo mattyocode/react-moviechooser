@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from "../utils/axios-refresh";
 import queryString from "../utils/query-string";
+import apiPath from "../utils/api-path";
 
 const initialMoviesState = {
   queryParams: undefined,
@@ -33,7 +34,7 @@ export const fetchMovies = createAsyncThunk(
 export const addMovies = createAsyncThunk(
   "movies/addMovies",
   async (nextPageUrl) => {
-    const response = await client.get(`${nextPageUrl}`, {});
+    const response = await client.get(apiPath(nextPageUrl), {});
     return response;
   }
 );
