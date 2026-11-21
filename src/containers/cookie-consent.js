@@ -120,6 +120,14 @@ export function CookieConsentContainer({ children }) {
                     official Google Analytics page.
                   </p>
                 </li>
+                <li>
+                  <p data-testid="tmdb-images-notice">
+                    Movie posters and streaming-service logos are loaded from
+                    TMDB&apos;s image server (image.tmdb.org). Like any image
+                    request, this shares your IP address with TMDB. We set no
+                    cookies for it.
+                  </p>
+                </li>
               </ul>
 
               <h3>More Information</h3>

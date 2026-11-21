@@ -24,6 +24,15 @@ describe("<CookieConsentContainer/> tests", () => {
     expect(screen.getByText(/This is the Cookie Policy/i)).toBeInTheDocument();
   });
 
+  it("names TMDB's image server among the third parties", () => {
+    render(<CookieConsentContainer />);
+    fireEvent.click(screen.getByText(/learn more/i));
+
+    expect(screen.getByTestId("tmdb-images-notice")).toHaveTextContent(
+      "image.tmdb.org"
+    );
+  });
+
   it("closes modal <CookieConsentContainer/> modal when backdrop clicked", () => {
     render(<CookieConsentContainer />);
 
