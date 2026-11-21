@@ -58,8 +58,16 @@ Card.AvgRating = function CardAvgRating({ children, ...restProps }) {
   );
 };
 
-Card.Image = function CardImage({ src, ...restProps }) {
-  return <Image src={src} {...restProps} />;
+Card.Image = function CardImage({ path, url, title, ...restProps }) {
+  return (
+    <Image
+      path={path}
+      url={url}
+      title={title}
+      sizes="(min-width: 600px) 300px, 40vw"
+      {...restProps}
+    />
+  );
 };
 
 Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {

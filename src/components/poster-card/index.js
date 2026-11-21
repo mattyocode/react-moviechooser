@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+
+import Poster from "../poster";
 
 import {
   Grid,
   Container,
   PosterLink,
-  Poster,
-  Fallback,
   Rating,
   Match,
   Overlay,
@@ -30,30 +30,24 @@ PosterCard.Grid = function PosterCardGrid({ children, ...restProps }) {
 
 PosterCard.Poster = function PosterCardPoster({
   to,
-  src,
+  path,
+  url,
   title,
   rating,
   match,
   plot,
   ...restProps
 }) {
-  const [failed, setFailed] = useState(!src);
   return (
     <PosterLink to={to} aria-label={`${title} – details`} {...restProps}>
-      {failed ? (
-        <Fallback aria-hidden="true">{title}</Fallback>
-      ) : (
-        <Poster
-          src={src}
-          alt=""
-          loading="lazy"
-          onError={() => setFailed(true)}
-        />
-      )}
+      <Poster
+        path={path}
+        url={url}
+        title={title}
+        sizes="(min-width: 600px) 240px, 45vw"
+      />
       {rating ? <Rating title="Average critic score">{rating}</Rating> : null}
-      {match ? (
-        <Match data-testid="match-label">{match}</Match>
-      ) : null}
+      {match ? <Match data-testid="match-label">{match}</Match> : null}
       {plot ? (
         <Overlay aria-hidden="true">
           <p>{plot}</p>

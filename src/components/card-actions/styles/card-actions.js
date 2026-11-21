@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import Poster from "../../poster";
+
 export const Wrapper = styled.div`
   max-width: 780px;
   margin: 0 auto;
@@ -45,14 +47,18 @@ export const BodyWrapper = styled.div`
   }
 `;
 
-export const Image = styled.img`
+// The shared Poster, sized for the watch and share panels. A margin, not
+// padding, so the placeholder's title keeps its own padding.
+export const Image = styled(Poster)`
   width: 100%;
-  padding: 1rem 0;
+  height: auto;
+  margin: 1rem 0;
   max-height: 20rem;
   object-fit: cover;
 
   &.portrait {
     width: 40%;
+    aspect-ratio: 2 / 3;
   }
 `;
 

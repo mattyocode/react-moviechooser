@@ -59,10 +59,22 @@ CardActions.Body = function CardActionsBody({ children, ...restProps }) {
   );
 };
 
-CardActions.Image = function CardActionsImage({ src, ...restProps }) {
+CardActions.Image = function CardActionsImage({
+  path,
+  url,
+  title,
+  ...restProps
+}) {
   const { imgIsLandscape } = useContext(ImgOrientationContext);
   return (
-    <Image src={src} className={!imgIsLandscape && "portrait"} {...restProps} />
+    <Image
+      path={path}
+      url={url}
+      title={title}
+      sizes="(min-width: 600px) 300px, 40vw"
+      className={imgIsLandscape ? undefined : "portrait"}
+      {...restProps}
+    />
   );
 };
 

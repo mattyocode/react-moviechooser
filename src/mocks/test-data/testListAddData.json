@@ -10,6 +10,7 @@
       "plot": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
       "country": "South Korea",
       "poster_url": "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+      "poster_path": "/testListAddData-1.jpg",
       "actors": [
         { "id": 1051, "name": "Song Kang-Ho" },
         { "id": 1052, "name": "Lee Sun-Kyun" },

@@ -13,13 +13,14 @@ const movie = {
   title: "Parasite",
   slug: "parasite",
   poster_url: "https://example.test/parasite.jpg",
+  poster_path: "/parasite.jpg",
 };
 
 function renderPanel() {
   return render(
     <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
       <WatchContainer movie={movie} />
-    </SWRConfig>
+    </SWRConfig>,
   );
 }
 
@@ -43,7 +44,7 @@ describe("<WatchContainer/>", () => {
     expect(
       within(list)
         .getAllByRole("listitem")
-        .map((li) => li.textContent)
+        .map((li) => li.textContent),
     ).toEqual(["Netflix", "Some Streamer", "Apple TV"]);
     for (const heading of ["Stream", "Rent", "Buy"]) {
       expect(screen.queryByRole("heading", { name: heading })).toBeNull();
@@ -63,9 +64,9 @@ describe("<WatchContainer/>", () => {
               { provider_id: 2, name: "Apple TV", kind: "buy", logo: null },
               { provider_id: 130, name: "Sky Store", kind: "buy", logo: null },
             ],
-          })
-        )
-      )
+          }),
+        ),
+      ),
     );
     renderPanel();
 
@@ -73,7 +74,7 @@ describe("<WatchContainer/>", () => {
     expect(
       within(list)
         .getAllByRole("listitem")
-        .map((li) => li.textContent)
+        .map((li) => li.textContent),
     ).toEqual(["Netflix", "Apple TV", "Sky Store"]);
   });
 
@@ -82,8 +83,26 @@ describe("<WatchContainer/>", () => {
     const { container } = renderPanel();
 
     await screen.findByRole("list");
-    const poster = container.querySelector(`img[src="${movie.poster_url}"]`);
+    const poster = container.querySelector(
+      `img[src="https://image.tmdb.org/t/p/w342${movie.poster_path}"]`,
+    );
     expect(poster).toHaveClass("portrait");
+  });
+
+  it("shows the title placeholder when the movie has no poster", async () => {
+    countWatchRequests();
+    render(
+      <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
+        <WatchContainer
+          movie={{ ...movie, poster_path: null, poster_url: "N/A" }}
+        />
+      </SWRConfig>,
+    );
+
+    await screen.findByRole("list");
+    expect(screen.getByTestId("poster-placeholder")).toHaveTextContent(
+      "Parasite",
+    );
   });
 
   it("uses our icon for known services and TMDB's logo for others", async () => {
@@ -92,12 +111,12 @@ describe("<WatchContainer/>", () => {
 
     const netflix = (await screen.findByText("Netflix")).parentElement;
     expect(netflix.querySelector("img").getAttribute("src")).not.toMatch(
-      /image\.tmdb\.org/
+      /image\.tmdb\.org/,
     );
     const other = screen.getByText("Some Streamer").parentElement;
     expect(other.querySelector("img")).toHaveAttribute(
       "src",
-      "https://image.tmdb.org/t/p/w92/streamer.jpg"
+      "https://image.tmdb.org/t/p/w92/streamer.jpg",
     );
   });
 
@@ -121,7 +140,7 @@ describe("<WatchContainer/>", () => {
     expect(screen.getByText(/streaming data from/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "JustWatch" })).toHaveAttribute(
       "href",
-      "https://www.justwatch.com"
+      "https://www.justwatch.com",
     );
   });
 
@@ -132,10 +151,10 @@ describe("<WatchContainer/>", () => {
 
     const name = new Intl.DisplayNames(["mn-MN"], { type: "region" }).of("MN");
     expect(
-      await screen.findByText(`Not streaming in ${name} right now`)
+      await screen.findByText(`Not streaming in ${name} right now`),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: `Where to watch in ${name}` })
+      screen.getByRole("link", { name: `Where to watch in ${name}` }),
     ).toHaveAttribute("href", watchData.empty.link);
     expect(screen.getByText(/streaming data from/i)).toBeInTheDocument();
   });
@@ -145,9 +164,11 @@ describe("<WatchContainer/>", () => {
     renderPanel();
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
-      /couldn't load streaming information/i
+      /couldn't load streaming information/i,
     );
-    expect(screen.getByRole("button", { name: "Try again" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Try again" }),
+    ).toBeInTheDocument();
     expect(screen.queryByText(/not streaming in/i)).toBeNull();
   });
 
@@ -157,7 +178,7 @@ describe("<WatchContainer/>", () => {
 
     expect(await screen.findByRole("alert")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Where to watch in United Kingdom" })
+      screen.getByRole("link", { name: "Where to watch in United Kingdom" }),
     ).toHaveAttribute("href", watchData.unavailable.link);
     expect(screen.queryByText(/not streaming in/i)).toBeNull();
   });
@@ -194,7 +215,7 @@ describe("<WatchContainer/>", () => {
         }
         await gate;
         return res(ctx.json({ ...watchData.providers, country: "GB" }));
-      })
+      }),
     );
     renderPanel();
 
@@ -215,7 +236,7 @@ describe("<WatchContainer/>", () => {
     userEvent.click(await screen.findByRole("button", { name: "Try again" }));
     await waitFor(() => expect(seen).toHaveLength(2));
     expect(
-      await screen.findByRole("button", { name: "Try again" })
+      await screen.findByRole("button", { name: "Try again" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("alert")).toBeInTheDocument();
     expect(screen.queryByTestId("loading-spinner")).toBeNull();
@@ -265,12 +286,14 @@ describe("<WatchContainer/>", () => {
 
     const picker = screen.getByLabelText("Country");
     await waitFor(() =>
-      expect(within(picker).getByRole("option", { name: "Japan" })).toBeInTheDocument()
+      expect(
+        within(picker).getByRole("option", { name: "Japan" }),
+      ).toBeInTheDocument(),
     );
     userEvent.selectOptions(picker, "JP");
 
     expect(
-      await screen.findByRole("link", { name: "Where to watch in Japan" })
+      await screen.findByRole("link", { name: "Where to watch in Japan" }),
     ).toBeInTheDocument();
     expect(seen[seen.length - 1]).toMatch(/country=JP$/);
     expect(window.localStorage.getItem(COUNTRY_STORAGE_KEY)).toBe("JP");
@@ -282,7 +305,7 @@ describe("<WatchContainer/>", () => {
     renderPanel();
 
     expect(
-      await screen.findByRole("link", { name: "Where to watch in Germany" })
+      await screen.findByRole("link", { name: "Where to watch in Germany" }),
     ).toBeInTheDocument();
     expect(seen[0]).toMatch(/country=DE$/);
     expect(screen.getByLabelText("Country")).toHaveValue("DE");

@@ -38,7 +38,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
     );
   });
 
@@ -52,7 +52,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
 
   it("shows movie card once loaded", async () => {
     await waitForElementToBeRemoved(() =>
-      screen.getByTestId("loading-spinner")
+      screen.getByTestId("loading-spinner"),
     );
     expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
   });
@@ -60,7 +60,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
   it("shows a poster backdrop, with where to watch on the card's TV icon only", async () => {
     expect(await screen.findByTestId("backdrop")).toBeInTheDocument();
     expect(
-      await screen.findByTestId(`${testMoviesData[0].title}-watch`)
+      await screen.findByTestId(`${testMoviesData[0].title}-watch`),
     ).toHaveAttribute("aria-label", "Where to watch");
     // The old button had visible text; the icons only have an aria-label.
     expect(screen.queryByText(/^where to watch$/i)).toBeNull();
@@ -68,12 +68,20 @@ describe("<MovieDetail/> Surprise page tests", () => {
     expect(screen.queryByTestId("not-streaming-note")).toBeNull();
   });
 
-  it("has no watch button or streaming note for an unmapped movie", async () => {
+  it("loads the backdrop from TMDB", async () => {
+    const backdrop = await screen.findByTestId("backdrop");
+    expect(backdrop.querySelector("img")).toHaveAttribute(
+      "src",
+      `https://image.tmdb.org/t/p/w342${testMoviesData[0].poster_path}`,
+    );
+  });
+
+  it("shows only the gradient backdrop for a movie with no poster", async () => {
     cleanup();
     server.use(
       rest.get(`${apiUrl}`, (req, res, ctx) =>
-        res(ctx.json({ ...testMoviesData[0], has_tmdb: false }))
-      )
+        res(ctx.json(testMoviesData[2])),
+      ),
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
@@ -81,21 +89,43 @@ describe("<MovieDetail/> Surprise page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
+    );
+    const backdrop = await screen.findByTestId("backdrop");
+    expect(backdrop.querySelector("img")).toBeNull();
+    expect(
+      within(backdrop).getByTestId("poster-placeholder"),
+    ).toBeEmptyDOMElement();
+  });
+
+  it("has no watch button or streaming note for an unmapped movie", async () => {
+    cleanup();
+    server.use(
+      rest.get(`${apiUrl}`, (req, res, ctx) =>
+        res(ctx.json({ ...testMoviesData[0], has_tmdb: false })),
+      ),
+    );
+    reduxTestRender(
+      <MemoryRouter initialEntries={["/movies/surprise"]}>
+        <Route path="/movies/:movieId">
+          <MovieDetail />
+        </Route>
+      </MemoryRouter>,
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
     );
 
     expect(
-      await screen.findByText(testMoviesData[0].title, { selector: "h1, h2, h3" })
+      await screen.findByText(testMoviesData[0].title, {
+        selector: "h1, h2, h3",
+      }),
     ).toBeInTheDocument();
     expect(screen.queryByText(/not streaming/i)).toBeNull();
-    expect(
-      screen.queryByTestId(`${testMoviesData[0].title}-watch`)
-    ).toBeNull();
+    expect(screen.queryByTestId(`${testMoviesData[0].title}-watch`)).toBeNull();
   });
 
   it("offers to spin again once a movie is shown", async () => {
     expect(await screen.findByTestId("spin-again-btn")).toHaveTextContent(
-      /spin again/i
+      /spin again/i,
     );
   });
 
@@ -104,7 +134,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
     server.use(
       rest.get(`${apiUrl}`, (req, res, ctx) => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
-      })
+      }),
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
@@ -112,7 +142,7 @@ describe("<MovieDetail/> Surprise page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
@@ -129,7 +159,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
     );
   });
 
@@ -152,7 +182,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
     server.use(
       rest.get(`${apiUrl}`, (req, res, ctx) => {
         return res(ctx.status(404), ctx.json({ error: "Not found" }));
-      })
+      }),
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>
@@ -160,7 +190,7 @@ describe("<MovieDetail/> Movie ID page tests", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
+      { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } },
     );
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
@@ -191,7 +221,7 @@ describe("<MovieDetail/> more like this", () => {
           <MovieDetail />
         </Route>
       </MemoryRouter>,
-      { preloadedState: { auth: { auth } } }
+      { preloadedState: { auth: { auth } } },
     );
 
   const row = () => screen.findByTestId("similar-movies");
@@ -205,7 +235,7 @@ describe("<MovieDetail/> more like this", () => {
 
     const section = await row();
     expect(
-      within(section).getByRole("heading", { name: "More like this" })
+      within(section).getByRole("heading", { name: "More like this" }),
     ).toBeInTheDocument();
     expect(rowTitles(section)).toEqual(testSimilarData.map((m) => m.title));
     expect(within(section).queryAllByTestId("match-label")).toHaveLength(0);
@@ -214,9 +244,7 @@ describe("<MovieDetail/> more like this", () => {
   it("shows a row on the random page", async () => {
     renderPage("/movies/surprise");
 
-    expect(rowTitles(await row())).toEqual(
-      testSimilarData.map((m) => m.title)
-    );
+    expect(rowTitles(await row())).toEqual(testSimilarData.map((m) => m.title));
   });
 
   it("replaces the row when spinning again", async () => {
@@ -224,17 +252,17 @@ describe("<MovieDetail/> more like this", () => {
     let spins = 0;
     server.use(
       rest.get(`${apiUrlRoot}/api/movies/random`, (req, res, ctx) =>
-        res(ctx.json(randoms[Math.min(spins++, 1)]))
+        res(ctx.json(randoms[Math.min(spins++, 1)])),
       ),
       rest.get(similarUrl, (req, res, ctx) =>
         res(
           ctx.json(
             req.params.slug === testMoviesData[0].slug
               ? [movie("first-similar", "First Similar")]
-              : [movie("second-similar", "Second Similar")]
-          )
-        )
-      )
+              : [movie("second-similar", "Second Similar")],
+          ),
+        ),
+      ),
     );
     renderPage("/movies/surprise");
 
@@ -244,7 +272,7 @@ describe("<MovieDetail/> more like this", () => {
     await waitFor(() =>
       expect(rowTitles(screen.getByTestId("similar-movies"))).toEqual([
         "Second Similar",
-      ])
+      ]),
     );
   });
 
@@ -254,7 +282,7 @@ describe("<MovieDetail/> more like this", () => {
 
     expect(await screen.findByText(/finding nemo/i)).toBeInTheDocument();
     await waitFor(() =>
-      expect(screen.queryByTestId("similar-loading")).toBeNull()
+      expect(screen.queryByTestId("similar-loading")).toBeNull(),
     );
     expect(screen.queryByTestId("similar-movies")).toBeNull();
     expect(screen.queryByText("More like this")).toBeNull();
@@ -264,20 +292,20 @@ describe("<MovieDetail/> more like this", () => {
     const logError = vi.spyOn(console, "error").mockImplementation(() => {});
     server.use(
       rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.status(500), ctx.json({ detail: "Server error" }))
-      )
+        res(ctx.status(500), ctx.json({ detail: "Server error" })),
+      ),
     );
     renderPage("/movies/123");
 
     expect(await screen.findByText(/finding nemo/i)).toBeInTheDocument();
     await waitFor(() =>
-      expect(screen.queryByTestId("similar-loading")).toBeNull()
+      expect(screen.queryByTestId("similar-loading")).toBeNull(),
     );
     expect(screen.queryByTestId("similar-movies")).toBeNull();
     expect(screen.queryByText(/error/i)).toBeNull();
     expect(logError).toHaveBeenCalledWith(
       `Couldn't load similar movies for ${testMoviesData[3].slug}:`,
-      "Server error"
+      "Server error",
     );
     logError.mockRestore();
   });
@@ -285,25 +313,23 @@ describe("<MovieDetail/> more like this", () => {
   it("shows skeleton posters while the row loads, then the real cards", async () => {
     server.use(
       rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.delay(200), ctx.json(testSimilarData))
-      )
+        res(ctx.delay(200), ctx.json(testSimilarData)),
+      ),
     );
     renderPage("/movies/123");
 
     const loading = await screen.findByTestId("similar-loading");
     expect(loading).toHaveAttribute("aria-busy", "true");
     expect(
-      within(loading).getByRole("heading", { name: "More like this" })
+      within(loading).getByRole("heading", { name: "More like this" }),
     ).toBeInTheDocument();
     const skeletons = within(loading).getAllByTestId("poster-skeleton");
     expect(skeletons).toHaveLength(6);
     skeletons.forEach((skeleton) =>
-      expect(skeleton).toHaveAttribute("aria-hidden", "true")
+      expect(skeleton).toHaveAttribute("aria-hidden", "true"),
     );
 
-    expect(rowTitles(await row())).toEqual(
-      testSimilarData.map((m) => m.title)
-    );
+    expect(rowTitles(await row())).toEqual(testSimilarData.map((m) => m.title));
     expect(screen.queryByTestId("similar-loading")).toBeNull();
     expect(screen.queryAllByTestId("poster-skeleton")).toHaveLength(0);
   });
@@ -312,32 +338,32 @@ describe("<MovieDetail/> more like this", () => {
     const next = movie("next-movie", "Next Movie");
     server.use(
       rest.get(`${apiUrlRoot}/api/movies/next-movie`, (req, res, ctx) =>
-        res(ctx.json(next))
+        res(ctx.json(next)),
       ),
       rest.get(similarUrl, (req, res, ctx) =>
         res(
           ctx.json(
             req.params.slug === "next-movie"
               ? [movie("after-next", "After Next")]
-              : [next]
-          )
-        )
-      )
+              : [next],
+          ),
+        ),
+      ),
     );
     renderPage("/movies/123");
 
     const section = await row();
     userEvent.click(
-      within(section).getByRole("link", { name: /next movie – details/i })
+      within(section).getByRole("link", { name: /next movie – details/i }),
     );
 
     expect(
-      await screen.findByTestId("movie-detail-next-movie")
+      await screen.findByTestId("movie-detail-next-movie"),
     ).toBeInTheDocument();
     await waitFor(() =>
       expect(rowTitles(screen.getByTestId("similar-movies"))).toEqual([
         "After Next",
-      ])
+      ]),
     );
   });
 
@@ -349,7 +375,7 @@ describe("<MovieDetail/> more like this", () => {
     userEvent.click(within(section).getByTestId(`${title}-add`));
 
     expect(
-      await within(section).findByTestId(`${title}-remove`)
+      await within(section).findByTestId(`${title}-remove`),
     ).toBeInTheDocument();
   });
 
@@ -359,7 +385,7 @@ describe("<MovieDetail/> more like this", () => {
     const attribution = within(await row()).getByTestId("plot-attribution");
     const current = testMoviesData[3];
     const expected = [current, ...testSimilarData].filter(
-      (m) => m.plot_source_url
+      (m) => m.plot_source_url,
     );
     const hrefs = within(attribution)
       .getAllByRole("link", { hidden: true })
@@ -372,11 +398,11 @@ describe("<MovieDetail/> more like this", () => {
   it("shows no attribution when nothing has a Wikipedia source", async () => {
     server.use(
       rest.get(`${apiUrlRoot}/api/movies/123`, (req, res, ctx) =>
-        res(ctx.json({ ...testMoviesData[3], plot_source_url: null }))
+        res(ctx.json({ ...testMoviesData[3], plot_source_url: null })),
       ),
       rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.json([{ ...movie("plain", "Plain"), plot_source_url: null }]))
-      )
+        res(ctx.json([{ ...movie("plain", "Plain"), plot_source_url: null }])),
+      ),
     );
     renderPage("/movies/123");
 

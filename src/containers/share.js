@@ -29,7 +29,11 @@ export function ShareContainer({ data }) {
         <MdShare />
       </CardActions.Header>
       <CardActions.Body>
-        <CardActions.Image src={data.posterUrl} />
+        <CardActions.Image
+          path={data.posterPath}
+          url={data.posterUrl}
+          title={data.title}
+        />
         <CardActions.Actions>
           <CardActions.Action>
             <EmailShareButton

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
+import Poster from "../../poster";
+
 export const Container = styled(motion.div)`
   position: relative;
   border: 1px solid var(--clr-border);
@@ -61,7 +63,8 @@ export const AvgRating = styled.div`
   }
 `;
 
-export const Image = styled.img`
+// The shared Poster, sized for the card's sidebar.
+export const Image = styled(Poster)`
   position: relative;
   top: 0px;
   left: 0px;

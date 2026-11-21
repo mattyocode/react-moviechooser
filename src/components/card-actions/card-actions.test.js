@@ -10,12 +10,12 @@ describe("<CardActions/> component tests", () => {
       <CardActions>
         <CardActions.Header>Title</CardActions.Header>
         <CardActions.Body>
-          <CardActions.Image />
+          <CardActions.Image path="/p.jpg" title="A Film" />
           <CardActions.Actions>
             <CardActions.Link>Test Link</CardActions.Link>
           </CardActions.Actions>
         </CardActions.Body>
-      </CardActions>
+      </CardActions>,
     );
     expect(screen.getByText(/title/i)).toBeInTheDocument();
     expect(screen.getByText(/test link/i)).toBeInTheDocument();

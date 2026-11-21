@@ -8,6 +8,7 @@
     "plot": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
     "country": "South Korea",
     "poster_url": "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+    "poster_path": "/testMoviesData-1.jpg",
     "actors": [
       {
         "id": 1051,
@@ -77,6 +78,7 @@
     "plot": "A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
     "country": "USA",
     "poster_url": "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_SX300.jpg",
+    "poster_path": "/testMoviesData-2.jpg",
     "actors": [
       {
         "id": 292,
@@ -149,7 +151,8 @@
     "writer": "Luis Buñuel, Jean-Claude Carrière",
     "plot": "A surreal, virtually plotless series of dreams centered around six middle-class people and their consistently interrupted attempts to have a meal together.",
     "country": "France, Italy, Spain",
-    "poster_url": "https://m.media-amazon.com/images/M/MV5BYzQ5NjJiYWQtYjAzMC00NGU0LWFlMDYtNGFiYjFlMWI1NWM0XkEyXkFqcGdeQXVyODQ0OTczOQ@@._V1_SX300.jpg",
+    "poster_url": "N/A",
+    "poster_path": null,
     "actors": [
       {
         "id": 2638,
@@ -207,6 +210,7 @@
     "plot": "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
     "country": "United States",
     "poster_url": "https://m.media-amazon.com/images/M/MV5BZTAzNWZlNmUtZDEzYi00ZjA5LWIwYjEtZGM1NWE1MjE4YWRhXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+    "poster_path": "/testMoviesData-4.jpg",
     "actors": [
       {
         "id": 503,
