@@ -23,7 +23,7 @@ describe("<CardContainer/> tests", () => {
     render(
       <reactRedux.Provider store={store}>
         <CardContainer movie={singleMovie} />
-      </reactRedux.Provider>
+      </reactRedux.Provider>,
     );
   });
   it("renders <CardContainer/> with single movie", () => {
@@ -46,14 +46,14 @@ describe("<CardContainer/> tests", () => {
     fireEvent.click(screen.getByTestId("modal-backdrop"));
 
     await waitFor(() =>
-      expect(screen.queryByText(/streaming data from/i)).toBeFalsy()
+      expect(screen.queryByText(/streaming data from/i)).toBeFalsy(),
     );
   });
 
   it("launches share modal on click", async () => {
     const shareBtn = screen.getByTestId(/parasite-share/i);
     SHARE_LIST.forEach((share) =>
-      expect(screen.queryByText(share)).toBeFalsy()
+      expect(screen.queryByText(share)).toBeFalsy(),
     );
 
     act(() => {
@@ -62,7 +62,7 @@ describe("<CardContainer/> tests", () => {
 
     await waitFor(() => {
       SHARE_LIST.forEach((share) =>
-        expect(screen.getByText(share)).toBeTruthy()
+        expect(screen.getByText(share)).toBeTruthy(),
       );
     });
   });
@@ -75,7 +75,7 @@ describe("<CardContainer/> tests", () => {
 
     await waitFor(() => {
       SHARE_LIST.forEach((share) =>
-        expect(screen.queryByText(share)).toBeTruthy()
+        expect(screen.queryByText(share)).toBeTruthy(),
       );
     });
 
@@ -84,7 +84,7 @@ describe("<CardContainer/> tests", () => {
 
     await waitFor(() => {
       SHARE_LIST.forEach((share) =>
-        expect(screen.queryByText(share)).toBeFalsy()
+        expect(screen.queryByText(share)).toBeFalsy(),
       );
     });
   });
@@ -103,7 +103,7 @@ describe("<CardContainer/> watch button", () => {
             ))}
           </SWRConfig>
         </MemoryRouter>
-      </reactRedux.Provider>
+      </reactRedux.Provider>,
     );
   }
 
@@ -115,11 +115,15 @@ describe("<CardContainer/> watch button", () => {
           { ...testMoviesData[0], has_tmdb: true },
           { ...testMoviesData[1], has_tmdb: false },
         ],
-        variant
+        variant,
       );
-      expect(screen.getByTestId(`${testMoviesData[0].title}-watch`)).toBeTruthy();
-      expect(screen.queryByTestId(`${testMoviesData[1].title}-watch`)).toBeNull();
-    }
+      expect(
+        screen.getByTestId(`${testMoviesData[0].title}-watch`),
+      ).toBeTruthy();
+      expect(
+        screen.queryByTestId(`${testMoviesData[1].title}-watch`),
+      ).toBeNull();
+    },
   );
 
   it.each(["full", "poster"])(
@@ -134,6 +138,43 @@ describe("<CardContainer/> watch button", () => {
       await screen.findByText(/streaming data from/i);
       expect(seen).toHaveLength(1);
       expect(seen[0]).toContain(`/api/movies/${mapped[0].slug}/watch/`);
-    }
+    },
+  );
+});
+
+describe("<CardContainer/> posters", () => {
+  const [parasite, , noPoster] = testMoviesData;
+
+  function renderCard(movie, variant) {
+    return render(
+      <reactRedux.Provider store={store}>
+        <MemoryRouter>
+          <CardContainer movie={movie} variant={variant} />
+        </MemoryRouter>
+      </reactRedux.Provider>,
+    );
+  }
+
+  it.each(["full", "poster"])("shows the TMDB poster (%s)", (variant) => {
+    const { container } = renderCard(parasite, variant);
+    expect(
+      container.querySelector("img[src^='https://image.tmdb.org']"),
+    ).toHaveAttribute(
+      "src",
+      `https://image.tmdb.org/t/p/w342${parasite.poster_path}`,
+    );
+  });
+
+  it.each(["full", "poster"])(
+    "shows a title placeholder for a movie with no poster (%s)",
+    (variant) => {
+      const { container } = renderCard(noPoster, variant);
+      const placeholder = screen.getByTestId("poster-placeholder");
+      expect(placeholder).toHaveTextContent(noPoster.title);
+      expect(container.querySelector("img[src='N/A']")).toBeNull();
+      expect(
+        container.querySelector("img[src^='https://image.tmdb.org']"),
+      ).toBeNull();
+    },
   );
 });

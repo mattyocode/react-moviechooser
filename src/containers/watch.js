@@ -28,7 +28,9 @@ export function WatchContainer({ movie }) {
   // counts as a failure when there's nothing loaded to show.
   const failed = data ? data.available === false : Boolean(error);
   const cta = data && data.link && (
-    <WatchOptions.Cta href={data.link}>Where to watch in {name}</WatchOptions.Cta>
+    <WatchOptions.Cta href={data.link}>
+      Where to watch in {name}
+    </WatchOptions.Cta>
   );
 
   let body;
@@ -38,7 +40,9 @@ export function WatchContainer({ movie }) {
         <WatchOptions.Message role="alert">
           Couldn't load streaming information right now.
         </WatchOptions.Message>
-        <WatchOptions.Retry onClick={() => mutate()}>Try again</WatchOptions.Retry>
+        <WatchOptions.Retry onClick={() => mutate()}>
+          Try again
+        </WatchOptions.Retry>
         {cta}
       </>
     );
@@ -49,7 +53,9 @@ export function WatchContainer({ movie }) {
   } else if (data.providers.length === 0) {
     body = (
       <>
-        <WatchOptions.Message>Not streaming in {name} right now</WatchOptions.Message>
+        <WatchOptions.Message>
+          Not streaming in {name} right now
+        </WatchOptions.Message>
         {cta}
         <WatchOptions.Credit />
       </>
@@ -70,7 +76,11 @@ export function WatchContainer({ movie }) {
         <MdOndemandVideo />
       </CardActions.Header>
       <CardActions.Body>
-        {movie.poster_url && <CardActions.Image src={movie.poster_url} alt="" />}
+        <CardActions.Image
+          path={movie.poster_path}
+          url={movie.poster_url}
+          title={movie.title}
+        />
         <WatchOptions>
           <WatchOptions.Picker
             value={country}

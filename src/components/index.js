@@ -19,3 +19,4 @@ export { default as Backdrop } from "./backdrop";
 export { default as SimilarMovies } from "./similar-movies";
 export { default as PlotAttribution } from "./plot-attribution";
 export { default as WatchOptions } from "./watch-options";
+export { default as Poster } from "./poster";

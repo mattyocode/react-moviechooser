@@ -14,7 +14,7 @@ describe("<Card />", () => {
         <Card.Content>
           <Card.Sidebar>
             <Card.AvgRating>55</Card.AvgRating>
-            <Card.Image src={"/"} />
+            <Card.Image path="/p.jpg" url="N/A" title="Revenge of the Test" />
             <Card.AllRatings ratings={reviews} />
           </Card.Sidebar>
           <Card.Main>

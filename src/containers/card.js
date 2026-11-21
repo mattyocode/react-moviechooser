@@ -63,7 +63,7 @@ export function CardContainer({
         setMovieOnList({
           movieSlug: movie.slug,
           onList: true,
-        })
+        }),
       );
     }
   };
@@ -75,7 +75,7 @@ export function CardContainer({
         setMovieOnList({
           movieSlug: movie.slug,
           onList: false,
-        })
+        }),
       );
     }
   };
@@ -86,7 +86,7 @@ export function CardContainer({
       updateListItem({
         movieSlug: movie.slug,
         updatedFieldData: { watched: watchedState },
-      })
+      }),
     );
   };
 
@@ -95,6 +95,7 @@ export function CardContainer({
   const openShare = () =>
     openShareHandler({
       title: movie.title,
+      posterPath: movie.poster_path,
       posterUrl: movie.poster_url,
       shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
     });
@@ -131,6 +132,7 @@ export function CardContainer({
             movie={{
               title: movie.title,
               slug: movie.slug,
+              poster_path: movie.poster_path,
               poster_url: movie.poster_url,
             }}
           />
@@ -160,7 +162,8 @@ export function CardContainer({
         <PosterCard data-testid={`${movie.title}-card`}>
           <PosterCard.Poster
             to={`/movies/${movie.slug}`}
-            src={movie.poster_url}
+            path={movie.poster_path}
+            url={movie.poster_url}
             title={movie.title}
             rating={movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
             match={match}
@@ -245,7 +248,11 @@ export function CardContainer({
               <Card.AvgRating>
                 {movie.avg_rating ? movie.avg_rating.toFixed(1) : null}
               </Card.AvgRating>
-              <Card.Image src={movie.poster_url} />
+              <Card.Image
+                path={movie.poster_path}
+                url={movie.poster_url}
+                title={movie.title}
+              />
               <Card.AllRatings ratings={movie.reviews} />
             </Card.Sidebar>
             <Card.Main>

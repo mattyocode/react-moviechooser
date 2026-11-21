@@ -107,7 +107,7 @@ export default function MovieDetail() {
       {moviesStatus === "updating" && <Loading />}
       {moviesStatus === "succeeded" && movie && (
         <>
-          <Backdrop src={movie.poster_url} />
+          <Backdrop path={movie.poster_path} url={movie.poster_url} />
           <Card.Detail>
             <CardContainer movie={movie} />
           </Card.Detail>
@@ -133,21 +133,23 @@ export default function MovieDetail() {
           </PosterCard.Grid>
         </SimilarMovies>
       )}
-      {similarForThis && similarStatus === "succeeded" && similar.length > 0 && (
-        <SimilarMovies>
-          <SimilarMovies.Title>More like this</SimilarMovies.Title>
-          <PosterCard.Grid>
-            {similar.map((similarMovie) => (
-              <CardContainer
-                key={similarMovie.slug}
-                movie={similarMovie}
-                variant="poster"
-              />
-            ))}
-          </PosterCard.Grid>
-          <PlotAttribution movies={[movie, ...similar]} />
-        </SimilarMovies>
-      )}
+      {similarForThis &&
+        similarStatus === "succeeded" &&
+        similar.length > 0 && (
+          <SimilarMovies>
+            <SimilarMovies.Title>More like this</SimilarMovies.Title>
+            <PosterCard.Grid>
+              {similar.map((similarMovie) => (
+                <CardContainer
+                  key={similarMovie.slug}
+                  movie={similarMovie}
+                  variant="poster"
+                />
+              ))}
+            </PosterCard.Grid>
+            <PlotAttribution movies={[movie, ...similar]} />
+          </SimilarMovies>
+        )}
       {moviesStatus === "failed" && <p>Error: {moviesError} </p>}
     </motion.div>
   );
