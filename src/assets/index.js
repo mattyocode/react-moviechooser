@@ -14,8 +14,8 @@ import copyLink from "./svg/copyLink.svg";
 import email from "./svg/email.svg";
 import facebook from "./svg/facebook.svg";
 import telegram from "./svg/telegram.svg";
-import twitter from "./svg/twitter.svg";
 import whatsapp from "./svg/whatsapp.svg";
+import x from "./svg/x.svg";
 
 export {
   imdb,
@@ -32,6 +32,6 @@ export {
   email,
   facebook,
   telegram,
-  twitter,
   whatsapp,
+  x,
 };

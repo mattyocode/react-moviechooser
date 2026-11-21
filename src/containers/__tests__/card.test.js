@@ -15,7 +15,7 @@ import { countWatchRequests } from "../../mocks/watch-requests";
 import { SWRConfig } from "swr";
 import { MemoryRouter } from "react-router-dom";
 
-const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "Twitter"];
+const SHARE_LIST = ["Email", "Telegram", "Whatsapp", "Facebook", "X"];
 
 describe("<CardContainer/> tests", () => {
   const singleMovie = testMoviesData[0];
