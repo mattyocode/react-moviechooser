@@ -138,3 +138,46 @@ describe("<List/> page tests", () => {
     });
   });
 });
+
+describe("<List/> more button", () => {
+  const apiUrl = `${import.meta.env.VITE_API}/list/`;
+  window.scrollTo = vi.fn();
+
+  it("loads the next page even when the API's next link names another host", async () => {
+    const [first, ...rest_] = listData.results;
+    server.use(
+      rest.get(apiUrl, (req, res, ctx) =>
+        req.url.searchParams.get("page") === "2"
+          ? res(ctx.json({ ...listData, next: null, results: rest_ }))
+          : res(
+              ctx.json({
+                ...listData,
+                next: "http://localhost:8000/list/?page=2",
+                results: [first],
+              })
+            )
+      )
+    );
+    reduxTestRender(<List />, {
+      preloadedState: {
+        auth: {
+          auth: {
+            token: "testtoken",
+            refreshToken: "test-refresh-token",
+            account: { username: "test-user", email: "test@email.com" },
+            status: "idle",
+            error: null,
+          },
+        },
+      },
+    });
+
+    userEvent.click(await screen.findByRole("button", { name: /^more$/i }));
+
+    const last = rest_[rest_.length - 1].movie.title;
+    expect(await screen.findByTestId(`${last}-card`)).toBeInTheDocument();
+    expect(
+      screen.getByText(/no more movies on your list to load/i)
+    ).toBeInTheDocument();
+  });
+});
