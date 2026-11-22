@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       proxy: Object.fromEntries(
-        ["/api", "/auth", "/list"].map((path) => [
+        ["/api", "/auth", "/list", "/accounts"].map((path) => [
           path,
           {
             target: API_PROXY_TARGET,
