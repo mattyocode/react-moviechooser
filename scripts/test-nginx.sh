@@ -11,7 +11,9 @@ ECHO_IMAGE="${ECHO_IMAGE:-mendhak/http-https-echo:43}"
 RUN_ID="nginx-test-$$"
 NETWORK="$RUN_ID"
 WEB="$RUN_ID-web"
-API_IDS=()
+# The echo servers get unique names and answer to `api` through a network alias.
+API_ONE="$RUN_ID-api-one"
+API_TWO="$RUN_ID-api-two"
 
 cd "$(dirname "$0")/.."
 
@@ -21,7 +23,7 @@ cleanup() {
     echo "--- nginx logs ---" >&2
     docker logs "$WEB" 2>&1 | tail -n 50 >&2 || true
   fi
-  docker rm -f "$WEB" "${API_IDS[@]}" >/dev/null 2>&1 || true
+  docker rm -f "$WEB" "$API_ONE" "$API_TWO" >/dev/null 2>&1 || true
   docker network rm "$NETWORK" >/dev/null 2>&1 || true
   exit "$status"
 }
@@ -41,16 +43,16 @@ docker run -d --name "$WEB" --network "$NETWORK" -p 127.0.0.1::8080 "$IMAGE" >/d
 PORT="$(docker port "$WEB" 8080/tcp | head -n1 | sed 's/.*://')"
 BASE="http://127.0.0.1:$PORT"
 
+# start_api <container name> <hostname it reports>
 start_api() {
-  local id
-  id="$(docker run -d --network "$NETWORK" --name api --hostname "$1" -e HTTP_PORT=8000 "$ECHO_IMAGE")"
-  API_IDS+=("$id")
-  # Wait for the echo server itself to accept connections.
+  docker run -d --network "$NETWORK" --name "$1" --network-alias api --hostname "$2" \
+    -e HTTP_PORT=8000 "$ECHO_IMAGE" >/dev/null
+  # Wait for this echo server itself (by its own name) to accept connections.
   for _ in $(seq 1 30); do
-    if docker exec "$WEB" wget -qO- "http://api:8000/__ready" >/dev/null 2>&1; then return 0; fi
+    if docker exec "$WEB" wget -qO- "http://$1:8000/__ready" >/dev/null 2>&1; then return 0; fi
     sleep 0.5
   done
-  fail "echo server $1 did not start"
+  fail "echo server $2 did not start"
 }
 
 for _ in $(seq 1 30); do
@@ -69,7 +71,7 @@ uid="$(docker exec "$WEB" id -u)"
 [ "$uid" != "0" ] || fail "nginx runs as root"
 pass "container runs as uid $uid"
 
-start_api api-one
+start_api "$API_ONE" api-one
 
 # Fetches a URL; sets $code, $headers (lower-cased) and $body.
 fetch() {
@@ -150,11 +152,11 @@ done
 
 # Restart test: replace `api` with a new container on a new IP, without restarting nginx.
 # The new one starts while the old one still holds its IP, so Docker can't reuse it.
-old_ip="$(docker inspect -f "{{(index .NetworkSettings.Networks \"$NETWORK\").IPAddress}}" api)"
-docker rename api api-old
-start_api api-two
-new_ip="$(docker inspect -f "{{(index .NetworkSettings.Networks \"$NETWORK\").IPAddress}}" api)"
-docker stop -t 1 api-old >/dev/null
+ip_of() { docker inspect -f "{{(index .NetworkSettings.Networks \"$NETWORK\").IPAddress}}" "$1"; }
+old_ip="$(ip_of "$API_ONE")"
+start_api "$API_TWO" api-two
+new_ip="$(ip_of "$API_TWO")"
+docker stop -t 1 "$API_ONE" >/dev/null
 [ "$old_ip" != "$new_ip" ] || fail "new api container reused IP $old_ip"
 
 start=$SECONDS

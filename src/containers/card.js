@@ -109,7 +109,7 @@ export function CardContainer({
     openShareHandler({
       title: movie.title,
       posterUrl: movie.poster_url,
-      shareUrl: `${window.location.origin}/movies/${movie.slug}`,
+      shareUrl: `${import.meta.env.VITE_DOMAIN_NAME}/movies/${movie.slug}`,
     });
 
   // Handlers live on the buttons (not the icons) so they work from the keyboard.

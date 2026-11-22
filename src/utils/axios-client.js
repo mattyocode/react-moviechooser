@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// Most endpoints are written without a leading slash ("api/movies/"), so an empty
-// VITE_API (same-origin, as in production) must still anchor them at the site root.
-const apiURL = import.meta.env.VITE_API || "/";
+const apiURL = import.meta.env.VITE_API;
 
 export async function client(
   endpoint,
