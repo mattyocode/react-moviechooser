@@ -12,9 +12,12 @@ export const Title = styled.h3`
   text-decoration: underline;
 `;
 
+// The top padding (plus the title's 3px) matches the 3.5rem between the
+// last item and the Log Out button below: 0.5rem item padding + 1.5rem
+// here + 1rem actions margin + 0.5rem button margin.
 export const DataList = styled.ul`
   list-style-type: none;
-  padding-bottom: 1.5rem;
+  padding: 3.25rem 0 1.5rem;
 `;
 
 export const DataItem = styled.li`
