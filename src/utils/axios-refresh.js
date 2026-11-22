@@ -95,8 +95,10 @@ export async function client(
 
     throw new Error(response.data);
   } catch (err) {
+    // A request that got no response (network error, CORS, blocked mixed
+    // content) has no err.response; report its message instead.
     return Promise.reject(
-      err.response.data
+      err.response && err.response.data
         ? String(Object.values(err.response.data)[0])
         : err.message
     );

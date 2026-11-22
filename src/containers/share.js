@@ -2,13 +2,33 @@ import React, { useState } from "react";
 import { MdShare } from "react-icons/md";
 import {
   FacebookShareButton,
-  TwitterShareButton,
   TelegramShareButton,
   WhatsappShareButton,
   EmailShareButton,
 } from "react-share";
 
 import { CardActions } from "../components";
+
+// X's web intent for a new post. react-share 4's Twitter button still opens
+// twitter.com/share, so X gets its own button, opened like react-share's.
+export function xShareUrl(url, text) {
+  return (
+    "https://x.com/intent/post" +
+    `?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+  );
+}
+
+function openXShare(url, text) {
+  const width = 550;
+  const height = 400;
+  const left = window.screenX + (window.outerWidth - width) / 2;
+  const top = window.screenY + (window.outerHeight - height) / 2;
+  window.open(
+    xShareUrl(url, text),
+    "_blank",
+    `noopener,noreferrer,width=${width},height=${height},left=${left},top=${top}`
+  );
+}
 
 export function ShareContainer({ data }) {
   const [copyClass, setCopyClass] = useState("");
@@ -68,9 +88,13 @@ export function ShareContainer({ data }) {
           </CardActions.Action>
 
           <CardActions.Action>
-            <TwitterShareButton url={data.shareUrl} title={data.title}>
-              <CardActions.Icon name="Twitter">Twitter</CardActions.Icon>
-            </TwitterShareButton>
+            <button
+              type="button"
+              aria-label="Share on X"
+              onClick={() => openXShare(data.shareUrl, data.title)}
+            >
+              <CardActions.Icon name="X">X</CardActions.Icon>
+            </button>
           </CardActions.Action>
 
           <CardActions.Action>
