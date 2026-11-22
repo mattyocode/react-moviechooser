@@ -24,7 +24,7 @@ export function CardContainer({
   movie,
   listData = null,
   variant = "full",
-  showWatchCta = false,
+  showStreamingNote = false,
   match = null,
 }) {
   const [ondemandOpen, setOndemandOpen] = useState(false);
@@ -299,15 +299,12 @@ export function CardContainer({
           </Card.Content>
         </Card>
       )}
-      {movie && showWatchCta && (
+      {/* The card's TV icon opens where to watch; without one, say why. */}
+      {movie && showStreamingNote && !hasOndemand && (
         <Card.MoreBtnWrapper>
-          {hasOndemand ? (
-            <Card.MoreBtn data-testid="watch-cta" onClick={openOndemand}>
-              Where to watch
-            </Card.MoreBtn>
-          ) : (
-            <Card.Note>Not streaming in the UK right now</Card.Note>
-          )}
+          <Card.Note data-testid="not-streaming-note">
+            Not streaming in the UK right now
+          </Card.Note>
         </Card.MoreBtnWrapper>
       )}
     </>

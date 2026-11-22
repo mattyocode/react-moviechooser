@@ -14,7 +14,7 @@ export const Label = styled.label`
   margin: var(--space-1);
   padding: 0.4rem 0.9rem;
   border-radius: var(--radius-pill);
-  font-size: 0.95rem;
+  font-size: var(--fs-base);
   font-weight: 500;
   cursor: pointer;
   user-select: none;
@@ -40,7 +40,7 @@ export const Label = styled.label`
   }
 
   @media screen and (max-width: 400px) {
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     padding: 0.35rem 0.75rem;
   }
 `;

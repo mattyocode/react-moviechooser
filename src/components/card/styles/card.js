@@ -53,7 +53,7 @@ export const AvgRating = styled.div`
 
   p {
     position: absolute;
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     font-weight: bold;
     color: var(--clr-on-neon);
     z-index: 15;
@@ -79,7 +79,7 @@ export const Image = styled.img`
 
 export const AllRatings = styled.div`
   display: flex;
-  font-size: 0.5rem;
+  font-size: var(--fs-2xs);
   padding: 2px;
   margin: 0.5rem 1rem 1.5rem 1rem;
   justify-content: center;
@@ -101,13 +101,12 @@ export const AllRatings = styled.div`
   }
 
   @media screen and (min-width: 375px) {
-    font-size: 0.75rem;
     margin: 1rem 1rem 1.5rem 1rem;
   }
 
   @media screen and (min-width: 450px) {
     width: 100%;
-    font-size: 1rem;
+    font-size: var(--fs-base);
     margin: 0.7rem 1rem 2rem 1rem;
   }
 
@@ -135,7 +134,7 @@ export const RatingLogo = styled.img`
 
 export const StarRating = styled.div`
   display: inline-block;
-  font-size: 8px;
+  font-size: var(--fs-2xs);
   font-family: Times;
   line-height: 2;
   margin: 0 5px;
@@ -145,8 +144,8 @@ export const StarRating = styled.div`
     letter-spacing: 1px;
     background: linear-gradient(
       90deg,
-      #fc0 ${(props) => props.rating},
-      #444 ${(props) => props.rating}
+      var(--clr-star) ${(props) => props.rating},
+      var(--clr-star-empty) ${(props) => props.rating}
     );
     background-clip: text;
     -webkit-background-clip: text;
@@ -164,7 +163,7 @@ export const MainContent = styled.section`
 
   p {
     color: var(--clr-text-muted);
-    font-size: 0.65rem;
+    font-size: var(--fs-2xs);
     line-height: 1.45;
     margin: 0.75rem 0;
   }
@@ -173,7 +172,7 @@ export const MainContent = styled.section`
     margin-bottom: 2rem;
 
     p {
-      font-size: 0.8rem;
+      font-size: var(--fs-xs);
     }
   }
   @media screen and (min-width: 450px) {
@@ -185,7 +184,7 @@ export const Header = styled.header`
   margin: 0.7rem 0;
 
   h2 {
-    font-size: 1.2rem;
+    font-size: var(--fs-md);
   }
 
   p {
@@ -195,18 +194,18 @@ export const Header = styled.header`
 
   @media screen and (min-width: 375px) {
     h2 {
-      font-size: 1.5rem;
+      font-size: var(--fs-xl);
       margin-top: 1.5rem;
     }
 
     p {
-      font-size: 0.8rem;
+      font-size: var(--fs-xs);
       margin: 0.5rem 0 1rem 0;
     }
 
     @media screen and (min-width: 450px) {
       p {
-        font-size: 0.8rem;
+        font-size: var(--fs-xs);
       }
 
       .genres ul {
@@ -245,7 +244,7 @@ export const Genres = styled.div`
   li {
     min-width: 2rem;
     flex: 0 0 auto;
-    font-size: 0.6rem;
+    font-size: var(--fs-2xs);
     margin: 0 0.1rem;
     padding: 0.05rem 0.5rem;
     color: var(--clr-neon);
@@ -260,9 +259,6 @@ export const Genres = styled.div`
       padding-left: 0.1rem;
       margin-bottom: 0.5rem;
     }
-    li {
-      font-size: 0.75rem;
-    }
   }
 
   @media screen and (min-width: 450px) {
@@ -275,7 +271,6 @@ export const Genres = styled.div`
       padding-left: 0;
     }
     li {
-      font-size: 0.75rem;
       margin: 0.1rem 0.15rem;
     }
   }
@@ -290,7 +285,7 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 0.25rem 0.5rem;
-  font-size: 2rem;
+  font-size: var(--fs-2xl);
 `;
 
 export const Actions = styled.div`
@@ -303,7 +298,7 @@ export const Action = styled(motion.button)`
   text-decoration: none;
   background: transparent;
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: var(--fs-xl);
   padding: 0.25rem 0.7rem;
 
   &:hover {
@@ -320,9 +315,9 @@ export const FixedAction = styled(motion.button)`
   text-decoration: none;
   background: transparent;
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: var(--fs-xl);
   padding: 0.25rem 0.7rem;
-  color: #000;
+  color: var(--clr-bg-0);
 
   &:hover {
     background-color: var(--clr-hover);
@@ -336,13 +331,9 @@ export const Icon = styled.div`
 
 export const Text = styled.p`
   padding-top: 0;
-  color: white;
-  font-size: 0.5rem;
+  color: var(--clr-text);
+  font-size: var(--fs-2xs);
   text-align: center;
-
-  @media screen and (min-width: 450px) {
-    font-size: 0.6rem;
-  }
 `;
 
 export const Note = styled.p`
@@ -381,12 +372,12 @@ export const MoreBtn = styled(motion.button)`
   border-radius: var(--radius-pill);
   border-style: hidden;
   background-image: var(--gradient-cta);
-  box-shadow: 0 0 1.5rem hsl(170 60% 55% / 0.35);
+  box-shadow: var(--glow-cta);
   cursor: pointer;
   text-align: center;
   justify-content: center;
   color: var(--clr-on-neon);
-  font: 700 1.1rem var(--font-display);
+  font: 700 var(--fs-md) var(--font-display);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 `;

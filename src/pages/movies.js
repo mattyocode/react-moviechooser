@@ -9,6 +9,7 @@ import {
   Loading,
   Card,
   FilterSummary,
+  PlotAttribution,
   PosterCard,
 } from "../components";
 import { addMovies } from "../store/movies-slice";
@@ -156,6 +157,7 @@ export default function Movies() {
             })}
         </PosterCard.Grid>
       </AnimateSharedLayout>
+      {text && moviesStatus !== "failed" && <PlotAttribution movies={movies} />}
       {moviesStatus === "loading" && (
         <div>
           <Loading />

@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   width: 100%;
   text-align: center;
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
 
   @media screen and (min-width: 800px) {
-    padding: 4rem 0 2rem 0;
-    margin-top: 3rem;
+    padding: var(--space-16) 0 var(--space-8) 0;
+    margin-top: var(--space-12);
   }
 `;
 
@@ -22,7 +22,7 @@ export const Accent = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 0.25em hsl(187 62% 58% / 0.45));
+  filter: drop-shadow(0 0 0.25em var(--clr-neon-soft));
 `;
 
 export const Subhead = styled.h3`
@@ -30,7 +30,7 @@ export const Subhead = styled.h3`
   max-width: 34rem;
   color: var(--clr-text-muted);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--lh-body);
 `;
 
 export const DecoratedSubhead = styled.h3`

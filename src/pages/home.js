@@ -94,8 +94,8 @@ export function Home() {
           </span>
         </Headline.Title>
         <Headline.Subhead>
-          1000s of acclaimed movies. Filter by genre, decade and runtime, then
-          click through to stream.
+          1000s of acclaimed movies. Describe the mood you're in, or filter by
+          genre, decade and runtime, then click through to stream.
         </Headline.Subhead>
       </Headline>
       {choiceForm}

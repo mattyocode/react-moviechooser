@@ -14,6 +14,8 @@ import {
   Meta,
   Actions,
   Action,
+  SkeletonPoster,
+  SkeletonLine,
 } from "./styles/poster-card";
 
 // Poster-first card for browsing grids. The poster links to the movie's
@@ -93,5 +95,19 @@ PosterCard.Action = function PosterCardAction({
     <Action type="button" aria-label={label} title={label} {...restProps}>
       {children}
     </Action>
+  );
+};
+
+// Same shape as a loaded card, hidden from assistive tech: the grid around it
+// carries aria-busy instead.
+PosterCard.Skeleton = function PosterCardSkeleton(props) {
+  return (
+    <Container aria-hidden="true" data-testid="poster-skeleton" {...props}>
+      <SkeletonPoster />
+      <Body>
+        <SkeletonLine width="80%" />
+        <SkeletonLine width="45%" />
+      </Body>
+    </Container>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -6,6 +6,8 @@ import {
   Base,
   Filters,
   Panel,
+  MoreFilters,
+  MoreFiltersToggle,
   SubmitPanel,
   Hint,
   Heading,
@@ -40,6 +42,28 @@ ChoiceForm.Filters = function ChoiceFormFilters({ children, ...restProps }) {
 
 ChoiceForm.Panel = function ChoiceFormPanel({ children, ...restProps }) {
   return <Panel {...restProps}>{children}</Panel>;
+};
+
+// Starts closed unless told otherwise; the user's toggling wins after that.
+ChoiceForm.MoreFilters = function ChoiceFormMoreFilters({
+  defaultOpen = false,
+  children,
+  ...restProps
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <MoreFilters
+      data-testid="more-filters"
+      open={open}
+      onToggle={(event) => setOpen(event.currentTarget.open)}
+      {...restProps}
+    >
+      <MoreFiltersToggle data-testid="more-filters-toggle">
+        More filters
+      </MoreFiltersToggle>
+      {children}
+    </MoreFilters>
+  );
 };
 
 ChoiceForm.SubmitPanel = function ChoiceFormSubmitPanel({
@@ -109,8 +133,8 @@ ChoiceForm.TextSearch = function ChoiceFormTextSearch({
         ))}
       </Chips>
       <Hint data-testid="text-search-hint">
-        Tap one to search now, or narrow it with genre, decade and runtime
-        below.
+        Tap one to search now, or narrow it by genre, decade and runtime under
+        More filters.
       </Hint>
     </Panel>
   );

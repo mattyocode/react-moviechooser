@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--space-4);
+  /* 130px keeps two columns down to a 320px phone. */
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--space-3);
   max-width: 1200px;
   margin: var(--space-6) auto;
   padding: 0 var(--space-4);
@@ -52,7 +53,7 @@ export const Overlay = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
     color: var(--clr-text);
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     line-height: 1.45;
   }
 `;
@@ -90,9 +91,9 @@ export const Fallback = styled.div`
       hsl(187 62% 58% / 0.25),
       transparent 60%
     ),
-    linear-gradient(160deg, #00192d, #164642);
+    linear-gradient(160deg, var(--clr-bg-1), var(--clr-bg-2));
   color: var(--clr-text);
-  font: 700 1.4rem/1.1 var(--font-display);
+  font: 700 var(--fs-xl)/1.1 var(--font-display);
   text-align: center;
   text-transform: uppercase;
 `;
@@ -106,21 +107,22 @@ export const Rating = styled.span`
   background: var(--clr-neon);
   box-shadow: var(--glow-neon);
   color: var(--clr-on-neon);
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
 `;
 
-// Text search rank label, opposite the rating.
+// Text search rank label, at the poster's foot so it can't collide with the
+// rating on a narrow card.
 export const Match = styled.span`
   position: absolute;
-  top: var(--space-2);
+  bottom: var(--space-2);
   left: var(--space-2);
   padding: 0.1rem 0.5rem;
   border: 1px solid var(--clr-neon);
   border-radius: var(--radius-pill);
-  background: hsl(200 35% 6% / 0.8);
+  background: var(--clr-scrim);
   color: var(--clr-neon);
-  font-size: 0.75rem;
+  font-size: var(--fs-2xs);
   font-weight: 600;
 `;
 
@@ -137,14 +139,14 @@ export const Title = styled.h3`
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
-  font: 700 1.15rem/1.15 var(--font-display);
+  font: 700 var(--fs-md)/1.15 var(--font-display);
   letter-spacing: 0.01em;
 `;
 
 export const Meta = styled.p`
   margin-top: var(--space-1);
   color: var(--clr-text-muted);
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
 `;
 
 export const Actions = styled.div`
@@ -163,7 +165,7 @@ export const Action = styled.button`
   border: none;
   border-radius: var(--radius-pill);
   background: transparent;
-  font-size: 1.25rem;
+  font-size: var(--fs-lg);
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -178,4 +180,43 @@ export const Action = styled.button`
       color: var(--clr-neon);
     }
   }
+`;
+
+const shimmer = keyframes`
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+`;
+
+// Placeholder blocks for a card that's still loading: a poster box and text
+// bars, with a slow sweep that stops for users who prefer reduced motion.
+export const SkeletonBlock = styled.div`
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+      90deg,
+      var(--clr-surface-raised) 25%,
+      var(--clr-hover) 50%,
+      var(--clr-surface-raised) 75%
+    )
+    0 0 / 200% 100%;
+  animation: ${shimmer} 1.4s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`;
+
+export const SkeletonPoster = styled(SkeletonBlock)`
+  aspect-ratio: 2 / 3;
+  border-radius: 0;
+`;
+
+export const SkeletonLine = styled(SkeletonBlock)`
+  width: ${(props) => props.width || "100%"};
+  height: 0.8rem;
+  margin-top: var(--space-2);
 `;
