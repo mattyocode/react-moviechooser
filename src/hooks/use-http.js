@@ -42,7 +42,10 @@ export default function useHttp(requestFunction, startWithPending = false) {
       } catch (error) {
         dispatch({
           type: "ERROR",
-          errorMessage: error.message || "An error occurred",
+          // client() rejects with the API's message as a plain string.
+          errorMessage:
+            (typeof error === "string" ? error : error?.message) ||
+            "An error occurred",
         });
       }
     },
