@@ -1,18 +1,23 @@
-name: Build and deploy
+name: Build and push image
 
 on:
   push:
     branches:
       - main
 
+env:
+  IMAGE: ghcr.io/mattyocode/react-moviechooser
+
 jobs:
-  deploy:
+  image:
     runs-on: ubuntu-latest
-    env:
-      AWS_S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
@@ -22,26 +27,57 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Lint
+        run: yarn lint --max-warnings 0
+
       - name: Run tests
         run: yarn test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
 
-      - name: Build
-        run: yarn build
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Set bucket name
-        run: |
-          echo BUCKET="${{ env.AWS_S3_BUCKET_NAME }}" >> .env
-
-      - name: Deploy
-        uses: jakejarvis/s3-sync-action@v0.5.1
+      # Build once into the local daemon for the routing tests; the push below
+      # reuses the same layers from the GHA cache.
+      - name: Build image for testing
+        uses: docker/build-push-action@v6
         with:
-          args: --follow-symlinks --delete
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: react-moviechooser:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test the nginx image's routing
+        run: scripts/test-nginx.sh
         env:
-          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "build"
+          IMAGE: react-moviechooser:test
+          SKIP_BUILD: "1"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=main
+            type=sha,prefix=sha-,format=short
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha

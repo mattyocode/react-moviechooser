@@ -38,3 +38,6 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Test the nginx image's routing
+        run: scripts/test-nginx.sh
