@@ -3,7 +3,9 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import store from "../store";
 import { setAuthTokens, setLogout } from "../store/auth-slice";
 
-const apiURL = import.meta.env.VITE_API;
+// Most endpoints are written without a leading slash ("api/movies/"), so an empty
+// VITE_API (same-origin, as in production) must still anchor them at the site root.
+const apiURL = import.meta.env.VITE_API || "/";
 
 const axiosInstance = axios.create({
   baseURL: apiURL,

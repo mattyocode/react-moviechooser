@@ -109,7 +109,7 @@ export function CardContainer({
     openShareHandler({
       title: movie.title,
       posterUrl: movie.poster_url,
-      shareUrl: `www.moviechooser.co.uk/movies/${movie.slug}`,
+      shareUrl: `${window.location.origin}/movies/${movie.slug}`,
     });
 
   // Handlers live on the buttons (not the icons) so they work from the keyboard.
