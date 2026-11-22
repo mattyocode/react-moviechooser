@@ -77,6 +77,8 @@ start_api "$API_ONE" api-one
 fetch() {
   local tmp
   tmp="$(mktemp -d)"
+  # Exist even if curl never connects, so a dead nginx fails the check, not the script.
+  touch "$tmp/body" "$tmp/headers"
   code="$(curl -sS -o "$tmp/body" -D "$tmp/headers" -w '%{http_code}' "$@")" || code=000
   headers="$(tr 'A-Z' 'a-z' <"$tmp/headers" | tr -d '\r')"
   body="$(cat "$tmp/body")"
@@ -95,7 +97,8 @@ fetch "$BASE/"
 [ "$code" = 200 ] || fail "GET / returned $code"
 is_index || fail "GET / did not return index.html"
 grep -q '^cache-control: no-cache$' <<<"$headers" || fail "GET / missing Cache-Control: no-cache"
-pass "GET / returns index.html with no-cache"
+! grep -q '^vary: accept' <<<"$headers" || fail "GET / has Vary: Accept"
+pass "GET / returns index.html with no-cache (no Vary: Accept)"
 
 fetch -H 'Accept: text/html' "$BASE/movies/some-slug"
 [ "$code" = 200 ] && is_index || fail "GET /movies/some-slug did not return index.html ($code)"
@@ -130,20 +133,22 @@ pass "CF-Connecting-IP becomes x-forwarded-for/x-real-ip; Authorization passes t
 
 fetch -H 'Accept: text/html' "$BASE/auth/signin"
 [ "$code" = 200 ] && is_index || fail "GET /auth/signin (html) did not return index.html ($code)"
-pass "GET /auth/signin (Accept: text/html) returns index.html"
+grep -q '^vary: accept$' <<<"$headers" || fail "GET /auth/signin (html) missing Vary: Accept"
+pass "GET /auth/signin (Accept: text/html) returns index.html with Vary: Accept"
 
 fetch -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' \
   --data '{"email":"a@b.c"}' "$BASE/auth/login/"
 reached_api "POST /auth/login/"
 [ "$(echo_field '.method')" = POST ] && [ "$(echo_field '.path')" = /auth/login/ ] || fail "POST /auth/login/ arrived as $(echo_field '.method') $(echo_field '.path')"
-pass "POST /auth/login/ (Accept: application/json) reaches api"
+grep -q '^vary: accept$' <<<"$headers" || fail "POST /auth/login/ missing Vary: Accept"
+pass "POST /auth/login/ (Accept: application/json) reaches api with Vary: Accept"
 
 fetch -H 'Accept: text/html' "$BASE/auth/password-reset-confirm/abc/def/"
 reached_api "GET /auth/password-reset-confirm/abc/def/"
 [ "$(echo_field '.path')" = /auth/password-reset-confirm/abc/def/ ] || fail "reset path was $(echo_field '.path')"
 pass "GET /auth/password-reset-confirm/abc/def/ (Accept: text/html) reaches api"
 
-for path in /list/ /admin/ /accounts/ /static/admin/css/base.css; do
+for path in /list/ /admin/ /accounts/ /static/admin/css/base.css /admin /list /accounts; do
   fetch -H 'Accept: text/html' "$BASE$path"
   reached_api "GET $path"
   [ "$(echo_field '.path')" = "$path" ] || fail "$path arrived as $(echo_field '.path')"
