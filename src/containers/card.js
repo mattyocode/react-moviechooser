@@ -16,6 +16,7 @@ import {
   updateListItem,
 } from "../store/list-slice";
 import { setMovieOnList } from "../store/movies-slice";
+import siteUrl from "../utils/site-url";
 import { AuthForm } from "./auth-form";
 import { OndemandContainer } from "./ondemand";
 import { ShareContainer } from "./share";
@@ -109,7 +110,7 @@ export function CardContainer({
     openShareHandler({
       title: movie.title,
       posterUrl: movie.poster_url,
-      shareUrl: `${import.meta.env.VITE_DOMAIN_NAME}/movies/${movie.slug}`,
+      shareUrl: siteUrl(`/movies/${movie.slug}`),
     });
 
   // Handlers live on the buttons (not the icons) so they work from the keyboard.

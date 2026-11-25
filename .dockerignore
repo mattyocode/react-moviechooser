@@ -3,4 +3,7 @@ build
 coverage
 .git
 .github
+# Vite reads .env and .env*.local in production builds too; only the tracked
+# .env.production belongs in the image.
+.env
 .env*.local
