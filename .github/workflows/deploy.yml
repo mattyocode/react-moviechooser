@@ -5,7 +5,8 @@ on:
     branches:
       - main
 
-# A newer push to main cancels an older run, so the `main` tag can't end up on an older commit.
+# A newer push to main cancels an older run. That doesn't cover re-running an old run,
+# so the push step also checks that this commit is still main's tip before moving `main`.
 concurrency:
   group: deploy-main
   cancel-in-progress: true
@@ -78,5 +79,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # sha- tags are immutable, so always push them. Only move `main` if this commit is
+      # still main's tip: a re-run of an older run must not roll the tag back.
       - name: Push the tested image
-        run: docker push --all-tags "$IMAGE"
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          tip=$(git ls-remote origin refs/heads/main | cut -f1)
+          for tag in $TAGS; do
+            if [ "$tag" = "$IMAGE:main" ] && [ "$tip" != "$GITHUB_SHA" ]; then
+              echo "::warning::Not moving $IMAGE:main: $GITHUB_SHA is no longer main's tip ($tip)"
+              continue
+            fi
+            docker push "$tag"
+          done
