@@ -148,6 +148,14 @@ reached_api "GET /auth/password-reset-confirm/abc/def/"
 [ "$(echo_field '.path')" = /auth/password-reset-confirm/abc/def/ ] || fail "reset path was $(echo_field '.path')"
 pass "GET /auth/password-reset-confirm/abc/def/ (Accept: text/html) reaches api"
 
+for path in /api/health/ /api/health "/api/health/?x=1"; do
+  fetch -H 'Accept: application/json' "$BASE$path"
+  [ "$code" = 404 ] || fail "GET $path returned $code, want 404"
+  ! echo_field '.path' >/dev/null || fail "GET $path reached api"
+  ! is_index || fail "GET $path returned index.html"
+  pass "GET $path is blocked (404, never reaches api)"
+done
+
 for path in /list/ /admin/ /accounts/ /static/admin/css/base.css /admin /list /accounts; do
   fetch -H 'Accept: text/html' "$BASE$path"
   reached_api "GET $path"
