@@ -72,9 +72,9 @@ export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: ${(props) => (props.current ? 1 : 0)};
-  animation-duration: ${(props) => (props.isInitial ? "0" : "500ms")};
-  animation-name: ${(props) => (props.current ? animateIn : animateOut)};
+  opacity: ${(props) => (props.$current ? 1 : 0)};
+  animation-duration: ${(props) => (props.$isInitial ? "0" : "500ms")};
+  animation-name: ${(props) => (props.$current ? animateIn : animateOut)};
   animation-timing-function: ease-out;
 `;
 

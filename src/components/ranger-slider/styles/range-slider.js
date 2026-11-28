@@ -193,16 +193,16 @@ export const RangeLabel = styled.div`
   background-color: var(--clr-text-dim);
   border-radius: 50%;
   color: ${(props) =>
-    props.highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
+    props.$highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
   cursor: pointer;
 
   &::after {
     position: absolute;
     top: 25px;
-    font-size: ${(props) => (props.highlight ? "var(--fs-sm)" : "var(--fs-sm)")};
-    content: "${(props) => (props.labelText ? props.labelText : "")}";
+    font-size: ${(props) => (props.$highlight ? "var(--fs-sm)" : "var(--fs-sm)")};
+    content: "${(props) => (props.$labelText ? props.$labelText : "")}";
     color: ${(props) =>
-      props.highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
+      props.$highlight ? "var(--clr-neon)" : "var(--clr-text-muted)"};
     transform: translateX(-35%);
     transition: font-size 0.3s;
     transition: color 0.3s;
@@ -222,7 +222,7 @@ export const RangeLabel = styled.div`
      pills above spell out the range), anchored inwards from the track ends. */
   @media screen and (max-width: 400px) {
     &::after {
-      visibility: ${(props) => (props.highlight ? "visible" : "hidden")};
+      visibility: ${(props) => (props.$highlight ? "visible" : "hidden")};
     }
 
     &:first-child::after {
@@ -234,7 +234,7 @@ export const RangeLabel = styled.div`
     }
 
     @media screen and (max-width: 400px) {
-      font-size: ${(props) => (props.highlight ? "var(--fs-2xs)" : "var(--fs-2xs)")};
+      font-size: ${(props) => (props.$highlight ? "var(--fs-2xs)" : "var(--fs-2xs)")};
     }
   }
 `;

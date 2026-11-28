@@ -58,7 +58,7 @@ export function Register({
           id="username"
           type="username"
           name="username"
-          autocomplete="username"
+          autoComplete="username"
           value={formik.values.username}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -72,7 +72,7 @@ export function Register({
           id="email"
           type="email"
           name="email"
-          autocomplete="email"
+          autoComplete="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -86,7 +86,7 @@ export function Register({
           id="password"
           type="password"
           name="password"
-          autocomplete="new-password"
+          autoComplete="new-password"
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -100,7 +100,7 @@ export function Register({
           id="passwordConfirmation"
           type="password"
           name="passwordConfirmation"
-          autocomplete="new-password"
+          autoComplete="new-password"
           value={formik.values.passwordConfirmation}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

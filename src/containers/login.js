@@ -43,7 +43,7 @@ export function Login({
           id="email"
           type="email"
           name="email"
-          autocomplete="email"
+          autoComplete="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -57,7 +57,7 @@ export function Login({
           id="password"
           type="password"
           name="password"
-          autocomplete="current-password"
+          autoComplete="current-password"
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

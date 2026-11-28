@@ -13,7 +13,7 @@ export const ReleaseBody = createGlobalStyle`
 `;
 
 export const Spinner = styled.div`
-  position: ${(props) => (props.small ? "relative" : "fixed")};
+  position: ${(props) => (props.$small ? "relative" : "fixed")};
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -32,7 +32,7 @@ export const Spinner = styled.div`
     width: 150px;
     height: 150px;
     ${(props) =>
-      props.small &&
+      props.$small &&
       `
         margin-top: -30px;
         margin-left: -15px;

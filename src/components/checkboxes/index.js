@@ -22,7 +22,7 @@ export default function Checkboxes({
                 <Label
                   data-testid={`${section}-checkbox`}
                   htmlFor={`${section}-checkbox-${index}`}
-                  checked={isChecked[index]}
+                  $checked={isChecked[index]}
                   {...restProps}
                 >
                   {genreObj.name}

@@ -192,11 +192,11 @@ export const AllButton = styled.button`
   padding: var(--space-1) var(--space-3);
   border: 1px solid
     ${(props) =>
-      props.highlighted ? "var(--clr-neon-soft)" : "var(--clr-border)"};
+      props.$highlighted ? "var(--clr-neon-soft)" : "var(--clr-border)"};
   border-radius: var(--radius-pill);
   background-color: transparent;
   color: ${(props) =>
-    props.highlighted ? "var(--clr-neon)" : "var(--clr-text-muted)"};
+    props.$highlighted ? "var(--clr-neon)" : "var(--clr-text-muted)"};
   font: 500 var(--fs-xs) var(--font-body);
   cursor: pointer;
   user-select: none;

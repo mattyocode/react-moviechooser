@@ -144,8 +144,8 @@ export const StarRating = styled.div`
     letter-spacing: 1px;
     background: linear-gradient(
       90deg,
-      var(--clr-star) ${(props) => props.rating},
-      var(--clr-star-empty) ${(props) => props.rating}
+      var(--clr-star) ${(props) => props.$rating},
+      var(--clr-star-empty) ${(props) => props.$rating}
     );
     background-clip: text;
     -webkit-background-clip: text;

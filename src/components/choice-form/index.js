@@ -83,12 +83,13 @@ ChoiceForm.Heading = function ChoiceFormHeading({ children, ...restProps }) {
 
 ChoiceForm.AllButton = function ChoiceFormAllButton({
   children,
+  highlighted,
   ...restProps
 }) {
   // type="button": an untyped button is a submit button, and as the form's
   // first one it would take Enter in the text box instead of the search.
   return (
-    <AllButton type="button" {...restProps}>
+    <AllButton type="button" $highlighted={highlighted} {...restProps}>
       {children}
     </AllButton>
   );

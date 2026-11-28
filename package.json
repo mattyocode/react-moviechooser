@@ -34,7 +34,7 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "seamless-scroll-polyfill": "^2.1.4",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.7.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "@testing-library/user-event": "^14.6.13",
     "@vitejs/plugin-react": "^6.3.0",
     "@vitest/coverage-v8": "^5.1.2",
-    "babel-plugin-styled-components": "^1.13.2",
+    "babel-plugin-styled-components": "^2.4.0",
     "browserslist": "^4.29.6",
     "eslint": "^9",
     "eslint-config-prettier": "^10.1.9",

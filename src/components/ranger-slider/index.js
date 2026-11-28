@@ -170,7 +170,7 @@ export default function RangeSlider({
           min="0"
           max={stepValues.length - 1}
           value={minValue}
-          steps="1"
+          step="1"
           onChange={handleThumbMinChange}
           ref={minThumbRef}
           data-testid={`${dataTestId}-thumb-min`}
@@ -179,7 +179,7 @@ export default function RangeSlider({
           type="range"
           min="0"
           max={stepValues.length - 1}
-          steps="1"
+          step="1"
           value={maxValue}
           onChange={handleThumbMaxChange}
           ref={maxThumbRef}
@@ -194,8 +194,8 @@ export default function RangeSlider({
                 return (
                   <RangeLabel
                     key={index}
-                    labelText={value}
-                    highlight={index === minValue || index === maxValue}
+                    $labelText={value}
+                    $highlight={index === minValue || index === maxValue}
                     onClick={() => {
                       setToSingleDecade(index);
                     }}

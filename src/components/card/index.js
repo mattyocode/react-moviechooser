@@ -81,7 +81,7 @@ Card.AllRatings = function CardAllRatings({ ratings, ...restProps }) {
               return (
                 <li key={rating.id}>
                   {getIcon(rating.source)}
-                  <StarRating rating={`${rating.score}%`}></StarRating>
+                  <StarRating $rating={`${rating.score}%`}></StarRating>
                 </li>
               );
             })

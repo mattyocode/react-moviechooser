@@ -105,8 +105,8 @@ PosterCard.Skeleton = function PosterCardSkeleton(props) {
     <Container aria-hidden="true" data-testid="poster-skeleton" {...props}>
       <SkeletonPoster />
       <Body>
-        <SkeletonLine width="80%" />
-        <SkeletonLine width="45%" />
+        <SkeletonLine $width="80%" />
+        <SkeletonLine $width="45%" />
       </Body>
     </Container>
   );

@@ -49,10 +49,10 @@ Navbar.ToggleBtn = function NavToggle({ isOpen, togglefn }) {
 
   return (
     <Button onClick={togglefn} data-testid="toggle-btn">
-      <Icon current={!isOpen} isInitial={isInitial.current}>
+      <Icon $current={!isOpen} $isInitial={isInitial.current}>
         <FaBars />
       </Icon>
-      <Icon current={isOpen} isInitial={isInitial.current}>
+      <Icon $current={isOpen} $isInitial={isInitial.current}>
         <FaTimes />
       </Icon>
     </Button>
@@ -69,20 +69,6 @@ Navbar.Links = function NavBarLinks({
   if (width > 799) {
     showLinks = true;
   }
-
-  const backdropVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: { duration: 1, delay: 0.5 },
-    },
-    exit: {
-      opacity: 0,
-      transition: { duration: 1, delay: 0.5 },
-    },
-  };
 
   const linksContainerVariants = {
     hidden: {
@@ -108,10 +94,6 @@ Navbar.Links = function NavBarLinks({
           <NavLinkBackdrop
             onClick={closefn}
             className={!showLinks && "remove"}
-            variants={backdropVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
           ></NavLinkBackdrop>
           <LinksContainer
             variants={linksContainerVariants}

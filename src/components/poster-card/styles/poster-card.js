@@ -216,7 +216,7 @@ export const SkeletonPoster = styled(SkeletonBlock)`
 `;
 
 export const SkeletonLine = styled(SkeletonBlock)`
-  width: ${(props) => props.width || "100%"};
+  width: ${(props) => props.$width || "100%"};
   height: 0.8rem;
   margin-top: var(--space-2);
 `;

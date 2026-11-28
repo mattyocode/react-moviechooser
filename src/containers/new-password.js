@@ -59,7 +59,7 @@ export function NewPassword({ formik, handleFocus, formTypeHandler, isPage }) {
               id="password"
               type="password"
               name="password"
-              autocomplete="new-password"
+              autoComplete="new-password"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -73,7 +73,7 @@ export function NewPassword({ formik, handleFocus, formTypeHandler, isPage }) {
               id="passwordConfirmation"
               type="password"
               name="passwordConfirmation"
-              autocomplete="new-password"
+              autoComplete="new-password"
               value={formik.values.passwordConfirmation}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

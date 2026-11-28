@@ -23,19 +23,19 @@ export const Label = styled.label`
     box-shadow 0.2s;
 
   color: ${(props) =>
-    props.checked ? "var(--clr-on-neon)" : "var(--clr-text-muted)"};
+    props.$checked ? "var(--clr-on-neon)" : "var(--clr-text-muted)"};
   background-color: ${(props) =>
-    props.checked ? "var(--clr-neon)" : "transparent"};
+    props.$checked ? "var(--clr-neon)" : "transparent"};
   border: 1px solid
-    ${(props) => (props.checked ? "var(--clr-neon)" : "var(--clr-neon-soft)")};
+    ${(props) => (props.$checked ? "var(--clr-neon)" : "var(--clr-neon-soft)")};
   box-shadow: ${(props) =>
-    props.checked
+    props.$checked
       ? "0 0 0.9rem hsl(187 62% 58% / 0.55), 0 0 0.2rem var(--clr-neon)"
       : "none"};
 
   &:hover {
     color: ${(props) =>
-      props.checked ? "var(--clr-on-neon)" : "var(--clr-neon)"};
+      props.$checked ? "var(--clr-on-neon)" : "var(--clr-neon)"};
     border-color: var(--clr-neon);
   }
 

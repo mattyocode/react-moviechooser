@@ -77,7 +77,7 @@ export function PasswordReset({
             id="email"
             type="email"
             name="email"
-            autocomplete="email"
+            autoComplete="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
