@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Form, Loading } from "../components";
 import largeLogo from "../assets/png/logo_large.png";
@@ -17,7 +17,7 @@ export function PasswordReset({
   isPage,
 }) {
   const { sendRequest, status, error, data } = useHttp(client);
-  const history = useHistory();
+  const navigate = useNavigate();
   const recaptchaRef = useRef();
   const sitekey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
@@ -47,7 +47,7 @@ export function PasswordReset({
 
   const closeHandler = () => {
     if (isPage) {
-      history.push("/");
+      navigate("/");
     } else {
       closeModal();
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter, Route } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 // import * as reactRedux from "react-redux";
 import { reduxTestRender } from "../../mocks/test-utils";
 import { server, http, HttpResponse } from "../../mocks/server";
@@ -64,12 +64,10 @@ describe("<Home/> page tests", () => {
 
     reduxTestRender(
       <MemoryRouter initialEntries={["/"]}>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/movies">
-          <p>Movie results page.</p>
-        </Route>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<p>Movie results page.</p>} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { options: initialOptionsState } }
     );
@@ -104,12 +102,10 @@ describe("<Home/> page tests", () => {
 
     reduxTestRender(
       <MemoryRouter initialEntries={["/"]}>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/movies">
-          <Movies />
-        </Route>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { options: initialOptionsState } }
     );

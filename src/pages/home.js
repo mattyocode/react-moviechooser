@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { motion } from "framer-motion";
 
 import { About, Headline, Loading, Footer } from "../components";
@@ -30,7 +30,7 @@ export function Home() {
   const optionsError = useSelector((state) => state.options.error);
   const movieQuery = useSelector((state) => state.movies.queryParams);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function Home() {
     dispatch(setMovieQuery(selectionObj));
     dispatch(fetchMovies(selectionObj));
     // redirect to results page.
-    history.push("/movies");
+    navigate("/movies");
   };
 
   let choiceForm;

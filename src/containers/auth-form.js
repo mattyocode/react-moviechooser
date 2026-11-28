@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Login } from "./login";
@@ -23,14 +23,14 @@ export function AuthForm({
   const authStatus = useSelector((state) => state.auth.auth.status);
   const authError = useSelector((state) => state.auth.auth.error);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const succeedRef = useRef();
 
   const formTypeHandler = (type) => {
     setFormType(type);
     if (isPage) {
       const url = `/auth/${type}`;
-      history.push(url);
+      navigate(url);
     }
     dispatch(clearStatus());
   };
@@ -65,7 +65,7 @@ export function AuthForm({
   useEffect(() => {
     if (authStatus === "succeeded" && succeedRef.current === false) {
       if (isPage) {
-        history.push("/");
+        navigate("/");
       } else {
         closeSelf();
       }
@@ -74,7 +74,7 @@ export function AuthForm({
     return () => {
       succeedRef.current = false;
     };
-  }, [authStatus, history, isPage, closeSelf]);
+  }, [authStatus, navigate, isPage, closeSelf]);
 
   useEffect(() => {
     return () => {
@@ -90,7 +90,7 @@ export function AuthForm({
 
   const handleLogout = () => {
     dispatch(setLogout());
-    history.push("/");
+    navigate("/");
   };
 
   const handleFocus = (e) => {

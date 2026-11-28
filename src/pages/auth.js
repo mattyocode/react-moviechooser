@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { Modal } from "../components";
 import { AuthForm } from "../containers/auth-form";
 
@@ -7,7 +7,7 @@ export default function AuthPage({ children, ...restProps }) {
   // on click exit/out
   // if pages in history, go back to last page
   // if none, go to homepage
-  const history = useHistory();
+  const navigate = useNavigate();
   const params = useParams();
 
   let formTypeInitial;
@@ -20,7 +20,7 @@ export default function AuthPage({ children, ...restProps }) {
   } else if (params.params === "new-password") {
     formTypeInitial = "new-password";
   } else {
-    history.push("/");
+    navigate("/");
   }
 
   return (

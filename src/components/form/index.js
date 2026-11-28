@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink as ReactRouterLink } from "react-router-dom";
+import { NavLink as ReactRouterLink } from "react-router";
 import {
   Wrapper,
   Base,

@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 
 import authReducer from "../store/auth-slice";
 import moviesReducer from "../store/movies-slice";
@@ -25,11 +25,14 @@ function reduxTestRender(
     ...renderOptions
   } = {}
 ) {
+  // Tests that need specific routes or entries pass their own MemoryRouter.
+  // React Router 6+ doesn't allow one router inside another, so only add one
+  // when the test didn't.
+  const hasOwnRouter = React.isValidElement(ui) && ui.type === MemoryRouter;
   function Wrapper({ children }) {
-    // Tests that need specific routes nest their own MemoryRouter inside this one.
     return (
       <Provider store={store}>
-        <MemoryRouter>{children}</MemoryRouter>
+        {hasOwnRouter ? children : <MemoryRouter>{children}</MemoryRouter>}
       </Provider>
     );
   }

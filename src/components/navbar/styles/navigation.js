@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { motion } from "framer-motion";
-import { NavLink as ReactRouterLink } from "react-router-dom";
+import { NavLink } from "react-router";
 
 export const Nav = styled.nav`
   z-index: 100;
@@ -193,7 +193,21 @@ const baseNavLinkStyles = css`
   }
 `;
 
-export const NavBarLink = styled(ReactRouterLink)`
+// React Router adds "active" to an active NavLink unless className is a
+// function. Each link picks its own active class (some use "none"), as
+// activeClassName did, so the styled class and that one are combined here.
+function RouterNavLink({ className, activeClass = "active", ...restProps }) {
+  return (
+    <NavLink
+      {...restProps}
+      className={({ isActive }) =>
+        [className, isActive && activeClass].filter(Boolean).join(" ")
+      }
+    />
+  );
+}
+
+export const NavBarLink = styled(RouterNavLink)`
   ${baseNavLinkStyles}
 `;
 

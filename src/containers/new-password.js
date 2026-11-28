@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { Form, Loading } from "../components";
 import largeLogo from "../assets/png/logo_large.png";
 import { useHttp } from "../hooks";
@@ -7,7 +7,7 @@ import { client } from "../utils/axios-client";
 
 export function NewPassword({ formik, handleFocus, formTypeHandler, isPage }) {
   const { sendRequest, status, error, data } = useHttp(client);
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const uidb64 = queryParams.get("uidb64");
@@ -36,7 +36,7 @@ export function NewPassword({ formik, handleFocus, formTypeHandler, isPage }) {
   };
 
   const leaveHandler = () => {
-    history.push("/");
+    navigate("/");
   };
 
   return (

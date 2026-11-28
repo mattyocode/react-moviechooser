@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { NavLink as ReactRouterLink } from "react-router-dom";
+import { NavLink as ReactRouterLink } from "react-router";
 import { AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -122,7 +122,7 @@ Navbar.NavbarLink = function NavbarLink({
   return (
     <NavBarLink
       to={url}
-      activeClassName={activeClass}
+      activeClass={activeClass}
       $highlight={highlight}
       className={addClass}
       {...restProps}

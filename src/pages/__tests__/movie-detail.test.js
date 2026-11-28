@@ -7,7 +7,7 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { server, http, HttpResponse } from "../../mocks/server";
 import { delay } from "msw";
 import "@testing-library/jest-dom";
@@ -35,9 +35,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
   beforeEach(() => {
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
@@ -80,9 +80,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
@@ -110,9 +110,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/surprise"]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
@@ -127,9 +127,9 @@ describe("<MovieDetail/> Movie ID page tests", () => {
   beforeEach(() => {
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
@@ -158,9 +158,9 @@ describe("<MovieDetail/> Movie ID page tests", () => {
     );
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies/123"]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
@@ -189,9 +189,9 @@ describe("<MovieDetail/> more like this", () => {
   const renderPage = (path, auth = unauthorizedInitialAuthState) =>
     reduxTestRender(
       <MemoryRouter initialEntries={[path]}>
-        <Route path="/movies/:movieId">
-          <MovieDetail />
-        </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetail />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { auth: { auth } } }
     );

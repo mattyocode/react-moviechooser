@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate, useNavigationType } from "react-router";
 import { motion, LayoutGroup, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
@@ -46,7 +46,8 @@ export default function Movies() {
   const genres = useSelector((state) => state.options.options);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const navigationType = useNavigationType();
   const reduceMotion = useReducedMotion();
 
   const moreMovies = movies.length < moviesCount;
@@ -70,9 +71,9 @@ export default function Movies() {
 
   useEffect(() => {
     if (!movieQuery) {
-      history.push("/");
+      navigate("/");
     }
-  }, [movieQuery, movies, history]);
+  }, [movieQuery, movies, navigate]);
 
   const addMoviesHandler = () => {
     dispatch(addMovies(nextPage));
@@ -81,7 +82,7 @@ export default function Movies() {
   // Layout effect so the listener is removed before the grid leaves the DOM;
   // otherwise the page collapsing on exit would overwrite the saved position.
   useLayoutEffect(() => {
-    const target = history && history.action === "POP" ? savedScrollY : 0;
+    const target = navigationType === "POP" ? savedScrollY : 0;
     let frame;
     let tries = 0;
     const trackScroll = () => {
@@ -126,7 +127,7 @@ export default function Movies() {
           <FilterSummary.Chips labels={summaryLabels} />
           <FilterSummary.Edit
             data-testid="edit-filters-btn"
-            onClick={() => history.push("/#filters")}
+            onClick={() => navigate("/#filters")}
           >
             {textOnly ? "+ Add filters" : "Edit filters"}
           </FilterSummary.Edit>
@@ -171,7 +172,7 @@ export default function Movies() {
               : "No movies match those filters"}
           </h2>
           <p>Try fewer genres, or widen the decade or runtime range.</p>
-          <Card.MoreBtn onClick={() => history.push("/#filters")}>
+          <Card.MoreBtn onClick={() => navigate("/#filters")}>
             Change filters
           </Card.MoreBtn>
         </Card.Empty>

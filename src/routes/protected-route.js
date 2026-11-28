@@ -1,30 +1,14 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 
-export default function ProtectedRoute({ children, ...restProps }) {
+export default function ProtectedRoute({ children }) {
   const user = useSelector((state) => state.auth.auth);
+  const location = useLocation();
 
-  return (
-    <Route
-      {...restProps}
-      render={({ location }) => {
-        if (user.account) {
-          return children;
-        }
+  if (user.account) {
+    return children;
+  }
 
-        if (!user.account) {
-          return (
-            <Redirect
-              to={{
-                pathname: "/auth/login",
-                state: { from: location },
-              }}
-            />
-          );
-        }
-        return null;
-      }}
-    />
-  );
+  return <Navigate to="/auth/login" state={{ from: location }} replace />;
 }

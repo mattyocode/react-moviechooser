@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useHistory } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Modal, Navbar } from "../components";
 import { AuthForm } from "./auth-form";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ export function NavbarContainer({ linksData }) {
   const [showLinks, setShowLinks] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.auth);
 
   let loggedInGreeting;
@@ -27,12 +27,12 @@ export function NavbarContainer({ linksData }) {
       // history.replace(`${location.pathname}#auth`);
       setAuthOpen(true);
     } else {
-      history.push("/auth/login");
+      navigate("/auth/login");
     }
   };
 
   const closeAuthHandler = () => {
-    history.replace(`${location.pathname}`);
+    navigate(`${location.pathname}`, { replace: true });
     setAuthOpen(false);
   };
 
@@ -91,7 +91,7 @@ export function NavbarContainer({ linksData }) {
                     <Navbar.NavbarLink
                       to={link.url}
                       text={link.text}
-                      activeClassName={link.activeClass}
+                      activeClass={link.activeClass}
                       highlight={link.highlight}
                     />
                   </li>

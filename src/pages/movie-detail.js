@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useParams, useLocation, useHistory } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
@@ -43,7 +43,7 @@ export default function MovieDetail() {
   const similarFor = useSelector((state) => state.movies.similarFor);
 
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const locationRef = useRef(null);
   const params = useParams();
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ export default function MovieDetail() {
         <FilterSummary>
           <FilterSummary.Edit
             data-testid="back-to-results-btn"
-            onClick={() => history.goBack()}
+            onClick={() => navigate(-1)}
           >
             ← Back to results
           </FilterSummary.Edit>

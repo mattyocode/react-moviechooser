@@ -1,14 +1,8 @@
 import { AnimatePresence } from "framer-motion";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { getCookieConsentValue } from "react-cookie-consent";
 import TagManager from "react-gtm-module";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary, Loading } from "./components";
 import KofiWidget from "./components/ko-fi/KofiWidget";
 import { CookieConsentContainer } from "./containers/cookie-consent";
@@ -25,53 +19,50 @@ if ("scrollRestoration" in window.history) {
 }
 
 export default function App() {
-  const history = useHistory();
   const location = useLocation();
+  // Report navigations after the first page, as history.listen did. The key
+  // check also keeps StrictMode's repeated effect from counting a page twice.
+  const lastLocationKey = useRef(location.key);
 
   useEffect(() => {
-    const tagManagerArgs = {
-      gtmId: "GTM-MT7G2TR",
-    };
-    history.listen((location) => {
-      const isConsent = getCookieConsentValue();
-      if (isConsent) {
-        let path = location.pathname;
-        if (location.hash) {
-          path = location.pathname + location.hash;
-        }
-        TagManager.initialize(tagManagerArgs);
-        TagManager.dataLayer({
-          dataLayer: {
-            page: path,
-          },
-        });
+    if (location.key === lastLocationKey.current) return;
+    lastLocationKey.current = location.key;
+
+    const isConsent = getCookieConsentValue();
+    if (isConsent) {
+      let path = location.pathname;
+      if (location.hash) {
+        path = location.pathname + location.hash;
       }
-    });
-  }, [history]);
+      TagManager.initialize({ gtmId: "GTM-MT7G2TR" });
+      TagManager.dataLayer({
+        dataLayer: {
+          page: path,
+        },
+      });
+    }
+  }, [location]);
 
   return (
     <Suspense fallback={<Loading />}>
       <NavbarContainer linksData={linksData} />
       <ErrorBoundary resetKey={location.pathname}>
         <AnimatePresence mode="wait">
-          <Switch location={location} key={location}>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/movies" exact>
-              <Movies />
-            </Route>
-            <Route path="/movies/:movieId">
-              <MovieDetail />
-            </Route>
-            <Route path="/auth/:params">
-              <AuthPage />
-            </Route>
-            <ProtectedRoute path="/user/lists">
-              <List />
-            </ProtectedRoute>
-            <Route path="*" render={() => <Redirect to="/" />} />
-          </Switch>
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/:movieId/*" element={<MovieDetail />} />
+            <Route path="/auth/:params/*" element={<AuthPage />} />
+            <Route
+              path="/user/lists/*"
+              element={
+                <ProtectedRoute>
+                  <List />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </AnimatePresence>
       </ErrorBoundary>
       <CookieConsentContainer />

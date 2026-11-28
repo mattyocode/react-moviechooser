@@ -1,7 +1,7 @@
 import React from "react";
 import { act, cleanup, screen, within } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
-import { MemoryRouter, Route } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { server, http, HttpResponse } from "../../mocks/server";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
@@ -105,12 +105,10 @@ describe("<Movies/> page tests", () => {
 
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies"]}>
-        <Route path="/" exact>
-          <p>Homepage</p>
-        </Route>
-        <Route path="/movies">
-          <Movies />
-        </Route>
+        <Routes>
+          <Route path="/" element={<p>Homepage</p>} />
+          <Route path="/movies" element={<Movies />} />
+        </Routes>
       </MemoryRouter>,
       { preloadedState: { movies: initialState } }
     );
@@ -205,12 +203,10 @@ describe("add to list tests", () => {
 
     reduxTestRender(
       <MemoryRouter initialEntries={["/movies"]}>
-        <Route path="/" exact>
-          <p>Homepage</p>
-        </Route>
-        <Route path="/movies">
-          <Movies />
-        </Route>
+        <Routes>
+          <Route path="/" element={<p>Homepage</p>} />
+          <Route path="/movies" element={<Movies />} />
+        </Routes>
       </MemoryRouter>,
       {
         preloadedState: {
