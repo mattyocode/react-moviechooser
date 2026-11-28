@@ -22,7 +22,7 @@ App is available at [moviechooser.co.uk](https://moviechooser.co.uk). Pushes to 
 
 ## How to install
 
-Requires Node 22 and Yarn (v1).
+Requires Node 26 and Yarn (v1).
 
 1. Clone from Github
 
