@@ -8,7 +8,8 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route } from "react-router-dom";
-import { server, rest } from "../../mocks/server";
+import { server, http, HttpResponse } from "../../mocks/server";
+import { delay } from "msw";
 import "@testing-library/jest-dom";
 import { reduxTestRender } from "../../mocks/test-utils";
 import { MovieDetail } from "../../pages";
@@ -71,8 +72,8 @@ describe("<MovieDetail/> Surprise page tests", () => {
   it("says when a movie isn't streaming, since there's no TV icon", async () => {
     cleanup();
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) =>
-        res(ctx.json({ ...testMoviesData[0], ondemand: [] }))
+      http.get(`${apiUrl}`, () =>
+        HttpResponse.json({ ...testMoviesData[0], ondemand: [] })
       )
     );
     reduxTestRender(
@@ -101,8 +102,8 @@ describe("<MovieDetail/> Surprise page tests", () => {
   it("shows error on error", async () => {
     cleanup();
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(404), ctx.json({ error: "Not found" }));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json({ error: "Not found" }, { status: 404 });
       })
     );
     reduxTestRender(
@@ -149,8 +150,8 @@ describe("<MovieDetail/> Movie ID page tests", () => {
   it("shows error on error", async () => {
     cleanup();
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(404), ctx.json({ error: "Not found" }));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json({ error: "Not found" }, { status: 404 });
       })
     );
     reduxTestRender(
@@ -222,16 +223,14 @@ describe("<MovieDetail/> more like this", () => {
     const randoms = [testMoviesData[0], testMoviesData[2]];
     let spins = 0;
     server.use(
-      rest.get(`${apiUrlRoot}/api/movies/random`, (req, res, ctx) =>
-        res(ctx.json(randoms[Math.min(spins++, 1)]))
+      http.get(`${apiUrlRoot}/api/movies/random`, () =>
+        HttpResponse.json(randoms[Math.min(spins++, 1)])
       ),
-      rest.get(similarUrl, (req, res, ctx) =>
-        res(
-          ctx.json(
-            req.params.slug === testMoviesData[0].slug
-              ? [movie("first-similar", "First Similar")]
-              : [movie("second-similar", "Second Similar")]
-          )
+      http.get(similarUrl, ({ params }) =>
+        HttpResponse.json(
+          params.slug === testMoviesData[0].slug
+            ? [movie("first-similar", "First Similar")]
+            : [movie("second-similar", "Second Similar")]
         )
       )
     );
@@ -248,7 +247,7 @@ describe("<MovieDetail/> more like this", () => {
   });
 
   it("hides the row when there are no similar movies", async () => {
-    server.use(rest.get(similarUrl, (req, res, ctx) => res(ctx.json([]))));
+    server.use(http.get(similarUrl, () => HttpResponse.json([])));
     renderPage("/movies/123");
 
     expect(await screen.findByText(/finding nemo/i)).toBeInTheDocument();
@@ -262,8 +261,8 @@ describe("<MovieDetail/> more like this", () => {
   it("hides the row and logs it when the request fails", async () => {
     const logError = vi.spyOn(console, "error").mockImplementation(() => {});
     server.use(
-      rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.status(500), ctx.json({ detail: "Server error" }))
+      http.get(similarUrl, () =>
+        HttpResponse.json({ detail: "Server error" }, { status: 500 })
       )
     );
     renderPage("/movies/123");
@@ -283,9 +282,10 @@ describe("<MovieDetail/> more like this", () => {
 
   it("shows skeleton posters while the row loads, then the real cards", async () => {
     server.use(
-      rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.delay(200), ctx.json(testSimilarData))
-      )
+      http.get(similarUrl, async () => {
+        await delay(200);
+        return HttpResponse.json(testSimilarData);
+      })
     );
     renderPage("/movies/123");
 
@@ -310,16 +310,14 @@ describe("<MovieDetail/> more like this", () => {
   it("opening a similar movie shows it and its own row", async () => {
     const next = movie("next-movie", "Next Movie");
     server.use(
-      rest.get(`${apiUrlRoot}/api/movies/next-movie`, (req, res, ctx) =>
-        res(ctx.json(next))
+      http.get(`${apiUrlRoot}/api/movies/next-movie`, () =>
+        HttpResponse.json(next)
       ),
-      rest.get(similarUrl, (req, res, ctx) =>
-        res(
-          ctx.json(
-            req.params.slug === "next-movie"
-              ? [movie("after-next", "After Next")]
-              : [next]
-          )
+      http.get(similarUrl, ({ params }) =>
+        HttpResponse.json(
+          params.slug === "next-movie"
+            ? [movie("after-next", "After Next")]
+            : [next]
         )
       )
     );
@@ -370,11 +368,13 @@ describe("<MovieDetail/> more like this", () => {
 
   it("shows no attribution when nothing has a Wikipedia source", async () => {
     server.use(
-      rest.get(`${apiUrlRoot}/api/movies/123`, (req, res, ctx) =>
-        res(ctx.json({ ...testMoviesData[3], plot_source_url: null }))
+      http.get(`${apiUrlRoot}/api/movies/123`, () =>
+        HttpResponse.json({ ...testMoviesData[3], plot_source_url: null })
       ),
-      rest.get(similarUrl, (req, res, ctx) =>
-        res(ctx.json([{ ...movie("plain", "Plain"), plot_source_url: null }]))
+      http.get(similarUrl, () =>
+        HttpResponse.json([
+          { ...movie("plain", "Plain"), plot_source_url: null },
+        ])
       )
     );
     renderPage("/movies/123");

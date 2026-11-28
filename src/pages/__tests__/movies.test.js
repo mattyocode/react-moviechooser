@@ -2,7 +2,7 @@ import React from "react";
 import { act, cleanup, screen, within } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter, Route } from "react-router-dom";
-import { server, rest } from "../../mocks/server";
+import { server, http, HttpResponse } from "../../mocks/server";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
@@ -67,8 +67,8 @@ describe("<Movies/> page tests", () => {
   it("shows error on 404 response to GET request", async () => {
     cleanup();
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(404), ctx.json({ error: "Not found" }));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json({ error: "Not found" }, { status: 404 });
       })
     );
     const initialState = {
@@ -362,8 +362,8 @@ describe("<Movies/> text search results", () => {
 
   it("names the text in the empty state", async () => {
     server.use(
-      rest.get(moviesUrl, (req, res, ctx) =>
-        res(ctx.json({ count: 0, next: null, previous: null, results: [] }))
+      http.get(moviesUrl, () =>
+        HttpResponse.json({ count: 0, next: null, previous: null, results: [] })
       )
     );
 
@@ -379,10 +379,10 @@ describe("<Movies/> text search results", () => {
 
   it("shows the API's message and no posters when search is unavailable", async () => {
     server.use(
-      rest.get(moviesUrl, (req, res, ctx) =>
-        res(
-          ctx.status(503),
-          ctx.json({ detail: "Search is unavailable right now." })
+      http.get(moviesUrl, () =>
+        HttpResponse.json(
+          { detail: "Search is unavailable right now." },
+          { status: 503 }
         )
       )
     );
@@ -397,8 +397,11 @@ describe("<Movies/> text search results", () => {
 
   it("clears earlier posters when a new search fails", async () => {
     server.use(
-      rest.get(moviesUrl, (req, res, ctx) =>
-        res(ctx.status(503), ctx.json({ detail: "Search is unavailable right now." }))
+      http.get(moviesUrl, () =>
+        HttpResponse.json(
+          { detail: "Search is unavailable right now." },
+          { status: 503 }
+        )
       )
     );
     const store = configureStore({

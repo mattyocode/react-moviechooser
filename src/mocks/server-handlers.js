@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import testGenreData from "../mocks/test-data/testGenreData.json";
 import moviesData from "../mocks/test-data/testMoviesData.json";
 import textSearchData from "../mocks/test-data/testTextSearchData.json";
@@ -9,48 +9,48 @@ import listAddItemData from "../mocks/test-data/testListAddData.json";
 const apiUrl = `${import.meta.env.VITE_API}`;
 
 const handlers = [
-  rest.get(`${apiUrl}/api/genres/`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(testGenreData));
+  http.get(`${apiUrl}/api/genres/`, async () => {
+    return HttpResponse.json(testGenreData);
   }),
-  rest.get(`${apiUrl}/api/movies/`, async (req, res, ctx) => {
+  http.get(`${apiUrl}/api/movies/`, async ({ request }) => {
     // A text search returns the API's real paginated shape, with similarity.
-    if (req.url.searchParams.get("q")) {
-      return res(ctx.status(200), ctx.json(textSearchData));
+    if (new URL(request.url).searchParams.get("q")) {
+      return HttpResponse.json(textSearchData);
     }
-    return res(ctx.status(200), ctx.json(moviesData));
+    return HttpResponse.json(moviesData);
   }),
-  rest.get(`${apiUrl}/api/movies/count/`, async (req, res, ctx) => {
-    const genres = req.url.searchParams.get("g");
-    return res(ctx.status(200), ctx.json({ count: genres ? 0 : 12 }));
+  http.get(`${apiUrl}/api/movies/count/`, async ({ request }) => {
+    const genres = new URL(request.url).searchParams.get("g");
+    return HttpResponse.json({ count: genres ? 0 : 12 });
   }),
-  rest.get(`${apiUrl}/api/movies/:slug/similar/`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(similarData));
+  http.get(`${apiUrl}/api/movies/:slug/similar/`, async () => {
+    return HttpResponse.json(similarData);
   }),
-  rest.get(`${apiUrl}/api/movies/random`, async (req, res, ctx) => {
+  http.get(`${apiUrl}/api/movies/random`, async () => {
     const movieData = moviesData[0];
-    return res(ctx.status(200), ctx.json(movieData));
+    return HttpResponse.json(movieData);
   }),
-  rest.get(`${apiUrl}/api/movies/123`, async (req, res, ctx) => {
+  http.get(`${apiUrl}/api/movies/123`, async () => {
     const movieData = moviesData[3];
-    return res(ctx.status(200), ctx.json(movieData));
+    return HttpResponse.json(movieData);
   }),
-  rest.get(`${apiUrl}/list/`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(listData));
+  http.get(`${apiUrl}/list/`, async () => {
+    return HttpResponse.json(listData);
   }),
-  rest.post(`${apiUrl}/list/`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(listAddItemData));
+  http.post(`${apiUrl}/list/`, async () => {
+    return HttpResponse.json(listAddItemData);
   }),
-  rest.patch(`${apiUrl}/list/:movieSlug`, async (req, res, ctx) => {
-    const { movieSlug } = req.params;
+  http.patch(`${apiUrl}/list/:movieSlug`, async ({ params }) => {
+    const { movieSlug } = params;
     let listItem = listData.results.filter((result) => {
       return result.movie.slug === movieSlug;
     });
     const watchedStatus = listItem[0].watched;
     listItem[0]["watched"] = !watchedStatus;
-    return res(ctx.status(200), ctx.json(listItem[0]));
+    return HttpResponse.json(listItem[0]);
   }),
-  rest.delete(`${apiUrl}/list/:movieSlug`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ deleted: "test-item-id-123456" }));
+  http.delete(`${apiUrl}/list/:movieSlug`, async () => {
+    return HttpResponse.json({ deleted: "test-item-id-123456" });
   }),
 ];
 

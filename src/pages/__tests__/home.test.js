@@ -3,7 +3,7 @@ import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route } from "react-router-dom";
 // import * as reactRedux from "react-redux";
 import { reduxTestRender } from "../../mocks/test-utils";
-import { server, rest } from "../../mocks/server";
+import { server, http, HttpResponse } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { Home, Movies } from "../../pages";
@@ -38,8 +38,8 @@ describe("<Home/> page tests", () => {
   it("shows error on 404 response to GET request", async () => {
     cleanup();
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(404), ctx.json({ error: "Not found" }));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json({ error: "Not found" }, { status: 404 });
       })
     );
 
@@ -92,13 +92,13 @@ describe("<Home/> page tests", () => {
     window.scrollTo = vi.fn();
     const requests = [];
     server.use(
-      rest.get(`${import.meta.env.VITE_API}/api/movies/`, (req, res, ctx) => {
-        requests.push(req.url.searchParams);
-        return res(ctx.json(textSearchData));
+      http.get(`${import.meta.env.VITE_API}/api/movies/`, ({ request }) => {
+        requests.push(new URL(request.url).searchParams);
+        return HttpResponse.json(textSearchData);
       }),
       // The default count mock says 0 for any genre, which blocks submit.
-      rest.get(`${import.meta.env.VITE_API}/api/movies/count/`, (req, res, ctx) =>
-        res(ctx.json({ count: 40 }))
+      http.get(`${import.meta.env.VITE_API}/api/movies/count/`, () =>
+        HttpResponse.json({ count: 40 })
       )
     );
 

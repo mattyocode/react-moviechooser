@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, screen, waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { server, rest } from "../../mocks/server";
+import { server, http, HttpResponse } from "../../mocks/server";
 import "@testing-library/jest-dom";
 
 import { reduxTestRender } from "../../mocks/test-utils";
@@ -31,8 +31,8 @@ describe("<List/> page tests", () => {
 
   it("renders List page with no items added to list", async () => {
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(emptyListData));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json(emptyListData);
       })
     );
     reduxTestRender(<List />, {
@@ -56,18 +56,15 @@ describe("<List/> page tests", () => {
   it("removes item from list on click to bookmark", async () => {
     let testListData = listData;
     server.use(
-      rest.get(`${apiUrl}`, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(testListData));
+      http.get(`${apiUrl}`, () => {
+        return HttpResponse.json(testListData);
       }),
-      rest.delete(`${apiUrl}:movieSlug/`, async (req, res, ctx) => {
-        const { movieSlug } = req.params;
+      http.delete(`${apiUrl}:movieSlug/`, async ({ params }) => {
+        const { movieSlug } = params;
         testListData = testListData.results.filter(
           (result) => result.movie.slug !== movieSlug
         );
-        return res(
-          ctx.status(200),
-          ctx.json({ deleted: `test-item-uid-${movieSlug}` })
-        );
+        return HttpResponse.json({ deleted: `test-item-uid-${movieSlug}` });
       })
     );
     reduxTestRender(<List />, {

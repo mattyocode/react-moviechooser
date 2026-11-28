@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChoiceFormContainer, EXAMPLE_QUERIES } from "../choice-form";
-import { server, rest } from "../../mocks/server";
+import { server, http, HttpResponse } from "../../mocks/server";
 import queryString from "../../utils/query-string";
 
 import homepageData from "../../fixtures/homepage.json";
@@ -479,7 +479,7 @@ describe("<ChoiceFormContainer/> text search", () => {
 
   it("labels the button 'Show top 30' when 30 or more match", async () => {
     server.use(
-      rest.get(countUrl, (req, res, ctx) => res(ctx.json({ count: 412 })))
+      http.get(countUrl, () => HttpResponse.json({ count: 412 }))
     );
     renderForm();
 
@@ -491,7 +491,9 @@ describe("<ChoiceFormContainer/> text search", () => {
   });
 
   it("labels the button 'Find movies' when the count is unavailable", async () => {
-    server.use(rest.get(countUrl, (req, res, ctx) => res(ctx.status(500))));
+    server.use(
+      http.get(countUrl, () => new HttpResponse(null, { status: 500 }))
+    );
     renderForm();
 
     fireEvent.click(screen.getByText(genreData[3].name));
