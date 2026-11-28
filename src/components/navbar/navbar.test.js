@@ -21,7 +21,17 @@ describe("<Navbar /> tests", () => {
             <Navbar.Logo to="#" src="../../logo.png" alt="Movie Chooser" />
             <Navbar.ToggleBtn isOpen={false} togglefn={() => {}} />
           </Navbar.Header>
-          <Navbar.Links linksData={linksData} showLinks={false} />
+          <Navbar.Links showLinks={false}>
+            {linksData.map((link) => (
+              <li key={link.id}>
+                <Navbar.NavbarLink
+                  url={link.url}
+                  text={link.text}
+                  highlight={link.highlight}
+                />
+              </li>
+            ))}
+          </Navbar.Links>
         </Navbar>
       </Router>
     );
@@ -39,7 +49,17 @@ describe("<Navbar /> tests", () => {
             <Navbar.Logo to="#" src="../../logo.png" alt="Movie Chooser" />
             <Navbar.ToggleBtn isOpen={false} togglefn={() => {}} />
           </Navbar.Header>
-          <Navbar.Links linksData={linksData} showLinks={false} />
+          <Navbar.Links showLinks={false}>
+            {linksData.map((link) => (
+              <li key={link.id}>
+                <Navbar.NavbarLink
+                  url={link.url}
+                  text={link.text}
+                  highlight={link.highlight}
+                />
+              </li>
+            ))}
+          </Navbar.Links>
         </Navbar>
       </Router>
     );

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
+import { motion, LayoutGroup, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import {
@@ -132,7 +132,7 @@ export default function Movies() {
           </FilterSummary.Edit>
         </FilterSummary>
       )}
-      <AnimateSharedLayout>
+      <LayoutGroup>
         <PosterCard.Grid>
           {movies &&
             movies.map((movie, idx) => {
@@ -156,7 +156,7 @@ export default function Movies() {
               );
             })}
         </PosterCard.Grid>
-      </AnimateSharedLayout>
+      </LayoutGroup>
       {text && moviesStatus !== "failed" && <PlotAttribution movies={movies} />}
       {moviesStatus === "loading" && (
         <div>

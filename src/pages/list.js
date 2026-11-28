@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { motion, AnimateSharedLayout, useReducedMotion } from "framer-motion";
+import { motion, LayoutGroup, useReducedMotion } from "framer-motion";
 
 import { CardContainer } from "../containers/card";
 import { Headline, Loading, Card, PosterCard } from "../components";
@@ -57,7 +57,7 @@ export default function List() {
       <Headline data-testid="watch-list">
         <Headline.Title>Watch List</Headline.Title>
       </Headline>
-      <AnimateSharedLayout>
+      <LayoutGroup>
         <Headline.DecoratedSubhead>
           <span>Unwatched</span>
         </Headline.DecoratedSubhead>
@@ -122,7 +122,7 @@ export default function List() {
             </Headline.Subhead>
           )}
         </PosterCard.Grid>
-      </AnimateSharedLayout>
+      </LayoutGroup>
       {listStatus === "loading" && (
         <div>
           <Loading />

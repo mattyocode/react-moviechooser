@@ -53,7 +53,7 @@ export default function App() {
     <Suspense fallback={<Loading />}>
       <NavbarContainer linksData={linksData} />
       <ErrorBoundary resetKey={location.pathname}>
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence mode="wait">
           <Switch location={location} key={location}>
             <Route path="/" exact>
               <Home />
