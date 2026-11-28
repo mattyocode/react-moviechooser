@@ -18,7 +18,7 @@ A web app that allows users to input genre(s), runtime range, and release decade
 
 ## Deployment
 
-App is available at [moviechooser.co.uk](https://moviechooser.co.uk). Pushes to `main` build an nginx image, `ghcr.io/mattyocode/react-moviechooser`, that serves the site and proxies the API on the same origin (see `Dockerfile` and `nginx/`). It runs on a Hetzner server behind a Cloudflare Tunnel.
+App is available at [moviechooser.co.uk](https://moviechooser.co.uk). Pushes to `main` build an nginx image, `ghcr.io/mattyocode/react-moviechooser`, that serves the site and proxies the API on the same origin (see `Dockerfile` and `nginx/`). It runs on a Hetzner server behind a Cloudflare Tunnel. After the push, CI deploys that image's digest to the server over Tailscale SSH, using the deploy script from moviechooser-api (see its `docs/deploy.md` for setup and secrets).
 
 ## How to install
 
