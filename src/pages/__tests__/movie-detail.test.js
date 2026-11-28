@@ -55,7 +55,9 @@ describe("<MovieDetail/> Surprise page tests", () => {
     await waitForElementToBeRemoved(() =>
       screen.getByTestId("loading-spinner")
     );
-    expect(await screen.findByText(/parasite/i)).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: /parasite/i })
+    ).toBeInTheDocument();
   });
 
   it("shows a poster backdrop, with where to watch on the card's TV icon only", async () => {

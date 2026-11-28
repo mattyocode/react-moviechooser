@@ -50,23 +50,24 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: {
-    [handleAuth.pending]: (state, action) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [handleAuth.fulfilled]: (state, action) => {
-      state.status = "succeeded";
-      // Login returns "access"; register returns "token".
-      state.token = action.payload.access ?? action.payload.token;
-      state.refreshToken = action.payload.refresh;
-      state.account = action.payload.user;
-      state.error = null;
-    },
-    [handleAuth.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(handleAuth.pending, (state, action) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(handleAuth.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // Login returns "access"; register returns "token".
+        state.token = action.payload.access ?? action.payload.token;
+        state.refreshToken = action.payload.refresh;
+        state.account = action.payload.user;
+        state.error = null;
+      })
+      .addCase(handleAuth.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 

@@ -84,62 +84,63 @@ const moviesSlice = createSlice({
       });
     },
   },
-  extraReducers: {
-    [fetchMovies.pending]: (state, action) => {
-      state.status = "loading";
-    },
-    [fetchMovies.fulfilled]: (state, action) => {
-      state.movies = action.payload.results;
-      state.totalCount = action.payload.count;
-      state.nextPageUrl = action.payload.next;
-      state.status = "succeeded";
-    },
-    [fetchMovies.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
-      // Don't leave the previous search's posters under the new query.
-      state.movies = [];
-      state.totalCount = 0;
-      state.nextPageUrl = null;
-    },
-    [addMovies.pending]: (state, action) => {
-      state.status = "updating";
-    },
-    [addMovies.fulfilled]: (state, action) => {
-      state.movies = state.movies.concat(action.payload.results);
-      state.nextPageUrl = action.payload.next;
-      state.status = "succeeded";
-    },
-    [addMovies.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
-    },
-    [fetchSingleMovie.pending]: (state, action) => {
-      state.currentStatus = "updating";
-    },
-    [fetchSingleMovie.fulfilled]: (state, action) => {
-      state.current = action.payload;
-      state.currentStatus = "succeeded";
-    },
-    [fetchSingleMovie.rejected]: (state, action) => {
-      state.currentStatus = "failed";
-      state.currentError = action.error.message;
-    },
-    [fetchSimilarMovies.pending]: (state, action) => {
-      state.similarFor = action.meta.arg;
-      state.similar = [];
-      state.similarStatus = "loading";
-    },
-    [fetchSimilarMovies.fulfilled]: (state, action) => {
-      if (action.meta.arg !== state.similarFor) return;
-      state.similar = action.payload;
-      state.similarStatus = "succeeded";
-    },
-    [fetchSimilarMovies.rejected]: (state, action) => {
-      if (action.meta.arg !== state.similarFor) return;
-      state.similar = [];
-      state.similarStatus = "failed";
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMovies.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchMovies.fulfilled, (state, action) => {
+        state.movies = action.payload.results;
+        state.totalCount = action.payload.count;
+        state.nextPageUrl = action.payload.next;
+        state.status = "succeeded";
+      })
+      .addCase(fetchMovies.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        // Don't leave the previous search's posters under the new query.
+        state.movies = [];
+        state.totalCount = 0;
+        state.nextPageUrl = null;
+      })
+      .addCase(addMovies.pending, (state, action) => {
+        state.status = "updating";
+      })
+      .addCase(addMovies.fulfilled, (state, action) => {
+        state.movies = state.movies.concat(action.payload.results);
+        state.nextPageUrl = action.payload.next;
+        state.status = "succeeded";
+      })
+      .addCase(addMovies.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(fetchSingleMovie.pending, (state, action) => {
+        state.currentStatus = "updating";
+      })
+      .addCase(fetchSingleMovie.fulfilled, (state, action) => {
+        state.current = action.payload;
+        state.currentStatus = "succeeded";
+      })
+      .addCase(fetchSingleMovie.rejected, (state, action) => {
+        state.currentStatus = "failed";
+        state.currentError = action.error.message;
+      })
+      .addCase(fetchSimilarMovies.pending, (state, action) => {
+        state.similarFor = action.meta.arg;
+        state.similar = [];
+        state.similarStatus = "loading";
+      })
+      .addCase(fetchSimilarMovies.fulfilled, (state, action) => {
+        if (action.meta.arg !== state.similarFor) return;
+        state.similar = action.payload;
+        state.similarStatus = "succeeded";
+      })
+      .addCase(fetchSimilarMovies.rejected, (state, action) => {
+        if (action.meta.arg !== state.similarFor) return;
+        state.similar = [];
+        state.similarStatus = "failed";
+      });
   },
 });
 

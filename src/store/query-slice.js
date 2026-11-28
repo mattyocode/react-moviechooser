@@ -19,18 +19,19 @@ const optionsSlice = createSlice({
   name: "options",
   initialState: initialOptionsState,
   reducers: {},
-  extraReducers: {
-    [fetchOptions.pending]: (state, action) => {
-      state.status = "loading";
-    },
-    [fetchOptions.fulfilled]: (state, action) => {
-      state.status = "succeeded";
-      state.options = action.payload;
-    },
-    [fetchOptions.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOptions.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchOptions.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.options = action.payload;
+      })
+      .addCase(fetchOptions.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
