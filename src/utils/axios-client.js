@@ -4,14 +4,14 @@ const apiURL = import.meta.env.VITE_API;
 
 export async function client(
   endpoint,
-  { body, token, cancelToken, headers: customHeaders, ...customConfig } = {}
+  { body, token, signal, headers: customHeaders, ...customConfig } = {}
 ) {
   const config = {
     url: endpoint,
     baseURL: apiURL,
     method: body ? "POST" : "GET",
     data: body ? JSON.stringify(body) : undefined,
-    cancelToken: cancelToken ? cancelToken : undefined,
+    signal,
     headers: {
       Authorization: token ? `JWT ${token}` : undefined,
       "Content-Type": body ? "application/json" : undefined,

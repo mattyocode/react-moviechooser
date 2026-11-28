@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import { client } from "../utils/axios-client";
 
@@ -19,21 +18,21 @@ export default function useResultCount(queryStr, delay = 350) {
       return;
     }
 
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
     const timer = setTimeout(() => {
-      client(`api/movies/count/?${queryStr}`, { cancelToken: source.token })
+      client(`api/movies/count/?${queryStr}`, { signal: controller.signal })
         .then((data) => {
           cache.set(queryStr, data.count);
           setCount(data.count);
         })
         .catch(() => {
-          if (!axios.isCancel(source.token.reason)) setCount(null);
+          if (!controller.signal.aborted) setCount(null);
         });
     }, delay);
 
     return () => {
       clearTimeout(timer);
-      source.cancel();
+      controller.abort();
     };
   }, [queryStr, delay]);
 

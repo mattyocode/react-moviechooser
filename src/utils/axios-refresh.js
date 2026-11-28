@@ -69,13 +69,13 @@ createAuthRefreshInterceptor(axiosInstance, refreshAuthHandler);
 
 export async function client(
   url,
-  { body, token, cancelToken, headers: customHeaders, ...customConfig } = {}
+  { body, token, signal, headers: customHeaders, ...customConfig } = {}
 ) {
   const config = {
     url: url,
     baseURL: apiURL,
     data: body ? JSON.stringify(body) : undefined,
-    cancelToken: cancelToken ? cancelToken : undefined,
+    signal,
     headers: {
       Authorization: token ? `JWT ${token}` : undefined,
       "Content-Type": body ? "application/json" : undefined,
