@@ -82,7 +82,7 @@ describe("<NavbarContainer/> tests", () => {
     expect(screen.getByText(/my list/i)).toBeTruthy();
   });
 
-  it("launches and closes auth modal when sign in clicked", () => {
+  it("launches and closes auth modal when sign in clicked", async () => {
     reduxTestRender(
       <MemoryRouter>
         <NavbarContainer linksData={testNavData} />
@@ -90,11 +90,11 @@ describe("<NavbarContainer/> tests", () => {
       { preloadedState: { auth: { auth: unauthorizedInitialAuthState } } }
     );
     const signInBtn = screen.getByText(/sign in/i);
-    userEvent.click(signInBtn);
+    await userEvent.click(signInBtn);
 
     expect(screen.getByTestId(/login-form/i)).toBeTruthy();
 
     const modalBackdrop = screen.getByTestId(/modal-backdrop/i);
-    userEvent.click(modalBackdrop);
+    await userEvent.click(modalBackdrop);
   });
 });

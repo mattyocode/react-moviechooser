@@ -237,7 +237,7 @@ describe("<MovieDetail/> more like this", () => {
     renderPage("/movies/surprise");
 
     expect(rowTitles(await row())).toEqual(["First Similar"]);
-    userEvent.click(screen.getByTestId("spin-again-btn"));
+    await userEvent.click(screen.getByTestId("spin-again-btn"));
 
     await waitFor(() =>
       expect(rowTitles(screen.getByTestId("similar-movies"))).toEqual([
@@ -324,7 +324,7 @@ describe("<MovieDetail/> more like this", () => {
     renderPage("/movies/123");
 
     const section = await row();
-    userEvent.click(
+    await userEvent.click(
       within(section).getByRole("link", { name: /next movie – details/i })
     );
 
@@ -343,7 +343,7 @@ describe("<MovieDetail/> more like this", () => {
 
     const section = await row();
     const title = testSimilarData[0].title;
-    userEvent.click(within(section).getByTestId(`${title}-add`));
+    await userEvent.click(within(section).getByTestId(`${title}-add`));
 
     expect(
       await within(section).findByTestId(`${title}-remove`)

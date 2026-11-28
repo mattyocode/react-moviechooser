@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, screen, waitFor, act } from "@testing-library/react";
+import { cleanup, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { server, http, HttpResponse } from "../../mocks/server";
 import "@testing-library/jest-dom";
@@ -77,9 +77,7 @@ describe("<List/> page tests", () => {
       `${firstItem.title}-remove`
     );
 
-    act(() => {
-      userEvent.click(bookmarkButton);
-    });
+    await userEvent.click(bookmarkButton);
 
     await waitFor(() => {
       expect(
@@ -104,9 +102,7 @@ describe("<List/> page tests", () => {
     );
     expect(screen.getByText(/no watched movies on your list/i)).toBeTruthy();
 
-    act(() => {
-      userEvent.click(unwatchedItemWatchedButton);
-    });
+    await userEvent.click(unwatchedItemWatchedButton);
 
     await waitFor(() => {
       expect(
@@ -121,9 +117,7 @@ describe("<List/> page tests", () => {
       `${unwatchedItem.title}-watchedBtn`
     );
 
-    act(() => {
-      userEvent.click(unwatchedItemWatchedButton);
-    });
+    await userEvent.click(unwatchedItemWatchedButton);
 
     await waitFor(() => {
       expect(

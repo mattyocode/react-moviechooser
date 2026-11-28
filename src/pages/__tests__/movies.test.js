@@ -158,9 +158,7 @@ describe("add to list tests", () => {
     const bookmarkAddButton = screen.getByTestId(/parasite-add/i);
     expect(bookmarkAddButton).toBeTruthy();
 
-    act(() => {
-      userEvent.click(bookmarkAddButton);
-    });
+    await userEvent.click(bookmarkAddButton);
 
     expect(await screen.findByTestId(/parasite-remove/i)).toBeTruthy();
     expect(screen.queryByTestId(/parasite-add/i)).toBeFalsy();
@@ -183,9 +181,7 @@ describe("add to list tests", () => {
     const bookmarkAddButton = screen.getByTestId(/parasite-unauthed/i);
     expect(bookmarkAddButton).toBeTruthy();
 
-    act(() => {
-      userEvent.click(bookmarkAddButton);
-    });
+    await userEvent.click(bookmarkAddButton);
 
     expect(await screen.findByTestId(/login-form/i)).toBeTruthy();
   });
@@ -229,7 +225,7 @@ describe("add to list tests", () => {
     expect(screen.getByText("75m – 2h")).toBeInTheDocument();
     expect(screen.getByTestId("results-count")).toHaveTextContent("4 movies");
 
-    userEvent.click(screen.getByTestId("edit-filters-btn"));
+    await userEvent.click(screen.getByTestId("edit-filters-btn"));
     expect(await screen.findByText(/homepage/i)).toBeInTheDocument();
   });
 

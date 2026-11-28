@@ -3,7 +3,6 @@ import {
   render,
   screen,
   fireEvent,
-  waitFor,
   cleanup,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
@@ -53,28 +52,20 @@ describe("<AuthForm /> tests", () => {
 
   it("shows error with incorrect email", async () => {
     const input = screen.getByPlaceholderText("Enter email address");
-    await waitFor(() => {
-      fireEvent.change(input, {
-        target: { value: "notanemailaddress" },
-      });
-      expect(input).toHaveValue("notanemailaddress");
-      userEvent.tab();
-      expect(screen.getByText(/Email must be valid/i)).toBeTruthy();
-    });
+    await userEvent.type(input, "notanemailaddress");
+    expect(input).toHaveValue("notanemailaddress");
+    await userEvent.tab();
+    expect(await screen.findByText(/Email must be valid/i)).toBeTruthy();
   });
 
   it("shows error with short password", async () => {
     const input = screen.getByPlaceholderText("Password");
-    await waitFor(() => {
-      fireEvent.change(input, {
-        target: { value: "short" },
-      });
-      expect(input).toHaveValue("short");
-      userEvent.tab();
-      expect(
-        screen.getByText(/Password must contain at least 8 characters/i)
-      ).toBeTruthy();
-    });
+    await userEvent.type(input, "short");
+    expect(input).toHaveValue("short");
+    await userEvent.tab();
+    expect(
+      await screen.findByText(/Password must contain at least 8 characters/i)
+    ).toBeTruthy();
   });
 
   it("shows error on register if passwords don't match", async () => {
@@ -90,18 +81,12 @@ describe("<AuthForm /> tests", () => {
     const password1 = screen.getByPlaceholderText("Password");
     const password2 = screen.getByPlaceholderText("Confirm password");
 
-    await waitFor(() => {
-      fireEvent.change(password1, {
-        target: { value: "passwordone" },
-      });
-      expect(password1).toHaveValue("passwordone");
-      fireEvent.change(password2, {
-        target: { value: "passwordtwo" },
-      });
-      expect(password2).toHaveValue("passwordtwo");
-      userEvent.tab();
-      expect(screen.getByText(/Passwords must match/i)).toBeTruthy();
-    });
+    await userEvent.type(password1, "passwordone");
+    expect(password1).toHaveValue("passwordone");
+    await userEvent.type(password2, "passwordtwo");
+    expect(password2).toHaveValue("passwordtwo");
+    await userEvent.tab();
+    expect(await screen.findByText(/Passwords must match/i)).toBeTruthy();
   });
 });
 

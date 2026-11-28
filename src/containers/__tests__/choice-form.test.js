@@ -7,6 +7,7 @@ import queryString from "../../utils/query-string";
 
 import homepageData from "../../fixtures/homepage.json";
 import testGenreData from "../../mocks/test-data/testGenreData.json";
+import { colorTokens } from "../../mocks/color-tokens";
 
 describe("<ChoiceFormContainer/>", () => {
   const genreData = testGenreData;
@@ -58,7 +59,7 @@ describe("<ChoiceFormContainer/>", () => {
 
     fireEvent.click(checkbox);
 
-    expect(checkbox).toHaveStyle("background-color: var(--clr-neon)");
+    expect(checkbox).toHaveStyle(`background-color: ${colorTokens["--clr-neon"]}`);
   });
 
   it("genre all button selects all", () => {
@@ -70,14 +71,14 @@ describe("<ChoiceFormContainer/>", () => {
 
     fireEvent.click(allBtn);
 
-    expect(checkbox).toHaveStyle("background-color: var(--clr-neon)");
+    expect(checkbox).toHaveStyle(`background-color: ${colorTokens["--clr-neon"]}`);
   });
 
   it("genre all button styling changes on click", () => {
     const allBtn = screen.getByTestId("genre-all-btn");
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
   });
 
   it("shows any-genre hint until a genre is chosen", () => {
@@ -172,13 +173,13 @@ describe("<ChoiceFormContainer/>", () => {
 
   it("decade all button is muted at the full range", () => {
     const allBtn = screen.getByTestId("decade-all-btn");
-    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
 
     narrow("decade", 2, 5);
-    expect(allBtn).not.toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).not.toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
   });
 
   it("displays Runtime panel", () => {
@@ -214,10 +215,10 @@ describe("<ChoiceFormContainer/>", () => {
   it("Runtime all button is muted at the full range", () => {
     const allBtn = screen.getByTestId("runtime-all-btn");
     narrow("runtime", 1, 4);
-    expect(allBtn).not.toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).not.toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
 
     fireEvent.click(allBtn);
-    expect(allBtn).toHaveStyle("color: var(--clr-text-muted)");
+    expect(allBtn).toHaveStyle(`color: ${colorTokens["--clr-text-muted"]}`);
   });
 
   it("renders submit buttons", () => {
@@ -408,10 +409,10 @@ describe("<ChoiceFormContainer/> text search", () => {
     expect(defaultButton).toBe(screen.getByTestId("all-matches-btn"));
   });
 
-  it("submits the text and filters when Enter is pressed", () => {
+  it("submits the text and filters when Enter is pressed", async () => {
     const onSubmit = renderForm();
 
-    userEvent.type(box(), "i'm hungry{enter}");
+    await userEvent.type(box(), "i'm hungry{enter}");
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit.mock.calls[0][0]).toMatchObject({

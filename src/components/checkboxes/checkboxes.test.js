@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 import Checkboxes from "./index";
+import { colorTokens } from "../../mocks/color-tokens";
 
 describe("<Checkboxes />", () => {
   it("renders <Checkboxes />", () => {
@@ -45,6 +46,8 @@ describe("<Checkboxes />", () => {
     const checkboxTwo = screen.getAllByTestId("test-checkbox")[1];
 
     expect(checkboxOne).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
-    expect(checkboxTwo).toHaveStyle("background-color: var(--clr-neon)");
+    expect(checkboxTwo).toHaveStyle(
+      `background-color: ${colorTokens["--clr-neon"]}`
+    );
   });
 });
