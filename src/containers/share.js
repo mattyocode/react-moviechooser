@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdShare } from "react-icons/md";
 import {
   FacebookShareButton,
-  TwitterShareButton,
+  XShareButton,
   TelegramShareButton,
   WhatsappShareButton,
   EmailShareButton,
@@ -36,6 +36,7 @@ export function ShareContainer({ data }) {
               url={data.shareUrl}
               subject={`Check out ${data.title}!`}
               body="body"
+              separator=" "
             >
               <CardActions.Icon name="Email">Email</CardActions.Icon>
             </EmailShareButton>
@@ -58,15 +59,15 @@ export function ShareContainer({ data }) {
           </CardActions.Action>
 
           <CardActions.Action>
-            <FacebookShareButton url={data.shareUrl} quote={data.title}>
+            <FacebookShareButton url={data.shareUrl}>
               <CardActions.Icon name="facebook">Facebook</CardActions.Icon>
             </FacebookShareButton>
           </CardActions.Action>
 
           <CardActions.Action>
-            <TwitterShareButton url={data.shareUrl} title={data.title}>
+            <XShareButton url={data.shareUrl} title={data.title}>
               <CardActions.Icon name="Twitter">Twitter</CardActions.Icon>
-            </TwitterShareButton>
+            </XShareButton>
           </CardActions.Action>
 
           <CardActions.Action>
