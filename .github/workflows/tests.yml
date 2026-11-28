@@ -36,5 +36,21 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
 
-      - name: Build
-        run: yarn build
+      - uses: docker/setup-buildx-action@v3
+
+      # The image build runs `yarn build`, so this is also the app's build check.
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: react-moviechooser:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test the nginx image's routing
+        run: scripts/test-nginx.sh
+        env:
+          IMAGE: react-moviechooser:test
+          SKIP_BUILD: "1"

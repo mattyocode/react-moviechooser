@@ -5,6 +5,7 @@ import { Form, Loading } from "../components";
 import largeLogo from "../assets/png/logo_large.png";
 import { useHttp } from "../hooks";
 import { client } from "../utils/axios-client";
+import siteUrl from "../utils/site-url";
 
 export function PasswordReset({
   formik,
@@ -38,7 +39,7 @@ export function PasswordReset({
     sendRequest(`/auth/request-reset-email/`, {
       body: {
         email: formik.values.email,
-        redirect_url: `${import.meta.env.VITE_DOMAIN_NAME}/auth/new-password`,
+        redirect_url: siteUrl("/auth/new-password"),
         recaptcha_key: recaptchaKey,
       },
     });

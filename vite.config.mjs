@@ -14,7 +14,7 @@ const jsxInJs = () => ({
 
 export default defineConfig(({ mode }) => {
   // Dev-server proxy target. Not VITE_-prefixed, so it stays out of the client bundle.
-  // Production builds call VITE_API directly and never use this proxy.
+  // In production nginx does this job (nginx/default.conf), on the same origin.
   const { API_PROXY_TARGET = "http://localhost:8000" } = loadEnv(
     mode,
     process.cwd(),

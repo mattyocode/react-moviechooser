@@ -18,7 +18,7 @@ A web app that allows users to input genre(s), runtime range, and release decade
 
 ## Deployment
 
-App is available at [moviechooser.co.uk](https://moviechooser.co.uk) and is hosted on AWS (S3, Cloudfront, Route 53).
+App is available at [moviechooser.co.uk](https://moviechooser.co.uk). Pushes to `main` build an nginx image, `ghcr.io/mattyocode/react-moviechooser`, that serves the site and proxies the API on the same origin (see `Dockerfile` and `nginx/`). It runs on a Hetzner server behind a Cloudflare Tunnel.
 
 ## How to install
 

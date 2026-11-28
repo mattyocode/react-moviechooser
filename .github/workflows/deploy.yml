@@ -1,18 +1,29 @@
-name: Build and deploy
+name: Build and push image
 
 on:
   push:
     branches:
       - main
 
+# A newer push to main cancels an older run. That doesn't cover re-running an old run,
+# so the push step also checks that this commit is still main's tip before moving `main`.
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
+env:
+  IMAGE: ghcr.io/mattyocode/react-moviechooser
+
 jobs:
-  deploy:
+  image:
     runs-on: ubuntu-latest
-    env:
-      AWS_S3_BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
@@ -22,26 +33,63 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Lint
+        run: yarn lint --max-warnings 0
+
       - name: Run tests
         run: yarn test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
 
-      - name: Build
-        run: yarn build
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Set bucket name
-        run: |
-          echo BUCKET="${{ env.AWS_S3_BUCKET_NAME }}" >> .env
-
-      - name: Deploy
-        uses: jakejarvis/s3-sync-action@v0.5.1
+      - name: Image tags
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          args: --follow-symlinks --delete
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=main
+            type=sha,prefix=sha-,format=short
+
+      # Build once into the local daemon; the routing tests run against this image
+      # and the same image is pushed.
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test the nginx image's routing
+        run: scripts/test-nginx.sh
         env:
-          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "build"
+          IMAGE: ${{ env.IMAGE }}:main
+          SKIP_BUILD: "1"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # sha- tags are immutable, so always push them. Only move `main` if this commit is
+      # still main's tip: a re-run of an older run must not roll the tag back.
+      - name: Push the tested image
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          tip=$(git ls-remote origin refs/heads/main | cut -f1)
+          for tag in $TAGS; do
+            if [ "$tag" = "$IMAGE:main" ] && [ "$tip" != "$GITHUB_SHA" ]; then
+              echo "::warning::Not moving $IMAGE:main: $GITHUB_SHA is no longer main's tip ($tip)"
+              continue
+            fi
+            docker push "$tag"
+          done
